@@ -1,0 +1,247 @@
+{
+  "german_translations_database": {
+    "meta": {
+      "sources": [
+        "booking.com/index.de.html",
+        "hrs.de",
+        "expedia.de",
+        "hawesko.de",
+        "vicampo.de",
+        "dieweinboerse.de"
+      ],
+      "collected_date": "2026-03-09",
+      "language": "de-DE"
+    },
+
+    "booking_websites": {
+
+      "booking_com": {
+        "source": "https://www.booking.com/?lang=de",
+        "navigation": {
+          "stays": "Aufenthalte",
+          "flights": "Flüge",
+          "car_rentals": "Mietwagen",
+          "attractions": "Attraktionen",
+          "airport_taxis": "Flughafentaxis",
+          "skip_to_main": "Direkt zum Hauptinhalt"
+        },
+        "search": {
+          "destination_placeholder": "Wohin reisen Sie?",
+          "check_in_date": "Anreisedatum",
+          "check_out_date": "Abreisedatum",
+          "default_guests": "2 Erwachsene · 0 Kinder · 1 Zimmer",
+          "adults": "Erwachsene",
+          "children": "Kinder",
+          "room": "Zimmer",
+          "search_button": "Suche"
+        },
+        "header": {
+          "list_your_property": "Ihre Unterkunft anmelden",
+          "customer_service": "Kundenservice",
+          "language_label": "Sprache: Deutsch"
+        },
+        "homepage_sections": {
+          "deals": "Angebote",
+          "promotions_discounts_subtitle": "Werbeaktionen, Rabatte und Sonderangebote für Sie",
+          "find_deals": "Angebote finden",
+          "weekend_deals": "Wochenend-Angebote",
+          "weekend_deals_subtitle": "Sparen Sie bei Aufenthalten",
+          "popular_vacation_rentals": "Beliebte Ferienunterkünfte",
+          "discover_home_like_accommodations": "Entdecken Sie Unterkünfte wie Zuhause",
+          "search_by_property_type": "Nach Unterkunftsart suchen",
+          "stay_in_unique_top_properties": "Übernachten Sie in unseren einzigartigen Top-Unterkünften",
+          "castles_to_igloos": "Von Schlössern und Villen bis hin zu Booten und Iglus – bei uns gibt es alles",
+          "trending_destinations": "Angesagte Reiseziele",
+          "popular_choice_travelers": "Beliebteste Wahl von Reisenden aus Armenien",
+          "earn_more_save_more": "Mehr reisen, weniger ausgeben",
+          "learn_about_rewards": "Erfahren Sie mehr über Ihre Prämien",
+          "popular_with_travelers": "Beliebt bei Reisenden aus Armenien"
+        },
+        "property_types": {
+          "hotels": "Hotels",
+          "apartments": "Ferienwohnungen",
+          "resorts": "Resorts",
+          "villas": "Villen",
+          "chalets": "Hütten",
+          "cottages": "Cottages",
+          "glamping": "Glampingunterkünfte",
+          "aparthotels": "Ferienwohnungen mit Hotelservice",
+          "holiday_homes": "Ferienhäuser",
+          "guest_houses": "Pensionen",
+          "hostels": "Hostels",
+          "motels": "Motels",
+          "bed_and_breakfasts": "Bed & Breakfasts",
+          "ryokans": "Ryokans",
+          "riads": "Riads",
+          "holiday_parks": "Ferienparks",
+          "private_rooms": "Privatzimmer",
+          "campsites": "Campingplätze",
+          "country_houses": "Landhäuser",
+          "farm_holidays": "Bauernhöfe",
+          "boats": "Boote",
+          "tent_lodges": "Zelt-Lodges",
+          "self_catering": "Unterkünfte zur Selbstverpflegung",
+          "tiny_houses": "Tiny Houses"
+        },
+        "rating_labels": {
+          "exceptional": "Außergewöhnlich",
+          "superb": "Hervorragend",
+          "fabulous": "Fabelhaft",
+          "very_good": "Sehr gut"
+        },
+        "booking_details": {
+          "nights": "Nächte",
+          "original_price_was": "Der Originalpreis war",
+          "current_price_is": "Der aktuelle Preis ist",
+          "save_to_wishlist": "Dieses Element auf einer Reiseliste speichern",
+          "price_from": "Ab",
+          "price": "Preis",
+          "stars": "von 5 Sternen",
+          "reviews": "Bewertungen",
+          "preferred_partner": "Preferred Partner-Programm"
+        },
+        "genius_program": {
+          "genius_loyalty_program": "Genius-Treueprogramm",
+          "genius_level_1": "Genius-Level 1",
+          "exclusive_genius_rewards": "exklusive Genius-Prämien",
+          "discount_on_stays_10": "Rabatte von 10% auf Aufenthalte",
+          "discount_on_car_rentals_10": "10% Rabatt auf Mietwagen",
+          "discount_stays_10_15": "Rabatte von 10–15% auf Aufenthalte",
+          "discount_car_rentals_10_15": "10–15% Rabatt auf Mietwagen",
+          "free_breakfast": "Kostenloses Frühstück",
+          "free_room_upgrades": "Kostenlose Zimmer-Upgrades",
+          "unlock_level_2": "Schließen Sie 5 Buchungen ab, um Genius-Level 2 freizuschalten",
+          "participate_in_stays": "Profitieren Sie von Rabatten bei teilnehmenden Unterkünften weltweit",
+          "save_on_selected_cars": "Sparen Sie bei ausgewählten Mietwagen"
+        },
+        "discover_section": {
+          "quick_easy_travel_planner": "Schneller und einfacher Reiseplaner",
+          "choose_theme_discover": "Wählen Sie ein Thema und entdecken Sie Top-Reiseziele",
+          "peaceful_retreats": "Ruhige Rückzugsorte",
+          "adventure": "Abenteuer",
+          "culinary_experiences": "Gastronomieerlebnisse",
+          "photography": "Fotografie",
+          "festival_experiences": "Festivalerlebnisse",
+          "nature_trips": "Naturausflüge",
+          "km_away": "km entfernt",
+          "accommodations_count": "Unterkünfte"
+        },
+        "footer_navigation": {
+          "section_support": "Support",
+          "manage_trips": "Ihre Reisen verwalten",
+          "customer_service": "Kundenservice",
+          "safety_info": "Sicherheit – Informationen",
+          "section_discover": "Entdecken",
+          "genius_loyalty": "Genius-Treueprogramm",
+          "seasonal_deals": "Reiseangebote der Saison",
+          "travel_articles": "Reiseberichte",
+          "for_business_travel": "Booking.com für Geschäftsreisen",
+          "traveller_review_awards": "Traveller Review Awards",
+          "car_rentals": "Autovermietung",
+          "flight_search": "Flugsuche",
+          "restaurant_reservations": "Restaurantreservierungen",
+          "for_travel_agents": "Booking.com für Reisevermittler",
+          "section_terms": "Bedingungen und Einstellungen",
+          "privacy_policy": "Datenschutzerklärung",
+          "terms_of_use": "Nutzungsbedingungen",
+          "accessibility_statement": "Erklärung zur Barrierefreiheit",
+          "dispute_resolution": "Streitbeilegung für Partner",
+          "slavery_statement": "Erklärung zu Sklaverei und Menschenhandel",
+          "human_rights_statement": "Erklärung zu Menschenrechten",
+          "imprint": "Impressum",
+          "section_partners": "Partner",
+          "extranet_login": "Extranet-Login",
+          "partner_help": "Partnerhilfe",
+          "list_your_property": "Ihre Unterkunft anmelden",
+          "become_affiliate": "Affiliate werden",
+          "section_about": "Über uns",
+          "about_booking": "Über Booking.com",
+          "our_concept": "Unser Konzept",
+          "sustainability": "Nachhaltigkeit",
+          "press": "Presse",
+          "career": "Karriere",
+          "investor_relations": "Investorenbeziehungen",
+          "contact": "Firmenkontakt",
+          "content_reporting_policy": "Richtlinien für Inhalte und Melden von Inhalten"
+        },
+        "sitemap_links": {
+          "countries": "Länder",
+          "regions": "Regionen",
+          "cities": "Städte",
+          "districts": "Stadtteile",
+          "airports": "Flughäfen",
+          "hotels": "Hotels",
+          "landmarks": "Orientierungspunkte",
+          "unique_accommodations": "Einzigartige Unterkünfte",
+          "all_destinations": "Alle Reiseziele",
+          "all_flight_destinations": "Alle Flugziele",
+          "all_car_rental_stations": "Alle Mietwagenstationen",
+          "all_vacation_destinations": "Alle Urlaubsziele",
+          "travel_guides": "Reiseführer",
+          "discover": "Entdecken",
+          "extended_stays": "Aufenthalte von einem Monat oder mehr entdecken"
+        }
+    }
+      },
+
+      "hrs_de": {
+        "source": "https://www.hrs.de/",
+        "tagline": "Entspannt geschäftlich reisen.",
+        "navigation": {
+          "to_homepage": "Zur HRS-Startseite navigieren",
+          "login": "Einloggen",
+          "open_navigation": "Navigationsmenü öffnen",
+          "close": "Schließen"
+        },
+        "search": {
+          "search_label": "Suche",
+          "search_placeholder": "Ort, Hotel, Region, Adresse, PLZ",
+          "check_in": "Anreise",
+          "check_out": "Abreise",
+          "persons_and_rooms": "Personen und Zimmer",
+          "default_persons_rooms": "1 Person - 1 Zimmer",
+          "night_singular": "Nacht",
+          "more_criteria": "Weitere Suchkriterien",
+          "search_button": "Hotels suchen"
+        },
+        "promo_banner": {
+          "save_instantly": "Sparen Sie sofort bis zu 50%",
+          "as_myhrs_member": "als myHRS Club Mitglied",
+          "exclusive_offers": "Genießen Sie exklusive Angebote",
+          "collect_miles_points": "sammeln Sie Miles & More Meilen oder BahnBonus Punkte",
+          "flexible_cancellation": "profitieren Sie von flexiblen Stornierungsbedingungen",
+          "register_now_free": "Jetzt kostenlos anmelden",
+          "learn_more_myhrs": "Erfahren Sie mehr über myHRS Club",
+          "your_feedback": "Ihre Meinung"
+        },
+        "homepage_sections": {
+          "check_in_today": "Heute einchecken – bis zu 50% sparen",
+          "membership_pays_off": "Es zahlt sich aus, myHRS Mitglied zu sein",
+          "free_with_benefits": "Kostenlos, mit vielen Vorteilen.",
+          "login_button": "Einloggen",
+          "register_free_button": "Kostenlos registrieren",
+          "experience_new_hrs": "Erleben Sie das neue HRS - auch unterwegs",
+          "app_description": "Nutzen Sie alle Vorteile für Geschäftsreisende mit den neuen Services noch entspannter und buchen Sie auch schon bald Workspaces.",
+          "download_app": "Jetzt HRS App downloaden",
+          "more_info": "Mehr erfahren",
+          "book_exact": "Hotels genau nach Ihren Wünschen buchen",
+          "most_booked": "… oder sich gleich die am häufigsten gebuchten Hotels ansehen.",
+          "hotel_worlds": "Entdecken Sie unsere Hotelwelten",
+          "recommended_destinations": "Reiseziele, die wir empfehlen",
+          "find_perfect_hotel": "Mit HRS das perfekte Hotel für Ihre Reise finden!",
+          "top_quality_ratings": "Höchste Qualität, günstige Preise und nur echte Hotelbewertungen",
+          "exclusive_myhrs_benefits": "Exklusive Vorteile für myHRS Mitglieder",
+          "safety_hygiene": "Sicherheit & Hygiene haben höchste Priorität"
+        }
+        },
+        "hotel_categories": {
+          "business_hotels": "Business-Hotels",
+          "business_hotels_desc": "Business-Hotels sind die Hotels, die wie gemacht sind für Geschäftsreisende. Insbesondere sind Tagungsräume samt moderner Technik vorhanden.",
+          "conference_hotels": "Tagungshotels",
+          "conference_hotels_desc": "Ob Sie an einer Konferenz teilnehmen, ein Seminar oder einen Kongress besuchen: in einem Tagungshotel nächtigen Sie komfortabel und haben genügend technische Ausstattung.",
+          "city_hotels": "City-Hotels",
+          "city_hotels_desc": "Für kürzere oder längere Städtetrips bieten sich City Hotels als Unterkünfte an. Typischerweise liegen sie besonders verkehrsgünstig.",
+          "wellness_hotels": "Wellnesshotels"
+        }
+  }
+}

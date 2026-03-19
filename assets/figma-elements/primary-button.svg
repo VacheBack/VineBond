@@ -1,0 +1,16 @@
+<svg width="180" height="56" viewBox="0 0 180 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="btnGrad" x1="0" y1="0" x2="180" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6B1F3C"/>
+      <stop offset="1" stop-color="#4A1528"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="180" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2A0E18" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect x="1.5" y="1.5" width="177" height="53" rx="16" fill="url(#btnGrad)" stroke="#D4AF37" stroke-width="3" filter="url(#shadow)"/>
+  <text x="90" y="33" text-anchor="middle" fill="#F5F1E8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="0.08em">
+    BOOK NOW
+  </text>
+</svg>

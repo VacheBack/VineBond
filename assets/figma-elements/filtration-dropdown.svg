@@ -1,0 +1,12 @@
+<svg width="320" height="48" viewBox="0 0 320 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="318" height="46" rx="12" fill="#FFFFFF" stroke="#8B7355" stroke-width="2"/>
+
+  <g transform="translate(14,12)">
+    <circle cx="12" cy="12" r="10" fill="#F5F1E8"/>
+    <path d="M12 12C14.2 12 16 10.2 16 8C16 5.8 14.2 4 12 4C9.8 4 8 5.8 8 8C8 10.2 9.8 12 12 12Z" fill="#4A5D3E"/>
+    <path d="M5 20C5 16.8 8.1 14.5 12 14.5C15.9 14.5 19 16.8 19 20" stroke="#4A5D3E" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+
+  <text x="54" y="30" fill="#6B1F3C" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="600">Amount of visitors</text>
+  <path d="M286 20L294 28L302 20" stroke="#8B7355" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
