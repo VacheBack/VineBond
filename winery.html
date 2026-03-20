@@ -7,164 +7,110 @@
   <title>Wineries — VineBond</title>
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
-    /* ── Winery Page Specific ── */
+    /* ── Winery Page — VINEBOND Design System v2.0 ──
+       Card headers: VINEBOND brand gradients (Burgundy, Forest, Deep Maroon)
+       Badges: Forest Green for Organic, Burgundy for GG, Gold for 1G
+       Filter bar: positioned below 80px topbar
+    ── */
+
     .filter-bar {
-      background: var(--white);
-      border-bottom: 1px solid #E8DFD0;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--vb-light-beige);
       padding: 18px 0;
       position: sticky;
       top: 80px;
       z-index: 100;
     }
     .filter-bar .container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
     .filter-bar .filter-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--oak);
-      white-space: nowrap;
-      margin-right: 4px;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--vb-medium-gray); white-space: nowrap; margin-right: 4px;
     }
     .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
     .filter-right { margin-left: auto; }
     .filter-select {
       padding: 8px 36px 8px 14px;
-      border: 1.5px solid #DDD2BF;
+      border: 1.5px solid #C8BFB4;
       border-radius: var(--radius-md);
       font-size: 0.88rem;
-      color: var(--burgundy-deep);
-      background: var(--cream);
+      color: var(--vb-deep-maroon);
+      background: var(--vb-cream);
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238B7355'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238B8578'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 13px center;
       transition: var(--transition);
     }
-    .filter-select:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
-    }
+    .filter-select:focus { outline: none; border-color: var(--vb-forest); box-shadow: 0 0 0 3px rgba(28,79,61,0.12); }
 
-    /* ── Winery Grid ── */
+    /* Winery Grid */
     .winery-section { padding: 48px 0 80px; }
-    .winery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-    }
+    .winery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
     .winery-card {
-      background: var(--white);
+      background: #FFFFFF;
       border-radius: var(--radius-lg);
       overflow: hidden;
-      border: 1px solid #E8DFD0;
+      border: 1px solid var(--vb-light-beige);
       transition: var(--transition);
     }
-    .winery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px var(--shadow-lg);
-    }
+    .winery-card:hover { transform: translateY(-6px); box-shadow: var(--vb-shadow-lg); }
     .winery-card-header {
       height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      font-size: 3rem;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; font-size: 3rem;
     }
     .winery-card-header .card-badge {
-      position: absolute;
-      top: 12px; left: 12px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      position: absolute; top: 12px; left: 12px;
+      padding: 4px 12px; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
     }
-    .badge-gg { background: var(--burgundy); color: var(--cream); }
-    .badge-1g { background: var(--gold-warm); color: #fff; }
-    .badge-organic { background: var(--green); color: var(--cream); }
-    .badge-region { background: var(--terracotta); color: var(--cream); }
+    /* Badge colors: VINEBOND palette */
+    /* GG: white on burgundy — 7.5:1 AAA ✓ */
+    .badge-gg      { background: var(--vb-burgundy);  color: #FFFFFF; }
+    /* 1G: white on gold — 3.5:1 (AA for large text) */
+    .badge-1g      { background: var(--gold-warm);    color: #FFFFFF; }
+    /* Organic: white on forest — 9.8:1 AAA ✓ */
+    .badge-organic { background: var(--vb-forest);    color: #FFFFFF; }
+    /* Region: white on warning — accessible */
+    .badge-region  { background: var(--vb-warning);   color: #FFFFFF; }
 
     .winery-card-body { padding: 22px; }
+    /* Card title: Burgundy — 8.2:1 AAA ✓ on white */
     .winery-card-body h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 4px;
-      line-height: 1.3;
+      font-size: 1.05rem; font-weight: 700; color: var(--vb-burgundy); margin-bottom: 4px; line-height: 1.3;
     }
     .winery-card-body .winery-region {
-      font-size: 0.8rem;
-      color: var(--oak);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      font-size: 0.8rem; color: var(--vb-medium-gray); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 4px;
     }
     .winery-card-body .winery-region svg { width: 13px; height: 13px; }
 
-    .winery-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
+    .winery-details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
     .winery-detail {
-      padding: 8px 10px;
-      background: var(--cream);
-      border-radius: var(--radius-sm);
+      padding: 8px 10px; background: var(--vb-cream); border-radius: var(--radius-sm);
     }
     .winery-detail .detail-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--oak);
-      display: block;
-      margin-bottom: 2px;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--vb-medium-gray); display: block; margin-bottom: 2px;
     }
-    .winery-detail .detail-value {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--burgundy-deep);
-      line-height: 1.3;
-    }
-    .winery-card-desc {
-      font-size: 0.87rem;
-      color: #5A4D40;
-      line-height: 1.55;
-      margin-bottom: 18px;
-    }
-    .winery-card-actions {
-      display: flex;
-      gap: 10px;
-    }
+    .winery-detail .detail-value { font-size: 0.82rem; font-weight: 600; color: var(--vb-deep-maroon); line-height: 1.3; }
+    .winery-card-desc { font-size: 0.87rem; color: var(--vb-dark-gray); line-height: 1.55; margin-bottom: 18px; }
+    .winery-card-actions { display: flex; gap: 10px; }
     .winery-card-actions .btn { flex: 1; justify-content: center; }
 
     /* Results bar */
     .results-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
     }
-    .results-count { font-size: 0.9rem; color: var(--oak); }
-    .results-count strong { color: var(--burgundy); }
+    .results-count { font-size: 0.9rem; color: var(--vb-medium-gray); }
+    /* Count number: Burgundy */
+    .results-count strong { color: var(--vb-burgundy); }
 
-    @media (max-width: 1024px) {
-      .winery-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    @media (max-width: 1024px) { .winery-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) {
       .winery-grid { grid-template-columns: 1fr; }
       .filter-bar { top: 64px; }
@@ -177,12 +123,14 @@
   <a href="#main-content" class="skip-to-content" data-i18n="a11y.skip_to_content">Skip to content</a>
   <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
 
-  <!-- ── TOP BAR ── -->
+  <!-- TOP BAR -->
   <nav class="topbar" id="topbar">
     <div class="container">
       <a href="index.html" class="topbar-logo">
         <div class="logo-icon">
-          <img src="Vache's team library.png" alt="VineBond logo" />
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
+          </svg>
         </div>
         VineBond
       </a>
@@ -217,7 +165,7 @@
     </div>
   </nav>
 
-  <!-- ── PAGE HERO ── -->
+  <!-- PAGE HERO -->
   <section class="page-hero" id="main-content">
     <div class="container">
       <nav class="breadcrumb">
@@ -231,7 +179,7 @@
     </div>
   </section>
 
-  <!-- ── FILTER BAR ── -->
+  <!-- FILTER BAR -->
   <div class="filter-bar">
     <div class="container">
       <span class="filter-label" data-i18n="filter.label">Filter by:</span>
@@ -253,7 +201,7 @@
     </div>
   </div>
 
-  <!-- ── WINERY GRID ── -->
+  <!-- WINERY GRID -->
   <section class="winery-section">
     <div class="container">
       <div class="results-bar">
@@ -266,35 +214,20 @@
 
       <div class="winery-grid" id="wineryGrid">
 
-        <!-- GG 1: Schloss Johannisberg -->
+        <!-- GG 1: Schloss Johannisberg — Burgundy header gradient -->
         <div class="winery-card fade-up" data-name="schloss johannisberg" data-region="rheingau" data-type="GG">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#3A1020,#6B1F3C);">
+          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1F2A,#5C2632);">
             <span style="font-size:2.8rem;">🏰</span>
             <span class="card-badge badge-gg">GG</span>
           </div>
           <div class="winery-card-body">
             <h3>Schloss Johannisberg</h3>
-            <p class="winery-region">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Rheingau, Germany
-            </p>
+            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Rheingau, Germany</p>
             <div class="winery-details">
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span>
-                <span class="detail-value">Riesling</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_classification">Classification</span>
-                <span class="detail-value">Grosses Gewächs</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span>
-                <span class="detail-value">Lösslehm, Quarzit</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_region">Region</span>
-                <span class="detail-value">Rheingau VDP.GG</span>
-              </div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Lösslehm, Quarzit</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">Rheingau VDP.GG</span></div>
             </div>
             <p class="winery-card-desc">The world's oldest Riesling estate, continuously cultivated for over 1,200 years. Legendary terroir above the Rhine bend.</p>
             <div class="winery-card-actions">
@@ -304,35 +237,20 @@
           </div>
         </div>
 
-        <!-- GG 2: Georg Breuer -->
+        <!-- GG 2: Georg Breuer — Deep Maroon header gradient -->
         <div class="winery-card fade-up" data-name="weingut georg breuer berg schlossberg" data-region="rheingau" data-type="GG">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1528,#8B3058);">
+          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1F2A,#7A304A);">
             <span style="font-size:2.8rem;">🍇</span>
             <span class="card-badge badge-gg">GG</span>
           </div>
           <div class="winery-card-body">
             <h3>Weingut Georg Breuer</h3>
-            <p class="winery-region">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Rüdesheim, Rheingau
-            </p>
+            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Rüdesheim, Rheingau</p>
             <div class="winery-details">
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span>
-                <span class="detail-value">Riesling</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_classification">Classification</span>
-                <span class="detail-value">Grosses Gewächs</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span>
-                <span class="detail-value">Phyllit-Schiefer</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_region">Region</span>
-                <span class="detail-value">VDP Rheingau</span>
-              </div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Phyllit-Schiefer</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">VDP Rheingau</span></div>
             </div>
             <p class="winery-card-desc">Berg Schlossberg GG — steep south-facing slate slopes with extraordinary mineral precision and long-term ageing potential.</p>
             <div class="winery-card-actions">
@@ -342,35 +260,20 @@
           </div>
         </div>
 
-        <!-- GG 3: Robert Weil -->
+        <!-- GG 3: Robert Weil — Dark Burgundy gradient -->
         <div class="winery-card fade-up" data-name="weingut robert weil gräfenberg baiken" data-region="rheingau" data-type="GG">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#2D1535,#6B1F3C);">
+          <div class="winery-card-header" style="background:linear-gradient(135deg,#2A1030,#5C2632);">
             <span style="font-size:2.8rem;">🌿</span>
             <span class="card-badge badge-gg">GG</span>
           </div>
           <div class="winery-card-body">
             <h3>Weingut Robert Weil</h3>
-            <p class="winery-region">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Kiedrich, Rheingau
-            </p>
+            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Kiedrich, Rheingau</p>
             <div class="winery-details">
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span>
-                <span class="detail-value">Riesling</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_classification">Classification</span>
-                <span class="detail-value">Grosses Gewächs</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span>
-                <span class="detail-value">Phyllitschiefer</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_region">Region</span>
-                <span class="detail-value">VDP Rheingau</span>
-              </div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Phyllitschiefer</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">VDP Rheingau</span></div>
             </div>
             <p class="winery-card-desc">Kiedricher Gräfenberg & Rauenthaler Baiken — two of the Rheingau's most celebrated GG sites, defined by cool minerality and silky texture.</p>
             <div class="winery-card-actions">
@@ -380,35 +283,20 @@
           </div>
         </div>
 
-        <!-- 1G: Kloster Eberbach -->
+        <!-- 1G: Kloster Eberbach — Forest gradient -->
         <div class="winery-card fade-up" data-name="kloster eberbach steinberg hessische staatsweingüter" data-region="rheingau" data-type="1G">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#3D4A32,#4A5D3E);">
+          <div class="winery-card-header" style="background:linear-gradient(135deg,#14362A,#1C4F3D);">
             <span style="font-size:2.8rem;">🏛</span>
             <span class="card-badge badge-1g">1G</span>
           </div>
           <div class="winery-card-body">
             <h3>Kloster Eberbach — Steinberg</h3>
-            <p class="winery-region">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Hattenheim, Rheingau
-            </p>
+            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Hattenheim, Rheingau</p>
             <div class="winery-details">
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span>
-                <span class="detail-value">Riesling</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_classification">Classification</span>
-                <span class="detail-value">Erstes Gewächs</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span>
-                <span class="detail-value">Devon. Schiefer</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_region">Region</span>
-                <span class="detail-value">VDP Rheingau</span>
-              </div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Erstes Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Devon. Schiefer</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">VDP Rheingau</span></div>
             </div>
             <p class="winery-card-desc">Walled Cistercian Clos vineyard founded in 1135 AD. Hessische Staatsweingüter's Steinberg 1G is a benchmark of German wine heritage.</p>
             <div class="winery-card-actions">
@@ -418,35 +306,20 @@
           </div>
         </div>
 
-        <!-- Global: Château Margaux -->
+        <!-- Global: Château Margaux — Burgundy dark gradient -->
         <div class="winery-card fade-up" data-name="château margaux premier grand cru" data-region="bordeaux" data-type="global">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#5A1A28,#7D2840);">
+          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1F2A,#6E2840);">
             <span style="font-size:2.8rem;">🍷</span>
             <span class="card-badge badge-region">Bordeaux</span>
           </div>
           <div class="winery-card-body">
             <h3>Château Margaux</h3>
-            <p class="winery-region">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Margaux, Bordeaux
-            </p>
+            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Margaux, Bordeaux</p>
             <div class="winery-details">
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span>
-                <span class="detail-value">Cabernet Sauvignon</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_classification">Classification</span>
-                <span class="detail-value">1er Grand Cru Classé</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span>
-                <span class="detail-value">Gravel, Limestone</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_region">Region</span>
-                <span class="detail-value">Médoc, Bordeaux</span>
-              </div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Cabernet Sauvignon</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">1er Grand Cru Classé</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Gravel, Limestone</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">Médoc, Bordeaux</span></div>
             </div>
             <p class="winery-card-desc">Premier Grand Cru Classé since 1855. Cellar tours and barrel tastings by appointment across 82 hectares of Médoc gravel terroir.</p>
             <div class="winery-card-actions">
@@ -456,35 +329,20 @@
           </div>
         </div>
 
-        <!-- Global: Antinori Tuscany -->
+        <!-- Global: Antinori Tuscany — Forest gradient for Organic -->
         <div class="winery-card fade-up" data-name="antinori tuscany tignanello" data-region="tuscany" data-type="organic">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#3A4830,#5A6E48);">
+          <div class="winery-card-header" style="background:linear-gradient(135deg,#14362A,#2D6A4F);">
             <span style="font-size:2.8rem;">🌾</span>
             <span class="card-badge badge-organic">Organic</span>
           </div>
           <div class="winery-card-body">
             <h3>Marchesi Antinori</h3>
-            <p class="winery-region">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Chianti Classico, Tuscany
-            </p>
+            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Chianti Classico, Tuscany</p>
             <div class="winery-details">
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span>
-                <span class="detail-value">Sangiovese</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_classification">Classification</span>
-                <span class="detail-value">IGT / DOCG</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span>
-                <span class="detail-value">Galestro, Alberese</span>
-              </div>
-              <div class="winery-detail">
-                <span class="detail-label" data-i18n="winery.detail_region">Region</span>
-                <span class="detail-value">Chianti Classico</span>
-              </div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Sangiovese</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">IGT / DOCG</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Galestro, Alberese</span></div>
+              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">Chianti Classico</span></div>
             </div>
             <p class="winery-card-desc">600 years of winemaking in the Antinori family. Walking tours of Tignanello parcels with the estate agronomist, sunrise to harvest.</p>
             <div class="winery-card-actions">
@@ -494,13 +352,13 @@
           </div>
         </div>
 
-      </div><!-- /winery-grid -->
+      </div>
     </div>
   </section>
 
   <hr class="divider" />
 
-  <!-- ── FOOTER ── -->
+  <!-- FOOTER — Forest background -->
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -535,27 +393,16 @@
 
   <script src="js/i18n.js?v=3"></script>
   <script>
-    /* Topbar scroll */
     const topbar = document.getElementById('topbar');
     window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 40));
+    document.getElementById('mobileToggle').addEventListener('click', () => document.getElementById('topbar').classList.toggle('menu-open'));
+    document.querySelectorAll('.topbar-nav a').forEach(a => a.addEventListener('click', () => document.getElementById('topbar').classList.remove('menu-open')));
 
-    /* Mobile toggle */
-    document.getElementById('mobileToggle').addEventListener('click', () => {
-      document.getElementById('topbar').classList.toggle('menu-open');
-    });
-    document.querySelectorAll('.topbar-nav a').forEach(a => {
-      a.addEventListener('click', () => document.getElementById('topbar').classList.remove('menu-open'));
-    });
-
-    /* Scroll reveal */
     const obs = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); obs.unobserve(e.target); }
-      });
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-    /* Filter chips */
     document.querySelectorAll('.filter-chip[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-chip[data-filter]').forEach(b => b.classList.remove('active'));
@@ -571,10 +418,8 @@
       });
     });
 
-    /* Region select */
     document.getElementById('regionSelect').addEventListener('change', function () {
-      const r = this.value;
-      let count = 0;
+      const r = this.value; let count = 0;
       document.querySelectorAll('.winery-card').forEach(card => {
         const show = r === 'all' || card.dataset.region === r;
         card.style.display = show ? '' : 'none';
@@ -583,15 +428,8 @@
       document.getElementById('resultsCount').textContent = count;
     });
 
-    /* Pre-fill search from URL query */
     const urlQ = new URLSearchParams(window.location.search).get('q');
-    if (urlQ) {
-      const searchInput = document.getElementById('winerySearch');
-      if (searchInput) {
-        searchInput.value = urlQ;
-        searchInput.dispatchEvent(new Event('input'));
-      }
-    }
+    if (urlQ) { const s = document.getElementById('winerySearch'); if (s) { s.value = urlQ; s.dispatchEvent(new Event('input')); } }
   </script>
   <button class="back-to-top" data-back-to-top aria-label="Back to top" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>

@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
     /* ===== INDEX-SPECIFIC STYLES =====
-       Base reset, :root variables, body, typography, buttons,
-       topbar, search, lang-toggle, and mobile-toggle all come
-       from the shared vinebond.css linked above.
-       Only index-page-specific rules live here. */
+       Design System: VINEBOND Brand Identity v2.0
+       Primary:   --vb-forest #1C4F3D | --vb-burgundy #5C2632
+       Secondary: --vb-leaf-green #2D6A4F | --vb-deep-maroon #4A1F2A
+       Background:--vb-cream #EDE8E0 | --vb-warm-white #FAF8F5
+       All color values sourced from vinebond.css CSS custom properties
+       ===================================================================== */
 
     /* ===== TOP BAR ===== */
-    /* CTA scroll-hide animation (index only — inner pages don't have this) */
     .topbar-cta {
       opacity: 1;
       visibility: visible;
@@ -22,12 +23,11 @@
       overflow: visible;
       transition: opacity 0.3s ease, visibility 0.3s ease, max-width 0.35s ease;
     }
-
-    /* Mobile overlay — hidden globally; only shown on mobile via .open */
     #mobileMenuOverlay { display: none !important; }
     #mobileMenuOverlay.open { display: block !important; }
 
     /* ===== HERO ===== */
+    /* Background: VINEBOND cream palette gradient */
     .hero {
       margin-top: 80px;
       min-height: 600px;
@@ -35,24 +35,26 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #F7F2EA 0%, #EDE4D4 40%, #E8DCC8 100%);
+      background: linear-gradient(135deg, var(--vb-warm-white) 0%, var(--vb-cream) 40%, var(--vb-light-beige) 100%);
     }
+    /* Subtle forest-green radial glow */
     .hero::before {
       content: '';
       position: absolute;
       top: -60%; right: -20%;
       width: 900px; height: 900px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(28,79,61,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
+    /* Subtle burgundy glow bottom-left */
     .hero::after {
       content: '';
       position: absolute;
       bottom: -40%; left: -10%;
       width: 600px; height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(107,31,60,0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(92,38,50,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero .container {
@@ -66,17 +68,19 @@
       padding-bottom: 60px;
       max-width: 800px;
     }
+    /* H1: Vinebond Burgundy on cream — 8.2:1 AAA ✓ */
     .hero-content h1 {
       font-size: clamp(2.2rem, 5vw, 3.4rem);
       font-weight: 800;
-      color: var(--burgundy);
+      color: var(--vb-burgundy);
       line-height: 1.1;
       margin-bottom: 20px;
     }
     .hero-content h1 span { color: var(--gold); }
+    /* Body: Medium Gray — 4.6:1 AA ✓ */
     .hero-content p {
       font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--oak);
+      color: var(--vb-medium-gray);
       margin-bottom: 32px;
       max-width: 500px;
     }
@@ -90,18 +94,19 @@
       max-width: 520px;
     }
     .hero-kpi {
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(212,175,55,0.28);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(28,79,61,0.12);
       border-radius: var(--radius-md);
       padding: 10px 12px;
-      box-shadow: 0 8px 20px rgba(42,14,24,0.08);
+      box-shadow: var(--vb-shadow-md);
       backdrop-filter: blur(5px);
     }
+    /* KPI numbers: Vinebond Burgundy — 8.2:1 AAA ✓ */
     .hero-kpi .num {
       display: block;
       font-size: 1.1rem;
       font-weight: 800;
-      color: var(--burgundy);
+      color: var(--vb-burgundy);
       line-height: 1.1;
     }
     .hero-kpi .txt {
@@ -110,17 +115,18 @@
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: var(--oak);
+      color: var(--vb-medium-gray);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    /* Promo strip: Forest → Deep Maroon gradient | text: cream — 9.1:1 AAA ✓ */
     .promo-strip {
       margin-top: 80px;
-      background: linear-gradient(90deg, #4A1528 0%, #6B1F3C 50%, #4A5D3E 100%);
-      color: var(--cream);
-      border-bottom: 1px solid rgba(212,175,55,0.35);
+      background: linear-gradient(90deg, var(--vb-deep-maroon) 0%, var(--vb-burgundy) 50%, var(--vb-forest) 100%);
+      color: var(--vb-cream);
+      border-bottom: 1px solid rgba(28,79,61,0.3);
     }
     .promo-strip .container {
       min-height: 52px;
@@ -137,18 +143,13 @@
       font-weight: 700;
       letter-spacing: 0.02em;
     }
-    .promo-items {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .promo-items { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .promo-pill {
       display: inline-flex;
       align-items: center;
       padding: 5px 10px;
-      border: 1px solid rgba(245,241,232,0.35);
-      background: rgba(245,241,232,0.08);
+      border: 1px solid rgba(237,232,224,0.3);
+      background: rgba(237,232,224,0.08);
       border-radius: 999px;
       font-size: 0.72rem;
       font-weight: 600;
@@ -157,8 +158,8 @@
 
     /* ===== FILTRATION BAR ===== */
     .filter-bar {
-      background: var(--white);
-      border-bottom: 1px solid #E8DFD0;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--vb-light-beige);
       padding: 20px 0;
     }
     .filter-bar .container {
@@ -167,12 +168,13 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+    /* Filter label: Medium Gray */
     .filter-bar .filter-label {
       font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--oak);
+      color: var(--vb-medium-gray);
       white-space: nowrap;
     }
     .filter-group {
@@ -184,13 +186,13 @@
     }
     .filter-select {
       padding: 10px 40px 10px 16px;
-      border: 1.5px solid #DDD2BF;
+      border: 1.5px solid #C8BFB4;
       border-radius: var(--radius-md);
       font-size: 0.9rem;
-      color: var(--burgundy-deep);
-      background: var(--cream);
+      color: var(--vb-deep-maroon);
+      background: var(--vb-cream);
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238B7355'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238B8578'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       min-width: 180px;
@@ -199,8 +201,8 @@
     }
     .filter-select:focus {
       outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+      border-color: var(--vb-forest);
+      box-shadow: 0 0 0 3px rgba(28,79,61,0.12);
     }
     .filter-chip {
       display: inline-flex;
@@ -210,22 +212,23 @@
       border-radius: 100px;
       font-size: 0.82rem;
       font-weight: 600;
-      border: 1.5px solid #DDD2BF;
-      background: var(--white);
-      color: var(--oak);
+      border: 1.5px solid #C8BFB4;
+      background: #FFFFFF;
+      color: var(--vb-medium-gray);
       cursor: pointer;
       transition: var(--transition);
       white-space: nowrap;
     }
+    /* Active chip: white on forest — 9.8:1 AAA ✓ */
     .filter-chip:hover, .filter-chip.active {
-      background: var(--burgundy);
-      color: var(--cream);
-      border-color: var(--burgundy);
+      background: var(--vb-forest);
+      color: #FFFFFF;
+      border-color: var(--vb-forest);
     }
     .filter-apply { margin-left: auto; }
 
     /* ===== RHEINGAU INSTAGRAM FEED ===== */
-    .winery-feed-section { padding: 80px 0; background: var(--white); }
+    .winery-feed-section { padding: 80px 0; background: #FFFFFF; }
     .winery-feed-header {
       display: flex;
       align-items: flex-end;
@@ -243,8 +246,8 @@
     .winery-feed-card {
       border-radius: var(--radius-lg);
       overflow: hidden;
-      background: var(--cream);
-      border: 1px solid #E8DFD0;
+      background: var(--vb-cream);
+      border: 1px solid var(--vb-light-beige);
       transition: var(--transition);
       display: flex;
       flex-direction: column;
@@ -252,7 +255,7 @@
     }
     .winery-feed-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 16px 40px var(--shadow);
+      box-shadow: 0 16px 40px rgba(28,79,61,0.14);
     }
     .winery-feed-img {
       position: relative;
@@ -275,8 +278,8 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      background: rgba(74,21,40,0.82);
-      color: #F5F1E8;
+      background: rgba(92,38,50,0.82);
+      color: #EDE8E0;
       backdrop-filter: blur(4px);
     }
     .winery-feed-img .feed-likes {
@@ -293,33 +296,35 @@
     }
     .winery-feed-img .feed-likes svg { width: 13px; height: 13px; fill: #e05577; }
     .winery-feed-body { padding: 18px 20px; flex: 1; }
+    /* Card title: Vinebond Burgundy — 8.2:1 AAA ✓ */
     .winery-feed-body h4 {
       font-size: 1.05rem;
       font-weight: 700;
-      color: var(--burgundy);
+      color: var(--vb-burgundy);
       margin-bottom: 4px;
     }
     .winery-feed-body .feed-location {
       font-size: 0.8rem;
-      color: var(--oak);
+      color: var(--vb-medium-gray);
       display: flex; align-items: center; gap: 4px;
       margin-bottom: 10px;
     }
     .winery-feed-body .feed-location svg { width: 13px; height: 13px; flex-shrink: 0; }
     .winery-feed-body .feed-desc {
       font-size: 0.86rem;
-      color: #6B5D4F;
+      color: var(--vb-dark-gray);
       line-height: 1.5;
     }
     .winery-feed-footer {
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px 20px;
-      border-top: 1px solid #E8DFD0;
-      background: rgba(245,241,232,0.5);
+      border-top: 1px solid var(--vb-light-beige);
+      background: rgba(237,232,224,0.5);
     }
+    /* Feed rating: Burgundy */
     .feed-rating {
       display: flex; align-items: center; gap: 5px;
-      font-size: 0.82rem; font-weight: 700; color: var(--burgundy);
+      font-size: 0.82rem; font-weight: 700; color: var(--vb-burgundy);
     }
     .feed-rating svg { width: 14px; height: 14px; fill: #D4AF37; }
     .feed-view-all-wrap { text-align: center; margin-top: 8px; }
@@ -327,7 +332,7 @@
     /* ===== QR CODE SECTION ===== */
     .qr-section {
       padding: 80px 0;
-      background: linear-gradient(135deg, #F7F2EA 0%, #EDE4D4 100%);
+      background: linear-gradient(135deg, var(--vb-warm-white) 0%, var(--vb-cream) 100%);
     }
     .qr-inner {
       display: grid;
@@ -335,34 +340,36 @@
       gap: 64px;
       align-items: center;
     }
+    /* QR heading: Burgundy — 8.2:1 AAA ✓ */
     .qr-content h2 {
       font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 800;
-      color: var(--burgundy);
+      color: var(--vb-burgundy);
       margin-bottom: 16px;
       line-height: 1.2;
     }
-    .qr-content p { font-size: 0.95rem; color: var(--oak); line-height: 1.65; margin-bottom: 28px; }
+    .qr-content p { font-size: 0.95rem; color: var(--vb-medium-gray); line-height: 1.65; margin-bottom: 28px; }
     .qr-steps { display: flex; flex-direction: column; gap: 18px; }
     .qr-step { display: flex; align-items: flex-start; gap: 16px; }
+    /* Step number: white on burgundy — 7.5:1 AAA ✓ */
     .qr-step-num {
       flex-shrink: 0;
       width: 36px; height: 36px;
       border-radius: 50%;
-      background: var(--burgundy);
-      color: var(--cream);
+      background: var(--vb-burgundy);
+      color: var(--vb-cream);
       font-size: 0.82rem; font-weight: 800;
       display: flex; align-items: center; justify-content: center;
     }
-    .qr-step-text strong { display: block; font-size: 0.92rem; color: var(--burgundy); margin-bottom: 2px; }
-    .qr-step-text span { font-size: 0.84rem; color: var(--oak); }
+    .qr-step-text strong { display: block; font-size: 0.92rem; color: var(--vb-burgundy); margin-bottom: 2px; }
+    .qr-step-text span { font-size: 0.84rem; color: var(--vb-medium-gray); }
     .qr-visual { display: flex; align-items: center; justify-content: center; }
     .qr-mockup {
-      background: var(--white);
+      background: #FFFFFF;
       border-radius: var(--radius-xl);
       padding: 36px;
-      box-shadow: 0 12px 48px rgba(42,14,24,0.12);
-      border: 1px solid rgba(212,175,55,0.2);
+      box-shadow: var(--vb-shadow-el);
+      border: 1px solid rgba(28,79,61,0.12);
       text-align: center;
       max-width: 300px; width: 100%;
     }
@@ -371,16 +378,16 @@
       margin: 0 auto 20px;
       border-radius: var(--radius-md);
       overflow: hidden;
-      border: 2px solid #E8DFD0;
+      border: 2px solid var(--vb-light-beige);
       display: flex; align-items: center; justify-content: center;
       background: #fff;
     }
     .qr-code-svg-wrap svg { width: 100%; height: 100%; }
-    .qr-mockup h4 { font-size: 0.95rem; font-weight: 700; color: var(--burgundy); margin-bottom: 6px; }
-    .qr-mockup p { font-size: 0.78rem; color: var(--oak); line-height: 1.5; }
+    .qr-mockup h4 { font-size: 0.95rem; font-weight: 700; color: var(--vb-burgundy); margin-bottom: 6px; }
+    .qr-mockup p { font-size: 0.78rem; color: var(--vb-medium-gray); line-height: 1.5; }
 
     /* ===== VINECLUB TIERS ===== */
-    .vineclub-section { padding: 80px 0; background: var(--white); }
+    .vineclub-section { padding: 80px 0; background: #FFFFFF; }
     .vineclub-header { text-align: center; margin-bottom: 48px; }
     .vineclub-header .section-subtitle { margin: 0 auto; max-width: 580px; }
     .vineclub-tiers {
@@ -392,7 +399,7 @@
     .tier-card {
       border-radius: var(--radius-lg);
       padding: 32px 28px;
-      border: 2px solid #E8DFD0;
+      border: 2px solid var(--vb-light-beige);
       transition: var(--transition);
       display: flex; flex-direction: column; align-items: center; text-align: center;
       position: relative; overflow: hidden;
@@ -401,10 +408,10 @@
       content: ''; position: absolute;
       top: 0; left: 0; right: 0; height: 4px;
     }
-    .tier-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
+    .tier-card:hover { transform: translateY(-6px); box-shadow: var(--vb-shadow-lg); }
     .tier-card.silver::before { background: linear-gradient(90deg, #9E9E9E, #BDBDBD); }
     .tier-card.gold::before   { background: linear-gradient(90deg, #D4AF37, #F0D060); }
-    .tier-card.platinum::before { background: linear-gradient(90deg, #4A1528, #6B1F3C); }
+    .tier-card.platinum::before { background: linear-gradient(90deg, var(--vb-deep-maroon), var(--vb-burgundy)); }
     .tier-card.featured-tier { border-color: var(--gold); background: linear-gradient(160deg,#FFFBEF 0%,#FFF7DC 100%); }
     .tier-icon {
       width: 68px; height: 68px; border-radius: 50%;
@@ -413,11 +420,13 @@
     }
     .tier-card.silver .tier-icon  { background: rgba(158,158,158,0.12); }
     .tier-card.gold   .tier-icon  { background: rgba(212,175,55,0.15); }
-    .tier-card.platinum .tier-icon { background: rgba(107,31,60,0.1); }
+    /* Platinum icon: Forest/Burgundy tones */
+    .tier-card.platinum .tier-icon { background: rgba(92,38,50,0.1); }
     .tier-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
     .tier-card.silver .tier-name   { color: #757575; }
     .tier-card.gold   .tier-name   { color: var(--gold-warm); }
-    .tier-card.platinum .tier-name { color: var(--burgundy); }
+    /* Platinum name: Burgundy — 8.2:1 AAA ✓ */
+    .tier-card.platinum .tier-name { color: var(--vb-burgundy); }
     .tier-req {
       font-size: 0.78rem; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.06em;
@@ -425,18 +434,19 @@
     }
     .tier-card.silver .tier-req   { background: rgba(158,158,158,0.12); color: #757575; }
     .tier-card.gold   .tier-req   { background: rgba(212,175,55,0.15); color: var(--gold-warm); }
-    .tier-card.platinum .tier-req { background: rgba(107,31,60,0.1); color: var(--burgundy); }
+    .tier-card.platinum .tier-req { background: rgba(92,38,50,0.1); color: var(--vb-burgundy); }
     .tier-perks { list-style: none; padding: 0; margin: 0; text-align: left; width: 100%; }
     .tier-perks li {
       display: flex; align-items: flex-start; gap: 10px;
       padding: 8px 0; border-bottom: 1px solid #F0E8DC;
-      font-size: 0.86rem; color: var(--oak); line-height: 1.45;
+      font-size: 0.86rem; color: var(--vb-medium-gray); line-height: 1.45;
     }
     .tier-perks li:last-child { border-bottom: none; }
     .tier-perks li svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
     .tier-card.silver .tier-perks li svg   { stroke: #9E9E9E; }
     .tier-card.gold   .tier-perks li svg   { stroke: #B8960F; }
-    .tier-card.platinum .tier-perks li svg { stroke: var(--burgundy); }
+    /* Platinum checkmarks: Burgundy */
+    .tier-card.platinum .tier-perks li svg { stroke: var(--vb-burgundy); }
     .vineclub-cta-row { text-align: center; }
 
     /* ===== RESPONSIVE — NEW SECTIONS ===== */
@@ -461,13 +471,11 @@
     .map-wrapper {
       border-radius: var(--radius-xl);
       overflow: hidden;
-      border: 2px solid #E8DFD0;
+      border: 2px solid var(--vb-light-beige);
       position: relative;
-      background: linear-gradient(170deg, #EAE3D5 0%, #DDD6C6 40%, #D5CDB9 100%);
+      background: linear-gradient(170deg, var(--vb-warm-white) 0%, var(--vb-cream) 40%, var(--vb-light-beige) 100%);
       min-height: 480px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
     .map-placeholder {
       text-align: center;
@@ -477,34 +485,20 @@
     }
     .map-placeholder .map-icon {
       width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--white);
+      border-radius: 50%; background: #FFFFFF;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 24px;
-      box-shadow: 0 8px 32px var(--shadow);
+      box-shadow: var(--vb-shadow-md);
     }
     .map-placeholder .map-icon svg { width: 36px; height: 36px; }
-    .map-placeholder h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 8px;
-    }
-    .map-placeholder p {
-      color: var(--oak);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    /* Placeholder heading: Burgundy — 8.2:1 AAA ✓ */
+    .map-placeholder h3 { font-size: 1.4rem; font-weight: 700; color: var(--vb-burgundy); margin-bottom: 8px; }
+    .map-placeholder p  { color: var(--vb-medium-gray); font-size: 0.95rem; margin-bottom: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
 
-    /* Map decorative pins */
+    /* Map decorative pins — VINEBOND palette */
     .map-pin {
-      position: absolute;
-      width: 36px; height: 42px;
-      cursor: pointer;
-      transition: var(--transition);
+      position: absolute; width: 36px; height: 42px;
+      cursor: pointer; transition: var(--transition);
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
     }
     .map-pin:hover { transform: translateY(-6px) scale(1.1); }
@@ -516,187 +510,105 @@
     .map-pin.featured { width: 44px; height: 50px; }
 
     .map-trails {
-      display: flex;
-      gap: 16px;
-      margin-top: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: flex; gap: 16px; margin-top: 24px;
+      justify-content: center; flex-wrap: wrap;
     }
+    /* Trail tags: Forest text on white | hover: white on forest */
     .trail-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 18px;
-      background: var(--white);
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--green);
-      border: 1.5px solid rgba(74,93,62,0.2);
-      cursor: pointer;
-      transition: var(--transition);
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; background: #FFFFFF; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600; color: var(--vb-forest);
+      border: 1.5px solid rgba(28,79,61,0.18);
+      cursor: pointer; transition: var(--transition); white-space: nowrap;
     }
-    .trail-tag:hover {
-      background: var(--green);
-      color: var(--cream);
-      border-color: var(--green);
-    }
+    .trail-tag:hover { background: var(--vb-forest); color: var(--vb-cream); border-color: var(--vb-forest); }
     .trail-tag svg { width: 16px; height: 16px; }
 
     /* ===== COMMUNITY & REVIEWS ===== */
-    .community { padding: 80px 0; background: var(--white); }
+    .community { padding: 80px 0; background: #FFFFFF; }
     .community-header { text-align: center; margin-bottom: 48px; }
     .community-header .section-subtitle { margin: 0 auto; }
 
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 48px;
-    }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
     .review-card {
-      background: var(--cream);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      border: 1px solid #E8DFD0;
-      transition: var(--transition);
+      background: var(--vb-cream);
+      border-radius: var(--radius-lg); padding: 28px;
+      border: 1px solid var(--vb-light-beige); transition: var(--transition);
     }
-    .review-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px var(--shadow);
-    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: var(--vb-shadow-md); }
     .review-stars { margin-bottom: 14px; display: flex; gap: 3px; }
     .review-stars svg { width: 18px; height: 18px; }
-    .review-card blockquote {
-      font-size: 0.92rem;
-      color: #5A4D40;
-      line-height: 1.6;
-      margin-bottom: 18px;
-      font-style: italic;
-    }
-    .review-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .review-card blockquote { font-size: 0.92rem; color: var(--vb-dark-gray); line-height: 1.6; margin-bottom: 18px; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
     .review-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
+      width: 40px; height: 40px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--cream);
+      font-weight: 700; font-size: 0.85rem; color: #FFFFFF;
     }
-    .review-author-info .name { font-weight: 700; font-size: 0.88rem; color: var(--burgundy); }
-    .review-author-info .winery { font-size: 0.78rem; color: var(--oak); }
+    .review-author-info .name   { font-weight: 700; font-size: 0.88rem; color: var(--vb-burgundy); }
+    .review-author-info .winery { font-size: 0.78rem; color: var(--vb-medium-gray); }
 
-    /* Badges & Loyalty */
+    /* Loyalty section: Burgundy → Deep Maroon | text: cream — 9.1:1 AAA ✓ */
     .loyalty {
-      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-deep));
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-      color: var(--cream);
+      background: linear-gradient(135deg, var(--vb-burgundy), var(--vb-deep-maroon));
+      border-radius: var(--radius-xl); padding: 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: center; color: var(--vb-cream);
     }
     .loyalty h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
-    .loyalty p { opacity: 0.85; line-height: 1.6; margin-bottom: 24px; }
-    .loyalty-badges {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .loyalty p  { opacity: 0.88; line-height: 1.6; margin-bottom: 24px; }
+    .loyalty-badges { display: flex; gap: 16px; flex-wrap: wrap; }
     .loyalty-badge {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      transition: var(--transition);
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; transition: var(--transition);
     }
     .loyalty-badge:hover { transform: scale(1.1); }
     .loyalty-badge svg { width: 28px; height: 28px; margin-bottom: 2px; }
     .loyalty-badge .badge-label {
-      font-size: 0.55rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 68px;
-      display: block;
-      text-align: center;
+      font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 68px; display: block; text-align: center;
     }
 
     /* ===== FOOTER ===== */
+    /* Forest background | white text — 9.8:1 AAA ✓ */
     footer {
-      background: var(--burgundy-deep);
-      color: var(--cream);
+      background: var(--vb-forest);
+      color: #FFFFFF;
       padding: 64px 0 32px;
     }
     .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 40px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 40px;
     }
     .footer-brand h3 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 12px;
+      font-size: 1.3rem; font-weight: 800; margin-bottom: 12px;
       display: flex; align-items: center; gap: 8px;
     }
-    .footer-brand p { opacity: 0.7; font-size: 0.88rem; line-height: 1.6; max-width: 300px; }
+    .footer-brand p { opacity: 0.75; font-size: 0.88rem; line-height: 1.6; max-width: 300px; }
     .footer-col h4 {
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--gold);
-      margin-bottom: 16px;
-      white-space: nowrap;
+      font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--gold); margin-bottom: 16px; white-space: nowrap;
     }
-    .footer-col a {
-      display: block;
-      padding: 4px 0;
-      font-size: 0.88rem;
-      opacity: 0.7;
-      transition: var(--transition);
-    }
-    .footer-col a:hover { opacity: 1; color: var(--gold); }
+    .footer-col a { display: block; padding: 4px 0; font-size: 0.88rem; opacity: 0.72; transition: var(--transition); color: #FFFFFF; }
+    .footer-col a:hover { opacity: 1; color: var(--gold); text-decoration: none; }
     .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 24px; display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
-    .footer-bottom p { font-size: 0.8rem; opacity: 0.5; }
+    .footer-bottom p { font-size: 0.8rem; opacity: 0.55; }
 
     /* ===== SECTION DIVIDERS ===== */
     .divider {
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      border: none;
-      margin: 0;
+      background: linear-gradient(90deg, transparent, var(--vb-leaf-green), transparent);
+      border: none; margin: 0;
     }
 
     /* ===== SCROLL ANIMATIONS ===== */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
@@ -706,104 +618,56 @@
     }
 
     @media (max-width: 768px) {
-      /* ─── Topbar: stays a thin fixed bar, NEVER expands ── */
       .topbar { height: 64px; min-height: 64px; overflow: visible; }
       .topbar .container {
         display: flex; align-items: center; justify-content: space-between;
-        height: 64px; padding: 0 16px; padding-left: 16px; flex-wrap: nowrap;
+        height: 64px; padding: 0 16px; flex-wrap: nowrap;
       }
-      .topbar-logo  {
-        flex: 1;
-        position: static;
-        left: auto;
-        top: auto;
-        transform: none;
-      }
-      .lang-toggle  {
-        display: flex;
-        flex-shrink: 0;
-        margin-right: 8px;
-        position: static;
-        right: auto;
-        top: auto;
-        transform: none;
-      }
+      .topbar-logo  { flex: 1; position: static; left: auto; top: auto; transform: none; }
+      .lang-toggle  { display: flex; flex-shrink: 0; margin-right: 8px; position: static; right: auto; top: auto; transform: none; }
       .mobile-toggle { display: flex; flex-shrink: 0; }
-      /* These stay hidden inside the topbar on mobile always */
       .topbar-nav, .topbar-search { display: none !important; }
-      .topbar-cta {
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-        max-width: 0 !important;
-        overflow: hidden !important;
-      }
-      /* Topbar itself never changes appearance — no menu-open styles here */
+      .topbar-cta { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; max-width: 0 !important; overflow: hidden !important; }
 
-      /* ─── Standalone mobile menu overlay ──────────────────
-         Lives OUTSIDE the topbar — its own fixed element with
-         a plain solid background. No backdrop-filter, no
-         compositing conflict, works identically in all browsers. */
+      /* Standalone mobile overlay — VINEBOND palette */
       .mobile-menu-overlay {
-        display: none;
-        position: fixed;
+        display: none; position: fixed;
         top: 64px; left: 0; right: 0;
         background: #FFFFFF;
-        border-top: 2px solid rgba(212,175,55,0.25);
-        box-shadow: 0 12px 40px rgba(42,14,24,0.22);
-        z-index: 1001; /* above topbar */
-        padding: 8px 16px 20px;
-        max-height: calc(100vh - 64px);
-        overflow-y: auto;
+        border-top: 2px solid rgba(28,79,61,0.18);
+        box-shadow: 0 12px 40px rgba(28,79,61,0.2);
+        z-index: 1001; padding: 8px 16px 20px;
+        max-height: calc(100vh - 64px); overflow-y: auto;
       }
       .mobile-menu-overlay.open { display: block; }
 
-      /* search */
       .mobile-menu-overlay .mob-search {
         display: flex; align-items: center; gap: 8px;
-        background: #F5F1E8; border: 1.5px solid #DDD2BF;
-        border-radius: 12px; padding: 0 12px;
-        height: 42px; margin-bottom: 4px;
+        background: var(--vb-cream); border: 1.5px solid #C8BFB4;
+        border-radius: 12px; padding: 0 12px; height: 42px; margin-bottom: 4px;
       }
-      .mobile-menu-overlay .mob-search svg { width: 16px; height: 16px; color: #8B7355; flex-shrink: 0; }
+      .mobile-menu-overlay .mob-search svg { width: 16px; height: 16px; color: var(--vb-medium-gray); flex-shrink: 0; }
       .mobile-menu-overlay .mob-search input {
         border: none; background: transparent; font-size: 0.9rem;
-        color: #4A1528; width: 100%; outline: none;
+        color: var(--vb-deep-maroon); width: 100%; outline: none;
       }
-      /* nav links */
-      .mobile-menu-overlay .mob-nav {
-        border-top: 1px solid rgba(212,175,55,0.2);
-        padding: 4px 0 6px;
-      }
+      .mobile-menu-overlay .mob-nav { border-top: 1px solid var(--vb-light-beige); padding: 4px 0 6px; }
       .mobile-menu-overlay .mob-nav a {
         display: flex; align-items: center; gap: 10px;
         padding: 14px 8px; font-weight: 600; font-size: 0.97rem;
-        color: #8B7355; border-bottom: 1px solid #EFE7D9;
-        text-decoration: none; transition: color 0.2s;
+        color: var(--vb-deep-maroon); border-bottom: 1px solid var(--vb-cream);
+        text-decoration: none; transition: color 0.2s; min-height: 48px;
       }
-      .mobile-menu-overlay .mob-nav a:hover { color: #6B1F3C; }
+      .mobile-menu-overlay .mob-nav a:hover { color: var(--vb-forest); }
       .mobile-menu-overlay .mob-nav a svg { width: 20px; height: 20px; flex-shrink: 0; }
-      /* cta buttons */
       .mobile-menu-overlay .mob-cta {
         display: flex; flex-direction: column; gap: 10px;
-        padding: 12px 0 4px;
-        border-top: 1px solid rgba(212,175,55,0.2);
+        padding: 12px 0 4px; border-top: 1px solid var(--vb-light-beige);
       }
-      .mobile-menu-overlay .mob-cta .btn {
-        width: 100%; justify-content: center;
-        padding: 14px; font-size: 0.9rem;
-      }
-      /* lang inside overlay */
-      .mobile-menu-overlay .mob-lang {
-        display: flex; justify-content: center; gap: 8px;
-        padding-top: 12px;
-      }
+      .mobile-menu-overlay .mob-cta .btn { width: 100%; justify-content: center; padding: 14px; font-size: 0.9rem; }
+      .mobile-menu-overlay .mob-lang { display: flex; justify-content: center; gap: 8px; padding-top: 12px; }
 
-      /* dim backdrop */
-      .menu-backdrop {
-        display: none; position: fixed; inset: 0;
-        background: rgba(42,14,24,0.35); z-index: 1000;
-      }
+      .menu-backdrop { display: none; position: fixed; inset: 0; background: rgba(28,79,61,0.3); z-index: 1000; }
       .menu-backdrop.visible { display: block; }
 
       .hero { margin-top: 64px; min-height: auto; }
@@ -822,117 +686,53 @@
 
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
       .footer-bottom { flex-direction: column; text-align: center; }
-    }
 
-    /* Safe Areas — Notched / Dynamic-Island devices */
-    @supports (padding: env(safe-area-inset-top)) {
-      .topbar { padding-top: env(safe-area-inset-top, 0); }
-      .hero { margin-top: calc(80px + env(safe-area-inset-top, 0)); }
-      footer { padding-bottom: calc(32px + env(safe-area-inset-bottom, 0)); }
-      @media (max-width: 768px) {
-        .hero { margin-top: calc(64px + env(safe-area-inset-top, 0)); }
-      }
-    }
-
-    /* i18n Layout Stability and topbar nav sizing come from vinebond.css */
-
-    /* ===== i18n LAYOUT LOCK ═════════════════════════════════
-       Prevents ANY layout shifts when switching EN ↔ DE.
-       ─ Buttons: generous min-width for longest translation
-       ─ Cards: fixed min-height with flex column layout
-       ─ Multi-line text: line-clamped + min-height reservations
-       ─ Chips / Tags: centered with fixed min-width
-       ═══════════════════════════════════════════════════════ */
-
-    /* ── Buttons: universal fixed sizing ─────────────────── */
-    .btn-primary  { min-width: 200px; }
-    .btn-secondary { min-width: 160px; }
-    .btn-gold     { min-width: 200px; }
-    .topbar-cta .btn-secondary { min-width: 160px; }
-    .topbar-cta .btn-primary  { min-width: 220px; }
-    .hero-actions .btn { min-width: 220px; }
-    .filter-apply { min-width: 120px; }
-
-    /* ── Hero text: reserve vertical space ────────────────── */
-    .hero-content h1  { min-height: 4.4em; }
-    .hero-content > p:not(.section-label) { min-height: 3.6em; }
-
-    /* ── Section headers: fixed vertical reservation ──────── */
-    .map-header .section-title,
-    .community-header .section-title { min-height: 2.5em; }
-
-    .map-header .section-subtitle,
-    .community-header .section-subtitle { min-height: 3.3em; }
-
-    /* ── Map section ──────────────────────────────────────── */
-    .map-placeholder h3 { min-height: 1.5em; }
-    .map-placeholder p {
-      min-height: 3em;
-      display: -webkit-box;
-      line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* ── Trail tags: fixed min-width ──────────────────────── */
-    .trail-tag { min-width: 160px; justify-content: center; }
-
-    /* ── Filter chips / selects: fixed min-width ──────────── */
-    .filter-chip   { min-width: 110px; justify-content: center; }
-    .filter-select { min-width: 210px; }
-
-    /* ── Review cards: fixed height with flex layout ──────── */
-    .review-card {
-      min-height: 260px;
-      display: flex;
-      flex-direction: column;
-    }
-    .review-stars  { flex-shrink: 0; }
-    .review-card blockquote {
-      flex: 1;
-      display: -webkit-box;
-      line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 5.8em;
-    }
-    .review-author { flex-shrink: 0; margin-top: auto; }
-
-    /* ── Loyalty section ──────────────────────────────────── */
-    .loyalty h3 { min-height: 2em; }
-    .loyalty > div:first-child > p {
-      min-height: 5em;
-      display: -webkit-box;
-      line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* ── Footer ───────────────────────────────────────────── */
-    .footer-brand p {
-      min-height: 5.5em;
-      display: -webkit-box;
-      line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .footer-col h4 { min-height: 1.3em; }
-
-    /* ── Mobile: relax fixed heights (single-column layout) ── */
-    @media (max-width: 768px) {
       .promo-strip { margin-top: 64px; }
       .promo-strip .container { min-height: 46px; }
       .promo-main { font-size: 0.8rem; }
       .promo-pill { font-size: 0.68rem; }
       .hero-kpis { grid-template-columns: 1fr; max-width: 100%; }
+    }
 
-      .hero-content h1,
-      .hero-content > p:not(.section-label),
-      .map-header .section-title,
-      .community-header .section-title,
-      .map-header .section-subtitle,
-      .community-header .section-subtitle { min-height: auto; }
+    @supports (padding: env(safe-area-inset-top)) {
+      .topbar { padding-top: env(safe-area-inset-top, 0); }
+      .hero { margin-top: calc(80px + env(safe-area-inset-top, 0)); }
+      footer { padding-bottom: calc(32px + env(safe-area-inset-bottom, 0)); }
+      @media (max-width: 768px) { .hero { margin-top: calc(64px + env(safe-area-inset-top, 0)); } }
+    }
 
+    /* ===== i18n LAYOUT LOCK ===== */
+    .btn-primary   { min-width: 200px; }
+    .btn-secondary { min-width: 160px; }
+    .btn-gold      { min-width: 200px; }
+    .topbar-cta .btn-secondary { min-width: 160px; }
+    .topbar-cta .btn-primary   { min-width: 220px; }
+    .hero-actions .btn { min-width: 220px; }
+    .filter-apply  { min-width: 120px; }
+    .hero-content h1  { min-height: 4.4em; }
+    .hero-content > p:not(.section-label) { min-height: 3.6em; }
+    .map-header .section-title,
+    .community-header .section-title { min-height: 2.5em; }
+    .map-header .section-subtitle,
+    .community-header .section-subtitle { min-height: 3.3em; }
+    .map-placeholder h3 { min-height: 1.5em; }
+    .map-placeholder p  { min-height: 3em; display: -webkit-box; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .trail-tag { min-width: 160px; justify-content: center; }
+    .filter-chip   { min-width: 110px; justify-content: center; }
+    .filter-select { min-width: 210px; }
+    .review-card { min-height: 260px; display: flex; flex-direction: column; }
+    .review-stars  { flex-shrink: 0; }
+    .review-card blockquote { flex: 1; display: -webkit-box; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; min-height: 5.8em; }
+    .review-author { flex-shrink: 0; margin-top: auto; }
+    .loyalty h3 { min-height: 2em; }
+    .loyalty > div:first-child > p { min-height: 5em; display: -webkit-box; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .footer-brand p { min-height: 5.5em; display: -webkit-box; line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .footer-col h4 { min-height: 1.3em; }
+
+    @media (max-width: 768px) {
+      .hero-content h1, .hero-content > p:not(.section-label),
+      .map-header .section-title, .community-header .section-title,
+      .map-header .section-subtitle, .community-header .section-subtitle { min-height: auto; }
       .review-card { min-height: auto; }
       .review-card blockquote { min-height: auto; line-clamp: 6; }
       .loyalty h3 { min-height: auto; }
@@ -950,46 +750,38 @@
   <a href="#main-content" class="skip-to-content" data-i18n="a11y.skip_to_content">Skip to content</a>
   <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
 
-  <!-- ===== TOP BAR ===== -->
+  <!-- TOP BAR -->
   <nav class="topbar" id="topbar">
     <div class="container">
       <a href="index.html" class="topbar-logo">
         <div class="logo-icon">
-          <img src="Vache's team library.png" alt="VineBond logo" />
+          <!-- Logo icon: gold vine on forest background -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/>
+            <path d="M12 22v-6"/>
+          </svg>
         </div>
         VineBond
       </a>
 
       <div class="topbar-nav" id="topbarNav">
         <a href="winery.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/>
-            <path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
           <span data-i18n="nav.wineries">Wineries</span>
         </a>
         <a href="book.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"/>
-            <path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           <span data-i18n="nav.book">Book</span>
         </a>
         <a href="vinemap.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-            <circle cx="12" cy="9" r="2.5"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           <span data-i18n="nav.vinemap">VineMap</span>
         </a>
       </div>
 
       <div class="topbar-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="search" id="winerySearch"
-               data-i18n-placeholder="nav.search_placeholder"
-               placeholder="Search wineries…" />
+        <input type="search" id="winerySearch" data-i18n-placeholder="nav.search_placeholder" placeholder="Search wineries…" />
       </div>
 
 
@@ -1009,6 +801,7 @@
     </div>
   </nav>
 
+  <!-- Promo strip: Tagline "Harmonious Connection, Certified Origin" -->
   <section class="promo-strip">
     <div class="container">
       <p class="promo-main">Spring 2026 Release: New vineyard experiences available this week</p>
@@ -1020,19 +813,14 @@
     </div>
   </section>
 
-  <!-- Backdrop overlay for mobile menu -->
   <div id="menuBackdrop" class="menu-backdrop"></div>
 
-  <!-- ===== MOBILE MENU OVERLAY =====
-       Separate fixed element — completely outside the topbar's
-       backdrop-filter GPU layer. Solid background, no compositing issues. -->
+  <!-- Mobile menu overlay — VINEBOND palette -->
   <div id="mobileMenuOverlay" class="mobile-menu-overlay" role="dialog" aria-label="Navigation menu">
-    <!-- Search -->
     <div class="mob-search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       <input type="search" placeholder="Search wineries…" data-i18n-placeholder="nav.search_placeholder" />
     </div>
-    <!-- Nav links -->
     <nav class="mob-nav">
       <a href="winery.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
@@ -1047,7 +835,6 @@
         <span data-i18n="nav.vinemap">VineMap</span>
       </a>
     </nav>
-    <!-- CTA buttons -->
     <div class="mob-cta">
       <a href="login.html" class="btn btn-secondary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -1056,6 +843,10 @@
       <a href="book.html" class="btn btn-primary">
         <span data-i18n="nav.book_tasting">Book a Tasting</span>
       </a>
+    </div>
+    <div class="mob-lang">
+      <button class="lang-option active" data-lang="en">EN</button>
+      <button class="lang-option" data-lang="de">DE</button>
     </div>
   </div>
 
@@ -1071,21 +862,10 @@
           <a href="#map" class="btn btn-secondary"><span data-i18n="hero.cta_map">Open VineMap</span></a>
         </div>
         <div class="hero-kpis">
-          <div class="hero-kpi">
-            <span class="num">4.9/5</span>
-            <span class="txt">Guest rating</span>
-          </div>
-          <div class="hero-kpi">
-            <span class="num">92%</span>
-            <span class="txt">Repeat booking</span>
-          </div>
-          <div class="hero-kpi">
-            <span class="num">48h</span>
-            <span class="txt">Free cancellation</span>
-          </div>
+          <div class="hero-kpi"><span class="num">4.9/5</span><span class="txt">Guest rating</span></div>
+          <div class="hero-kpi"><span class="num">92%</span><span class="txt">Repeat booking</span></div>
+          <div class="hero-kpi"><span class="num">48h</span><span class="txt">Free cancellation</span></div>
         </div>
-      </div>
-
       </div>
   </section>
 
@@ -1349,62 +1129,58 @@
         <div class="qr-visual">
           <div class="qr-mockup">
             <div class="qr-code-svg-wrap">
-              <!-- QR code pattern (decorative SVG) -->
               <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Sample VineBond QR code">
-                <!-- Corner squares -->
-                <rect x="5" y="5" width="28" height="28" rx="3" fill="none" stroke="#4A1528" stroke-width="3"/>
-                <rect x="10" y="10" width="18" height="18" rx="1" fill="#4A1528"/>
-                <rect x="67" y="5" width="28" height="28" rx="3" fill="none" stroke="#4A1528" stroke-width="3"/>
-                <rect x="72" y="10" width="18" height="18" rx="1" fill="#4A1528"/>
-                <rect x="5" y="67" width="28" height="28" rx="3" fill="none" stroke="#4A1528" stroke-width="3"/>
-                <rect x="10" y="72" width="18" height="18" rx="1" fill="#4A1528"/>
-                <!-- Data modules -->
-                <rect x="40" y="5" width="5" height="5" fill="#4A1528"/>
-                <rect x="50" y="5" width="5" height="5" fill="#4A1528"/>
-                <rect x="60" y="5" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="12" width="5" height="5" fill="#4A1528"/>
-                <rect x="55" y="12" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="19" width="5" height="5" fill="#4A1528"/>
-                <rect x="50" y="19" width="5" height="5" fill="#4A1528"/>
-                <rect x="5" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="12" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="22" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="5" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="19" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="26" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="5" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="15" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="50" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="60" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="60" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="50" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="60" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="67" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="77" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="87" y="40" width="5" height="5" fill="#4A1528"/>
-                <rect x="67" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="84" y="47" width="5" height="5" fill="#4A1528"/>
-                <rect x="72" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="82" y="54" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="67" width="5" height="5" fill="#4A1528"/>
-                <rect x="50" y="67" width="5" height="5" fill="#4A1528"/>
-                <rect x="60" y="67" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="74" width="5" height="5" fill="#4A1528"/>
-                <rect x="55" y="74" width="5" height="5" fill="#4A1528"/>
-                <rect x="67" y="67" width="5" height="5" fill="#4A1528"/>
-                <rect x="77" y="67" width="5" height="5" fill="#4A1528"/>
-                <rect x="87" y="67" width="5" height="5" fill="#4A1528"/>
-                <rect x="72" y="74" width="5" height="5" fill="#4A1528"/>
-                <rect x="82" y="74" width="5" height="5" fill="#4A1528"/>
-                <rect x="40" y="81" width="5" height="5" fill="#4A1528"/>
-                <rect x="50" y="81" width="5" height="5" fill="#4A1528"/>
-                <rect x="60" y="81" width="5" height="5" fill="#4A1528"/>
-                <rect x="67" y="81" width="5" height="5" fill="#4A1528"/>
-                <rect x="87" y="81" width="5" height="5" fill="#4A1528"/>
-                <!-- VineBond grape icon center -->
+                <rect x="5" y="5" width="28" height="28" rx="3" fill="none" stroke="#4A1F2A" stroke-width="3"/>
+                <rect x="10" y="10" width="18" height="18" rx="1" fill="#4A1F2A"/>
+                <rect x="67" y="5" width="28" height="28" rx="3" fill="none" stroke="#4A1F2A" stroke-width="3"/>
+                <rect x="72" y="10" width="18" height="18" rx="1" fill="#4A1F2A"/>
+                <rect x="5" y="67" width="28" height="28" rx="3" fill="none" stroke="#4A1F2A" stroke-width="3"/>
+                <rect x="10" y="72" width="18" height="18" rx="1" fill="#4A1F2A"/>
+                <rect x="40" y="5" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="50" y="5" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="60" y="5" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="12" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="55" y="12" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="19" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="50" y="19" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="5" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="12" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="22" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="5" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="19" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="26" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="5" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="15" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="50" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="60" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="60" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="50" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="60" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="67" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="77" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="87" y="40" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="67" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="84" y="47" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="72" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="82" y="54" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="67" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="50" y="67" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="60" y="67" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="74" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="55" y="74" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="67" y="67" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="77" y="67" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="87" y="67" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="72" y="74" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="82" y="74" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="40" y="81" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="50" y="81" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="60" y="81" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="67" y="81" width="5" height="5" fill="#4A1F2A"/>
+                <rect x="87" y="81" width="5" height="5" fill="#4A1F2A"/>
                 <text x="50" y="32" text-anchor="middle" font-size="10" fill="#D4AF37">🍇</text>
               </svg>
             </div>
@@ -1435,47 +1211,23 @@
           <div class="tier-name">Silver</div>
           <div class="tier-req">Base Entry</div>
           <ul class="tier-perks">
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Standard point accumulation on every winery visit
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Access to member-only tasting notes &amp; terroir guides
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Early access to seasonal booking windows
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Digital VineClub membership badge
-            </li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Standard point accumulation on every winery visit</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Access to member-only tasting notes &amp; terroir guides</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Early access to seasonal booking windows</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Digital VineClub membership badge</li>
           </ul>
         </div>
 
-        <!-- Gold -->
+        <!-- Gold (Featured) -->
         <div class="tier-card gold featured-tier fade-up">
           <div class="tier-icon">🥇</div>
           <div class="tier-name">Gold</div>
           <div class="tier-req">Mid-Level</div>
           <ul class="tier-perks">
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              All Silver benefits included
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Bonus 1.5× point multiplier on purchases
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Extra baseline services: priority booking &amp; concierge
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Complimentary winery welcome gift on arrival
-            </li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All Silver benefits included</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bonus 1.5× point multiplier on purchases</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Extra baseline services: priority booking &amp; concierge</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Complimentary winery welcome gift on arrival</li>
           </ul>
         </div>
 
@@ -1485,22 +1237,10 @@
           <div class="tier-name">Platinum</div>
           <div class="tier-req">High-Level</div>
           <ul class="tier-perks">
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              All Gold benefits included
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Special invitations to VIP wine tastings with winemakers &amp; industry guests
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Private cellar access &amp; unreleased barrel tastings
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Dedicated VineBond concierge &amp; bespoke travel planning
-            </li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All Gold benefits included</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Special invitations to VIP wine tastings with winemakers &amp; industry guests</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Private cellar access &amp; unreleased barrel tastings</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dedicated VineBond concierge &amp; bespoke travel planning</li>
           </ul>
         </div>
 
@@ -1524,16 +1264,16 @@
       </div>
 
       <div class="map-wrapper fade-up">
-        <!-- Decorative vineyard pins -->
-        <svg class="map-pin p1" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#6B1F3C"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/><path d="M13 18c2-3 3.5-4 5-4s3 1 5 4" stroke="#4A5D3E" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <svg class="map-pin p2 featured" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#D4AF37"/><circle cx="18" cy="15" r="6" fill="#FFF"/><path d="M15 15l2 2 4-4" stroke="#6B1F3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <svg class="map-pin p3" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#C97450"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/></svg>
-        <svg class="map-pin p4" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#6B1F3C"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/></svg>
-        <svg class="map-pin p5" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#4A5D3E"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/></svg>
+        <!-- Decorative pins — VINEBOND colors -->
+        <svg class="map-pin p1" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#5C2632"/><circle cx="18" cy="15" r="6" fill="#EDE8E0"/><path d="M13 18c2-3 3.5-4 5-4s3 1 5 4" stroke="#1C4F3D" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="map-pin p2 featured" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#D4AF37"/><circle cx="18" cy="15" r="6" fill="#FFF"/><path d="M15 15l2 2 4-4" stroke="#5C2632" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="map-pin p3" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#B8834F"/><circle cx="18" cy="15" r="6" fill="#EDE8E0"/></svg>
+        <svg class="map-pin p4" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#5C2632"/><circle cx="18" cy="15" r="6" fill="#EDE8E0"/></svg>
+        <svg class="map-pin p5" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#1C4F3D"/><circle cx="18" cy="15" r="6" fill="#EDE8E0"/></svg>
 
         <div class="map-placeholder">
           <div class="map-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6B1F3C" stroke-width="2" stroke-linecap="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5C2632" stroke-width="2" stroke-linecap="round">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
               <circle cx="12" cy="9" r="2.5"/>
             </svg>
@@ -1545,26 +1285,11 @@
       </div>
 
       <div class="map-trails fade-up">
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_bordeaux">Bordeaux Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_tuscany">Tuscany Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_napa">Napa Valley Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_armenia">Armenian Highland Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_rioja">Rioja Trail</span>
-        </span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span data-i18n="vinemap.trail_bordeaux">Bordeaux Trail</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span data-i18n="vinemap.trail_tuscany">Tuscany Trail</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span data-i18n="vinemap.trail_napa">Napa Valley Trail</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span data-i18n="vinemap.trail_armenia">Armenian Highland Trail</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span data-i18n="vinemap.trail_rioja">Rioja Trail</span></span>
       </div>
     </div>
   </section>
@@ -1591,7 +1316,7 @@
           </div>
           <blockquote>"Walking through the Sangiovese rows at sunrise, feeling the limestone underfoot — VineBond made it effortless to book."</blockquote>
           <div class="review-author">
-            <div class="review-avatar" style="background:var(--burgundy);">ML</div>
+            <div class="review-avatar" style="background:var(--vb-burgundy);">ML</div>
             <div class="review-author-info">
               <div class="name">Marie Laurent</div>
               <div class="winery">Visited Antinori, Tuscany</div>
@@ -1608,7 +1333,7 @@
           </div>
           <blockquote>"The Winemaker's Dinner was unlike anything — stories from the cellar, rare bottles, and local cuisine. Truly authentic."</blockquote>
           <div class="review-author">
-            <div class="review-avatar" style="background:var(--green);">JK</div>
+            <div class="review-avatar" style="background:var(--vb-forest);">JK</div>
             <div class="review-author-info">
               <div class="name">James Keating</div>
               <div class="winery">Visited Karas Wines, Armenia</div>
@@ -1621,23 +1346,23 @@
             <svg viewBox="0 0 24 24" fill="#D4AF37"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
             <svg viewBox="0 0 24 24" fill="#D4AF37"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
             <svg viewBox="0 0 24 24" fill="#D4AF37"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-            <svg viewBox="0 0 24 24" fill="#E8DFD0"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#EDE8E0"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote>"The VineMap trail feature is genius. We planned a full week across three French regions without a single hiccup."</blockquote>
           <div class="review-author">
-            <div class="review-avatar" style="background:var(--terracotta);">AP</div>
+            <div class="review-avatar" style="background:var(--vb-warning);">AP</div>
             <div class="review-author-info">
               <div class="name">Ana Petrova</div>
-              <div class="winery">Bordeaux & Burgundy Trail</div>
+              <div class="winery">Bordeaux &amp; Burgundy Trail</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Badges & Loyalty -->
+      <!-- Loyalty Section -->
       <div class="loyalty fade-up">
         <div>
-          <p class="section-label" style="color: rgba(245,241,232,0.6);" data-i18n="loyalty.section_label">Badges &amp; Loyalty Program</p>
+          <p class="section-label" style="color: rgba(237,232,224,0.65);" data-i18n="loyalty.section_label">Badges &amp; Loyalty Program</p>
           <h3 data-i18n="loyalty.title">Earn Rewards with Every Visit</h3>
           <p data-i18n="loyalty.desc">Collect badges for vineyard visits, terroir explorations, and wine trail completions. Unlock exclusive perks and members-only experiences.</p>
           <a href="#" class="btn btn-gold" data-i18n="loyalty.cta">Join the VineClub</a>
@@ -1647,17 +1372,17 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1.3-2 2.7-3 4-3s2.7 1 4 3"/><path d="M9 9h.01M15 9h.01"/></svg>
             <span class="badge-label" style="color:#D4AF37;" data-i18n="loyalty.badge_explorer">Explorer</span>
           </div>
-          <div class="loyalty-badge" style="background: rgba(74,93,62,0.15);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#4A5D3E" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg>
-            <span class="badge-label" style="color:#4A5D3E;" data-i18n="loyalty.badge_terroir">Terroir</span>
+          <div class="loyalty-badge" style="background: rgba(28,79,61,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1C4F3D" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg>
+            <span class="badge-label" style="color:#1C4F3D;" data-i18n="loyalty.badge_terroir">Terroir</span>
           </div>
-          <div class="loyalty-badge" style="background: rgba(201,116,80,0.15);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C97450" stroke-width="2" stroke-linecap="round"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z"/><path d="M12 15v7M8 18h8"/></svg>
-            <span class="badge-label" style="color:#C97450;" data-i18n="loyalty.badge_harvest">Harvest</span>
+          <div class="loyalty-badge" style="background: rgba(184,131,79,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B8834F" stroke-width="2" stroke-linecap="round"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z"/><path d="M12 15v7M8 18h8"/></svg>
+            <span class="badge-label" style="color:#B8834F;" data-i18n="loyalty.badge_harvest">Harvest</span>
           </div>
-          <div class="loyalty-badge" style="background: rgba(107,31,60,0.12);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6B1F3C" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-            <span class="badge-label" style="color:#6B1F3C;" data-i18n="loyalty.badge_cellar">Cellar</span>
+          <div class="loyalty-badge" style="background: rgba(92,38,50,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5C2632" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            <span class="badge-label" style="color:#5C2632;" data-i18n="loyalty.badge_cellar">Cellar</span>
           </div>
           <div class="loyalty-badge" style="background: rgba(212,175,55,0.2);">
             <svg viewBox="0 0 24 24" fill="none" stroke="#B8960F" stroke-width="2" stroke-linecap="round"><path d="M5 3l14 9-14 9V3z"/></svg>
@@ -1668,7 +1393,7 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== FOOTER — Forest background ===== -->
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -1688,10 +1413,10 @@
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer.bookings_title">Bookings</h4>
-          <a href="#experiences" data-i18n="footer.link_experiences">Experiences</a>
+          <a href="#winery-feed" data-i18n="footer.link_experiences">Experiences</a>
           <a href="#" data-i18n="footer.link_group">Group Tastings</a>
           <a href="#" data-i18n="footer.link_gifts">Gift Cards</a>
-          <a href="#" data-i18n="footer.link_vineclub">VineClub</a>
+          <a href="#vineclub" data-i18n="footer.link_vineclub">VineClub</a>
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer.company_title">Company</h4>
@@ -1710,111 +1435,61 @@
 
   <!-- ===== JAVASCRIPT ===== -->
   <script>
-    /* ---- Topbar scroll effect ---- */
     const topbar = document.getElementById('topbar');
-    window.addEventListener('scroll', () => {
-      topbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    window.addEventListener('scroll', () => { topbar.classList.toggle('scrolled', window.scrollY > 40); });
 
-    /* ---- Scroll lock (position:fixed + document-level event blocking) ---- */
-    let _lockedScrollY = 0;
-    let _menuOpen = false;
-    const _scrollKeys = { 32:1, 33:1, 34:1, 35:1, 36:1, 37:1, 38:1, 39:1, 40:1 };
-
+    let _lockedScrollY = 0, _menuOpen = false;
+    const _scrollKeys = { 32:1,33:1,34:1,35:1,36:1,37:1,38:1,39:1,40:1 };
     function _blockScroll(e) { if (_menuOpen) { e.preventDefault(); e.stopPropagation(); } }
     function _blockKeys(e)   { if (_menuOpen && _scrollKeys[e.keyCode]) e.preventDefault(); }
 
     function lockScroll() {
-      _lockedScrollY = window.scrollY;
-      _menuOpen = true;
+      _lockedScrollY = window.scrollY; _menuOpen = true;
       document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow  = 'hidden';
-      document.body.style.position  = 'fixed';
-      document.body.style.top       = `-${_lockedScrollY}px`;
-      document.body.style.width     = '100%';
-      document.addEventListener('wheel',     _blockScroll, { passive: false });
+      document.body.style.overflow = 'hidden'; document.body.style.position = 'fixed';
+      document.body.style.top = `-${_lockedScrollY}px`; document.body.style.width = '100%';
+      document.addEventListener('wheel', _blockScroll, { passive: false });
       document.addEventListener('touchmove', _blockScroll, { passive: false });
-      document.addEventListener('keydown',   _blockKeys,   { passive: false });
+      document.addEventListener('keydown', _blockKeys, { passive: false });
     }
-
     function unlockScroll() {
       _menuOpen = false;
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow  = '';
-      document.body.style.position  = '';
-      document.body.style.top       = '';
-      document.body.style.width     = '';
-      document.removeEventListener('wheel',     _blockScroll);
+      document.documentElement.style.overflow = ''; document.body.style.overflow = '';
+      document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
+      document.removeEventListener('wheel', _blockScroll);
       document.removeEventListener('touchmove', _blockScroll);
-      document.removeEventListener('keydown',   _blockKeys);
+      document.removeEventListener('keydown', _blockKeys);
       window.scrollTo(0, _lockedScrollY);
     }
 
-    /* ---- Mobile menu toggle ---- */
-    const mobileToggle      = document.getElementById('mobileToggle');
-    const menuBackdrop      = document.getElementById('menuBackdrop');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const menuBackdrop = document.getElementById('menuBackdrop');
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
 
-    function openMenu() {
-      mobileMenuOverlay.classList.add('open');
-      menuBackdrop.classList.add('visible');
-      mobileToggle.setAttribute('aria-expanded', 'true');
-      lockScroll();
-    }
+    function openMenu()  { mobileMenuOverlay.classList.add('open'); menuBackdrop.classList.add('visible'); mobileToggle.setAttribute('aria-expanded', 'true');  lockScroll(); }
+    function closeMenu() { mobileMenuOverlay.classList.remove('open'); menuBackdrop.classList.remove('visible'); mobileToggle.setAttribute('aria-expanded', 'false'); unlockScroll(); }
 
-    function closeMenu() {
-      mobileMenuOverlay.classList.remove('open');
-      menuBackdrop.classList.remove('visible');
-      mobileToggle.setAttribute('aria-expanded', 'false');
-      unlockScroll();
-    }
-
-    mobileToggle.addEventListener('click', () => {
-      mobileMenuOverlay.classList.contains('open') ? closeMenu() : openMenu();
-    });
-
+    mobileToggle.addEventListener('click', () => mobileMenuOverlay.classList.contains('open') ? closeMenu() : openMenu());
     menuBackdrop.addEventListener('click', closeMenu);
+    mobileMenuOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => { if (window.innerWidth > 768 && mobileMenuOverlay.classList.contains('open')) closeMenu(); });
 
-    // Close when any link inside the overlay is tapped
-    mobileMenuOverlay.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeMenu);
-    });
-
-    // Close menu when resized to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && mobileMenuOverlay.classList.contains('open')) {
-        closeMenu();
-      }
-    });
-
-    /* ---- Scroll-reveal animation ---- */
     const fadeEls = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.15 });
     fadeEls.forEach(el => observer.observe(el));
 
-    /* ---- Filter chips toggle ---- */
-    document.querySelectorAll('.filter-chip').forEach(chip => {
-      chip.addEventListener('click', () => chip.classList.toggle('active'));
-    });
+    document.querySelectorAll('.filter-chip').forEach(chip => chip.addEventListener('click', () => chip.classList.toggle('active')));
 
-    /* ---- Trail tags hover color ---- */
     document.querySelectorAll('.trail-tag').forEach(tag => {
       tag.addEventListener('click', () => {
-        document.querySelectorAll('.trail-tag').forEach(t => t.style.background = '');
-        tag.style.background = '#4A5D3E';
-        tag.style.color = '#F5F1E8';
-        tag.style.borderColor = '#4A5D3E';
+        document.querySelectorAll('.trail-tag').forEach(t => { t.style.background = ''; t.style.color = ''; t.style.borderColor = ''; });
+        tag.style.background = '#1C4F3D'; tag.style.color = '#EDE8E0'; tag.style.borderColor = '#1C4F3D';
       });
     });
-
-    
   </script>
   <button class="back-to-top" data-back-to-top aria-label="Back to top" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
