@@ -332,38 +332,23 @@ const VB_TRANSLATIONS_FALLBACK = {
 
 class VineBondI18n {
   constructor() {
-    this.lang = localStorage.getItem('vb_lang') || this._detectBrowserLang();
+    this.lang = 'en';
     this.data = {};
   }
 
   _detectBrowserLang() {
-    const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    return browser === 'de' ? 'de' : 'en';
+    return 'en';
   }
 
   async init() {
     // 1 · Apply embedded fallback immediately — eliminates language flash on every page load
-    this.data = VB_TRANSLATIONS_FALLBACK;
+    this.data = { en: VB_TRANSLATIONS_FALLBACK.en };
     this._apply();
     this._bindToggle();
     this._bindSearch();
     // Reveal page (was hidden by html.i18n-loading CSS rule set in <head>)
     document.documentElement.classList.remove('i18n-loading');
     document.dispatchEvent(new CustomEvent('vb:i18n:ready', { detail: { lang: this.lang } }));
-
-    // 2 · Silently upgrade data with JSON for future setLang() calls — no re-render needed
-    // (embedded fallback is kept in sync with JSON, so re-applying would be identical)
-    try {
-      const res = await fetch('assets/i18n/translations.json?v=3');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const freshData = await res.json();
-      // Merge so fallback keys not in JSON are preserved
-      this.data = {
-        en: Object.assign({}, VB_TRANSLATIONS_FALLBACK.en, freshData.en || {}),
-        de: Object.assign({}, VB_TRANSLATIONS_FALLBACK.de, freshData.de || {})
-      };
-      this._apply();
-    } catch (_) { /* already using embedded fallback, no action needed */ }
   }
 
   /** Translate a key with optional {{var}} interpolation.
@@ -383,6 +368,7 @@ class VineBondI18n {
   }
 
   setLang(lang) {
+    if (lang !== 'en') return;
     if (!this.data[lang]) return;
     this.lang = lang;
     localStorage.setItem('vb_lang', lang);
