@@ -1824,16 +1824,7 @@
       });
     });
 
-    /* ---- Dynamic price estimate ---- */
-    const guestSelect = document.querySelector('.hero-booking .booking-row select');
-    const priceDisplay = document.querySelector('.booking-price .price');
-    const basePrices = { '1 guest': 85, '2 guests': 85, '3 guests': 80, '4 guests': 75, '5+ guests': 70 };
-    if (guestSelect && priceDisplay) {
-      guestSelect.addEventListener('change', () => {
-        const p = basePrices[guestSelect.value] || 85;
-        priceDisplay.innerHTML = `€${p} <small>/ person</small>`;
-      });
-    }
+    
   </script>
   <button class="back-to-top" data-back-to-top aria-label="Back to top" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
