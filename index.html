@@ -57,13 +57,14 @@
     }
     .hero .container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 48px;
       align-items: center;
       position: relative;
       z-index: 1;
       padding-top: 60px;
       padding-bottom: 60px;
+      max-width: 800px;
     }
     .hero-content h1 {
       font-size: clamp(2.2rem, 5vw, 3.4rem);
@@ -154,68 +155,6 @@
       white-space: nowrap;
     }
 
-    /* Hero Booking Widget */
-    .hero-booking {
-      background: var(--white);
-      border-radius: var(--radius-xl);
-      padding: 32px;
-      box-shadow: 0 12px 48px var(--shadow-lg);
-      border: 1px solid rgba(212,175,55,0.2);
-    }
-    .hero-booking h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .hero-booking h3 svg { width: 20px; height: 20px; }
-    .booking-field { margin-bottom: 16px; }
-    .booking-field label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--oak);
-      margin-bottom: 6px;
-      white-space: nowrap;
-    }
-    .booking-field select,
-    .booking-field input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid #DDD2BF;
-      border-radius: var(--radius-md);
-      font-size: 0.95rem;
-      color: var(--burgundy-deep);
-      background: var(--cream);
-      transition: var(--transition);
-      appearance: none;
-    }
-    .booking-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238B7355'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
-    .booking-field select:focus,
-    .booking-field input:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
-    }
-    .booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .booking-price {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: rgba(107,31,60,0.04);
-      border-radius: var(--radius-md);
-      margin-bottom: 20px;
-    }
-    .booking-price .label { font-size: 0.85rem; color: var(--oak); }
-    .booking-price .price { font-size: 1.25rem; font-weight: 800; color: var(--burgundy); }
-    .hero-booking .btn { width: 100%; }
-
     /* ===== FILTRATION BAR ===== */
     .filter-bar {
       background: var(--white);
@@ -285,121 +224,9 @@
     }
     .filter-apply { margin-left: auto; }
 
-    /* ===== TERROIR & SUSTAINABILITY ===== */
-    .terroir-section { padding: 80px 0; }
-    .terroir-header { text-align: center; margin-bottom: 48px; }
-    .terroir-header .section-subtitle { margin: 0 auto; }
-
-    .terroir-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .terroir-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      border: 1px solid #E8DFD0;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .terroir-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 4px; height: 100%;
-      background: var(--green);
-      transition: var(--transition);
-    }
-    .terroir-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 36px var(--shadow);
-    }
-    .terroir-card:hover::before { width: 6px; }
-    .terroir-card-icon {
-      width: 56px; height: 56px;
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 16px;
-    }
-    .terroir-card-icon svg { width: 28px; height: 28px; }
-    .terroir-card-icon.soil { background: rgba(74,93,62,0.1); }
-    .terroir-card-icon.climate { background: rgba(212,175,55,0.12); }
-    .terroir-card-icon.vine { background: rgba(107,31,60,0.08); }
-    .terroir-card h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 8px;
-    }
-    .terroir-card p { font-size: 0.9rem; color: var(--oak); line-height: 1.55; }
-    .terroir-card .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 14px;
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .badge-soil { background: rgba(74,93,62,0.1); color: var(--green); }
-    .badge-climate { background: rgba(212,175,55,0.12); color: var(--gold-warm); }
-    .badge-vine { background: rgba(107,31,60,0.08); color: var(--burgundy); }
-
-    /* Sustainability Strip */
-    .sustainability {
-      background: linear-gradient(135deg, var(--green), var(--green-forest));
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-      color: var(--cream);
-    }
-    .sustainability h3 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-    .sustainability p { font-size: 0.95rem; opacity: 0.88; margin-bottom: 24px; line-height: 1.6; }
-    .sustain-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .sustain-stat {
-      text-align: center;
-      padding: 20px;
-      background: rgba(255,255,255,0.08);
-      border-radius: var(--radius-md);
-      backdrop-filter: blur(4px);
-    }
-    .sustain-stat .num {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--gold);
-    }
-    .sustain-stat .desc {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      opacity: 0.8;
-      margin-top: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* ===== EXPERIENCES / BOOKING ===== */
-    .experiences { padding: 80px 0; background: var(--white); }
-    .experiences-header {
+    /* ===== RHEINGAU INSTAGRAM FEED ===== */
+    .winery-feed-section { padding: 80px 0; background: var(--white); }
+    .winery-feed-header {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
@@ -407,12 +234,13 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    .exp-grid {
+    .winery-feed-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 20px;
+      margin-bottom: 36px;
     }
-    .exp-card {
+    .winery-feed-card {
       border-radius: var(--radius-lg);
       overflow: hidden;
       background: var(--cream);
@@ -420,76 +248,210 @@
       transition: var(--transition);
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
-    .exp-card:hover {
+    .winery-feed-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 16px 40px var(--shadow);
     }
-    .exp-card-img {
+    .winery-feed-img {
       position: relative;
-      height: 220px;
-      background: linear-gradient(135deg, var(--cream-dark) 0%, #DDD2BF 100%);
-      display: flex; align-items: center; justify-content: center;
+      height: 240px;
       overflow: hidden;
     }
-    .exp-card-img .placeholder-art {
-      font-size: 3.5rem;
-      opacity: 0.3;
+    .winery-feed-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
     }
-    .exp-card-img .exp-badge {
+    .winery-feed-card:hover .winery-feed-img img { transform: scale(1.06); }
+    .winery-feed-img .feed-region-badge {
       position: absolute;
-      top: 14px; left: 14px;
+      top: 12px; left: 12px;
       padding: 5px 12px;
       border-radius: 100px;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      background: var(--burgundy);
-      color: var(--cream);
-    }
-    .exp-card-img .exp-slots {
-      position: absolute;
-      top: 14px; right: 14px;
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: rgba(255,255,255,0.9);
-      color: var(--green);
+      letter-spacing: 0.05em;
+      background: rgba(74,21,40,0.82);
+      color: #F5F1E8;
       backdrop-filter: blur(4px);
     }
-    .exp-card-body { padding: 20px; flex: 1; }
-    .exp-card-body h4 {
+    .winery-feed-img .feed-likes {
+      position: absolute;
+      bottom: 10px; right: 12px;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
+    .winery-feed-img .feed-likes svg { width: 13px; height: 13px; fill: #e05577; }
+    .winery-feed-body { padding: 18px 20px; flex: 1; }
+    .winery-feed-body h4 {
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--burgundy);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-    .exp-card-body .location {
-      font-size: 0.82rem;
+    .winery-feed-body .feed-location {
+      font-size: 0.8rem;
       color: var(--oak);
-      margin-bottom: 12px;
       display: flex; align-items: center; gap: 4px;
+      margin-bottom: 10px;
     }
-    .exp-card-body .location svg { width: 14px; height: 14px; }
-    .exp-card-body .desc {
-      font-size: 0.88rem;
+    .winery-feed-body .feed-location svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .winery-feed-body .feed-desc {
+      font-size: 0.86rem;
       color: #6B5D4F;
       line-height: 1.5;
-      margin-bottom: 16px;
     }
-    .exp-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
+    .winery-feed-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
       border-top: 1px solid #E8DFD0;
       background: rgba(245,241,232,0.5);
     }
-    .exp-price { font-size: 1.15rem; font-weight: 800; color: var(--burgundy); }
-    .exp-price small { font-size: 0.75rem; font-weight: 500; color: var(--oak); }
-    .exp-card-footer .btn { padding: 8px 20px; font-size: 0.78rem; }
+    .feed-rating {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.82rem; font-weight: 700; color: var(--burgundy);
+    }
+    .feed-rating svg { width: 14px; height: 14px; fill: #D4AF37; }
+    .feed-view-all-wrap { text-align: center; margin-top: 8px; }
+
+    /* ===== QR CODE SECTION ===== */
+    .qr-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #F7F2EA 0%, #EDE4D4 100%);
+    }
+    .qr-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .qr-content h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--burgundy);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .qr-content p { font-size: 0.95rem; color: var(--oak); line-height: 1.65; margin-bottom: 28px; }
+    .qr-steps { display: flex; flex-direction: column; gap: 18px; }
+    .qr-step { display: flex; align-items: flex-start; gap: 16px; }
+    .qr-step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--burgundy);
+      color: var(--cream);
+      font-size: 0.82rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qr-step-text strong { display: block; font-size: 0.92rem; color: var(--burgundy); margin-bottom: 2px; }
+    .qr-step-text span { font-size: 0.84rem; color: var(--oak); }
+    .qr-visual { display: flex; align-items: center; justify-content: center; }
+    .qr-mockup {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: 0 12px 48px rgba(42,14,24,0.12);
+      border: 1px solid rgba(212,175,55,0.2);
+      text-align: center;
+      max-width: 300px; width: 100%;
+    }
+    .qr-code-svg-wrap {
+      width: 160px; height: 160px;
+      margin: 0 auto 20px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid #E8DFD0;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff;
+    }
+    .qr-code-svg-wrap svg { width: 100%; height: 100%; }
+    .qr-mockup h4 { font-size: 0.95rem; font-weight: 700; color: var(--burgundy); margin-bottom: 6px; }
+    .qr-mockup p { font-size: 0.78rem; color: var(--oak); line-height: 1.5; }
+
+    /* ===== VINECLUB TIERS ===== */
+    .vineclub-section { padding: 80px 0; background: var(--white); }
+    .vineclub-header { text-align: center; margin-bottom: 48px; }
+    .vineclub-header .section-subtitle { margin: 0 auto; max-width: 580px; }
+    .vineclub-tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .tier-card {
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border: 2px solid #E8DFD0;
+      transition: var(--transition);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .tier-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+    }
+    .tier-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
+    .tier-card.silver::before { background: linear-gradient(90deg, #9E9E9E, #BDBDBD); }
+    .tier-card.gold::before   { background: linear-gradient(90deg, #D4AF37, #F0D060); }
+    .tier-card.platinum::before { background: linear-gradient(90deg, #4A1528, #6B1F3C); }
+    .tier-card.featured-tier { border-color: var(--gold); background: linear-gradient(160deg,#FFFBEF 0%,#FFF7DC 100%); }
+    .tier-icon {
+      width: 68px; height: 68px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; font-size: 2rem;
+    }
+    .tier-card.silver .tier-icon  { background: rgba(158,158,158,0.12); }
+    .tier-card.gold   .tier-icon  { background: rgba(212,175,55,0.15); }
+    .tier-card.platinum .tier-icon { background: rgba(107,31,60,0.1); }
+    .tier-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .tier-card.silver .tier-name   { color: #757575; }
+    .tier-card.gold   .tier-name   { color: var(--gold-warm); }
+    .tier-card.platinum .tier-name { color: var(--burgundy); }
+    .tier-req {
+      font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 4px 14px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .tier-card.silver .tier-req   { background: rgba(158,158,158,0.12); color: #757575; }
+    .tier-card.gold   .tier-req   { background: rgba(212,175,55,0.15); color: var(--gold-warm); }
+    .tier-card.platinum .tier-req { background: rgba(107,31,60,0.1); color: var(--burgundy); }
+    .tier-perks { list-style: none; padding: 0; margin: 0; text-align: left; width: 100%; }
+    .tier-perks li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #F0E8DC;
+      font-size: 0.86rem; color: var(--oak); line-height: 1.45;
+    }
+    .tier-perks li:last-child { border-bottom: none; }
+    .tier-perks li svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .tier-card.silver .tier-perks li svg   { stroke: #9E9E9E; }
+    .tier-card.gold   .tier-perks li svg   { stroke: #B8960F; }
+    .tier-card.platinum .tier-perks li svg { stroke: var(--burgundy); }
+    .vineclub-cta-row { text-align: center; }
+
+    /* ===== RESPONSIVE — NEW SECTIONS ===== */
+    @media (max-width: 1024px) {
+      .winery-feed-grid { grid-template-columns: 1fr 1fr; }
+      .vineclub-tiers { grid-template-columns: 1fr 1fr; }
+      .qr-inner { grid-template-columns: 1fr; gap: 40px; }
+      .qr-visual { order: -1; }
+      .qr-mockup { max-width: 260px; }
+    }
+    @media (max-width: 768px) {
+      .winery-feed-grid { grid-template-columns: 1fr; }
+      .vineclub-tiers { grid-template-columns: 1fr; }
+      .winery-feed-header { flex-direction: column; align-items: flex-start; }
+    }
 
     /* ===== INTERACTIVE MAP ===== */
     .map-section { padding: 80px 0; }
@@ -739,10 +701,6 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .hero .container { grid-template-columns: 1fr; gap: 32px; }
-      .hero-booking { max-width: 520px; }
-      .terroir-grid { grid-template-columns: 1fr 1fr; }
-      .exp-grid { grid-template-columns: 1fr 1fr; }
-      .sustainability { grid-template-columns: 1fr; }
       .loyalty { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -850,18 +808,14 @@
 
       .hero { margin-top: 64px; min-height: auto; }
       .hero .container { padding-top: 40px; padding-bottom: 40px; }
-      .booking-row { grid-template-columns: 1fr; }
 
       .filter-bar .container { flex-direction: column; align-items: stretch; }
       .filter-group { flex-direction: column; }
       .filter-select { width: 100%; }
       .filter-apply { margin-left: 0; width: 100%; }
 
-      .terroir-grid { grid-template-columns: 1fr; }
-      .exp-grid { grid-template-columns: 1fr; }
       .reviews-grid { grid-template-columns: 1fr; }
-      .sustain-stats { grid-template-columns: 1fr; }
-      .sustainability, .loyalty { padding: 32px 20px; }
+      .loyalty { padding: 32px 20px; }
 
       .map-wrapper { min-height: 360px; }
       .map-pin { display: none; }
@@ -904,63 +858,11 @@
     .hero-content > p:not(.section-label) { min-height: 3.6em; }
 
     /* ── Section headers: fixed vertical reservation ──────── */
-    .terroir-header .section-title,
-    .experiences-header .section-title,
     .map-header .section-title,
     .community-header .section-title { min-height: 2.5em; }
 
-    .terroir-header .section-subtitle,
     .map-header .section-subtitle,
     .community-header .section-subtitle { min-height: 3.3em; }
-
-    .experiences-header .section-subtitle { min-height: 1.65em; }
-
-    /* ── Terroir cards: fixed height with flex layout ─────── */
-    .terroir-card {
-      min-height: 290px;
-      display: flex;
-      flex-direction: column;
-    }
-    .terroir-card h4 { min-height: 1.4em; }
-    .terroir-card p {
-      flex: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 7em;
-    }
-    .terroir-card .badge { flex-shrink: 0; }
-
-    /* ── Sustainability strip ─────────────────────────────── */
-    .sustainability h3 { min-height: 2em; }
-    .sustainability > div:first-child > p {
-      min-height: 5em;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .sustain-stat { min-height: 100px; }
-
-    /* ── Experience cards: fixed body height ──────────────── */
-    .exp-card-body {
-      min-height: 170px;
-      display: flex;
-      flex-direction: column;
-    }
-    .exp-card-body h4 { min-height: 1.35em; }
-    .exp-card-body .desc {
-      flex: 1;
-      display: -webkit-box;
-      line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 4em;
-    }
-    .exp-card-body .location { flex-shrink: 0; }
 
     /* ── Map section ──────────────────────────────────────── */
     .map-placeholder h3 { min-height: 1.5em; }
@@ -1006,11 +908,6 @@
       overflow: hidden;
     }
 
-    /* ── Booking widget ──────────────────────────────────── */
-    .hero-booking h3 { min-height: 1.5em; }
-    .booking-field label { min-height: 1.3em; }
-    .booking-price .label { min-width: 130px; }
-
     /* ── Footer ───────────────────────────────────────────── */
     .footer-brand p {
       min-height: 5.5em;
@@ -1031,24 +928,13 @@
 
       .hero-content h1,
       .hero-content > p:not(.section-label),
-      .terroir-header .section-title,
-      .experiences-header .section-title,
       .map-header .section-title,
       .community-header .section-title,
-      .terroir-header .section-subtitle,
       .map-header .section-subtitle,
-      .community-header .section-subtitle,
-      .experiences-header .section-subtitle { min-height: auto; }
+      .community-header .section-subtitle { min-height: auto; }
 
-      .terroir-card { min-height: auto; }
-      .terroir-card p { min-height: auto; line-clamp: 6; }
-      .exp-card-body { min-height: auto; }
-      .exp-card-body .desc { min-height: auto; line-clamp: 5; }
       .review-card { min-height: auto; }
       .review-card blockquote { min-height: auto; line-clamp: 6; }
-      .sustain-stat { min-height: auto; }
-      .sustainability > div:first-child > p { min-height: auto; line-clamp: 6; }
-      .sustainability h3,
       .loyalty h3 { min-height: auto; }
       .loyalty > div:first-child > p { min-height: auto; line-clamp: 6; }
       .footer-brand p { min-height: auto; }
@@ -1181,7 +1067,7 @@
         <h1 data-i18n-html="hero.title_html">Discover the World's<br/>Finest <span>Wine Experiences</span></h1>
         <p data-i18n="hero.subtitle">Book exclusive vineyard tours, cellar tastings, and terroir explorations at hand-picked wineries across the globe.</p>
         <div class="hero-actions">
-          <a href="#experiences" class="btn btn-primary"><span data-i18n="hero.cta_explore">Explore Experiences</span></a>
+          <a href="#winery-feed" class="btn btn-primary"><span data-i18n="hero.cta_explore">Explore Rheingau Wineries</span></a>
           <a href="#map" class="btn btn-secondary"><span data-i18n="hero.cta_map">Open VineMap</span></a>
         </div>
         <div class="hero-kpis">
@@ -1200,59 +1086,7 @@
         </div>
       </div>
 
-      <div class="hero-booking fade-up">
-        <h3>
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"/>
-            <path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
-          <span data-i18n="hero.booking_title">Quick Booking</span>
-        </h3>
-        <div class="booking-field">
-          <label data-i18n="hero.booking_destination_label">City or Village</label>
-          <select>
-            <option data-i18n="hero.dest_placeholder">Select a destination…</option>
-            <option>Bordeaux, France</option>
-            <option>Napa Valley, USA</option>
-            <option>Barossa Valley, Australia</option>
-            <option>Tuscany, Italy</option>
-            <option>Mendoza, Argentina</option>
-            <option>Areni, Armenia</option>
-          </select>
-        </div>
-        <div class="booking-row">
-          <div class="booking-field">
-            <label data-i18n="hero.booking_date_label">Date</label>
-            <input type="date" value="2026-04-15" />
-          </div>
-          <div class="booking-field">
-            <label data-i18n="hero.booking_guests_label">Guests</label>
-            <select>
-              <option data-i18n="hero.guest_2">2 guests</option>
-              <option data-i18n="hero.guest_1">1 guest</option>
-              <option data-i18n="hero.guest_3">3 guests</option>
-              <option data-i18n="hero.guest_4">4 guests</option>
-              <option data-i18n="hero.guest_5p">5+ guests</option>
-            </select>
-          </div>
-        </div>
-        <div class="booking-field">
-          <label data-i18n="hero.booking_experience_label">Experience Type</label>
-          <select>
-            <option data-i18n="hero.exp_cellar_tasting">Cellar Tasting</option>
-            <option data-i18n="hero.exp_walk_tasting">Vineyard Walk &amp; Tasting</option>
-            <option data-i18n="hero.exp_full_day_trail">Full-Day Wine Trail</option>
-            <option data-i18n="hero.exp_harvest">Harvest Experience</option>
-            <option data-i18n="hero.exp_winemaker_dinner">Winemaker's Dinner</option>
-          </select>
-        </div>
-        <div class="booking-price">
-          <span class="label" data-i18n="hero.booking_price_label">Estimated price</span>
-          <span class="price">€85 <small data-i18n="hero.booking_price_unit">/ person</small></span>
-        </div>
-        <button class="btn btn-gold" data-i18n="hero.booking_cta">Check Availability</button>
       </div>
-    </div>
   </section>
 
   <!-- ===== FILTRATION BAR ===== -->
@@ -1287,74 +1121,295 @@
 
   <hr class="divider" />
 
-  <!-- ===== TERROIR & SUSTAINABILITY ===== -->
-  <section class="terroir-section" id="terroir">
+  <!-- ===== RHEINGAU WINERY FEED ===== -->
+  <section class="winery-feed-section" id="winery-feed">
     <div class="container">
-      <div class="terroir-header fade-up">
-        <p class="section-label" data-i18n="terroir.section_label">Vineyard Parcels &amp; Terroir</p>
-        <h2 class="section-title" data-i18n="terroir.section_title">Understand the Land Behind Every Bottle</h2>
-        <p class="section-subtitle" data-i18n="terroir.section_subtitle">Explore the soil composition, microclimate, and seasonal vine care that define each winery's unique character.</p>
-      </div>
-
-      <div class="terroir-grid">
-        <div class="terroir-card fade-up">
-          <div class="terroir-card-icon soil">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#4A5D3E" stroke-width="2" stroke-linecap="round">
-              <path d="M2 22h20"/>
-              <path d="M6 18c0-3 2-6 6-6s6 3 6 6"/>
-              <path d="M12 12V6"/>
-              <path d="M9 9l3-3 3 3"/>
-            </svg>
-          </div>
-          <h4 data-i18n="terroir.soil_title">Soil &amp; Geology</h4>
-          <p data-i18n="terroir.soil_desc">From chalk limestone in Champagne to volcanic basalt in Sicily — browse parcel-level soil data to understand a wine's mineral DNA.</p>
-          <span class="badge badge-soil" data-i18n="terroir.soil_badge">Clay · Limestone · Schist</span>
-        </div>
-        <div class="terroir-card fade-up">
-          <div class="terroir-card-icon climate">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B8960F" stroke-width="2" stroke-linecap="round">
-              <circle cx="12" cy="12" r="4"/>
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-            </svg>
-          </div>
-          <h4 data-i18n="terroir.climate_title">Microclimate &amp; Sunlight</h4>
-          <p data-i18n="terroir.climate_desc">Altitude, sun exposure, and seasonal rainfall shape every grape. Compare climate profiles across regions to find your ideal terroir match.</p>
-          <span class="badge badge-climate" data-i18n="terroir.climate_badge">Mediterranean · Continental</span>
-        </div>
-        <div class="terroir-card fade-up">
-          <div class="terroir-card-icon vine">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6B1F3C" stroke-width="2" stroke-linecap="round">
-              <path d="M12 22c-4 0-8-3-8-8 0-3 2-5 4-6"/>
-              <path d="M12 22c4 0 8-3 8-8 0-3-2-5-4-6"/>
-              <path d="M12 22V10"/>
-              <circle cx="12" cy="6" r="4"/>
-            </svg>
-          </div>
-          <h4 data-i18n="terroir.vine_title">Seasonal Vine Care</h4>
-          <p data-i18n="terroir.vine_desc">Pruning, canopy management, harvest timing — learn the hands-on viticulture practices each winery employs throughout the year.</p>
-          <span class="badge badge-vine" data-i18n="terroir.vine_badge">Pruning · Green Harvest</span>
-        </div>
-      </div>
-
-        <div class="sustainability fade-up">
+      <div class="winery-feed-header fade-up">
         <div>
-          <p class="section-label" style="color: rgba(245,241,232,0.7);" data-i18n="sustain.label">Sustainability Initiatives</p>
-          <h3 data-i18n="sustain.title">Committed to the Land</h3>
-          <p data-i18n="sustain.desc">Discover wineries leading the way in organic farming, biodynamic practices, and carbon-neutral production. Every VineBond partner meets strict environmental standards.</p>
-          <a href="#" class="btn btn-gold" data-i18n="sustain.cta">View Certified Wineries</a>
+          <p class="section-label">Rheingau Wine Region · Germany</p>
+          <h2 class="section-title">Top Wineries of the Rheingau</h2>
+          <p class="section-subtitle">Discover Germany's most celebrated wine estates — from the sun-drenched slopes of the Rhine to medieval monastery cellars.</p>
         </div>
-        <div class="sustain-stats">
-          <div class="sustain-stat">
-            <div class="num">340+</div>
-            <div class="desc" data-i18n="sustain.stat1_label">Organic Wineries</div>
+        <a href="winery.html" class="btn btn-secondary">View All Wineries</a>
+      </div>
+
+      <div class="winery-feed-grid">
+
+        <!-- Card 1 — Schloss Johannisberg -->
+        <article class="winery-feed-card fade-up">
+          <div class="winery-feed-img">
+            <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80&fit=crop" alt="Schloss Johannisberg vineyard, Rheingau" loading="lazy" />
+            <span class="feed-region-badge">Rheingau</span>
+            <span class="feed-likes">
+              <svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 13.5 3 8a5 5 0 0110 0 5 5 0 0110 0c0 5.5-9 13-9 13z"/></svg>
+              2.4k
+            </span>
           </div>
-          <div class="sustain-stat">
-            <div class="num">92%</div>
-            <div class="desc" data-i18n="sustain.stat2_label">Water Recycled</div>
+          <div class="winery-feed-body">
+            <h4>Schloss Johannisberg</h4>
+            <p class="feed-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Geisenheim, Rheingau
+            </p>
+            <p class="feed-desc">The world's first purposely late-harvested Riesling estate, operating since 1130. A landmark of German wine history on the Rhine's north bank.</p>
           </div>
-          <div class="sustain-stat">
-            <div class="num">120k</div>
-            <div class="desc" data-i18n="sustain.stat3_label">Vines Planted</div>
+          <div class="winery-feed-footer">
+            <span class="feed-rating">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              4.9
+            </span>
+            <a href="winery.html" class="btn btn-primary" style="padding:8px 20px;font-size:0.78rem;">Explore</a>
+          </div>
+        </article>
+
+        <!-- Card 2 — Weingut Robert Weil -->
+        <article class="winery-feed-card fade-up">
+          <div class="winery-feed-img">
+            <img src="https://images.unsplash.com/photo-1474722883778-792e7990302f?w=600&q=80&fit=crop" alt="Weingut Robert Weil vineyard rows" loading="lazy" />
+            <span class="feed-region-badge">Rheingau</span>
+            <span class="feed-likes">
+              <svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 13.5 3 8a5 5 0 0110 0 5 5 0 0110 0c0 5.5-9 13-9 13z"/></svg>
+              1.8k
+            </span>
+          </div>
+          <div class="winery-feed-body">
+            <h4>Weingut Robert Weil</h4>
+            <p class="feed-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Kiedrich, Rheingau
+            </p>
+            <p class="feed-desc">Consistently rated among Germany's finest. Famous for Kiedricher Gräfenberg Rieslings of extraordinary finesse and age-worthiness.</p>
+          </div>
+          <div class="winery-feed-footer">
+            <span class="feed-rating">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              4.8
+            </span>
+            <a href="winery.html" class="btn btn-primary" style="padding:8px 20px;font-size:0.78rem;">Explore</a>
+          </div>
+        </article>
+
+        <!-- Card 3 — Kloster Eberbach -->
+        <article class="winery-feed-card fade-up">
+          <div class="winery-feed-img">
+            <img src="https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=600&q=80&fit=crop" alt="Kloster Eberbach monastery and vineyards" loading="lazy" />
+            <span class="feed-region-badge">Rheingau</span>
+            <span class="feed-likes">
+              <svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 13.5 3 8a5 5 0 0110 0 5 5 0 0110 0c0 5.5-9 13-9 13z"/></svg>
+              3.1k
+            </span>
+          </div>
+          <div class="winery-feed-body">
+            <h4>Kloster Eberbach</h4>
+            <p class="feed-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Eltville, Rheingau
+            </p>
+            <p class="feed-desc">A 12th-century Cistercian monastery and UNESCO-listed site. Its cellars inspired the film "Das Boot" and hold over 800 years of winemaking legacy.</p>
+          </div>
+          <div class="winery-feed-footer">
+            <span class="feed-rating">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              4.9
+            </span>
+            <a href="winery.html" class="btn btn-primary" style="padding:8px 20px;font-size:0.78rem;">Explore</a>
+          </div>
+        </article>
+
+        <!-- Card 4 — Weingut Georg Breuer -->
+        <article class="winery-feed-card fade-up">
+          <div class="winery-feed-img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop" alt="Rüdesheim vineyards along the Rhine" loading="lazy" />
+            <span class="feed-region-badge">Rheingau</span>
+            <span class="feed-likes">
+              <svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 13.5 3 8a5 5 0 0110 0 5 5 0 0110 0c0 5.5-9 13-9 13z"/></svg>
+              1.2k
+            </span>
+          </div>
+          <div class="winery-feed-body">
+            <h4>Weingut Georg Breuer</h4>
+            <p class="feed-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Rüdesheim, Rheingau
+            </p>
+            <p class="feed-desc">Pioneers of the Grosses Gewächs classification. Their Berg Schlossberg and Berg Rottland sites produce benchmark dry Rieslings of global acclaim.</p>
+          </div>
+          <div class="winery-feed-footer">
+            <span class="feed-rating">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              4.7
+            </span>
+            <a href="winery.html" class="btn btn-primary" style="padding:8px 20px;font-size:0.78rem;">Explore</a>
+          </div>
+        </article>
+
+        <!-- Card 5 — Schloss Vollrads -->
+        <article class="winery-feed-card fade-up">
+          <div class="winery-feed-img">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80&fit=crop" alt="Schloss Vollrads estate tower and vineyards" loading="lazy" />
+            <span class="feed-region-badge">Rheingau</span>
+            <span class="feed-likes">
+              <svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 13.5 3 8a5 5 0 0110 0 5 5 0 0110 0c0 5.5-9 13-9 13z"/></svg>
+              980
+            </span>
+          </div>
+          <div class="winery-feed-body">
+            <h4>Schloss Vollrads</h4>
+            <p class="feed-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Oestrich-Winkel, Rheingau
+            </p>
+            <p class="feed-desc">One of the oldest wine estates in the world, first documented in 1211. Produces estate Rieslings with elegant mineral depth and exceptional longevity.</p>
+          </div>
+          <div class="winery-feed-footer">
+            <span class="feed-rating">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              4.8
+            </span>
+            <a href="winery.html" class="btn btn-primary" style="padding:8px 20px;font-size:0.78rem;">Explore</a>
+          </div>
+        </article>
+
+        <!-- Card 6 — Weingut Peter Jakob Kühn -->
+        <article class="winery-feed-card fade-up">
+          <div class="winery-feed-img">
+            <img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=80&fit=crop" alt="Organic Riesling vineyard in Oestrich-Winkel" loading="lazy" />
+            <span class="feed-region-badge">Rheingau · Organic</span>
+            <span class="feed-likes">
+              <svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 13.5 3 8a5 5 0 0110 0 5 5 0 0110 0c0 5.5-9 13-9 13z"/></svg>
+              1.5k
+            </span>
+          </div>
+          <div class="winery-feed-body">
+            <h4>Weingut Peter Jakob Kühn</h4>
+            <p class="feed-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Oestrich-Winkel, Rheingau
+            </p>
+            <p class="feed-desc">A biodynamic pioneer in the Rheingau. Their Rieslings and Pinot Noirs from Oestricher Lenchen show extraordinary terroir transparency and purity.</p>
+          </div>
+          <div class="winery-feed-footer">
+            <span class="feed-rating">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+              4.9
+            </span>
+            <a href="winery.html" class="btn btn-primary" style="padding:8px 20px;font-size:0.78rem;">Explore</a>
+          </div>
+        </article>
+
+      </div><!-- /winery-feed-grid -->
+
+      <div class="feed-view-all-wrap fade-up">
+        <a href="winery.html" class="btn btn-gold">View All Wineries</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ===== QR CODE SECTION ===== -->
+  <section class="qr-section" id="qr-scan">
+    <div class="container">
+      <div class="qr-inner fade-up">
+        <div class="qr-content">
+          <p class="section-label">Physical Routing · On-Site Access</p>
+          <h2>Scan a Vineyard QR Code to Unlock Exclusive Content</h2>
+          <p>Each VineBond partner winery places physical QR codes throughout their estate — at the cellar door, tasting room, and vineyard rows. A single scan connects you instantly to that winery's profile, tasting notes, and bookable experiences.</p>
+          <div class="qr-steps">
+            <div class="qr-step">
+              <div class="qr-step-num">1</div>
+              <div class="qr-step-text">
+                <strong>Spot the VineBond marker</strong>
+                <span>Look for the burgundy QR placard at the vineyard entrance, cellar, or tasting room.</span>
+              </div>
+            </div>
+            <div class="qr-step">
+              <div class="qr-step-num">2</div>
+              <div class="qr-step-text">
+                <strong>Open your camera app</strong>
+                <span>No extra app needed — iOS and Android camera apps scan directly. Just point and hold.</span>
+              </div>
+            </div>
+            <div class="qr-step">
+              <div class="qr-step-num">3</div>
+              <div class="qr-step-text">
+                <strong>Access the winery instantly</strong>
+                <span>VineBond loads the winery's live profile: current tastings, pricing, reviews, and booking.</span>
+              </div>
+            </div>
+            <div class="qr-step">
+              <div class="qr-step-num">4</div>
+              <div class="qr-step-text">
+                <strong>Earn VineClub points</strong>
+                <span>Every scan at a partner winery credits your VineClub account with loyalty points automatically.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="qr-visual">
+          <div class="qr-mockup">
+            <div class="qr-code-svg-wrap">
+              <!-- QR code pattern (decorative SVG) -->
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Sample VineBond QR code">
+                <!-- Corner squares -->
+                <rect x="5" y="5" width="28" height="28" rx="3" fill="none" stroke="#4A1528" stroke-width="3"/>
+                <rect x="10" y="10" width="18" height="18" rx="1" fill="#4A1528"/>
+                <rect x="67" y="5" width="28" height="28" rx="3" fill="none" stroke="#4A1528" stroke-width="3"/>
+                <rect x="72" y="10" width="18" height="18" rx="1" fill="#4A1528"/>
+                <rect x="5" y="67" width="28" height="28" rx="3" fill="none" stroke="#4A1528" stroke-width="3"/>
+                <rect x="10" y="72" width="18" height="18" rx="1" fill="#4A1528"/>
+                <!-- Data modules -->
+                <rect x="40" y="5" width="5" height="5" fill="#4A1528"/>
+                <rect x="50" y="5" width="5" height="5" fill="#4A1528"/>
+                <rect x="60" y="5" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="12" width="5" height="5" fill="#4A1528"/>
+                <rect x="55" y="12" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="19" width="5" height="5" fill="#4A1528"/>
+                <rect x="50" y="19" width="5" height="5" fill="#4A1528"/>
+                <rect x="5" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="12" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="22" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="5" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="19" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="26" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="5" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="15" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="50" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="60" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="60" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="50" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="60" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="67" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="77" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="87" y="40" width="5" height="5" fill="#4A1528"/>
+                <rect x="67" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="84" y="47" width="5" height="5" fill="#4A1528"/>
+                <rect x="72" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="82" y="54" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="67" width="5" height="5" fill="#4A1528"/>
+                <rect x="50" y="67" width="5" height="5" fill="#4A1528"/>
+                <rect x="60" y="67" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="74" width="5" height="5" fill="#4A1528"/>
+                <rect x="55" y="74" width="5" height="5" fill="#4A1528"/>
+                <rect x="67" y="67" width="5" height="5" fill="#4A1528"/>
+                <rect x="77" y="67" width="5" height="5" fill="#4A1528"/>
+                <rect x="87" y="67" width="5" height="5" fill="#4A1528"/>
+                <rect x="72" y="74" width="5" height="5" fill="#4A1528"/>
+                <rect x="82" y="74" width="5" height="5" fill="#4A1528"/>
+                <rect x="40" y="81" width="5" height="5" fill="#4A1528"/>
+                <rect x="50" y="81" width="5" height="5" fill="#4A1528"/>
+                <rect x="60" y="81" width="5" height="5" fill="#4A1528"/>
+                <rect x="67" y="81" width="5" height="5" fill="#4A1528"/>
+                <rect x="87" y="81" width="5" height="5" fill="#4A1528"/>
+                <!-- VineBond grape icon center -->
+                <text x="50" y="32" text-anchor="middle" font-size="10" fill="#D4AF37">🍇</text>
+              </svg>
+            </div>
+            <h4>Scan at Any VineBond Partner</h4>
+            <p>Available at 340+ certified wineries across the Rheingau and beyond.</p>
           </div>
         </div>
       </div>
@@ -1363,77 +1418,96 @@
 
   <hr class="divider" />
 
-  <!-- ===== EXPERIENCES / BOOKING ===== -->
-  <section class="experiences" id="experiences">
+  <!-- ===== VINECLUB PARTNERSHIP PROGRAM ===== -->
+  <section class="vineclub-section" id="vineclub">
     <div class="container">
-      <div class="experiences-header fade-up">
-        <div>
-          <p class="section-label" data-i18n="exp.section_label">Experience Availability &amp; Pricing</p>
-          <h2 class="section-title" data-i18n="exp.section_title">Book Your Next Wine Adventure</h2>
-          <p class="section-subtitle" data-i18n="exp.section_subtitle">Handpicked experiences at the world's finest wineries — with real-time availability.</p>
-        </div>
-        <a href="#" class="btn btn-secondary" data-i18n="exp.view_all">View All Experiences</a>
+      <div class="vineclub-header fade-up">
+        <p class="section-label">VineClub · Loyalty &amp; Rewards</p>
+        <h2 class="section-title">Earn More with Every Visit</h2>
+        <p class="section-subtitle">Visit wineries, scan QR codes, and purchase wines to accumulate points. Unlock tier perks designed for the true wine enthusiast.</p>
       </div>
 
-      <div class="exp-grid">
-        <div class="exp-card fade-up">
-          <div class="exp-card-img">
-            <span class="placeholder-art">🍇</span>
-            <span class="exp-badge">Featured</span>
-            <span class="exp-slots">● 6 slots left</span>
-          </div>
-          <div class="exp-card-body">
-            <h4>Sunset Barrel Tasting</h4>
-            <p class="location">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Château Margaux, Bordeaux
-            </p>
-            <p class="desc">Private evening tasting in 18th-century cellars, pairing five estate wines with artisan cheese.</p>
-          </div>
-          <div class="exp-card-footer">
-            <span class="exp-price">€120 <small data-i18n="exp.per_person">/ person</small></span>
-            <button class="btn btn-primary" data-i18n="exp.book_btn">Book</button>
-          </div>
+      <div class="vineclub-tiers">
+
+        <!-- Silver -->
+        <div class="tier-card silver fade-up">
+          <div class="tier-icon">🥈</div>
+          <div class="tier-name">Silver</div>
+          <div class="tier-req">Base Entry</div>
+          <ul class="tier-perks">
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Standard point accumulation on every winery visit
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Access to member-only tasting notes &amp; terroir guides
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Early access to seasonal booking windows
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Digital VineClub membership badge
+            </li>
+          </ul>
         </div>
 
-        <div class="exp-card fade-up">
-          <div class="exp-card-img" style="background: linear-gradient(135deg, #E7EFE2 0%, #C5D6B8 100%);">
-            <span class="placeholder-art">🌿</span>
-            <span class="exp-badge" style="background:var(--green);">Organic</span>
-            <span class="exp-slots">● 12 slots left</span>
-          </div>
-          <div class="exp-card-body">
-            <h4>Vineyard Walk & Terroir Talk</h4>
-            <p class="location">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Antinori, Tuscany
-            </p>
-            <p class="desc">Morning walk through Sangiovese vines with the estate agronomist. Understand pruning, canopy, and harvest by hand.</p>
-          </div>
-          <div class="exp-card-footer">
-            <span class="exp-price">€65 <small data-i18n="exp.per_person">/ person</small></span>
-            <button class="btn btn-primary" data-i18n="exp.book_btn">Book</button>
-          </div>
+        <!-- Gold -->
+        <div class="tier-card gold featured-tier fade-up">
+          <div class="tier-icon">🥇</div>
+          <div class="tier-name">Gold</div>
+          <div class="tier-req">Mid-Level</div>
+          <ul class="tier-perks">
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              All Silver benefits included
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Bonus 1.5× point multiplier on purchases
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Extra baseline services: priority booking &amp; concierge
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Complimentary winery welcome gift on arrival
+            </li>
+          </ul>
         </div>
 
-        <div class="exp-card fade-up">
-          <div class="exp-card-img" style="background: linear-gradient(135deg, #F2E8D8 0%, #E0C9AB 100%);">
-            <span class="placeholder-art">🍷</span>
-            <span class="exp-slots">● 3 slots left</span>
-          </div>
-          <div class="exp-card-body">
-            <h4>Winemaker's Private Dinner</h4>
-            <p class="location">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              Karas Wines, Areni, Armenia
-            </p>
-            <p class="desc">Seven-course dinner in the stone cellar with the winemaker. Featuring rare library vintages and regional cuisine.</p>
-          </div>
-          <div class="exp-card-footer">
-            <span class="exp-price">€195 <small data-i18n="exp.per_person">/ person</small></span>
-            <button class="btn btn-primary" data-i18n="exp.book_btn">Book</button>
-          </div>
+        <!-- Platinum -->
+        <div class="tier-card platinum fade-up">
+          <div class="tier-icon">💎</div>
+          <div class="tier-name">Platinum</div>
+          <div class="tier-req">High-Level</div>
+          <ul class="tier-perks">
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              All Gold benefits included
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Special invitations to VIP wine tastings with winemakers &amp; industry guests
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Private cellar access &amp; unreleased barrel tastings
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Dedicated VineBond concierge &amp; bespoke travel planning
+            </li>
+          </ul>
         </div>
+
+      </div><!-- /vineclub-tiers -->
+
+      <div class="vineclub-cta-row fade-up">
+        <a href="#" class="btn btn-gold">Join VineClub &amp; Start Earning</a>
       </div>
     </div>
   </section>
@@ -1740,16 +1814,7 @@
       });
     });
 
-    /* ---- Dynamic price estimate ---- */
-    const guestSelect = document.querySelector('.hero-booking .booking-row select');
-    const priceDisplay = document.querySelector('.booking-price .price');
-    const basePrices = { '1 guest': 85, '2 guests': 85, '3 guests': 80, '4 guests': 75, '5+ guests': 70 };
-    if (guestSelect && priceDisplay) {
-      guestSelect.addEventListener('change', () => {
-        const p = basePrices[guestSelect.value] || 85;
-        priceDisplay.innerHTML = `€${p} <small>/ person</small>`;
-      });
-    }
+    
   </script>
   <button class="back-to-top" data-back-to-top aria-label="Back to top" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
