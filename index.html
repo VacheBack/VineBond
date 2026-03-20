@@ -223,121 +223,9 @@
     }
     .filter-apply { margin-left: auto; }
 
-    /* ===== TERROIR & SUSTAINABILITY ===== */
-    .terroir-section { padding: 80px 0; }
-    .terroir-header { text-align: center; margin-bottom: 48px; }
-    .terroir-header .section-subtitle { margin: 0 auto; }
-
-    .terroir-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .terroir-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      border: 1px solid #E8DFD0;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .terroir-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 4px; height: 100%;
-      background: var(--green);
-      transition: var(--transition);
-    }
-    .terroir-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 36px var(--shadow);
-    }
-    .terroir-card:hover::before { width: 6px; }
-    .terroir-card-icon {
-      width: 56px; height: 56px;
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 16px;
-    }
-    .terroir-card-icon svg { width: 28px; height: 28px; }
-    .terroir-card-icon.soil { background: rgba(74,93,62,0.1); }
-    .terroir-card-icon.climate { background: rgba(212,175,55,0.12); }
-    .terroir-card-icon.vine { background: rgba(107,31,60,0.08); }
-    .terroir-card h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 8px;
-    }
-    .terroir-card p { font-size: 0.9rem; color: var(--oak); line-height: 1.55; }
-    .terroir-card .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 14px;
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .badge-soil { background: rgba(74,93,62,0.1); color: var(--green); }
-    .badge-climate { background: rgba(212,175,55,0.12); color: var(--gold-warm); }
-    .badge-vine { background: rgba(107,31,60,0.08); color: var(--burgundy); }
-
-    /* Sustainability Strip */
-    .sustainability {
-      background: linear-gradient(135deg, var(--green), var(--green-forest));
-      border-radius: var(--radius-xl);
-      padding: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-      color: var(--cream);
-    }
-    .sustainability h3 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-    .sustainability p { font-size: 0.95rem; opacity: 0.88; margin-bottom: 24px; line-height: 1.6; }
-    .sustain-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .sustain-stat {
-      text-align: center;
-      padding: 20px;
-      background: rgba(255,255,255,0.08);
-      border-radius: var(--radius-md);
-      backdrop-filter: blur(4px);
-    }
-    .sustain-stat .num {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--gold);
-    }
-    .sustain-stat .desc {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      opacity: 0.8;
-      margin-top: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* ===== EXPERIENCES / BOOKING ===== */
-    .experiences { padding: 80px 0; background: var(--white); }
-    .experiences-header {
+    /* ===== RHEINGAU INSTAGRAM FEED ===== */
+    .winery-feed-section { padding: 80px 0; background: var(--white); }
+    .winery-feed-header {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
@@ -345,12 +233,13 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    .exp-grid {
+    .winery-feed-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 20px;
+      margin-bottom: 36px;
     }
-    .exp-card {
+    .winery-feed-card {
       border-radius: var(--radius-lg);
       overflow: hidden;
       background: var(--cream);
@@ -358,76 +247,210 @@
       transition: var(--transition);
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
-    .exp-card:hover {
+    .winery-feed-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 16px 40px var(--shadow);
     }
-    .exp-card-img {
+    .winery-feed-img {
       position: relative;
-      height: 220px;
-      background: linear-gradient(135deg, var(--cream-dark) 0%, #DDD2BF 100%);
-      display: flex; align-items: center; justify-content: center;
+      height: 240px;
       overflow: hidden;
     }
-    .exp-card-img .placeholder-art {
-      font-size: 3.5rem;
-      opacity: 0.3;
+    .winery-feed-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
     }
-    .exp-card-img .exp-badge {
+    .winery-feed-card:hover .winery-feed-img img { transform: scale(1.06); }
+    .winery-feed-img .feed-region-badge {
       position: absolute;
-      top: 14px; left: 14px;
+      top: 12px; left: 12px;
       padding: 5px 12px;
       border-radius: 100px;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      background: var(--burgundy);
-      color: var(--cream);
-    }
-    .exp-card-img .exp-slots {
-      position: absolute;
-      top: 14px; right: 14px;
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: rgba(255,255,255,0.9);
-      color: var(--green);
+      letter-spacing: 0.05em;
+      background: rgba(74,21,40,0.82);
+      color: #F5F1E8;
       backdrop-filter: blur(4px);
     }
-    .exp-card-body { padding: 20px; flex: 1; }
-    .exp-card-body h4 {
+    .winery-feed-img .feed-likes {
+      position: absolute;
+      bottom: 10px; right: 12px;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
+    .winery-feed-img .feed-likes svg { width: 13px; height: 13px; fill: #e05577; }
+    .winery-feed-body { padding: 18px 20px; flex: 1; }
+    .winery-feed-body h4 {
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--burgundy);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-    .exp-card-body .location {
-      font-size: 0.82rem;
+    .winery-feed-body .feed-location {
+      font-size: 0.8rem;
       color: var(--oak);
-      margin-bottom: 12px;
       display: flex; align-items: center; gap: 4px;
+      margin-bottom: 10px;
     }
-    .exp-card-body .location svg { width: 14px; height: 14px; }
-    .exp-card-body .desc {
-      font-size: 0.88rem;
+    .winery-feed-body .feed-location svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .winery-feed-body .feed-desc {
+      font-size: 0.86rem;
       color: #6B5D4F;
       line-height: 1.5;
-      margin-bottom: 16px;
     }
-    .exp-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
+    .winery-feed-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
       border-top: 1px solid #E8DFD0;
       background: rgba(245,241,232,0.5);
     }
-    .exp-price { font-size: 1.15rem; font-weight: 800; color: var(--burgundy); }
-    .exp-price small { font-size: 0.75rem; font-weight: 500; color: var(--oak); }
-    .exp-card-footer .btn { padding: 8px 20px; font-size: 0.78rem; }
+    .feed-rating {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.82rem; font-weight: 700; color: var(--burgundy);
+    }
+    .feed-rating svg { width: 14px; height: 14px; fill: #D4AF37; }
+    .feed-view-all-wrap { text-align: center; margin-top: 8px; }
+
+    /* ===== QR CODE SECTION ===== */
+    .qr-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #F7F2EA 0%, #EDE4D4 100%);
+    }
+    .qr-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .qr-content h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--burgundy);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .qr-content p { font-size: 0.95rem; color: var(--oak); line-height: 1.65; margin-bottom: 28px; }
+    .qr-steps { display: flex; flex-direction: column; gap: 18px; }
+    .qr-step { display: flex; align-items: flex-start; gap: 16px; }
+    .qr-step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--burgundy);
+      color: var(--cream);
+      font-size: 0.82rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qr-step-text strong { display: block; font-size: 0.92rem; color: var(--burgundy); margin-bottom: 2px; }
+    .qr-step-text span { font-size: 0.84rem; color: var(--oak); }
+    .qr-visual { display: flex; align-items: center; justify-content: center; }
+    .qr-mockup {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: 0 12px 48px rgba(42,14,24,0.12);
+      border: 1px solid rgba(212,175,55,0.2);
+      text-align: center;
+      max-width: 300px; width: 100%;
+    }
+    .qr-code-svg-wrap {
+      width: 160px; height: 160px;
+      margin: 0 auto 20px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid #E8DFD0;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff;
+    }
+    .qr-code-svg-wrap svg { width: 100%; height: 100%; }
+    .qr-mockup h4 { font-size: 0.95rem; font-weight: 700; color: var(--burgundy); margin-bottom: 6px; }
+    .qr-mockup p { font-size: 0.78rem; color: var(--oak); line-height: 1.5; }
+
+    /* ===== VINECLUB TIERS ===== */
+    .vineclub-section { padding: 80px 0; background: var(--white); }
+    .vineclub-header { text-align: center; margin-bottom: 48px; }
+    .vineclub-header .section-subtitle { margin: 0 auto; max-width: 580px; }
+    .vineclub-tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .tier-card {
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border: 2px solid #E8DFD0;
+      transition: var(--transition);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .tier-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+    }
+    .tier-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
+    .tier-card.silver::before { background: linear-gradient(90deg, #9E9E9E, #BDBDBD); }
+    .tier-card.gold::before   { background: linear-gradient(90deg, #D4AF37, #F0D060); }
+    .tier-card.platinum::before { background: linear-gradient(90deg, #4A1528, #6B1F3C); }
+    .tier-card.featured-tier { border-color: var(--gold); background: linear-gradient(160deg,#FFFBEF 0%,#FFF7DC 100%); }
+    .tier-icon {
+      width: 68px; height: 68px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; font-size: 2rem;
+    }
+    .tier-card.silver .tier-icon  { background: rgba(158,158,158,0.12); }
+    .tier-card.gold   .tier-icon  { background: rgba(212,175,55,0.15); }
+    .tier-card.platinum .tier-icon { background: rgba(107,31,60,0.1); }
+    .tier-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .tier-card.silver .tier-name   { color: #757575; }
+    .tier-card.gold   .tier-name   { color: var(--gold-warm); }
+    .tier-card.platinum .tier-name { color: var(--burgundy); }
+    .tier-req {
+      font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 4px 14px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .tier-card.silver .tier-req   { background: rgba(158,158,158,0.12); color: #757575; }
+    .tier-card.gold   .tier-req   { background: rgba(212,175,55,0.15); color: var(--gold-warm); }
+    .tier-card.platinum .tier-req { background: rgba(107,31,60,0.1); color: var(--burgundy); }
+    .tier-perks { list-style: none; padding: 0; margin: 0; text-align: left; width: 100%; }
+    .tier-perks li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #F0E8DC;
+      font-size: 0.86rem; color: var(--oak); line-height: 1.45;
+    }
+    .tier-perks li:last-child { border-bottom: none; }
+    .tier-perks li svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .tier-card.silver .tier-perks li svg   { stroke: #9E9E9E; }
+    .tier-card.gold   .tier-perks li svg   { stroke: #B8960F; }
+    .tier-card.platinum .tier-perks li svg { stroke: var(--burgundy); }
+    .vineclub-cta-row { text-align: center; }
+
+    /* ===== RESPONSIVE — NEW SECTIONS ===== */
+    @media (max-width: 1024px) {
+      .winery-feed-grid { grid-template-columns: 1fr 1fr; }
+      .vineclub-tiers { grid-template-columns: 1fr 1fr; }
+      .qr-inner { grid-template-columns: 1fr; gap: 40px; }
+      .qr-visual { order: -1; }
+      .qr-mockup { max-width: 260px; }
+    }
+    @media (max-width: 768px) {
+      .winery-feed-grid { grid-template-columns: 1fr; }
+      .vineclub-tiers { grid-template-columns: 1fr; }
+      .winery-feed-header { flex-direction: column; align-items: flex-start; }
+    }
 
     /* ===== INTERACTIVE MAP ===== */
     .map-section { padding: 80px 0; }
