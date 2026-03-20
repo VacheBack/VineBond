@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script>(function(){document.documentElement.classList.add('i18n-loading');setTimeout(function(){document.documentElement.classList.remove('i18n-loading');},1500);})();</script>
+  <title>VineMap — VineBond</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="css/vinebond.css" />
+  <style>
+    /* ── VineMap Page — VINEBOND Design System v2.0 ──
+       Map controls: white bar, Forest active filter
+       GG markers:   Burgundy (#5C2632)
+       1G markers:   Gold-warm (#B8960F)
+       Popups:       Forest CTA button, Burgundy header
+       Trail tags:   Forest text → white on hover
+    ── */
+
+    .map-controls {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--vb-light-beige);
+      padding: 14px 0;
+      position: sticky; top: 80px; z-index: 400;
+    }
+    .map-controls .container {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .map-controls-label {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--vb-medium-gray); white-space: nowrap;
+    }
+    .map-filter-btn {
+      padding: 7px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 700;
+      border: 1.5px solid #C8BFB4; background: #FFFFFF; color: var(--vb-medium-gray);
+      transition: var(--transition); min-height: 44px;
+    }
+    /* Hover: Forest border */
+    .map-filter-btn:hover { border-color: var(--vb-forest); color: var(--vb-forest); }
+    /* Active: white on Forest — 9.8:1 AAA ✓ */
+    .map-filter-btn.active { background: var(--vb-forest); color: #FFFFFF; border-color: var(--vb-forest); }
+    /* Active 1G: white on gold-warm */
+    .map-filter-btn.active-1g { background: var(--gold-warm); border-color: var(--gold-warm); color: #FFFFFF; }
+
+    .map-legend { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 600; color: var(--vb-medium-gray); }
+    .legend-dot {
+      width: 14px; height: 14px; border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg); flex-shrink: 0;
+    }
+    /* GG: Burgundy marker */
+    .legend-dot.gg { background: var(--vb-burgundy); }
+    /* 1G: Gold marker */
+    .legend-dot.first-growth { background: var(--gold-warm); }
+
+    /* Map wrapper */
+    .map-section { padding: 0 0 64px; }
+    .map-outer { padding: 0 24px; max-width: 1240px; margin: 0 auto; }
+    #vinemap-container {
+      height: 72vh; min-height: 480px;
+      border-radius: var(--radius-xl);
+      border: 2px solid var(--vb-light-beige);
+      box-shadow: var(--vb-shadow-md);
+      margin: 24px 0; z-index: 1;
+    }
+
+    /* Leaflet popup — VINEBOND styled */
+    .leaflet-popup-content-wrapper {
+      border-radius: var(--radius-lg) !important;
+      padding: 0 !important;
+      box-shadow: var(--vb-shadow-el) !important;
+      border: 1px solid var(--vb-light-beige) !important;
+      overflow: hidden;
+    }
+    .leaflet-popup-content { margin: 0 !important; width: 272px !important; }
+    .leaflet-popup-tip { background: #FFFFFF !important; }
+    .leaflet-popup-close-button {
+      color: var(--vb-medium-gray) !important;
+      font-size: 18px !important; top: 8px !important; right: 10px !important;
+    }
+    .leaflet-control-layers {
+      border-radius: var(--radius-md) !important;
+      border: 1px solid var(--vb-light-beige) !important;
+      font-family: 'Segoe UI', sans-serif !important;
+      font-size: 0.83rem !important;
+    }
+
+    /* Trail tags — Forest text on white | hover: white on forest */
+    .trail-tags { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+    .trail-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; background: #FFFFFF; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600; color: var(--vb-forest);
+      border: 1.5px solid rgba(28,79,61,0.18); transition: var(--transition); min-height: 44px;
+    }
+    .trail-tag:hover { background: var(--vb-forest); color: var(--vb-cream); border-color: var(--vb-forest); }
+    .trail-tag svg { width: 15px; height: 15px; }
+
+    /* Info cards grid */
+    .map-info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; padding: 32px 0; }
+    .map-info-card {
+      background: #FFFFFF; border-radius: var(--radius-lg); padding: 24px;
+      border: 1px solid var(--vb-light-beige); transition: var(--transition);
+    }
+    .map-info-card:hover { transform: translateY(-4px); box-shadow: var(--vb-shadow-md); }
+    .map-info-card .info-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    /* Card heading: Burgundy — 8.2:1 AAA ✓ */
+    .map-info-card h4 { font-size: 1rem; font-weight: 700; color: var(--vb-burgundy); margin-bottom: 6px; }
+    .map-info-card p  { font-size: 0.87rem; color: var(--vb-medium-gray); line-height: 1.55; }
+    /* Stat: Gold warm accent */
+    .map-info-card .info-stat { font-size: 1.4rem; font-weight: 800; color: var(--gold-warm); margin-top: 10px; }
+
+    @media (max-width: 768px) {
+      .map-controls { top: 64px; }
+      #vinemap-container { height: 55vh; min-height: 320px; border-radius: var(--radius-lg); }
+      .map-legend { display: none; }
+      .map-info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-i18n-page-title="vinemap.page_title">
+
+  <a href="#main-content" class="skip-to-content" data-i18n="a11y.skip_to_content">Skip to content</a>
+  <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
+
+  <!-- TOP BAR -->
+  <nav class="topbar" id="topbar">
+    <div class="container">
+      <a href="index.html" class="topbar-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
+          </svg>
+        </div>
+        VineBond
+      </a>
+      <div class="topbar-nav" id="topbarNav">
+        <a href="winery.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg><span data-i18n="nav.wineries">Wineries</span></a>
+        <a href="book.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span data-i18n="nav.book">Book</span></a>
+        <a href="vinemap.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-i18n="nav.vinemap">VineMap</span></a>
+      </div>
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="search" id="winerySearch" data-i18n-placeholder="nav.search_placeholder" placeholder="Search wineries…" />
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-option active" data-lang="en">EN</button>
+        <button class="lang-option" data-lang="de">DE</button>
+      </div>
+      <div class="topbar-cta" id="topbarCta">
+        <a href="login.html" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span data-i18n="nav.sign_in">Sign In</span>
+        </a>
+        <a href="book.html" class="btn btn-primary"><span data-i18n="nav.book_tasting">Book a Tasting</span></a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" id="main-content">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="index.html">VineBond</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <span data-i18n="nav.vinemap">VineMap</span>
+      </nav>
+      <span class="section-label" data-i18n="vinemap.section_label">Interactive Wine Region Map</span>
+      <h1 class="section-title" data-i18n="vinemap.section_title">Rheingau — Grosses Gewächs & Erstes Gewächs</h1>
+      <p class="section-subtitle" data-i18n="vinemap.section_subtitle">Explore the precise vineyard sites of Germany's most prestigious white wine region. Click any marker to view terroir details and book a visit.</p>
+    </div>
+  </section>
+
+  <!-- MAP CONTROLS -->
+  <div class="map-controls">
+    <div class="container">
+      <span class="map-controls-label" data-i18n="vinemap.filter_label">Filter:</span>
+      <button class="map-filter-btn active" data-filter="all" data-i18n="vinemap.filter_all">All Sites</button>
+      <button class="map-filter-btn" data-filter="GG" data-i18n="vinemap.filter_gg">GG Only</button>
+      <button class="map-filter-btn" data-filter="1G" data-i18n="vinemap.filter_1g">1G Only</button>
+      <div class="map-legend">
+        <div class="legend-item">
+          <span class="legend-dot gg"></span>
+          <span data-i18n="vinemap.legend_gg">Grosses Gewächs (GG)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot first-growth"></span>
+          <span data-i18n="vinemap.legend_1g">Erstes Gewächs (1G)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <section class="map-section">
+    <div class="map-outer">
+      <div id="vinemap-container"></div>
+
+      <!-- Wine Trails — Forest text, hover forest bg -->
+      <div class="trail-tags fade-up">
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span data-i18n="vinemap.trail_rheingau">Rheingau Riesling Trail</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span data-i18n="vinemap.trail_burgundy">Burgundy Trail</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span data-i18n="vinemap.trail_bordeaux">Bordeaux Route</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span data-i18n="vinemap.trail_tuscany">Via della Vendemmia, Tuscany</span></span>
+        <span class="trail-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span data-i18n="vinemap.trail_armenia">Armenian Highland Route</span></span>
+      </div>
+
+      <!-- Info cards -->
+      <div class="map-info-grid">
+        <div class="map-info-card fade-up">
+          <div class="info-icon">🏆</div>
+          <h4 data-i18n="vinemap.gg_title">Grosses Gewächs (GG)</h4>
+          <p data-i18n="vinemap.gg_desc">Germany's highest classification for dry wines, equivalent to Grand Cru. Awarded only to vineyards with exceptional terroir and producers holding VDP membership.</p>
+          <div class="info-stat" data-i18n="vinemap.gg_stat">10 GG Sites</div>
+        </div>
+        <div class="map-info-card fade-up">
+          <div class="info-icon">🥇</div>
+          <h4 data-i18n="vinemap.1g_title">Erstes Gewächs (1G)</h4>
+          <p data-i18n="vinemap.1g_desc">The Rheingau-specific "First Growth" classification, predating the national GG system. Covers historic Cistercian and estate vineyards with documented provenance since the 12th century.</p>
+          <div class="info-stat" data-i18n="vinemap.1g_stat">4 1G Sites</div>
+        </div>
+        <div class="map-info-card fade-up">
+          <div class="info-icon">🌊</div>
+          <h4 data-i18n="vinemap.terroir_title">Rheingau Terroir</h4>
+          <p data-i18n="vinemap.terroir_desc">South-facing slopes above the Rhine between Rüdesheim and Hochheim. Phyllite slate, quartzite, loess, and limestone create the diversity behind Germany's most celebrated Rieslings.</p>
+          <div class="info-stat" data-i18n="vinemap.terroir_stat">Phyllitschiefer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FOOTER — Forest background -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg>VineBond</h3>
+          <p data-i18n="footer.brand_desc">Connecting wine enthusiasts with the world's finest vineyards.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.explore_title">Explore</h4>
+          <a href="winery.html" data-i18n="nav.wineries">Wineries</a>
+          <a href="vinemap.html" data-i18n="nav.vinemap">VineMap</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.bookings_title">Bookings</h4>
+          <a href="book.html" data-i18n="nav.book">Book</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.company_title">Company</h4>
+          <a href="#" data-i18n="footer.link_about">About</a>
+          <a href="#" data-i18n="footer.link_sustainability">Sustainability</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">© 2026 VineBond. All rights reserved.</p>
+        <p data-i18n="footer.legal">Adults 18+ only. Please enjoy responsibly.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs=" crossorigin=""></script>
+  <script src="js/vinemap.js"></script>
+  <script src="js/i18n.js?v=3"></script>
+  <script>
+    const topbar = document.getElementById('topbar');
+    window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 40));
+    document.getElementById('mobileToggle').addEventListener('click', () => document.getElementById('topbar').classList.toggle('menu-open'));
+    document.querySelectorAll('.topbar-nav a').forEach(a => a.addEventListener('click', () => document.getElementById('topbar').classList.remove('menu-open')));
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    document.querySelectorAll('.trail-tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        document.querySelectorAll('.trail-tag').forEach(t => { t.style.background = ''; t.style.color = ''; t.style.borderColor = ''; });
+        tag.style.background = '#1C4F3D'; tag.style.color = '#EDE8E0'; tag.style.borderColor = '#1C4F3D';
+      });
+    });
+  </script>
+  <button class="back-to-top" data-back-to-top aria-label="Back to top" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+  <script src="js/ui-enhancements.js"></script>
+</body>
+</html>
