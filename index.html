@@ -857,63 +857,11 @@
     .hero-content > p:not(.section-label) { min-height: 3.6em; }
 
     /* ── Section headers: fixed vertical reservation ──────── */
-    .terroir-header .section-title,
-    .experiences-header .section-title,
     .map-header .section-title,
     .community-header .section-title { min-height: 2.5em; }
 
-    .terroir-header .section-subtitle,
     .map-header .section-subtitle,
     .community-header .section-subtitle { min-height: 3.3em; }
-
-    .experiences-header .section-subtitle { min-height: 1.65em; }
-
-    /* ── Terroir cards: fixed height with flex layout ─────── */
-    .terroir-card {
-      min-height: 290px;
-      display: flex;
-      flex-direction: column;
-    }
-    .terroir-card h4 { min-height: 1.4em; }
-    .terroir-card p {
-      flex: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 7em;
-    }
-    .terroir-card .badge { flex-shrink: 0; }
-
-    /* ── Sustainability strip ─────────────────────────────── */
-    .sustainability h3 { min-height: 2em; }
-    .sustainability > div:first-child > p {
-      min-height: 5em;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .sustain-stat { min-height: 100px; }
-
-    /* ── Experience cards: fixed body height ──────────────── */
-    .exp-card-body {
-      min-height: 170px;
-      display: flex;
-      flex-direction: column;
-    }
-    .exp-card-body h4 { min-height: 1.35em; }
-    .exp-card-body .desc {
-      flex: 1;
-      display: -webkit-box;
-      line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 4em;
-    }
-    .exp-card-body .location { flex-shrink: 0; }
 
     /* ── Map section ──────────────────────────────────────── */
     .map-placeholder h3 { min-height: 1.5em; }
