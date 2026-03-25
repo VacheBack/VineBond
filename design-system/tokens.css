@@ -1,0 +1,342 @@
+/* ============================================================
+   VINEBOND Design System — CSS Custom Property Tokens
+   File: design-system/tokens.css
+   Version: 1.0.0
+   Brand: "Harmonious Connection, Certified Origin"
+   ============================================================
+
+   HOW TO USE
+   ──────────
+   1. Import this file once in your root HTML <head>:
+      <link rel="stylesheet" href="design-system/tokens.css" />
+
+   2. Reference any token via var():
+      background: var(--vb-forest);
+      color: var(--vb-white);
+
+   3. Dark mode tokens apply automatically when the OS/browser
+      prefers-color-scheme: dark, or when [data-theme="dark"]
+      is set on <html>.
+   ============================================================ */
+
+
+/* ─────────────────────────────────────────────────────────────
+   1. PRIMARY BRAND PALETTE
+   Source: VineBond VB monogram logo extraction
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* Core Identity */
+  --vb-forest:        #1C4F3D;   /* rgb(28,  79,  61)  — "V" letter, CTA buttons, navigation    */
+  --vb-burgundy:      #5C2632;   /* rgb(92,  38,  50)  — "B" letter, H1 headings, accents        */
+  --vb-leaf-green:    #2D6A4F;   /* rgb(45, 106,  79)  — Leaf outline, hover states, icons        */
+  --vb-deep-maroon:   #4A1F2A;   /* rgb(74,  31,  42)  — Body text, dark elements, H2 headings   */
+  --vb-cream:         #EDE8E0;   /* rgb(237,232,224)   — Primary background, card surfaces        */
+
+
+/* ─────────────────────────────────────────────────────────────
+   2. EXTENDED NEUTRAL PALETTE
+   ───────────────────────────────────────────────────────────── */
+
+  /* Whites & Warm Neutrals */
+  --vb-white:         #FFFFFF;   /* rgb(255,255,255)   — Text on dark BGs, card fills             */
+  --vb-warm-white:    #FAF8F5;   /* rgb(250,248,245)   — Section backgrounds, alternating content */
+  --vb-light-beige:   #F5F2ED;   /* rgb(245,242,237)   — Subtle section dividers, hover fills     */
+
+  /* Grays */
+  --vb-medium-gray:   #8B8578;   /* rgb(139,133,120)   — Secondary / muted text                   */
+  --vb-dark-gray:     #4A4740;   /* rgb(74, 71,  64)   — Icons, caption text                      */
+
+
+/* ─────────────────────────────────────────────────────────────
+   3. STATE / SEMANTIC COLORS
+   ───────────────────────────────────────────────────────────── */
+  --vb-success:       #3A7F5F;   /* rgb(58, 127, 95)   — Success messages, completed states       */
+  --vb-warning:       #B8834F;   /* rgb(184,131, 79)   — Warnings, cautionary elements            */
+  --vb-error:         #8B3942;   /* rgb(139, 57, 66)   — Error states, critical alerts            */
+  --vb-link:          #2B5F73;   /* rgb(43,  95,115)   — Accessible hyperlink blue                */
+
+
+/* ─────────────────────────────────────────────────────────────
+   4. ELEVATION & SHADOW SYSTEM
+   All shadows use the Forest green tint for brand warmth.
+   ───────────────────────────────────────────────────────────── */
+  --vb-shadow-xs:     0 2px  4px  rgba(28,79,61,0.04);
+  --vb-shadow-sm:     0 2px  8px  rgba(28,79,61,0.06);
+  --vb-shadow-md:     0 4px  12px rgba(28,79,61,0.08);
+  --vb-shadow-lg:     0 8px  24px rgba(28,79,61,0.12);
+  --vb-shadow-xl:     0 16px 40px rgba(28,79,61,0.16);
+  --vb-shadow-card:   0 4px  12px rgba(28,79,61,0.08);
+  --vb-shadow-elev:   0 8px  24px rgba(28,79,61,0.15);
+
+  /* Focus ring — used across all interactive elements */
+  --vb-ring-focus:    0 0 0 3px rgba(28,79,61,0.25);
+
+
+/* ─────────────────────────────────────────────────────────────
+   5. BORDER RADIUS SCALE
+   ───────────────────────────────────────────────────────────── */
+  --vb-radius-xs:     4px;
+  --vb-radius-sm:     6px;
+  --vb-radius-md:     8px;
+  --vb-radius-lg:     12px;
+  --vb-radius-xl:     16px;
+  --vb-radius-2xl:    24px;
+  --vb-radius-full:   9999px;   /* Pills, tags, chips */
+
+
+/* ─────────────────────────────────────────────────────────────
+   6. SPACING SCALE  (4-point base grid)
+   ───────────────────────────────────────────────────────────── */
+  --vb-space-1:   4px;
+  --vb-space-2:   8px;
+  --vb-space-3:   12px;
+  --vb-space-4:   16px;
+  --vb-space-5:   20px;
+  --vb-space-6:   24px;
+  --vb-space-8:   32px;
+  --vb-space-10:  40px;
+  --vb-space-12:  48px;
+  --vb-space-16:  64px;
+  --vb-space-20:  80px;
+  --vb-space-24:  96px;
+
+
+/* ─────────────────────────────────────────────────────────────
+   7. TYPOGRAPHY SCALE — DESKTOP  (≥ 1280px)
+   Format: font-size / line-height / font-weight
+   ───────────────────────────────────────────────────────────── */
+  --vb-h1-size-desktop:    56px;
+  --vb-h1-lh-desktop:      1.1;
+  --vb-h1-weight-desktop:  600;
+
+  --vb-h2-size-desktop:    40px;
+  --vb-h2-lh-desktop:      1.2;
+  --vb-h2-weight-desktop:  600;
+
+  --vb-h3-size-desktop:    32px;
+  --vb-h3-lh-desktop:      1.3;
+  --vb-h3-weight-desktop:  600;
+
+  --vb-h4-size-desktop:    24px;
+  --vb-h4-lh-desktop:      1.35;
+  --vb-h4-weight-desktop:  600;
+
+  --vb-body-size-desktop:  18px;
+  --vb-body-lh-desktop:    1.6;
+  --vb-body-weight-desktop:400;
+
+  --vb-sm-size-desktop:    14px;
+  --vb-xs-size-desktop:    12px;
+
+  /* Typography — TABLET  (768px–1279px) */
+  --vb-h1-size-tablet:     40px;
+  --vb-h1-lh-tablet:       1.15;
+
+  --vb-h2-size-tablet:     32px;
+  --vb-h2-lh-tablet:       1.25;
+
+  --vb-body-size-tablet:   16px;
+  --vb-body-lh-tablet:     1.6;
+
+  /* Typography — MOBILE  (≤ 767px) */
+  --vb-h1-size-mobile:     32px;
+  --vb-h1-lh-mobile:       1.2;
+
+  --vb-h2-size-mobile:     24px;
+  --vb-h2-lh-mobile:       1.3;
+
+  --vb-body-size-mobile:   16px;
+  --vb-body-lh-mobile:     1.6;
+
+  /* Fluid clamp() shorthand tokens — use these in components */
+  --vb-fluid-h1:  clamp(2rem, 4vw + 1rem, 3.5rem);    /* 32px → 56px */
+  --vb-fluid-h2:  clamp(1.5rem, 3vw + 0.5rem, 2.5rem); /* 24px → 40px */
+  --vb-fluid-h3:  clamp(1.25rem, 2vw + 0.5rem, 2rem);  /* 20px → 32px */
+  --vb-fluid-body:clamp(1rem, 1vw + 0.5rem, 1.125rem); /* 16px → 18px */
+
+
+/* ─────────────────────────────────────────────────────────────
+   8. TRANSITION & ANIMATION
+   ───────────────────────────────────────────────────────────── */
+  --vb-transition:        0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --vb-transition-fast:   0.15s ease;
+  --vb-transition-slow:   0.5s ease;
+  --vb-ease-bounce:       cubic-bezier(0.34, 1.56, 0.64, 1);
+
+
+/* ─────────────────────────────────────────────────────────────
+   9. Z-INDEX SCALE
+   ───────────────────────────────────────────────────────────── */
+  --vb-z-base:      0;
+  --vb-z-raised:    10;
+  --vb-z-dropdown:  100;
+  --vb-z-sticky:    200;
+  --vb-z-overlay:   500;
+  --vb-z-modal:     800;
+  --vb-z-topbar:    1000;
+  --vb-z-toast:     1200;
+
+
+/* ─────────────────────────────────────────────────────────────
+   10. BREAKPOINT REFERENCE (CSS custom props — informational)
+       Actual media queries must use literal values.
+   ───────────────────────────────────────────────────────────── */
+  /* XS: 320px | S: 375px | M: 414px | L: 480px | XL: 768px */
+  /* XXL: 1024px | 3XL: 1280px | 4XL: 1536px | 5XL: 1920px  */
+
+  --vb-bp-xs:    320px;
+  --vb-bp-s:     375px;
+  --vb-bp-m:     414px;
+  --vb-bp-l:     480px;
+  --vb-bp-xl:    768px;
+  --vb-bp-xxl:   1024px;
+  --vb-bp-3xl:   1280px;
+  --vb-bp-4xl:   1536px;
+  --vb-bp-5xl:   1920px;
+
+
+/* ─────────────────────────────────────────────────────────────
+   11. LOGO DIMENSIONS  (referenced by logo component)
+   ───────────────────────────────────────────────────────────── */
+  /* Navigation bar */
+  --vb-logo-nav-w-desktop:  180px;
+  --vb-logo-nav-h-desktop:   60px;
+  --vb-logo-nav-w-tablet:   140px;
+  --vb-logo-nav-h-tablet:    47px;
+  --vb-logo-nav-w-mobile:   110px;
+  --vb-logo-nav-h-mobile:    37px;
+
+  /* Hero section */
+  --vb-logo-hero-w-desktop: 240px;
+  --vb-logo-hero-h-desktop:  80px;
+  --vb-logo-hero-w-tablet:  200px;
+  --vb-logo-hero-h-tablet:   67px;
+  --vb-logo-hero-w-mobile:  160px;
+  --vb-logo-hero-h-mobile:   54px;
+
+  /* Footer */
+  --vb-logo-footer-w-desktop:160px;
+  --vb-logo-footer-h-desktop: 54px;
+  --vb-logo-footer-w-tablet: 140px;
+  --vb-logo-footer-h-tablet:  47px;
+  --vb-logo-footer-w-mobile: 120px;
+  --vb-logo-footer-h-mobile:  40px;
+
+  /* Minimum clear space = 20% of logo width */
+  --vb-logo-min-width: 80px;
+
+
+/* ─────────────────────────────────────────────────────────────
+   12. BUTTON SIZING
+   ───────────────────────────────────────────────────────────── */
+  --vb-btn-h-lg:    52px;
+  --vb-btn-h-md:    44px;   /* Default — meets touch target 44×44px */
+  --vb-btn-h-sm:    36px;
+  --vb-btn-px-lg:   32px;
+  --vb-btn-px-md:   24px;
+  --vb-btn-px-sm:   16px;
+  --vb-btn-radius:  var(--vb-radius-lg);
+  --vb-btn-weight:  700;
+  --vb-btn-tracking:0.06em;
+
+
+/* ─────────────────────────────────────────────────────────────
+   13. FORM ELEMENT TOKENS
+   ───────────────────────────────────────────────────────────── */
+  --vb-input-bg:            var(--vb-white);
+  --vb-input-border:        1px solid var(--vb-medium-gray);
+  --vb-input-border-focus:  2px solid var(--vb-forest);
+  --vb-input-border-error:  2px solid var(--vb-error);
+  --vb-input-border-success:2px solid var(--vb-success);
+  --vb-input-text:          var(--vb-deep-maroon);
+  --vb-input-placeholder:   var(--vb-medium-gray);
+  --vb-input-disabled-bg:   var(--vb-light-beige);
+  --vb-input-error-bg:      #FFF5F5;
+  --vb-input-success-bg:    #F5FAF7;
+  --vb-input-radius:        var(--vb-radius-md);
+  --vb-input-height:        44px;   /* Meets touch target minimum */
+
+
+/* ─────────────────────────────────────────────────────────────
+   14. SECTION BACKGROUND TOKENS
+   ───────────────────────────────────────────────────────────── */
+  --vb-section-hero:        var(--vb-cream);
+  --vb-section-alt-1:       var(--vb-white);
+  --vb-section-alt-2:       var(--vb-warm-white);
+  --vb-section-dark:        var(--vb-forest);
+  --vb-section-card:        var(--vb-white);
+  --vb-section-card-hi:     var(--vb-light-beige);
+
+  /* Dividers */
+  --vb-divider-color:       var(--vb-cream);
+  --vb-divider-width:       1px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   15. DARK MODE OVERRIDES
+   Activates via OS preference OR [data-theme="dark"] on <html>
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --vb-cream:         #1A1A1A;
+    --vb-white:         #2A2A2A;
+    --vb-warm-white:    #222222;
+    --vb-light-beige:   #2E2E2E;
+    --vb-deep-maroon:   #EDE8E0;   /* Body text → light on dark BG */
+    --vb-forest:        #3A7F5F;   /* Lightened for dark BG contrast */
+    --vb-burgundy:      #9B6570;   /* Softened for dark BG readability */
+    --vb-medium-gray:   #9A948A;
+    --vb-dark-gray:     #C0B8B0;
+
+    --vb-shadow-md:     0 4px  12px rgba(0,0,0,0.3);
+    --vb-shadow-lg:     0 8px  24px rgba(0,0,0,0.4);
+
+    --vb-input-bg:          #2A2A2A;
+    --vb-input-error-bg:    #2A1A1A;
+    --vb-input-success-bg:  #1A2A22;
+    --vb-section-hero:      #1A1A1A;
+    --vb-section-alt-1:     #2A2A2A;
+    --vb-section-alt-2:     #222222;
+    --vb-section-dark:      #111111;
+    --vb-section-card:      #2A2A2A;
+    --vb-section-card-hi:   #2E2E2E;
+    --vb-divider-color:     #333333;
+  }
+}
+
+[data-theme="dark"] {
+  --vb-cream:         #1A1A1A;
+  --vb-white:         #2A2A2A;
+  --vb-warm-white:    #222222;
+  --vb-light-beige:   #2E2E2E;
+  --vb-deep-maroon:   #EDE8E0;
+  --vb-forest:        #3A7F5F;
+  --vb-burgundy:      #9B6570;
+  --vb-medium-gray:   #9A948A;
+  --vb-dark-gray:     #C0B8B0;
+  --vb-shadow-md:     0 4px  12px rgba(0,0,0,0.3);
+  --vb-shadow-lg:     0 8px  24px rgba(0,0,0,0.4);
+  --vb-input-bg:          #2A2A2A;
+  --vb-input-error-bg:    #2A1A1A;
+  --vb-input-success-bg:  #1A2A22;
+  --vb-section-hero:      #1A1A1A;
+  --vb-section-alt-1:     #2A2A2A;
+  --vb-section-alt-2:     #222222;
+  --vb-section-dark:      #111111;
+  --vb-section-card:      #2A2A2A;
+  --vb-section-card-hi:   #2E2E2E;
+  --vb-divider-color:     #333333;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   16. REDUCED MOTION OVERRIDES
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vb-transition:      0.01ms;
+    --vb-transition-fast: 0.01ms;
+    --vb-transition-slow: 0.01ms;
+  }
+}
