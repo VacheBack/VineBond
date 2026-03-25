@@ -1,9 +1,13 @@
 /**
  * VineBond — VineMap Leaflet.js Integration
  * ─────────────────────────────────────────────────────────────────────────────
- * Region:  Rheingau (Hessen, Germany)
- * Focus:   Grosses Gewächs (GG) & Erstes Gewächs (1G) Einzellagen
- * Library: Leaflet.js 1.9.x (loaded via CDN in vinemap.html)
+ * Design System: VINEBOND Brand Identity v2.0
+ * GG Markers:    Vinebond Burgundy #5C2632
+ * 1G Markers:    Gold Warm #B8960F
+ * Popup CTA:     Vinebond Forest #1C4F3D (9.8:1 AAA on white)
+ * Region:        Rheingau (Hessen, Germany)
+ * Focus:         Grosses Gewächs (GG) & Erstes Gewächs (1G) Einzellagen
+ * Library:       Leaflet.js 1.9.x (loaded via CDN in vinemap.html)
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -208,13 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollWheelZoom: true
   });
 
-  /* Base tile layer — OpenStreetMap */
   const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 19
   }).addTo(map);
 
-  /* Optional: ESRI World Topo for richer terrain */
   const topoLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
     { attribution: 'Tiles © Esri', maxZoom: 19 }
@@ -226,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { position: 'bottomright', collapsed: false }
   ).addTo(map);
 
-  /* ── 3. Custom Icons ─────────────────────────────────────────────────── */
+  /* ── 3. Custom Icons — VINEBOND palette ──────────────────────────────── */
 
   const makeIcon = (bgColor, label) => L.divIcon({
     className: '',
@@ -255,15 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
     popupAnchor: [0, -44]
   });
 
-  const ggIcon  = makeIcon('#6B1F3C', 'GG');
+  /* GG: Vinebond Burgundy #5C2632 | 1G: Gold Warm #B8960F */
+  const ggIcon         = makeIcon('#5C2632', 'GG');
   const firstGrowthIcon = makeIcon('#B8960F', '1G');
 
   /* ── 4. Marker Layers ───────────────────────────────────────────────── */
 
   const layerGG = L.layerGroup();
   const layer1G = L.layerGroup();
-
-  const markerMap = {};  // id → L.Marker (for popup refresh)
+  const markerMap = {};
 
   RHEINGAU_VINEYARDS.forEach(v => {
     const icon = v.type === 'GG' ? ggIcon : firstGrowthIcon;
@@ -284,14 +286,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('active');
 
       const f = btn.dataset.filter;
-      if (f === 'all' || f === 'GG')  { if (!map.hasLayer(layerGG))  layerGG.addTo(map);  }
-      else                             {                               map.removeLayer(layerGG); }
-      if (f === 'all' || f === '1G')  { if (!map.hasLayer(layer1G))  layer1G.addTo(map); }
-      else                             {                               map.removeLayer(layer1G); }
+      if (f === 'all' || f === 'GG') { if (!map.hasLayer(layerGG)) layerGG.addTo(map); }
+      else                           { map.removeLayer(layerGG); }
+      if (f === 'all' || f === '1G') { if (!map.hasLayer(layer1G)) layer1G.addTo(map); }
+      else                           { map.removeLayer(layer1G); }
     });
   });
 
-  /* ── 6. Popup Builder ───────────────────────────────────────────────── */
+  /* ── 6. Popup Builder — VINEBOND colors ────────────────────────────── */
 
   function buildPopup(v) {
     const isDE = (localStorage.getItem('vb_lang') || 'en') === 'de';
@@ -300,7 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ? { estate: 'Weingut', grape: 'Rebsorte', soil: 'Boden', altitude: 'Höhe', book: 'Besuch buchen' }
       : { estate: 'Estate',  grape: 'Grape',    soil: 'Soil',  altitude: 'Alt.', book: 'Book a Visit' };
 
-    const typeColor = v.type === 'GG' ? '#6B1F3C' : '#B8960F';
+    /* GG: Burgundy #5C2632 | 1G: Gold #B8960F */
+    const typeColor = v.type === 'GG' ? '#5C2632' : '#B8960F';
 
     return `
       <div style="font-family:'Segoe UI',sans-serif; padding:4px;">
@@ -314,33 +317,33 @@ document.addEventListener('DOMContentLoaded', () => {
             color:#fff;
             letter-spacing:0.05em;
           ">${v.type}</span>
-          <h4 style="margin:0;font-size:14px;color:#3A2C20;font-weight:700;line-height:1.3;">${v.name}</h4>
+          <h4 style="margin:0;font-size:14px;color:#4A1F2A;font-weight:700;line-height:1.3;">${v.name}</h4>
         </div>
         <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;">
           <tr>
-            <td style="color:#8B7355;padding:2px 6px 2px 0;font-weight:600;white-space:nowrap;">${labels.estate}</td>
-            <td style="color:#3A2C20;">${v.estate}</td>
+            <td style="color:#8B8578;padding:2px 6px 2px 0;font-weight:600;white-space:nowrap;">${labels.estate}</td>
+            <td style="color:#4A1F2A;">${v.estate}</td>
           </tr>
           <tr>
-            <td style="color:#8B7355;padding:2px 6px 2px 0;font-weight:600;">${labels.grape}</td>
-            <td style="color:#3A2C20;">${v.grape}</td>
+            <td style="color:#8B8578;padding:2px 6px 2px 0;font-weight:600;">${labels.grape}</td>
+            <td style="color:#4A1F2A;">${v.grape}</td>
           </tr>
           <tr>
-            <td style="color:#8B7355;padding:2px 6px 2px 0;font-weight:600;">${labels.soil}</td>
-            <td style="color:#3A2C20;">${v.soil}</td>
+            <td style="color:#8B8578;padding:2px 6px 2px 0;font-weight:600;">${labels.soil}</td>
+            <td style="color:#4A1F2A;">${v.soil}</td>
           </tr>
           <tr>
-            <td style="color:#8B7355;padding:2px 6px 2px 0;font-weight:600;">${labels.altitude}</td>
-            <td style="color:#3A2C20;">${v.altitude} · ${v.slope}</td>
+            <td style="color:#8B8578;padding:2px 6px 2px 0;font-weight:600;">${labels.altitude}</td>
+            <td style="color:#4A1F2A;">${v.altitude} · ${v.slope}</td>
           </tr>
         </table>
-        <p style="font-size:12px;color:#5A4D40;line-height:1.5;margin:0 0 12px;">${desc}</p>
+        <p style="font-size:12px;color:#4A4740;line-height:1.5;margin:0 0 12px;">${desc}</p>
         <a href="book.html" style="
           display:block;
           text-align:center;
           padding:9px 16px;
-          background:linear-gradient(135deg,#6B1F3C,#4A1528);
-          color:#F5F1E8;
+          background:linear-gradient(135deg,#1C4F3D,#4A1F2A);
+          color:#FFFFFF;
           border-radius:10px;
           font-weight:700;
           font-size:12px;
