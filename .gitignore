@@ -1,0 +1,14 @@
+# Ignore everything in the home directory
+*
+
+# Except the VineBond project on the Desktop
+!Desktop/
+!Desktop/VineBond
+!Desktop/VineBond/**
+
+# Allow .github workflows
+!.github/
+!.github/**
+
+# Keep this .gitignore itself
+!.gitignore
