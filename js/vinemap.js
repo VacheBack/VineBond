@@ -354,16 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`;
   }
 
-  /* ── 7. Refresh popups on language change ───────────────────────────── */
-
-  document.addEventListener('vb:i18n:changed', () => {
-    RHEINGAU_VINEYARDS.forEach(v => {
-      const m = markerMap[v.id];
-      if (m && m.isPopupOpen()) m.setPopupContent(buildPopup(v));
-    });
-  });
-
-  /* ── 8. Expose map for external use ────────────────────────────────── */
+  /* ── 7. Expose map for external use ────────────────────────────────── */
 
   window.vineMap = map;
 });

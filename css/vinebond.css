@@ -91,8 +91,6 @@
 
 html { scroll-behavior: smooth; }
 
-/* ── FOUC guard: hide body until i18n.js applies translations ─ */
-html.i18n-loading body { opacity: 0; }
 
 body {
   font-family: 'Segoe UI', Inter, system-ui, -apple-system, sans-serif;
@@ -882,45 +880,31 @@ footer {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   i18n Layout Stability
-   Locks inline dimensions during EN ↔ DE language switches.
-   ══════════════════════════════════════════════════════════════ */
+/* Single-line lock for short strings */
+.topbar-nav a span,
+.topbar-cta,
+.breadcrumb,
+.filter-label,
+.filter-chip,
+.map-controls-label,
+.map-filter-btn,
+.legend-item span,
+.footer-col h4,
+.footer-bottom p,
+.results-count span,
+.summary-row .label,
+.summary-row .value,
+.summary-total .total-label,
+.map-info-card .info-stat,
+.trail-tag span,
+.sustain-stat .desc { white-space: nowrap; }
 
-html.i18n-switching,
-html.i18n-switching *,
-html.i18n-switching *::before,
-html.i18n-switching *::after {
-  transition-duration: 0s !important;
-  animation-duration: 0s !important;
-}
+.btn,
+.btn > span { white-space: nowrap; }
 
-/* Single-line lock for short translated strings */
-.topbar-nav a [data-i18n],
-.topbar-cta [data-i18n],
-.breadcrumb [data-i18n],
-.filter-label[data-i18n],
-.filter-chip[data-i18n],
-.map-controls-label[data-i18n],
-.map-filter-btn[data-i18n],
-.legend-item [data-i18n],
-.footer-col h4[data-i18n],
-.footer-bottom p[data-i18n],
-.results-count [data-i18n],
-.summary-row .label[data-i18n],
-.summary-row .value[data-i18n],
-.summary-total .total-label[data-i18n],
-.map-info-card .info-stat[data-i18n],
-.trail-tag [data-i18n],
-.sustain-stat .desc[data-i18n] { white-space: nowrap; }
-
-.btn[data-i18n],
-.btn > [data-i18n],
-.btn > span[data-i18n] { white-space: nowrap; }
-
-.form-field label[data-i18n],
-.form-section-title[data-i18n],
-.detail-label[data-i18n] {
+.form-field label,
+.form-section-title,
+.detail-label {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -928,11 +912,11 @@ html.i18n-switching *::after {
 
 .winery-card-actions .btn { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 
-.exp-type-card .exp-name[data-i18n] {
+.exp-type-card .exp-name {
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
 }
 
-.loyalty-badge .badge-label[data-i18n] {
+.loyalty-badge .badge-label {
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 68px; display: block; text-align: center;
 }
@@ -962,14 +946,13 @@ html.i18n-switching *::after {
 .footer-col h4 { min-height: 1.3em; }
 
 /* Nav item text clip */
-.topbar-nav a span[data-i18n] {
+.topbar-nav a span {
   overflow: hidden; text-overflow: ellipsis;
   display: inline-block; vertical-align: middle; max-width: 150px;
 }
 
 /* Section title line-clamp */
-.section-title[data-i18n],
-.section-title[data-i18n-html] {
+.section-title {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

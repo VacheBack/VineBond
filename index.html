@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>VineBond — Connect with Global Wineries</title>
-  <script>(function(){document.documentElement.classList.add('i18n-loading');setTimeout(function(){document.documentElement.classList.remove('i18n-loading');},1500);})();</script>
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
     /* ===== INDEX-SPECIFIC STYLES =====
@@ -887,16 +886,6 @@
       }
     }
 
-    /* i18n Layout Stability and topbar nav sizing come from vinebond.css */
-
-    /* ===== i18n LAYOUT LOCK ═════════════════════════════════
-       Prevents ANY layout shifts when switching EN ↔ DE.
-       ─ Buttons: generous min-width for longest translation
-       ─ Cards: fixed min-height with flex column layout
-       ─ Multi-line text: line-clamped + min-height reservations
-       ─ Chips / Tags: centered with fixed min-width
-       ═══════════════════════════════════════════════════════ */
-
     /* ── Buttons: universal fixed sizing ─────────────────── */
     .btn-primary  { min-width: 200px; }
     .btn-secondary { min-width: 160px; }
@@ -1173,9 +1162,9 @@
     }
   </style>
 </head>
-<body data-i18n-page-title="hero.page_title">
+<body>
 
-  <a href="#main-content" class="skip-to-content" data-i18n="a11y.skip_to_content">Skip to content</a>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
   <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
 
   <!-- ===== TOP BAR ===== -->
@@ -1195,34 +1184,33 @@
             <path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/>
             <path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/>
           </svg>
-          <span data-i18n="nav.wineries">Wineries</span>
+          <span>Wineries</span>
         </a>
         <a href="book.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <rect x="3" y="4" width="18" height="18" rx="2"/>
             <path d="M16 2v4M8 2v4M3 10h18"/>
           </svg>
-          <span data-i18n="nav.book">Book</span>
+          <span>Book</span>
         </a>
         <a href="vinemap.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
             <circle cx="12" cy="9" r="2.5"/>
           </svg>
-          <span data-i18n="nav.vinemap">VineMap</span>
+          <span>VineMap</span>
         </a>
         <a href="vineclub.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          <span data-i18n="nav.vineclub">VineClub</span>
+          <span>VineClub</span>
         </a>
       </div>
 
       <div class="topbar-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         <input type="search" id="winerySearch"
-               data-i18n-placeholder="nav.search_placeholder"
                placeholder="Search wineries…" />
       </div>
 
@@ -1230,10 +1218,10 @@
       <div class="topbar-cta" id="topbarCta">
         <a href="login.html" class="btn btn-secondary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span data-i18n="nav.sign_in">Sign In</span>
+          <span>Sign In</span>
         </a>
         <a href="book.html" class="btn btn-primary">
-          <span data-i18n="nav.book_tasting">Book a Tasting</span>
+          <span>Book a Tasting</span>
         </a>
       </div>
 
@@ -1264,35 +1252,35 @@
     <!-- Search -->
     <div class="mob-search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" placeholder="Search wineries…" data-i18n-placeholder="nav.search_placeholder" />
+      <input type="search" placeholder="Search wineries…" />
     </div>
     <!-- Nav links -->
     <nav class="mob-nav">
       <a href="winery.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
-        <span data-i18n="nav.wineries">Wineries</span>
+        <span>Wineries</span>
       </a>
       <a href="book.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span data-i18n="nav.book">Book</span>
+        <span>Book</span>
       </a>
       <a href="vinemap.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <span data-i18n="nav.vinemap">VineMap</span>
+        <span>VineMap</span>
       </a>
       <a href="vineclub.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <span data-i18n="nav.vineclub">VineClub</span>
+        <span>VineClub</span>
       </a>
     </nav>
     <!-- CTA buttons -->
     <div class="mob-cta">
       <a href="login.html" class="btn btn-secondary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span data-i18n="nav.sign_in">Sign In</span>
+        <span>Sign In</span>
       </a>
       <a href="book.html" class="btn btn-primary">
-        <span data-i18n="nav.book_tasting">Book a Tasting</span>
+        <span>Book a Tasting</span>
       </a>
     </div>
   </div>
@@ -1301,12 +1289,12 @@
   <section class="hero" id="main-content">
     <div class="container">
       <div class="hero-content fade-up">
-        <p class="section-label" data-i18n="hero.label">Explore Global Vineyards</p>
-        <h1 data-i18n-html="hero.title_html">Discover the World's<br/>Finest <span>Wine Experiences</span></h1>
-        <p data-i18n="hero.subtitle">Book exclusive vineyard tours, cellar tastings, and terroir explorations at hand-picked wineries across the globe.</p>
+        <p class="section-label">Explore Global Vineyards</p>
+        <h1>Discover the World's<br/>Finest <span>Wine Experiences</span></h1>
+        <p>Book exclusive vineyard tours, cellar tastings, and terroir explorations at hand-picked wineries across the globe.</p>
         <div class="hero-actions">
-          <a href="#experiences" class="btn btn-primary"><span data-i18n="hero.cta_explore">Explore Experiences</span></a>
-          <a href="#map" class="btn btn-secondary"><span data-i18n="hero.cta_map">Open VineMap</span></a>
+          <a href="#experiences" class="btn btn-primary"><span>Explore Experiences</span></a>
+          <a href="#map" class="btn btn-secondary"><span>Open VineMap</span></a>
         </div>
         <div class="hero-kpis">
           <div class="hero-kpi">
@@ -1330,12 +1318,12 @@
             <rect x="3" y="4" width="18" height="18" rx="2"/>
             <path d="M16 2v4M8 2v4M3 10h18"/>
           </svg>
-          <span data-i18n="hero.booking_title">Quick Booking</span>
+          <span>Quick Booking</span>
         </h3>
         <div class="booking-field">
-          <label data-i18n="hero.booking_destination_label">City or Village</label>
+          <label>City or Village</label>
           <select>
-            <option data-i18n="hero.dest_placeholder">Select a destination…</option>
+            <option>Select a destination…</option>
             <option>Bordeaux, France</option>
             <option>Napa Valley, USA</option>
             <option>Barossa Valley, Australia</option>
@@ -1346,35 +1334,35 @@
         </div>
         <div class="booking-row">
           <div class="booking-field">
-            <label data-i18n="hero.booking_date_label">Date</label>
+            <label>Date</label>
             <input type="date" value="2026-04-15" />
           </div>
           <div class="booking-field">
-            <label data-i18n="hero.booking_guests_label">Guests</label>
+            <label>Guests</label>
             <select>
-              <option data-i18n="hero.guest_2">2 guests</option>
-              <option data-i18n="hero.guest_1">1 guest</option>
-              <option data-i18n="hero.guest_3">3 guests</option>
-              <option data-i18n="hero.guest_4">4 guests</option>
-              <option data-i18n="hero.guest_5p">5+ guests</option>
+              <option>2 guests</option>
+              <option>1 guest</option>
+              <option>3 guests</option>
+              <option>4 guests</option>
+              <option>5+ guests</option>
             </select>
           </div>
         </div>
         <div class="booking-field">
-          <label data-i18n="hero.booking_experience_label">Experience Type</label>
+          <label>Experience Type</label>
           <select>
-            <option data-i18n="hero.exp_cellar_tasting">Cellar Tasting</option>
-            <option data-i18n="hero.exp_walk_tasting">Vineyard Walk &amp; Tasting</option>
-            <option data-i18n="hero.exp_full_day_trail">Full-Day Wine Trail</option>
-            <option data-i18n="hero.exp_harvest">Harvest Experience</option>
-            <option data-i18n="hero.exp_winemaker_dinner">Winemaker's Dinner</option>
+            <option>Cellar Tasting</option>
+            <option>Vineyard Walk &amp; Tasting</option>
+            <option>Full-Day Wine Trail</option>
+            <option>Harvest Experience</option>
+            <option>Winemaker's Dinner</option>
           </select>
         </div>
         <div class="booking-price">
-          <span class="label" data-i18n="hero.booking_price_label">Estimated price</span>
-          <span class="price">€85 <small data-i18n="hero.booking_price_unit">/ person</small></span>
+          <span class="label">Estimated price</span>
+          <span class="price">€85 <small>/ person</small></span>
         </div>
-        <button class="btn btn-gold" data-i18n="hero.booking_cta">Check Availability</button>
+        <button class="btn btn-gold">Check Availability</button>
       </div>
     </div>
   </section>
@@ -1382,30 +1370,30 @@
   <!-- ===== FILTRATION BAR ===== -->
   <section class="filter-bar">
     <div class="container">
-      <span class="filter-label" data-i18n="filter.label">Filter by:</span>
+      <span class="filter-label">Filter by:</span>
       <div class="filter-group">
         <select class="filter-select">
-          <option data-i18n="filter.visitors_default">Amount of visitors</option>
-          <option data-i18n="filter.visitors_intimate">Intimate (1-4)</option>
-          <option data-i18n="filter.visitors_small">Small Group (5-10)</option>
-          <option data-i18n="filter.visitors_medium">Medium (11-20)</option>
-          <option data-i18n="filter.visitors_large">Large (20+)</option>
+          <option>Amount of visitors</option>
+          <option>Intimate (1-4)</option>
+          <option>Small Group (5-10)</option>
+          <option>Medium (11-20)</option>
+          <option>Large (20+)</option>
         </select>
         <select class="filter-select">
-          <option data-i18n="filter.wines_default">Types of wines</option>
-          <option data-i18n="filter.wine_red_cab">Red — Cabernet Sauvignon</option>
-          <option data-i18n="filter.wine_red_pinot">Red — Pinot Noir</option>
-          <option data-i18n="filter.wine_white_chard">White — Chardonnay</option>
-          <option data-i18n="filter.wine_white_sauv">White — Sauvignon Blanc</option>
-          <option data-i18n="filter.wine_rose">Rosé</option>
-          <option data-i18n="filter.wine_sparkling">Sparkling</option>
-          <option data-i18n="filter.wine_orange">Orange / Natural</option>
+          <option>Types of wines</option>
+          <option>Red — Cabernet Sauvignon</option>
+          <option>Red — Pinot Noir</option>
+          <option>White — Chardonnay</option>
+          <option>White — Sauvignon Blanc</option>
+          <option>Rosé</option>
+          <option>Sparkling</option>
+          <option>Orange / Natural</option>
         </select>
-        <span class="filter-chip active" data-i18n="filter.chip_open">Open Today</span>
-        <span class="filter-chip" data-i18n="filter.chip_organic">Organic</span>
-        <span class="filter-chip" data-i18n="filter.chip_family">Family-Owned</span>
+        <span class="filter-chip active">Open Today</span>
+        <span class="filter-chip">Organic</span>
+        <span class="filter-chip">Family-Owned</span>
       </div>
-      <button class="btn btn-primary filter-apply" style="padding:10px 24px; font-size:0.8rem;" data-i18n="filter.apply">Apply</button>
+      <button class="btn btn-primary filter-apply" style="padding:10px 24px; font-size:0.8rem;">Apply</button>
     </div>
   </section>
 
@@ -1557,9 +1545,9 @@
   <section class="map-section" id="map">
     <div class="container">
       <div class="map-header fade-up">
-        <p class="section-label" data-i18n="map.section_label">Region &amp; Terroir Browser</p>
-        <h2 class="section-title" data-i18n="map.section_title">Explore Wine Regions on the VineMap</h2>
-        <p class="section-subtitle" data-i18n="map.section_subtitle">Navigate global wine trails, discover hidden vineyards, and plan your terroir journey.</p>
+        <p class="section-label">Region &amp; Terroir Browser</p>
+        <h2 class="section-title">Explore Wine Regions on the VineMap</h2>
+        <p class="section-subtitle">Navigate global wine trails, discover hidden vineyards, and plan your terroir journey.</p>
       </div>
 
       <div class="map-wrapper fade-up">
@@ -1577,32 +1565,32 @@
               <circle cx="12" cy="9" r="2.5"/>
             </svg>
           </div>
-          <h3 data-i18n="map.placeholder_title">Interactive VineMap</h3>
-          <p data-i18n="map.placeholder_desc">Click a region to explore vineyards, terroir profiles, and bookable experiences on the trail.</p>
-          <button class="btn btn-primary" onclick="window.location.href='vinemap.html'" data-i18n="map.launch_btn">Launch Full Map</button>
+          <h3>Interactive VineMap</h3>
+          <p>Click a region to explore vineyards, terroir profiles, and bookable experiences on the trail.</p>
+          <button class="btn btn-primary" onclick="window.location.href='vinemap.html'">Launch Full Map</button>
         </div>
       </div>
 
       <div class="map-trails fade-up">
         <span class="trail-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_bordeaux">Bordeaux Trail</span>
+          <span>Bordeaux Trail</span>
         </span>
         <span class="trail-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_tuscany">Tuscany Trail</span>
+          <span>Tuscany Trail</span>
         </span>
         <span class="trail-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_napa">Napa Valley Trail</span>
+          <span>Napa Valley Trail</span>
         </span>
         <span class="trail-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_armenia">Armenian Highland Trail</span>
+          <span>Armenian Highland Trail</span>
         </span>
         <span class="trail-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span data-i18n="vinemap.trail_rioja">Rioja Trail</span>
+          <span>Rioja Trail</span>
         </span>
       </div>
     </div>
@@ -1614,9 +1602,9 @@
   <section class="community" id="community">
     <div class="container">
       <div class="community-header fade-up">
-        <p class="section-label" data-i18n="community.section_label">Reviews, Ratings &amp; Loyalty</p>
-        <h2 class="section-title" data-i18n="community.section_title">Trusted by Wine Enthusiasts Worldwide</h2>
-        <p class="section-subtitle" data-i18n="community.section_subtitle">Hear from fellow travellers who've walked the vineyards and tasted the terroir first-hand.</p>
+        <p class="section-label">Reviews, Ratings &amp; Loyalty</p>
+        <h2 class="section-title">Trusted by Wine Enthusiasts Worldwide</h2>
+        <p class="section-subtitle">Hear from fellow travellers who've walked the vineyards and tasted the terroir first-hand.</p>
       </div>
 
       <div class="reviews-grid">
@@ -1676,31 +1664,31 @@
       <!-- Badges & Loyalty -->
       <div class="loyalty fade-up">
         <div>
-          <p class="section-label" style="color: rgba(245,241,232,0.6);" data-i18n="loyalty.section_label">Badges &amp; Loyalty Program</p>
-          <h3 data-i18n="loyalty.title">Earn Rewards with Every Visit</h3>
-          <p data-i18n="loyalty.desc">Collect badges for vineyard visits, terroir explorations, and wine trail completions. Unlock exclusive perks and members-only experiences.</p>
-          <a href="vineclub.html" class="btn btn-gold" data-i18n="loyalty.cta">Join the VineClub</a>
+          <p class="section-label" style="color: rgba(245,241,232,0.6);">Badges &amp; Loyalty Program</p>
+          <h3>Earn Rewards with Every Visit</h3>
+          <p>Collect badges for vineyard visits, terroir explorations, and wine trail completions. Unlock exclusive perks and members-only experiences.</p>
+          <a href="vineclub.html" class="btn btn-gold">Join the VineClub</a>
         </div>
         <div class="loyalty-badges">
           <div class="loyalty-badge" style="background: #D4AF37;">
             <svg viewBox="0 0 24 24" fill="none" stroke="#3D1224" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 13c1.3 2 2.7 3 4 3s2.7-1 4-3"/><path d="M9 9h.01M15 9h.01"/></svg>
-            <span class="badge-label" style="color:#3D1224;" data-i18n="loyalty.badge_explorer">Explorer</span>
+            <span class="badge-label" style="color:#3D1224;">Explorer</span>
           </div>
           <div class="loyalty-badge" style="background: #4A8B5E;">
             <svg viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg>
-            <span class="badge-label" style="color:#F5F1E8;" data-i18n="loyalty.badge_terroir">Terroir</span>
+            <span class="badge-label" style="color:#F5F1E8;">Terroir</span>
           </div>
           <div class="loyalty-badge" style="background: #C97450;">
             <svg viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="2" stroke-linecap="round"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z"/><path d="M12 15v7M8 18h8"/></svg>
-            <span class="badge-label" style="color:#F5F1E8;" data-i18n="loyalty.badge_harvest">Harvest</span>
+            <span class="badge-label" style="color:#F5F1E8;">Harvest</span>
           </div>
           <div class="loyalty-badge" style="background: #9B3060;">
             <svg viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-            <span class="badge-label" style="color:#F5F1E8;" data-i18n="loyalty.badge_cellar">Cellar</span>
+            <span class="badge-label" style="color:#F5F1E8;">Cellar</span>
           </div>
           <div class="loyalty-badge" style="background: #B8960F;">
             <svg viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="2" stroke-linecap="round"><path d="M5 3l14 9-14 9V3z"/></svg>
-            <span class="badge-label" style="color:#F5F1E8;" data-i18n="loyalty.badge_trail">Trail</span>
+            <span class="badge-label" style="color:#F5F1E8;">Trail</span>
           </div>
         </div>
       </div>
@@ -1716,33 +1704,33 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg>
             VineBond
           </h3>
-          <p data-i18n="footer.brand_desc">Connecting wine enthusiasts with the world's finest vineyards. Book authentic experiences, explore terroir, and join a global community of wine lovers.</p>
+          <p>Connecting wine enthusiasts with the world's finest vineyards. Book authentic experiences, explore terroir, and join a global community of wine lovers.</p>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.explore_title">Explore</h4>
-          <a href="winery.html" data-i18n="nav.wineries">Wineries</a>
-          <a href="vinemap.html" data-i18n="nav.vinemap">VineMap</a>
-          <a href="#" data-i18n="footer.link_trails">Wine Trails</a>
-          <a href="#" data-i18n="footer.link_terroir">Terroir Browser</a>
+          <h4>Explore</h4>
+          <a href="winery.html">Wineries</a>
+          <a href="vinemap.html">VineMap</a>
+          <a href="#">Wine Trails</a>
+          <a href="#">Terroir Browser</a>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.bookings_title">Bookings</h4>
-          <a href="#experiences" data-i18n="footer.link_experiences">Experiences</a>
-          <a href="#" data-i18n="footer.link_group">Group Tastings</a>
-          <a href="#" data-i18n="footer.link_gifts">Gift Cards</a>
-          <a href="#" data-i18n="footer.link_vineclub">VineClub</a>
+          <h4>Bookings</h4>
+          <a href="#experiences">Experiences</a>
+          <a href="#">Group Tastings</a>
+          <a href="#">Gift Cards</a>
+          <a href="#">VineClub</a>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.company_title">Company</h4>
-          <a href="#" data-i18n="footer.link_about">About Us</a>
-          <a href="#" data-i18n="footer.link_sustainability">Sustainability</a>
-          <a href="#" data-i18n="footer.link_careers">Careers</a>
-          <a href="#" data-i18n="footer.link_contact">Contact</a>
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Sustainability</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p data-i18n="footer.copyright">&copy; 2026 VineBond. All rights reserved.</p>
-        <p data-i18n="footer.legal">Adults 18+ only. Please enjoy responsibly.</p>
+        <p>&copy; 2026 VineBond. All rights reserved.</p>
+        <p>Adults 18+ only. Please enjoy responsibly.</p>
       </div>
     </div>
   </footer>
@@ -1868,6 +1856,5 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
   <script src="js/ui-enhancements.js"></script>
-  <script src="js/i18n.js?v=3"></script>
 </body>
 </html>

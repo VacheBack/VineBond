@@ -60,3 +60,31 @@
     syncScrollUI();
   });
 })();
+
+/* Winery search */
+(() => {
+  const onReady = (fn) => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn, { once: true });
+    } else { fn(); }
+  };
+  onReady(() => {
+    const input = document.getElementById('winerySearch');
+    if (!input) return;
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && input.value.trim()) {
+        window.location.href = `winery.html?q=${encodeURIComponent(input.value.trim())}`;
+      }
+    });
+    if (window.location.pathname.includes('winery')) {
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase();
+        document.querySelectorAll('.winery-card').forEach(card => {
+          const name = (card.dataset.name || '').toLowerCase();
+          const region = (card.dataset.region || '').toLowerCase();
+          card.style.display = (!q || name.includes(q) || region.includes(q)) ? '' : 'none';
+        });
+      });
+    }
+  });
+})();

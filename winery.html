@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <script>(function(){document.documentElement.classList.add('i18n-loading');setTimeout(function(){document.documentElement.classList.remove('i18n-loading');},1500);})();</script>
   <title>Wineries — VineBond</title>
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
@@ -118,9 +117,9 @@
     }
   </style>
 </head>
-<body data-i18n-page-title="winery.page_title">
+<body>
 
-  <a href="#main-content" class="skip-to-content" data-i18n="a11y.skip_to_content">Skip to content</a>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
   <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
 
   <!-- TOP BAR -->
@@ -137,32 +136,32 @@
       <div class="topbar-nav" id="topbarNav">
         <a href="winery.html" class="active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
-          <span data-i18n="nav.wineries">Wineries</span>
+          <span>Wineries</span>
         </a>
         <a href="book.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          <span data-i18n="nav.book">Book</span>
+          <span>Book</span>
         </a>
         <a href="vinemap.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span data-i18n="nav.vinemap">VineMap</span>
+          <span>VineMap</span>
         </a>
         <a href="vineclub.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <span data-i18n="nav.vineclub">VineClub</span>
+          <span>VineClub</span>
         </a>
       </div>
       <div class="topbar-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="search" id="winerySearch" data-i18n-placeholder="nav.search_placeholder" placeholder="Search wineries…" />
+        <input type="search" id="winerySearch" placeholder="Search wineries…" />
       </div>
       <div class="topbar-cta" id="topbarCta">
         <a href="login.html" class="btn btn-secondary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span data-i18n="nav.sign_in">Sign In</span>
+          <span>Sign In</span>
         </a>
         <a href="book.html" class="btn btn-primary">
-          <span data-i18n="nav.book_tasting">Book a Tasting</span>
+          <span>Book a Tasting</span>
         </a>
       </div>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -175,30 +174,30 @@
       <nav class="breadcrumb">
         <a href="index.html">VineBond</a>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        <span data-i18n="nav.wineries">Wineries</span>
+        <span>Wineries</span>
       </nav>
-      <span class="section-label" data-i18n="winery.section_label">Our Winery Partners</span>
-      <h1 class="section-title" data-i18n="winery.section_title">Discover Exceptional Wine Estates</h1>
-      <p class="section-subtitle" data-i18n="winery.section_subtitle">Hand-selected wineries offering unique terroir experiences.</p>
+      <span class="section-label">Our Winery Partners</span>
+      <h1 class="section-title">Discover Exceptional Wine Estates</h1>
+      <p class="section-subtitle">Hand-selected wineries offering unique terroir experiences.</p>
     </div>
   </section>
 
   <!-- FILTER BAR -->
   <div class="filter-bar">
     <div class="container">
-      <span class="filter-label" data-i18n="filter.label">Filter by:</span>
+      <span class="filter-label">Filter by:</span>
       <div class="filter-chips">
-        <button class="filter-chip active" data-filter="all" data-i18n="winery.filter_all">All Regions</button>
-        <button class="filter-chip" data-filter="GG" data-i18n="winery.filter_gg">Grosses Gewächs</button>
-        <button class="filter-chip" data-filter="1G" data-i18n="winery.filter_1g">Erstes Gewächs</button>
-        <button class="filter-chip" data-filter="organic" data-i18n="winery.filter_organic">Organic</button>
+        <button class="filter-chip active" data-filter="all">All Regions</button>
+        <button class="filter-chip" data-filter="GG">Grosses Gewächs</button>
+        <button class="filter-chip" data-filter="1G">Erstes Gewächs</button>
+        <button class="filter-chip" data-filter="organic">Organic</button>
       </div>
       <div class="filter-right">
         <select class="filter-select" id="regionSelect">
-          <option value="all" data-i18n="winery.region_all">All Regions</option>
+          <option value="all">All Regions</option>
           <option value="rheingau">Rheingau</option>
           <option value="bordeaux">Bordeaux</option>
-          <option value="tuscany" data-i18n="winery.region_tuscany">Tuscany</option>
+          <option value="tuscany">Tuscany</option>
           <option value="napa">Napa Valley</option>
         </select>
       </div>
@@ -209,10 +208,10 @@
   <section class="winery-section">
     <div class="container">
       <div class="results-bar">
-        <p class="results-count"><strong id="resultsCount">12</strong> <span data-i18n="winery.results_suffix">wineries found</span></p>
+        <p class="results-count"><strong id="resultsCount">12</strong> <span>wineries found</span></p>
         <a href="vinemap.html" class="btn btn-secondary btn-sm">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span data-i18n="winery.map_btn">View on VineMap</span>
+          <span>View on VineMap</span>
         </a>
       </div>
 
@@ -228,15 +227,15 @@
             <h3>Schloss Johannisberg</h3>
             <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Rheingau, Germany</p>
             <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Lösslehm, Quarzit</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">Rheingau VDP.GG</span></div>
+              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Lösslehm, Quarzit</span></div>
+              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">Rheingau VDP.GG</span></div>
             </div>
             <p class="winery-card-desc">The world's oldest Riesling estate, continuously cultivated for over 1,200 years. Legendary terroir above the Rhine bend.</p>
             <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm" data-i18n="winery.book_btn">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm" data-i18n="winery.map_btn">View on VineMap</a>
+              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
+              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
             </div>
           </div>
         </div>
@@ -251,15 +250,15 @@
             <h3>Weingut Georg Breuer</h3>
             <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Rüdesheim, Rheingau</p>
             <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Phyllit-Schiefer</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">VDP Rheingau</span></div>
+              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Phyllit-Schiefer</span></div>
+              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">VDP Rheingau</span></div>
             </div>
             <p class="winery-card-desc">Berg Schlossberg GG — steep south-facing slate slopes with extraordinary mineral precision and long-term ageing potential.</p>
             <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm" data-i18n="winery.book_btn">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm" data-i18n="winery.map_btn">View on VineMap</a>
+              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
+              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
             </div>
           </div>
         </div>
@@ -274,15 +273,15 @@
             <h3>Weingut Robert Weil</h3>
             <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Kiedrich, Rheingau</p>
             <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Phyllitschiefer</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">VDP Rheingau</span></div>
+              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Phyllitschiefer</span></div>
+              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">VDP Rheingau</span></div>
             </div>
             <p class="winery-card-desc">Kiedricher Gräfenberg & Rauenthaler Baiken — two of the Rheingau's most celebrated GG sites, defined by cool minerality and silky texture.</p>
             <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm" data-i18n="winery.book_btn">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm" data-i18n="winery.map_btn">View on VineMap</a>
+              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
+              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
             </div>
           </div>
         </div>
@@ -297,15 +296,15 @@
             <h3>Kloster Eberbach — Steinberg</h3>
             <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Hattenheim, Rheingau</p>
             <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">Erstes Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Devon. Schiefer</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">VDP Rheingau</span></div>
+              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
+              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Erstes Gewächs</span></div>
+              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Devon. Schiefer</span></div>
+              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">VDP Rheingau</span></div>
             </div>
             <p class="winery-card-desc">Walled Cistercian Clos vineyard founded in 1135 AD. Hessische Staatsweingüter's Steinberg 1G is a benchmark of German wine heritage.</p>
             <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm" data-i18n="winery.book_btn">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm" data-i18n="winery.map_btn">View on VineMap</a>
+              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
+              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
             </div>
           </div>
         </div>
@@ -320,15 +319,15 @@
             <h3>Château Margaux</h3>
             <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Margaux, Bordeaux</p>
             <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Cabernet Sauvignon</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">1er Grand Cru Classé</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Gravel, Limestone</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">Médoc, Bordeaux</span></div>
+              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Cabernet Sauvignon</span></div>
+              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">1er Grand Cru Classé</span></div>
+              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Gravel, Limestone</span></div>
+              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">Médoc, Bordeaux</span></div>
             </div>
             <p class="winery-card-desc">Premier Grand Cru Classé since 1855. Cellar tours and barrel tastings by appointment across 82 hectares of Médoc gravel terroir.</p>
             <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm" data-i18n="winery.book_btn">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm" data-i18n="winery.map_btn">View on VineMap</a>
+              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
+              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
             </div>
           </div>
         </div>
@@ -343,15 +342,15 @@
             <h3>Marchesi Antinori</h3>
             <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Chianti Classico, Tuscany</p>
             <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_grape">Grape Variety</span><span class="detail-value">Sangiovese</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_classification">Classification</span><span class="detail-value">IGT / DOCG</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_soil">Soil Type</span><span class="detail-value">Galestro, Alberese</span></div>
-              <div class="winery-detail"><span class="detail-label" data-i18n="winery.detail_region">Region</span><span class="detail-value">Chianti Classico</span></div>
+              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Sangiovese</span></div>
+              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">IGT / DOCG</span></div>
+              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Galestro, Alberese</span></div>
+              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">Chianti Classico</span></div>
             </div>
             <p class="winery-card-desc">600 years of winemaking in the Antinori family. Walking tours of Tignanello parcels with the estate agronomist, sunrise to harvest.</p>
             <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm" data-i18n="winery.book_btn">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm" data-i18n="winery.map_btn">View on VineMap</a>
+              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
+              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
             </div>
           </div>
         </div>
@@ -371,34 +370,32 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg>
             VineBond
           </h3>
-          <p data-i18n="footer.brand_desc">Connecting wine enthusiasts with the world's finest vineyards.</p>
+          <p>Connecting wine enthusiasts with the world's finest vineyards.</p>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.explore_title">Explore</h4>
-          <a href="winery.html" data-i18n="nav.wineries">Wineries</a>
-          <a href="vinemap.html" data-i18n="nav.vinemap">VineMap</a>
+          <h4>Explore</h4>
+          <a href="winery.html">Wineries</a>
+          <a href="vinemap.html">VineMap</a>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.bookings_title">Bookings</h4>
-          <a href="book.html" data-i18n="nav.book">Book</a>
+          <h4>Bookings</h4>
+          <a href="book.html">Book</a>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.company_title">Company</h4>
-          <a href="#" data-i18n="footer.link_about">About</a>
-          <a href="#" data-i18n="footer.link_sustainability">Sustainability</a>
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Sustainability</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p data-i18n="footer.copyright">© 2026 VineBond. All rights reserved.</p>
-        <p data-i18n="footer.legal">Adults 18+ only. Please enjoy responsibly.</p>
+        <p>© 2026 VineBond. All rights reserved.</p>
+        <p>Adults 18+ only. Please enjoy responsibly.</p>
       </div>
     </div>
   </footer>
-
-  <script src="js/i18n.js?v=3"></script>
   <script>
     const topbar = document.getElementById('topbar');
-    window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 40));
+    window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', window.scrollY > 40));
     document.getElementById('mobileToggle').addEventListener('click', () => document.getElementById('topbar').classList.toggle('menu-open'));
     document.querySelectorAll('.topbar-nav a').forEach(a => a.addEventListener('click', () => document.getElementById('topbar').classList.remove('menu-open')));
 

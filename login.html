@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title data-i18n-page-title="login.page_title">Sign In — VineBond</title>
-  <script>(function(){document.documentElement.classList.add('i18n-loading');setTimeout(function(){document.documentElement.classList.remove('i18n-loading');},1500);})();</script>
+  <title>Sign In — VineBond</title>
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
     /* ── Login Page — VINEBOND Design System v2.0 ──
@@ -350,7 +349,7 @@
 </head>
 <body>
 
-  <a href="#main-content" class="skip-to-content" data-i18n="a11y.skip_to_content">Skip to content</a>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
   <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
 
   <main class="login-wrapper" id="main-content" role="main">
@@ -377,22 +376,22 @@
       </a>
 
       <div class="scenic-tagline">
-        <h2 data-i18n-html="login.scenic_title">Your Journey into<br/><span>Fine Wine</span> Awaits</h2>
-        <p data-i18n="login.scenic_desc">Access exclusive vineyard experiences, earn loyalty badges, and explore terroir-driven stories from estates across the globe.</p>
+        <h2>Your Journey into<br/><span>Fine Wine</span> Awaits</h2>
+        <p>Access exclusive vineyard experiences, earn loyalty badges, and explore terroir-driven stories from estates across the globe.</p>
       </div>
 
       <div class="scenic-pills">
         <div class="scenic-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span data-i18n="login.pill_wineries">Explore 340+ certified wineries worldwide</span>
+          <span>Explore 340+ certified wineries worldwide</span>
         </div>
         <div class="scenic-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          <span data-i18n="login.pill_booking">Instant booking with free cancellation</span>
+          <span>Instant booking with free cancellation</span>
         </div>
         <div class="scenic-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-          <span data-i18n="login.pill_rewards">Earn VineClub badges & exclusive rewards</span>
+          <span>Earn VineClub badges & exclusive rewards</span>
         </div>
       </div>
     </aside>
@@ -404,27 +403,26 @@
         <!-- STEP 1: Email Entry -->
         <div class="auth-step active" id="stepEmail">
           <div class="login-heading">
-            <p class="label" data-i18n="login.label_welcome">Welcome to VineBond</p>
-            <h1 data-i18n="login.title_unified">Sign in or create an account</h1>
-            <p class="sub" data-i18n="login.subtitle_unified">Enter your email to sign in. If you don't have an account yet, we'll help you create one.</p>
+            <p class="label">Welcome to VineBond</p>
+            <h1>Sign in or create an account</h1>
+            <p class="sub">Enter your email to sign in. If you don't have an account yet, we'll help you create one.</p>
           </div>
 
           <form id="emailForm" novalidate>
             <div class="form-field" id="field-email">
-              <label for="loginEmail" data-i18n="login.email_label">Email address</label>
+              <label for="loginEmail">Email address</label>
               <div class="input-wrap">
-                <input type="email" id="loginEmail" name="email" placeholder="you@example.com"
-                  data-i18n-placeholder="login.email_placeholder" autocomplete="email" required />
+                <input type="email" id="loginEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
                 <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                   <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/>
                 </svg>
               </div>
-              <span class="field-error" data-i18n="login.email_error">Please enter a valid email address.</span>
+              <span class="field-error">Please enter a valid email address.</span>
             </div>
-            <button type="submit" class="btn btn-auth-primary" data-i18n="login.cta_continue_email">Continue with email</button>
+            <button type="submit" class="btn btn-auth-primary">Continue with email</button>
           </form>
 
-          <div class="divider-or" data-i18n="login.divider_or_social">or use</div>
+          <div class="divider-or">or use</div>
 
           <div class="social-buttons">
             <button class="btn btn-social btn-google" type="button" onclick="handleSocialLogin('google')">
@@ -434,30 +432,30 @@
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
-              <span data-i18n="login.social_google">Continue with Google</span>
+              <span>Continue with Google</span>
             </button>
             <button class="btn btn-social btn-apple" type="button" onclick="handleSocialLogin('apple')">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.52-3.23 0-1.44.62-2.2.44-3.06-.4C3.79 16.17 4.36 9.53 8.7 9.28c1.23.07 2.09.72 2.82.78.99-.2 1.94-.78 3-.84 1.28.1 2.24.55 2.87 1.4-2.63 1.58-2 5.04.36 6.02-.47 1.24-.89 2.04-1.7 3.64zM12.04 9.24c-.12-2.34 1.77-4.37 3.96-4.54.32 2.65-2.4 4.63-3.96 4.54z"/>
               </svg>
-              <span data-i18n="login.social_apple">Continue with Apple</span>
+              <span>Continue with Apple</span>
             </button>
             <button class="btn btn-social btn-facebook" type="button" onclick="handleSocialLogin('facebook')">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
-              <span data-i18n="login.social_facebook">Continue with Facebook</span>
+              <span>Continue with Facebook</span>
             </button>
           </div>
 
           <div class="guest-section">
             <a href="index.html" class="btn-guest">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span data-i18n="login.guest_continue">Continue as a Guest</span>
+              <span>Continue as a Guest</span>
             </a>
           </div>
 
-          <p class="login-legal" data-i18n-html="login.legal_notice">
+          <p class="login-legal">
             By signing in or creating an account, you agree to our
             <a href="#">Terms&nbsp;of&nbsp;Service</a> &amp; <a href="#">Privacy&nbsp;Policy</a>.<br/>
             Adults 18+ only. Please enjoy responsibly.
@@ -467,9 +465,9 @@
         <!-- STEP 2: OTP Verification -->
         <div class="auth-step" id="stepOtp">
           <div class="login-heading">
-            <p class="label" data-i18n="login.label_verify">Verify your email</p>
-            <h1 data-i18n="login.title_verify">Check your inbox</h1>
-            <p class="sub" data-i18n="login.subtitle_verify">We've sent a 6-digit verification code to:</p>
+            <p class="label">Verify your email</p>
+            <h1>Check your inbox</h1>
+            <p class="sub">We've sent a 6-digit verification code to:</p>
             <div class="user-email-display" id="otpEmailDisplay">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
               <span id="otpEmailText">you@example.com</span>
@@ -485,24 +483,24 @@
               <input class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 5 of 6" data-index="4" />
               <input class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 6 of 6" data-index="5" />
             </div>
-            <p class="otp-error-msg" id="otpError" data-i18n="login.otp_error">Invalid code. Please try again.</p>
-            <button type="submit" class="btn btn-auth-primary" id="btnVerify" disabled data-i18n="login.cta_verify">Verify email</button>
+            <p class="otp-error-msg" id="otpError">Invalid code. Please try again.</p>
+            <button type="submit" class="btn btn-auth-primary" id="btnVerify" disabled>Verify email</button>
           </form>
 
           <div class="otp-helpers">
             <p class="spam-tip">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <span data-i18n="login.spam_tip">Check your spam folder</span>
+              <span>Check your spam folder</span>
             </p>
             <p class="resend-row">
-              <button type="button" class="resend-btn" id="btnResend" disabled data-i18n="login.resend_code">Request another code</button>
+              <button type="button" class="resend-btn" id="btnResend" disabled>Request another code</button>
               <span class="resend-countdown" id="resendCountdown"></span>
             </p>
           </div>
 
           <a href="#" class="back-link" id="backToSignIn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-            <span data-i18n="login.back_to_signin">Back to sign-in</span>
+            <span>Back to sign-in</span>
           </a>
         </div>
 
@@ -612,6 +610,5 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
   <script src="js/ui-enhancements.js"></script>
-  <script src="js/i18n.js?v=3"></script>
 </body>
 </html>

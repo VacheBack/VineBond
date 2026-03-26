@@ -337,9 +337,17 @@ function drawCertificate(canvas, tier, userName) {
   ctx.textAlign = 'center';
   ctx.fillStyle = tier.labelColor;
   ctx.font = '700 11px -apple-system, sans-serif';
-  ctx.letterSpacing = '0.15em';
-  ctx.fillText('CERTIFICATE OF MEMBERSHIP', W / 2, 130);
-  ctx.letterSpacing = '0';
+  /* Draw with manual letter-spacing by spacing each character */
+  const certLabel = 'CERTIFICATE OF MEMBERSHIP';
+  const charSpacing = 1.6; /* px extra space per char */
+  const totalWidth = ctx.measureText(certLabel).width + charSpacing * (certLabel.length - 1);
+  let cx = W / 2 - totalWidth / 2;
+  for (const ch of certLabel) {
+    ctx.textAlign = 'left';
+    ctx.fillText(ch, cx, 130);
+    cx += ctx.measureText(ch).width + charSpacing;
+  }
+  ctx.textAlign = 'center';
 
   /* ── Decorative horizontal rule ── */
   const ruleGrad = ctx.createLinearGradient(120, 0, W - 120, 0);
