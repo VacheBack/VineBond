@@ -665,7 +665,7 @@ p, .vb-body {
   font-size: 0.82rem;
   font-weight: 600;
   border: 1.5px solid var(--vb-cream);
-  background-color: var(--vb-white);
+  background-color: transparent;
   color: var(--vb-medium-gray);
   cursor: pointer;
   transition: background-color var(--vb-transition),
