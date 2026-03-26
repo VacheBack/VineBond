@@ -23,16 +23,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Configure git safe directory
-        run: git config --global safe.directory "$GITHUB_WORKSPACE"
-
-      - name: Pre-fetch source branch
-        run: |
-          cd "$GITHUB_WORKSPACE"
-          git fetch origin main --depth=1
-          git checkout main
+          fetch-depth: 1
 
       - name: Start Python HTTP server
         run: |
@@ -48,6 +39,7 @@ jobs:
           done
 
       - name: Run Claude Code action
+        id: claude
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -60,7 +52,8 @@ jobs:
                   "command": "npx",
                   "args": [
                     "@playwright/mcp@latest",
-                    "--headless"
+                    "--allowed-origins",
+                    "http://localhost:8000;cdn.tailwindcss.com;esm.sh"
                   ]
                 }
               }
