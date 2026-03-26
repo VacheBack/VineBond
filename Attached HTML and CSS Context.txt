@@ -1,0 +1,477 @@
+Attached HTML and CSS Context
+
+<a href="#" class="btn btn-gold" data-i18n="loyalty.cta">Join the VineClub</a>
+
+
+/* Matched Rule from user-agent */
+a:-webkit-any-link {
+  color: -webkit-link;
+  text-decoration-line: underline;
+  text-decoration-thickness: initial;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+  cursor: pointer;
+}
+
+/* Matched Rule from regular */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Matched Rule from regular */
+a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration-line: none;
+  text-decoration-thickness: initial;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+  color: inherit;
+}
+
+/* Matched Rule from regular */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Matched Rule from regular */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  row-gap: 8px;
+  column-gap: 8px;
+  padding-top: 14px;
+  padding-right: 32px;
+  padding-bottom: 14px;
+  padding-left: 32px;
+  border-top-width: initial;
+  border-right-width: initial;
+  border-bottom-width: initial;
+  border-left-width: initial;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space-collapse: collapse;
+  text-wrap-mode: nowrap;
+}
+
+/* Matched Rule from regular */
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-warm));
+  color: var(--burgundy-deep);
+  border: none;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+  min-width: 160px;
+  color: var(--burgundy-deep);
+  border-top-width: initial;
+  border-right-width: initial;
+  border-bottom-width: initial;
+  border-left-width: initial;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  box-shadow: rgba(212, 175, 55, 0.3) 0px 4px 16px;
+  min-width: 160px;
+}
+
+/* Inherited from ancestor level 1 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 1 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Inherited from ancestor level 2 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 2 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+.loyalty {
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-deep));
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  color: var(--cream);
+  padding-top: 48px;
+  padding-right: 48px;
+  padding-bottom: 48px;
+  padding-left: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 48px;
+  column-gap: 48px;
+  align-items: center;
+  color: var(--cream);
+}
+
+/* Inherited from ancestor level 2 (regular) */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  transition-behavior: normal, normal;
+  transition-duration: 0.7s, 0.7s;
+  transition-timing-function: ease, ease;
+  transition-delay: 0s, 0s;
+  transition-property: opacity, transform;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+/* Inherited from ancestor level 3 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 3 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  max-width: 1240px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  padding-top: 0px;
+  padding-right: 24px;
+  padding-bottom: 0px;
+  padding-left: 24px;
+}
+
+/* Inherited from ancestor level 4 (user-agent) */
+article, aside, footer, header, hgroup, main, nav, search, section {
+  display: block;
+}
+
+/* Inherited from ancestor level 4 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+.community {
+  padding: 80px 0;
+  background: var(--white);
+  padding-top: 80px;
+  padding-right: 0px;
+  padding-bottom: 80px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 5 (user-agent) */
+body {
+  display: block;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+body {
+  font-family: 'Segoe UI', Inter, system-ui, -apple-system, sans-serif;
+  background: var(--cream);
+  color: #3A2C20;
+  line-height: 1.6;
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+  color: rgb(58, 44, 32);
+  line-height: 1.6;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Inherited from ancestor level 6 (user-agent) */
+html {
+  display: block;
+}
+
+/* Inherited from ancestor level 6 (user-agent) */
+:root {
+  view-transition-name: root;
+}
+
+/* Inherited from ancestor level 6 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 6 (regular) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+/* Inherited from ancestor level 6 (regular) */
+*, *::before, *::after, a, button, select, input, label, [role="button"], .filter-chip, .trail-tag, .map-pin, .topbar-nav a, .btn {
+  cursor: url('assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  cursor: url("assets/figma-elements/custom-cursor-wineglass.svg") 4 4, auto !important;
+}
+
+/* Inherited from ancestor level 6 (regular) */
+html {
+  scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* Inherited from ancestor level 6 (regular) */
+:root {
+  --burgundy: #6B1F3C;
+  --burgundy-deep: #4A1528;
+  --gold: #D4AF37;
+  --gold-warm: #B8960F;
+  --green: #4A5D3E;
+  --green-forest: #2D3A28;
+  --terracotta: #C97450;
+  --oak: #8B7355;
+  --cream: #F5F1E8;
+  --cream-dark: #EFE7D9;
+  --white: #FFFFFF;
+  --shadow: rgba(42, 14, 24, 0.12);
+  --shadow-lg: rgba(42, 14, 24, 0.18);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --text-xs: clamp(0.6875rem, 0.625rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.8125rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.9375rem, 0.875rem + 0.25vw, 1rem);
+  --text-lg: clamp(1.0625rem, 0.9375rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --text-2xl: clamp(1.5rem, 1.125rem + 1.5vw, 2.25rem);
+  --text-3xl: clamp(1.875rem, 1.25rem + 2.5vw, 3rem);
+  --text-4xl: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --burgundy: #6B1F3C;
+  --burgundy-deep: #4A1528;
+  --gold: #D4AF37;
+  --gold-warm: #B8960F;
+  --green: #4A5D3E;
+  --green-forest: #2D3A28;
+  --terracotta: #C97450;
+  --oak: #8B7355;
+  --cream: #F5F1E8;
+  --cream-dark: #EFE7D9;
+  --white: #FFFFFF;
+  --shadow: rgba(42, 14, 24, 0.12);
+  --shadow-lg: rgba(42, 14, 24, 0.18);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --text-xs: clamp(0.6875rem, 0.625rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.8125rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.9375rem, 0.875rem + 0.25vw, 1rem);
+  --text-lg: clamp(1.0625rem, 0.9375rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --text-2xl: clamp(1.5rem, 1.125rem + 1.5vw, 2.25rem);
+  --text-3xl: clamp(1.875rem, 1.25rem + 2.5vw, 3rem);
+  --text-4xl: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+}
