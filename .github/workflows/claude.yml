@@ -18,7 +18,71 @@ jobs:
       pull-requests: write
       issues: write
       id-token: write
+      actions: read
     steps:
-      - uses: anthropics/claude-code-action@beta
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Start Python HTTP server
+        run: |
+          python -m http.server 8000 &
+          echo "SERVER_PID=$!" >> $GITHUB_ENV
+          for i in $(seq 1 15); do
+            if curl -sf http://localhost:8000/ -o /dev/null; then
+              echo "Server ready on port 8000 (attempt $i)"
+              break
+            fi
+            echo "Waiting... attempt $i"
+            sleep 1
+          done
+
+      - name: Run Claude Code action
+        id: claude
+        uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          mcp_config: |
+            {
+              "mcpServers": {
+                "playwright": {
+                  "command": "npx",
+                  "args": [
+                    "@playwright/mcp@latest",
+                    "--allowed-origins",
+                    "http://localhost:8000;cdn.tailwindcss.com;esm.sh"
+                  ]
+                }
+              }
+            }
+
+          allowed_tools: >-
+            mcp__playwright__browser_navigate,
+            mcp__playwright__browser_click,
+            mcp__playwright__browser_type,
+            mcp__playwright__browser_screenshot,
+            mcp__playwright__browser_wait_for,
+            mcp__playwright__browser_snapshot,
+            mcp__playwright__browser_scroll,
+            mcp__playwright__browser_hover,
+            mcp__playwright__browser_select_option,
+            mcp__playwright__browser_evaluate,
+            mcp__playwright__browser_close
+
+          custom_instructions: |
+            The project is already set up with all dependencies installed.
+            The server is already running at http://localhost:8000.
+            Use mcp__playwright tools to launch a browser and interact with the app.
+            The site is a pure static HTML/CSS/JS wine-tourism website (VineBond).
+            Key pages:
+              - http://localhost:8000/index.html       (landing)
+              - http://localhost:8000/login.html       (auth)
+              - http://localhost:8000/winery.html      (winery directory)
+              - http://localhost:8000/book.html        (booking)
+              - http://localhost:8000/vinemap.html     (interactive Leaflet map)
+              - http://localhost:8000/vineclub.html    (loyalty club)
+            Do not attempt to run npm install, pip install, or any build step —
+            none are needed. Do not attempt to start a server; it is already running.
