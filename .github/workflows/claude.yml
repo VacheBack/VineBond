@@ -25,6 +25,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Configure git safe directory
+        run: git config --global safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Pre-fetch source branch
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          git fetch origin main --depth=1
+          git checkout main
+
       - name: Start Python HTTP server
         run: |
           python -m http.server 8000 &
