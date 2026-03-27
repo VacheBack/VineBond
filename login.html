@@ -71,13 +71,12 @@
       gap: 12px;
       font-size: 2rem;
       font-weight: 900;
-      color: #FFFFFF;
+      color: var(--gold);
       letter-spacing: -0.02em;
       margin-bottom: 52px;
       position: relative;
       z-index: 1;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-      text-decoration: none;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
     .scenic-logo .logo-icon {
       width: 50px; height: 50px;
@@ -135,17 +134,17 @@
     .scenic-pill svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--gold); }
     .scenic-pill span { font-size: 0.85rem; font-weight: 600; color: rgba(237,232,224,0.9); white-space: nowrap; }
 
-    /* Right form panel: white background */
+    /* Right form panel: transparent */
     .login-form-side {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 60px 48px;
-      background: #FFFFFF;
+      background: transparent;
       position: relative;
     }
-    .login-form-wrap { width: 100%; max-width: 420px; }
+    .login-form-side > .auth-step { width: 100%; max-width: 420px; }
 
     .auth-step { display: none; animation: authFadeIn 0.35s ease; }
     .auth-step.active { display: block; }
@@ -240,14 +239,12 @@
       display: flex; align-items: center; justify-content: center; gap: 12px;
       width: 100%; padding: 13px 20px; border-radius: var(--radius-md);
       font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; text-transform: none;
-      transition: var(--transition); background: #FFFFFF; color: #3C4043;
-      border: 1.5px solid #C8BFB4; box-shadow: var(--vb-shadow-sm); white-space: nowrap; min-height: 44px;
+      transition: var(--transition); background: transparent; color: #3C4043;
+      border: none; box-shadow: none; white-space: nowrap; min-height: 44px;
     }
     .btn-social svg { width: 20px; height: 20px; flex-shrink: 0; }
     .btn-social:hover {
-      background: var(--vb-warm-white);
-      border-color: var(--vb-forest);
-      box-shadow: var(--vb-shadow-md);
+      background: rgba(255,255,255,0.15);
       transform: translateY(-1px);
     }
     .btn-apple svg { color: #000; }
@@ -305,16 +302,16 @@
     }
     .user-email-display svg { width: 14px; height: 14px; color: var(--gold-warm); flex-shrink: 0; }
 
-    .guest-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--vb-light-beige); }
+    .guest-section { margin-top: 28px; padding-top: 24px; border-top: none; }
     .btn-guest {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       width: 100%; padding: 13px 20px; border-radius: var(--radius-md);
       font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
       color: var(--vb-medium-gray); background: transparent;
-      border: 1.5px dashed #C8BFB4; transition: var(--transition); text-decoration: none; white-space: nowrap; min-height: 44px;
+      border: none; transition: var(--transition); text-decoration: none; white-space: nowrap; min-height: 44px;
     }
     .btn-guest:hover {
-      background: rgba(28,79,61,0.04); border-color: var(--vb-forest); color: var(--vb-forest); transform: translateY(-1px);
+      background: rgba(28,79,61,0.04); color: var(--vb-forest); transform: translateY(-1px);
     }
     .btn-guest svg { width: 18px; height: 18px; flex-shrink: 0; }
 
@@ -365,15 +362,15 @@
         <circle cx="460" cy="800" r="140" fill="#EDE8E0"/>
       </svg>
 
-      <!-- Logo: tagline "Harmonious Connection, Certified Origin" -->
-      <a href="index.html" class="scenic-logo">
+      <!-- Logo -->
+      <span class="scenic-logo">
         <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4A1F2A" stroke-width="2.2" stroke-linecap="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round">
             <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/>
           </svg>
         </div>
         VineBond
-      </a>
+      </span>
 
       <div class="scenic-tagline">
         <h2>Your Journey into<br/><span>Fine Wine</span> Awaits</h2>
@@ -398,7 +395,6 @@
 
     <!-- RIGHT — Auth Panel -->
     <section class="login-form-side">
-      <div class="login-form-wrap">
 
         <!-- STEP 1: Email Entry -->
         <div class="auth-step active" id="stepEmail">
@@ -504,7 +500,6 @@
           </a>
         </div>
 
-      </div>
     </section>
   </main>
 
