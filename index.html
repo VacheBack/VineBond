@@ -1870,29 +1870,13 @@
     function _blockKeys(e)   { if (_menuOpen && _scrollKeys[e.keyCode]) e.preventDefault(); }
 
     function lockScroll() {
-      _lockedScrollY = window.scrollY;
       _menuOpen = true;
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow  = 'hidden';
-      document.body.style.position  = 'fixed';
-      document.body.style.top       = `-${_lockedScrollY}px`;
-      document.body.style.width     = '100%';
-      document.addEventListener('wheel',     _blockScroll, { passive: false });
-      document.addEventListener('touchmove', _blockScroll, { passive: false });
-      document.addEventListener('keydown',   _blockKeys,   { passive: false });
+      document.body.style.overflow = 'hidden';
     }
 
     function unlockScroll() {
       _menuOpen = false;
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow  = '';
-      document.body.style.position  = '';
-      document.body.style.top       = '';
-      document.body.style.width     = '';
-      document.removeEventListener('wheel',     _blockScroll);
-      document.removeEventListener('touchmove', _blockScroll);
-      document.removeEventListener('keydown',   _blockKeys);
-      window.scrollTo(0, _lockedScrollY);
+      document.body.style.overflow = '';
     }
 
     /* ---- Mobile menu toggle ---- */

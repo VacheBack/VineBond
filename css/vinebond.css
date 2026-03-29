@@ -658,14 +658,14 @@ textarea:focus-visible {
 
 /* ── Interactive Elements — Links & Icons ─────────────────── */
 /* Links: Forest default → Leaf Green hover → Burgundy visited */
-a[href]:not(.btn):not(.topbar-logo):not(.topbar-nav a):not(.footer-col a) {
+a[href]:not(.btn):not(.topbar-logo):not(.topbar-nav a):not(.footer-col a):not(.mob-nav a) {
   color: var(--vb-forest);
   text-decoration: underline;
 }
-a[href]:not(.btn):not(.topbar-logo):not(.topbar-nav a):not(.footer-col a):hover {
+a[href]:not(.btn):not(.topbar-logo):not(.topbar-nav a):not(.footer-col a):not(.mob-nav a):hover {
   color: var(--vb-leaf-green);
 }
-a[href]:not(.btn):not(.topbar-logo):not(.topbar-nav a):not(.footer-col a):visited {
+a[href]:not(.btn):not(.topbar-logo):not(.topbar-nav a):not(.footer-col a):not(.mob-nav a):visited {
   color: var(--vb-burgundy);
 }
 
