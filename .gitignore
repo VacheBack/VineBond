@@ -12,3 +12,6 @@
 
 # Keep this .gitignore itself
 !.gitignore
+
+# Custom domain file for GitHub Pages
+!CNAME
