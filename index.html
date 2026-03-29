@@ -1266,12 +1266,18 @@
 
     /* ── Featured Estates – mobile vertical list (booking.com style) ── */
     @media (max-width: 768px) {
-      .carousel-section .carousel-arrows { display: none; }
-      .carousel-section .carousel-viewport { overflow-x: visible; scroll-snap-type: none; }
-      .carousel-section .carousel-track {
+      #estatesViewport {
+        overflow: visible;
+        scroll-snap-type: none;
+      }
+      #estatesTrack {
+        display: flex;
         flex-direction: column;
         gap: 12px;
       }
+      #estatesViewport ~ .carousel-arrows,
+      #estatesTrack .carousel-arrows { display: none; }
+      .carousel-section:first-of-type .carousel-arrows { display: none; }
       .estate-card {
         flex: none;
         width: 100%;
@@ -1551,26 +1557,6 @@
     </div>
   </section>
 
-  <!-- ── BROWSE BY REGION CAROUSEL ── -->
-  <section class="carousel-section carousel-section--alt">
-    <div class="container">
-      <div class="carousel-header">
-        <div>
-          <h2 class="carousel-title">Browse by Region</h2>
-          <p class="carousel-subtitle">Discover terroir from the world's great wine regions</p>
-        </div>
-      </div>
-      <div class="carousel-viewport">
-        <div class="carousel-track">
-          <a href="winery.html?q=rheingau" class="region-card" style="background:linear-gradient(135deg,#5C2632,#3a1520)"><span>Rheingau</span></a>
-          <a href="winery.html?q=bordeaux" class="region-card" style="background:linear-gradient(135deg,#4A1F2A,#2d1018)"><span>Bordeaux</span></a>
-          <a href="winery.html?q=tuscany" class="region-card" style="background:linear-gradient(135deg,#1C4F3D,#0e2e22)"><span>Tuscany</span></a>
-          <a href="winery.html?q=napa" class="region-card" style="background:linear-gradient(135deg,#B8834F,#7a5230)"><span>Napa Valley</span></a>
-          <a href="winery.html?q=burgundy" class="region-card" style="background:linear-gradient(135deg,#2B5F73,#1a3d4d)"><span>Burgundy</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== FILTRATION BAR ===== -->
   <section class="filter-bar">
