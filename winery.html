@@ -115,6 +115,60 @@
       .filter-bar { top: 64px; }
       .winery-details { grid-template-columns: 1fr; }
     }
+
+    /* ── M — Large Phone (≤ 479px) ─────────────────────── */
+    @media (max-width: 479px) {
+      .filter-bar .container { flex-direction: column; align-items: stretch; gap: 8px; }
+      .filter-label { margin-right: 0; }
+      .filter-chips {
+        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; padding-bottom: 4px;
+      }
+      .filter-chips::-webkit-scrollbar { display: none; }
+      .filter-chip { flex-shrink: 0; min-width: 0; }
+      .filter-right { margin-left: 0; width: 100%; }
+      .filter-select { width: 100%; }
+      .winery-card-actions { flex-direction: column; }
+      .winery-card-actions .btn { width: 100%; min-width: 0; }
+      .winery-card-body { padding: 16px; }
+      .winery-card-header { height: 130px; }
+    }
+
+    /* ── XS — Small Phone (≤ 374px) ────────────────────── */
+    @media (max-width: 374px) {
+      .winery-card-body h3 { font-size: 0.95rem; }
+      .winery-card-desc { font-size: 0.82rem; }
+      .winery-detail .detail-value { font-size: 0.78rem; }
+      .filter-bar { top: 64px; padding: 12px 0; }
+    }
+
+    /* ── Landscape Phone ───────────────────────────────── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .filter-bar { top: 48px; }
+      .page-hero { margin-top: 48px; }
+    }
+
+    /* ── Filter Sidebar Layout ── */
+    .winery-layout { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start; }
+    .winery-main { min-width: 0; }
+    .filter-sidebar { position: sticky; top: 140px; background: var(--vb-warm-white, #FAF8F5); border-radius: var(--radius-lg, 16px); border: 1px solid var(--vb-light-beige, #F5F2ED); padding: 20px; display: flex; flex-direction: column; }
+    .sidebar-section { padding: 14px 0; border-bottom: 1px solid var(--vb-light-beige, #F5F2ED); }
+    .sidebar-section:last-of-type { border-bottom: none; }
+    .sidebar-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--vb-medium-gray, #8B8578); margin-bottom: 10px; }
+    .sidebar-check { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 0.87rem; color: var(--vb-deep-maroon, #4A1F2A); cursor: pointer; }
+    .sidebar-check input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--vb-forest, #1C4F3D); flex-shrink: 0; margin: 0; }
+    .check-label { flex: 1; }
+    .check-count { font-size: 0.72rem; font-weight: 600; background: var(--vb-light-beige, #F5F2ED); color: var(--vb-medium-gray, #8B8578); padding: 2px 7px; border-radius: 100px; }
+    .price-range-labels { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--vb-deep-maroon, #4A1F2A); margin-bottom: 6px; }
+    .price-range-slider { width: 100%; accent-color: var(--vb-forest, #1C4F3D); }
+    .price-range-note { font-size: 0.72rem; color: var(--vb-medium-gray, #8B8578); margin-top: 6px; }
+    /* Result count + sort */
+    .results-bar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .sort-label { font-size: 0.78rem; font-weight: 700; color: var(--vb-medium-gray, #8B8578); white-space: nowrap; }
+    .sort-select { min-width: 150px; }
+    /* Hide sidebar on tablet/mobile */
+    @media (max-width: 1024px) { .winery-layout { grid-template-columns: 1fr; } .filter-sidebar { display: none; } }
+    @media (max-width: 640px) { .results-bar { flex-direction: column; align-items: stretch; } }
   </style>
 </head>
 <body>
@@ -171,7 +225,7 @@
   <!-- PAGE HERO -->
   <section class="page-hero" id="main-content">
     <div class="container">
-      <nav class="breadcrumb">
+      <nav class="vb-breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">VineBond</a>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         <span>Wineries</span>
@@ -206,156 +260,55 @@
 
   <!-- WINERY GRID -->
   <section class="winery-section">
-    <div class="container">
-      <div class="results-bar">
-        <p class="results-count"><strong id="resultsCount">12</strong> <span>wineries found</span></p>
-        <a href="vinemap.html" class="btn btn-secondary btn-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>View on VineMap</span>
-        </a>
+    <div class="container winery-layout">
+
+      <!-- Sidebar: desktop only -->
+      <aside class="filter-sidebar" id="filterSidebar" aria-label="Filter options">
+        <div class="sidebar-section">
+          <h3 class="sidebar-heading">Classification</h3>
+          <label class="sidebar-check"><input type="checkbox" value="GG" class="sidebar-filter-cb" data-filter-type="type"><span class="check-label">Grosses Gewächs</span><span class="check-count">3</span></label>
+          <label class="sidebar-check"><input type="checkbox" value="1G" class="sidebar-filter-cb" data-filter-type="type"><span class="check-label">Erstes Gewächs</span><span class="check-count">1</span></label>
+          <label class="sidebar-check"><input type="checkbox" value="organic" class="sidebar-filter-cb" data-filter-type="type"><span class="check-label">Organic</span><span class="check-count">1</span></label>
+          <label class="sidebar-check"><input type="checkbox" value="global" class="sidebar-filter-cb" data-filter-type="type"><span class="check-label">Global Estate</span><span class="check-count">1</span></label>
+        </div>
+        <div class="sidebar-section">
+          <h3 class="sidebar-heading">Region</h3>
+          <label class="sidebar-check"><input type="checkbox" value="rheingau" class="sidebar-filter-cb" data-filter-type="region"><span class="check-label">Rheingau</span><span class="check-count">4</span></label>
+          <label class="sidebar-check"><input type="checkbox" value="bordeaux" class="sidebar-filter-cb" data-filter-type="region"><span class="check-label">Bordeaux</span><span class="check-count">1</span></label>
+          <label class="sidebar-check"><input type="checkbox" value="tuscany" class="sidebar-filter-cb" data-filter-type="region"><span class="check-label">Tuscany</span><span class="check-count">1</span></label>
+        </div>
+        <div class="sidebar-section">
+          <h3 class="sidebar-heading">Max Price / Person</h3>
+          <div class="price-range-labels"><span>€50</span><span id="priceVal">€300</span></div>
+          <input type="range" class="price-range-slider" id="priceSlider" min="50" max="300" value="300" aria-label="Maximum price per person">
+          <p class="price-range-note">Per person, per experience</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="sidebarClear" style="width:100%;margin-top:8px;">Clear All Filters</button>
+      </aside>
+
+      <!-- Main content -->
+      <div class="winery-main">
+        <div class="results-bar">
+          <p class="results-count">Showing <strong id="resultsCount">6</strong> <span>estates</span></p>
+          <div class="results-bar-right">
+            <label class="sort-label" for="sortSelect">Sort:</label>
+            <select class="filter-select sort-select" id="sortSelect">
+              <option value="relevant">Most Relevant</option>
+              <option value="az">Name A–Z</option>
+              <option value="region">By Region</option>
+            </select>
+            <a href="vinemap.html" class="btn btn-secondary btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <span>View on VineMap</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="winery-grid" id="wineryGrid">
+          <!-- Populated dynamically by js/winery-data.js -->
+        </div>
       </div>
 
-      <div class="winery-grid" id="wineryGrid">
-
-        <!-- GG 1: Schloss Johannisberg — Burgundy header gradient -->
-        <div class="winery-card fade-up" data-name="schloss johannisberg" data-region="rheingau" data-type="GG">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1F2A,#5C2632);">
-            <span style="font-size:2.8rem;">🏰</span>
-            <span class="card-badge badge-gg">GG</span>
-          </div>
-          <div class="winery-card-body">
-            <h3>Schloss Johannisberg</h3>
-            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Rheingau, Germany</p>
-            <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Lösslehm, Quarzit</span></div>
-              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">Rheingau VDP.GG</span></div>
-            </div>
-            <p class="winery-card-desc">The world's oldest Riesling estate, continuously cultivated for over 1,200 years. Legendary terroir above the Rhine bend.</p>
-            <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- GG 2: Georg Breuer — Deep Maroon header gradient -->
-        <div class="winery-card fade-up" data-name="weingut georg breuer berg schlossberg" data-region="rheingau" data-type="GG">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1F2A,#7A304A);">
-            <span style="font-size:2.8rem;">🍇</span>
-            <span class="card-badge badge-gg">GG</span>
-          </div>
-          <div class="winery-card-body">
-            <h3>Weingut Georg Breuer</h3>
-            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Rüdesheim, Rheingau</p>
-            <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Phyllit-Schiefer</span></div>
-              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">VDP Rheingau</span></div>
-            </div>
-            <p class="winery-card-desc">Berg Schlossberg GG — steep south-facing slate slopes with extraordinary mineral precision and long-term ageing potential.</p>
-            <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- GG 3: Robert Weil — Dark Burgundy gradient -->
-        <div class="winery-card fade-up" data-name="weingut robert weil gräfenberg baiken" data-region="rheingau" data-type="GG">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#2A1030,#5C2632);">
-            <span style="font-size:2.8rem;">🌿</span>
-            <span class="card-badge badge-gg">GG</span>
-          </div>
-          <div class="winery-card-body">
-            <h3>Weingut Robert Weil</h3>
-            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Kiedrich, Rheingau</p>
-            <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Grosses Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Phyllitschiefer</span></div>
-              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">VDP Rheingau</span></div>
-            </div>
-            <p class="winery-card-desc">Kiedricher Gräfenberg & Rauenthaler Baiken — two of the Rheingau's most celebrated GG sites, defined by cool minerality and silky texture.</p>
-            <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 1G: Kloster Eberbach — Forest gradient -->
-        <div class="winery-card fade-up" data-name="kloster eberbach steinberg hessische staatsweingüter" data-region="rheingau" data-type="1G">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#14362A,#1C4F3D);">
-            <span style="font-size:2.8rem;">🏛</span>
-            <span class="card-badge badge-1g">1G</span>
-          </div>
-          <div class="winery-card-body">
-            <h3>Kloster Eberbach — Steinberg</h3>
-            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Hattenheim, Rheingau</p>
-            <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Riesling</span></div>
-              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">Erstes Gewächs</span></div>
-              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Devon. Schiefer</span></div>
-              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">VDP Rheingau</span></div>
-            </div>
-            <p class="winery-card-desc">Walled Cistercian Clos vineyard founded in 1135 AD. Hessische Staatsweingüter's Steinberg 1G is a benchmark of German wine heritage.</p>
-            <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Global: Château Margaux — Burgundy dark gradient -->
-        <div class="winery-card fade-up" data-name="château margaux premier grand cru" data-region="bordeaux" data-type="global">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#4A1F2A,#6E2840);">
-            <span style="font-size:2.8rem;">🍷</span>
-            <span class="card-badge badge-region">Bordeaux</span>
-          </div>
-          <div class="winery-card-body">
-            <h3>Château Margaux</h3>
-            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Margaux, Bordeaux</p>
-            <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Cabernet Sauvignon</span></div>
-              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">1er Grand Cru Classé</span></div>
-              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Gravel, Limestone</span></div>
-              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">Médoc, Bordeaux</span></div>
-            </div>
-            <p class="winery-card-desc">Premier Grand Cru Classé since 1855. Cellar tours and barrel tastings by appointment across 82 hectares of Médoc gravel terroir.</p>
-            <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Global: Antinori Tuscany — Forest gradient for Organic -->
-        <div class="winery-card fade-up" data-name="antinori tuscany tignanello" data-region="tuscany" data-type="organic">
-          <div class="winery-card-header" style="background:linear-gradient(135deg,#14362A,#2D6A4F);">
-            <span style="font-size:2.8rem;">🌾</span>
-            <span class="card-badge badge-organic">Organic</span>
-          </div>
-          <div class="winery-card-body">
-            <h3>Marchesi Antinori</h3>
-            <p class="winery-region"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Chianti Classico, Tuscany</p>
-            <div class="winery-details">
-              <div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">Sangiovese</span></div>
-              <div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">IGT / DOCG</span></div>
-              <div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">Galestro, Alberese</span></div>
-              <div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">Chianti Classico</span></div>
-            </div>
-            <p class="winery-card-desc">600 years of winemaking in the Antinori family. Walking tours of Tignanello parcels with the estate agronomist, sunrise to harvest.</p>
-            <div class="winery-card-actions">
-              <a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>
-              <a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 
@@ -393,7 +346,51 @@
       </div>
     </div>
   </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/winery-data.js"></script>
+  <script src="js/nav-role.js"></script>
   <script>
+    const PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+
+    function escHtml(str) {
+      return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function buildWineryCard(w) {
+      return '<div class="winery-card fade-up"' +
+        ' data-name="' + escHtml(w.searchName || w.name.toLowerCase()) + '"' +
+        ' data-region="' + escHtml(w.region) + '"' +
+        ' data-type="' + escHtml(w.type) + '">' +
+        '<div class="winery-card-header" style="background:' + escHtml(w.headerGradient) + ';">' +
+          '<span style="font-size:2.8rem;">' + (w.emoji||'🍷') + '</span>' +
+          '<span class="card-badge ' + escHtml(w.badgeClass) + '">' + escHtml(w.badgeLabel) + '</span>' +
+        '</div>' +
+        '<div class="winery-card-body">' +
+          '<h3>' + escHtml(w.name) + '</h3>' +
+          '<p class="winery-region">' + PIN_SVG + escHtml(w.regionLabel || w.region) + '</p>' +
+          '<div class="winery-details">' +
+            '<div class="winery-detail"><span class="detail-label">Grape Variety</span><span class="detail-value">' + escHtml(w.grape||'—') + '</span></div>' +
+            '<div class="winery-detail"><span class="detail-label">Classification</span><span class="detail-value">' + escHtml(w.classification||'—') + '</span></div>' +
+            '<div class="winery-detail"><span class="detail-label">Soil Type</span><span class="detail-value">' + escHtml(w.soil||'—') + '</span></div>' +
+            '<div class="winery-detail"><span class="detail-label">Region</span><span class="detail-value">' + escHtml(w.regionLabel||w.region) + '</span></div>' +
+          '</div>' +
+          '<p class="winery-card-desc">' + escHtml(w.description||'') + '</p>' +
+          '<div class="winery-card-actions">' +
+            '<a href="book.html" class="btn btn-primary btn-sm">Book an Experience</a>' +
+            '<a href="vinemap.html" class="btn btn-secondary btn-sm">View on VineMap</a>' +
+          '</div>' +
+        '</div>' +
+        '</div>';
+    }
+
+    function renderWineries() {
+      const wineries = VineBondWineries.getAll();
+      const grid = document.getElementById('wineryGrid');
+      grid.innerHTML = wineries.map(buildWineryCard).join('');
+      document.getElementById('resultsCount').textContent = wineries.length;
+      document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    }
+
     const topbar = document.getElementById('topbar');
     window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', window.scrollY > 40));
     document.getElementById('mobileToggle').addEventListener('click', () => document.getElementById('topbar').classList.toggle('menu-open'));
@@ -402,7 +399,9 @@
     const obs = new IntersectionObserver(entries => {
       entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // Render dynamic cards BEFORE ui-enhancements.js so search finds them
+    renderWineries();
 
     document.querySelectorAll('.filter-chip[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {

@@ -235,6 +235,40 @@
       .form-card { padding: 24px 20px; }
       .exp-types { grid-template-columns: 1fr; }
     }
+
+    /* ── M — Large Phone (≤ 479px) ─────────────────────── */
+    @media (max-width: 479px) {
+      .form-card { padding: 20px 14px; }
+      .form-card h2 { font-size: 1.15rem; }
+      .form-section { margin-bottom: 20px; padding-bottom: 20px; }
+      .form-field label { white-space: normal; }
+      .confirmation-card {
+        padding: 32px 20px;
+        margin: 16px;
+        max-width: calc(100vw - 32px);
+        max-height: calc(100vh - 32px);
+        overflow-y: auto;
+      }
+      .confirmation-card h3 { font-size: 1.2rem; }
+      .exp-type-card { padding: 10px; }
+      .exp-type-card .exp-icon { font-size: 1.4rem; }
+      .summary-body { padding: 16px; }
+      .summary-header { padding: 16px; }
+    }
+
+    /* ── Confirmation overlay safe area support ────────── */
+    @supports (padding: env(safe-area-inset-top)) {
+      .confirmation-overlay {
+        padding: env(safe-area-inset-top, 16px) env(safe-area-inset-right, 16px)
+                 env(safe-area-inset-bottom, 16px) env(safe-area-inset-left, 16px);
+      }
+    }
+
+    /* ── Landscape Phone ───────────────────────────────── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .page-hero { margin-top: 48px; padding: 20px 0 12px; }
+      .confirmation-card { max-height: calc(100vh - 20px); overflow-y: auto; }
+    }
   </style>
 </head>
 <body>
@@ -286,7 +320,7 @@
   <!-- ── PAGE HERO ── -->
   <section class="page-hero" id="main-content">
     <div class="container">
-      <nav class="breadcrumb">
+      <nav class="vb-breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">VineBond</a>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         <span>Book</span>
@@ -509,6 +543,8 @@
       </div>
     </div>
   </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/nav-role.js"></script>
   <script>
     /* Topbar scroll */
     const topbar = document.getElementById('topbar');

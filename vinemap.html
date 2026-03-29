@@ -169,7 +169,47 @@
       #vinemap-container { height: 55vh; min-height: 320px; border-radius: var(--radius-lg); }
       .map-legend { display: none; }
       .map-info-grid { grid-template-columns: 1fr; }
+      .map-filter-btn { min-height: 44px; padding: 8px 14px; }
     }
+
+    /* ── M — Large Phone (≤ 479px) ─────────────────────── */
+    @media (max-width: 479px) {
+      .map-controls .container {
+        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; scroll-snap-type: x mandatory;
+      }
+      .map-controls .container::-webkit-scrollbar { display: none; }
+      .map-filter-btn { flex-shrink: 0; scroll-snap-align: start; font-size: 0.75rem; padding: 6px 12px; }
+      .map-controls-label { display: none; }
+      #vinemap-container { height: 50vh; min-height: 280px; }
+      .map-outer { padding: 0 12px; }
+      .map-info-card { padding: 16px; }
+      .map-info-card h4 { font-size: 0.9rem; }
+      .trail-tags {
+        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .trail-tags::-webkit-scrollbar { display: none; }
+      .trail-tag { flex-shrink: 0; }
+      .leaflet-popup-content { width: 220px !important; }
+    }
+
+    /* ── Landscape Phone ───────────────────────────────── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .map-controls { top: 48px; }
+      .page-hero { margin-top: 48px; padding: 20px 0 12px; }
+      #vinemap-container { height: 70vh; min-height: 200px; }
+    }
+
+    /* ── Tall mobile — better map proportion ───────────── */
+    @media (min-height: 700px) and (max-width: 768px) {
+      #vinemap-container { height: 60vh; }
+    }
+
+    /* ── Map result count row ── */
+    .map-results-bar { background: #fff; border-bottom: 1px solid #E8DFD0; padding: 8px 0; }
+    .map-results-count { font-size: 0.88rem; color: var(--vb-medium-gray, #8B8578); margin: 0; }
+    .map-results-count strong { color: var(--vb-burgundy, #5C2632); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -224,7 +264,7 @@
   <!-- ── PAGE HERO ── -->
   <section class="page-hero" id="main-content">
     <div class="container">
-      <nav class="breadcrumb">
+      <nav class="vb-breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">VineBond</a>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         <span>VineMap</span>
@@ -252,6 +292,13 @@
           <span>Erstes Gewächs (1G)</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ── MAP RESULT COUNT ── -->
+  <div class="map-results-bar">
+    <div class="map-outer">
+      <p class="map-results-count">Showing <strong>14</strong> <span>Rheingau Vineyard Sites</span></p>
     </div>
   </div>
 
@@ -348,6 +395,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs=" crossorigin=""></script>
   <script src="js/vinemap.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/nav-role.js"></script>
   <script>
     /* Topbar scroll */
     const topbar = document.getElementById('topbar');

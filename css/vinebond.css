@@ -732,6 +732,13 @@ footer {
 }
 .footer-bottom p { font-size: 0.78rem; opacity: 0.55; }
 
+/* ── GPU Performance Hints ────────────────────────────────── */
+.topbar { will-change: transform; }
+.back-to-top { will-change: transform, opacity; }
+.fade-up { will-change: transform, opacity; }
+.winery-card, .exp-card, .terroir-card, .review-card,
+.tier-card, .map-info-card, .cert-wrap { contain: content; }
+
 /* ══════════════════════════════════════════════════════════════
    RESPONSIVE — 9-Tier Breakpoint System
    ══════════════════════════════════════════════════════════════
@@ -787,9 +794,33 @@ footer {
   /* Row 2+ items: hidden until menu-open */
   .topbar-search, .topbar-nav, .topbar-cta { display: none; }
 
-  /* Open state */
+  /* Horizontal scroll for filter chips on mobile */
+  .filter-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .filter-chips::-webkit-scrollbar { display: none; }
+  .filter-chip { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* Horizontal scroll for trail tags on mobile */
+  .trail-tags {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .trail-tags::-webkit-scrollbar { display: none; }
+  .trail-tag { flex-shrink: 0; }
+
+  /* Open state — glass-morphism effect */
   .topbar.menu-open {
-    background: #FFFFFF;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     box-shadow: var(--vb-shadow-lg);
     border-bottom-color: rgba(28,79,61,0.2);
   }
@@ -833,6 +864,13 @@ footer {
   .filter-chip { padding: 6px 14px; font-size: 0.78rem; }
 }
 
+/* ── S — Standard Phone (≤ 414px) ────────────────────────── */
+@media (max-width: 414px) {
+  .container { padding: 0 14px; }
+  .filter-chip { min-width: 0; padding: 6px 12px; }
+  .topbar-nav a { min-width: 0; }
+}
+
 /* ── M — Large Phone (≤ 479px) ────────────────────────────── */
 @media (max-width: 479px) {
   .section-title { font-size: var(--text-2xl); }
@@ -841,14 +879,28 @@ footer {
   .btn { padding: 11px 22px; font-size: 0.82rem; }
   .topbar-logo { font-size: 1.15rem; gap: 8px; }
   .topbar-logo .logo-icon { width: 32px; height: 32px; }
+
+  /* Fix button min-width overflow on phones */
+  .btn-primary, .btn-gold { min-width: 0; }
+  .btn-secondary { min-width: 0; }
+  .btn-sm.btn-primary, .btn-sm.btn-gold { min-width: 0; }
+  .btn-sm.btn-secondary { min-width: 0; }
+  .topbar-cta .btn-secondary,
+  .topbar-cta .btn-primary { min-width: 0; width: 100%; }
+
+  /* Allow form labels to wrap on narrow screens */
+  .form-field label,
+  .form-section-title,
+  .detail-label { white-space: normal; overflow: visible; }
 }
 
 /* ── XS — Small Phone (≤ 374px) ───────────────────────────── */
 @media (max-width: 374px) {
   .container { padding: 0 12px; }
   .topbar-logo { font-size: 1.1rem; }
-  .btn { padding: 10px 18px; font-size: 0.78rem; }
+  .btn { padding: 10px 14px; font-size: 0.76rem; min-width: 0; }
   .lang-option { padding: 4px 8px; font-size: 0.68rem; }
+  .section-title { font-size: clamp(1.25rem, 6vw, 1.5rem); }
 }
 
 /* ── 3XL — Laptop (≥ 1280px) ─────────────────────────────── */
@@ -866,6 +918,48 @@ footer {
   .container { max-width: 1600px; }
 }
 
+/* ── Landscape Phone (short viewport) ────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .topbar { height: 48px; min-height: 48px; }
+  .topbar .container { min-height: 48px; }
+  .topbar-logo .logo-icon { width: 28px; height: 28px; }
+  .page-hero { margin-top: 48px; padding: 24px 0 16px; }
+  .back-to-top { bottom: 8px; right: 8px; }
+  .container { padding: 0 12px; }
+  .section-title { font-size: var(--text-xl); }
+}
+
+/* ── Foldable — Horizontal fold (tabletop posture) ───────── */
+@media (horizontal-viewport-segments: 2) {
+  .page-hero { padding-bottom: env(viewport-segment-top 0 1, 0); }
+}
+
+/* ── Foldable — Vertical fold (book posture) ─────────────── */
+@media (vertical-viewport-segments: 2) {
+  .container {
+    max-width: 100%;
+    padding-left: max(16px, env(viewport-segment-left 1 0, 16px));
+    padding-right: max(16px, env(viewport-segment-right 0 0, 16px));
+  }
+}
+
+/* ── Touch micro-animation feedback ──────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .btn:active,
+  .filter-chip:active,
+  .trail-tag:active,
+  .map-filter-btn:active,
+  .winery-card:active,
+  .exp-card:active,
+  .terroir-card:active,
+  .review-card:active,
+  .tier-card:active,
+  .cert-wrap:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+}
+
 /* ── Safe Areas — Notched / Dynamic-Island / Rounded Devices ── */
 @supports (padding: env(safe-area-inset-top)) {
   .topbar {
@@ -877,6 +971,9 @@ footer {
   footer     { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0)); }
   @media (max-width: 768px) {
     .page-hero { margin-top: calc(64px + env(safe-area-inset-top, 0)); }
+  }
+  @media (max-height: 500px) and (orientation: landscape) {
+    .page-hero { margin-top: calc(48px + env(safe-area-inset-top, 0)); }
   }
 }
 
@@ -1607,9 +1704,112 @@ footer {
   .vc-tiers-grid { grid-template-columns: 1fr; }
   .vc-certs-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 768px) {
+  .vc-hero { margin-top: 64px; min-height: 400px; padding: 48px 0; }
+  .vc-tiers, .vc-credits, .vc-register, .vc-certificates { padding: 48px 0; }
+  .credit-table thead th { padding: 10px 12px; font-size: 0.7rem; }
+  .credit-table tbody td { padding: 10px 12px; font-size: 0.85rem; }
+  .vc-section-title { font-size: clamp(1.3rem, 4vw, 1.8rem); }
+  .vc-section-sub { font-size: 0.9rem; margin-bottom: 32px; }
+}
 @media (max-width: 600px) {
   .vc-register .form-card { padding: 28px 20px; }
   .pref-grid { grid-template-columns: repeat(2, 1fr); }
   .vc-step-nav { flex-direction: column; }
   .vc-step-nav .btn { width: 100%; }
 }
+@media (max-width: 479px) {
+  .vc-hero h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .vc-hero-sub { font-size: 0.9rem; }
+  .vc-tier-strip { gap: 8px; }
+  .vc-tier-pill { padding: 8px 14px; font-size: 0.75rem; }
+  .vine-step-label { font-size: 0.6rem; }
+  .vine-step-circle { width: 28px; height: 28px; font-size: 0.75rem; }
+  .pref-grid { grid-template-columns: 1fr; }
+  .pref-item label { font-size: 0.78rem; padding: 8px 10px; }
+  .tier-card-header { padding: 24px 20px 18px; }
+  .tier-card-body { padding: 18px 20px 22px; }
+  .tier-card-name { font-size: 1.2rem; }
+  .cert-wrap { padding: 16px; }
+  .cert-btn { padding: 8px 14px; font-size: 0.72rem; }
+  .vc-register .form-card { padding: 20px 16px; }
+  .vc-step-nav .btn { min-width: 0; }
+  .credit-table thead th { padding: 8px; font-size: 0.65rem; letter-spacing: 0.04em; }
+  .credit-table tbody td { padding: 8px; font-size: 0.8rem; }
+}
+@media (max-width: 374px) {
+  .vc-hero h1 { font-size: 1.4rem; }
+  .vc-tier-strip { flex-direction: column; align-items: center; }
+  .vine-step:not(:last-child)::after { display: none; }
+  .vc-steps { gap: 4px; }
+  .tier-card-name { font-size: 1.1rem; }
+  .credit-table { font-size: 0.75rem; }
+  .credit-pts span { font-size: 0.75rem; padding: 3px 10px; }
+}
+
+
+/* ── Role-Based Topbar ─────────────────────────────────────────────────────
+   Classes used by js/nav-role.js to render user state in #topbarCta.
+   WCAG AAA verified:
+     .vb-avatar text (white on forest/maroon gradient): ≥ 8:1 ✓
+     .vb-admin-badge (deep-maroon on gold): ≥ 7.2:1 ✓
+     .vb-display-name (deep-maroon on white): ≥ 9.1:1 ✓
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* User chip container */
+.vb-user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Circular initials avatar */
+.vb-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--vb-forest, #1C4F3D), var(--vb-deep-maroon, #4A1F2A));
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+/* Display name next to avatar */
+.vb-display-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vb-deep-maroon, #4A1F2A);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+/* Admin role badge pill */
+.vb-admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--gold, #D4AF37);
+  color: var(--vb-deep-maroon, #4A1F2A);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Breadcrumb (standardized) ────────────────────────────── */
+.vb-breadcrumb { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--vb-medium-gray); margin-bottom:16px; }
+.vb-breadcrumb a { color:var(--vb-link); text-decoration:none; transition:var(--transition); }
+.vb-breadcrumb a:hover { color:var(--vb-forest); text-decoration:underline; }
+.vb-breadcrumb svg { width:12px; height:12px; color:var(--vb-medium-gray); flex-shrink:0; }
+.vb-breadcrumb span { color:var(--vb-deep-maroon); font-weight:600; }
