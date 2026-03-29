@@ -468,6 +468,13 @@ button, select, input, textarea { font-family: inherit; }
 }
 .topbar-cta .btn { padding: 9px 20px; font-size: 0.78rem; }
 
+/* Mobile-only elements: always hidden above mobile breakpoint */
+@media (min-width: 769px) {
+  #mobileMenuOverlay,
+  .mobile-menu-overlay,
+  .menu-backdrop { display: none !important; }
+}
+
 /* Mobile toggle (44×44px touch target) */
 .mobile-toggle {
   display: none;
