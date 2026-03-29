@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Admin Dashboard — VineBond</title>
+  <link rel="stylesheet" href="css/vinebond.css" />
+
+  <!-- Auth gate: must run before DOM paint to prevent flash -->
+  <script src="js/auth.js"></script>
+  <script>
+    (function () {
+      if (typeof window.VineBondAuth === 'undefined' || !VineBondAuth.isAdmin()) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+
+  <style>
+    /* ── Admin Dashboard — VineBond Design System v2.0 ──
+       Two-column: 260px fixed sidebar + fluid main content.
+       Sidebar: Deep Maroon background (Airbnb host panel paradigm).
+       Main: Cream/white cards (Instagram admin card paradigm).
+       All colours from vinebond.css :root variables.
+    ── */
+
+    body { background: var(--vb-cream); min-height: 100vh; margin: 0; }
+
+    /* ── Topbar (shared) ── */
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+
+    /* ── Layout ── */
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    /* ── Sidebar ── */
+    .admin-sidebar {
+      background: var(--vb-deep-maroon);
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      display: flex;
+      flex-direction: column;
+    }
+    .admin-sidebar-header {
+      padding: 0 24px 24px;
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+      margin-bottom: 12px;
+    }
+    .admin-sidebar-header .admin-user-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
+    .admin-sidebar-header .admin-user-email {
+      font-size: 0.75rem;
+      color: rgba(237,232,224,0.6);
+      word-break: break-all;
+    }
+    .admin-sidebar-header .admin-role-pill {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 10px;
+      background: var(--gold);
+      color: var(--vb-deep-maroon);
+      border-radius: 100px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Sidebar nav items */
+    .admin-nav { list-style: none; margin: 0; padding: 0; flex: 1; }
+    .admin-nav li { margin: 0; }
+    .admin-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 24px;
+      background: none;
+      border: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(237,232,224,0.75);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      border-left: 3px solid transparent;
+      min-height: 44px;
+    }
+    .admin-nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .admin-nav-btn:hover {
+      background: rgba(212,175,55,0.08);
+      color: var(--gold);
+    }
+    .admin-nav-btn.active {
+      background: rgba(212,175,55,0.12);
+      color: var(--gold);
+      border-left-color: var(--gold);
+    }
+
+    .admin-sidebar-footer {
+      padding: 20px 24px 0;
+      border-top: 1px solid rgba(212,175,55,0.15);
+    }
+    .admin-sidebar-footer .btn-signout {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 16px;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: var(--radius-md);
+      background: none;
+      color: rgba(237,232,224,0.7);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      min-height: 44px;
+    }
+    .admin-sidebar-footer .btn-signout:hover {
+      background: rgba(139,57,66,0.25);
+      color: #F5C6C9;
+      border-color: rgba(139,57,66,0.5);
+    }
+    .admin-sidebar-footer .btn-signout svg { width: 16px; height: 16px; }
+
+    /* ── Main Content Area ── */
+    .admin-main {
+      padding: 36px 44px 60px;
+      min-height: calc(100vh - 80px);
+    }
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+
+    /* ── Page titles ── */
+    .admin-page-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--vb-deep-maroon);
+      margin-bottom: 4px;
+    }
+    .admin-page-subtitle {
+      font-size: 0.88rem;
+      color: var(--vb-medium-gray);
+      margin-bottom: 32px;
+    }
+
+    /* ── Stat Cards ── */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid rgba(212,175,55,0.2);
+      box-shadow: 0 2px 12px rgba(74,31,42,0.06);
+    }
+    .stat-card .stat-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+    }
+    .stat-card .stat-icon.burgundy { background: rgba(92,38,50,0.1); }
+    .stat-card .stat-icon.gold     { background: rgba(212,175,55,0.1); }
+    .stat-card .stat-icon.forest   { background: rgba(28,79,61,0.1); }
+    .stat-card .stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--vb-deep-maroon);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-card .stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--vb-medium-gray);
+    }
+
+    /* ── Data Table ── */
+    .admin-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid rgba(200,191,180,0.4); background: #fff; }
+    .admin-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+    .admin-table thead tr { background: var(--vb-cream); }
+    .admin-table th {
+      padding: 12px 16px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--vb-medium-gray);
+      text-align: left;
+      border-bottom: 1px solid rgba(200,191,180,0.35);
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 13px 16px;
+      color: var(--vb-deep-maroon);
+      border-bottom: 1px solid rgba(200,191,180,0.2);
+      vertical-align: middle;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: rgba(237,232,224,0.4); }
+    .tbl-badge {
+      display: inline-block;
+      padding: 2px 8px; border-radius: 100px;
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+    }
+    .tbl-badge.gg      { background: rgba(92,38,50,0.1);  color: #5C2632; }
+    .tbl-badge.one-g   { background: rgba(28,79,61,0.1);  color: #1C4F3D; }
+    .tbl-badge.organic { background: rgba(45,106,79,0.1); color: #2D6A4F; }
+    .tbl-badge.global  { background: rgba(139,133,120,0.15); color: #5A544C; }
+    .tbl-badge.admin   { background: rgba(212,175,55,0.15); color: #8B6914; }
+    .tbl-badge.user    { background: rgba(28,79,61,0.1); color: #1C4F3D; }
+    .tbl-badge.default { background: rgba(139,133,120,0.15); color: #5A544C; }
+
+    /* ── Action Buttons ── */
+    .btn-tbl-edit, .btn-tbl-delete {
+      padding: 5px 12px; border-radius: var(--radius-sm);
+      font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer;
+      transition: all 0.18s; min-height: 32px;
+    }
+    .btn-tbl-edit   { background: rgba(28,79,61,0.1);  color: #1C4F3D; }
+    .btn-tbl-edit:hover   { background: rgba(28,79,61,0.2); }
+    .btn-tbl-delete { background: rgba(139,57,66,0.1); color: #8B3942; margin-left: 6px; }
+    .btn-tbl-delete:hover { background: rgba(139,57,66,0.2); }
+
+    /* ── Add Winery Form ── */
+    .admin-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(212,175,55,0.2);
+      box-shadow: 0 2px 12px rgba(74,31,42,0.06);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .admin-card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(200,191,180,0.25);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-card-title {
+      font-size: 1rem; font-weight: 800; color: var(--vb-deep-maroon);
+    }
+    .admin-card-body { padding: 24px; }
+
+    .admin-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .admin-form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+    .admin-form-grid.full  { grid-template-columns: 1fr; }
+
+    .admin-form-field { display: flex; flex-direction: column; gap: 5px; }
+    .admin-form-field label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--vb-medium-gray);
+    }
+    .admin-form-field input,
+    .admin-form-field select,
+    .admin-form-field textarea {
+      padding: 10px 14px;
+      border: 1.5px solid #C8BFB4;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      color: var(--vb-deep-maroon);
+      background: var(--vb-cream);
+      transition: all 0.22s;
+      outline: none;
+      font-family: inherit;
+    }
+    .admin-form-field textarea { min-height: 80px; resize: vertical; }
+    .admin-form-field input:focus,
+    .admin-form-field select:focus,
+    .admin-form-field textarea:focus {
+      border-color: var(--vb-forest);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(28,79,61,0.12);
+    }
+
+    .btn-admin-primary {
+      padding: 11px 24px;
+      background: linear-gradient(135deg, var(--vb-forest), var(--vb-deep-maroon));
+      color: #fff; border: 2px solid var(--gold);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; cursor: pointer;
+      transition: all 0.22s;
+      box-shadow: 0 4px 14px rgba(28,79,61,0.25);
+      min-height: 44px;
+    }
+    .btn-admin-primary:hover {
+      background: linear-gradient(135deg, var(--vb-leaf-green), var(--vb-forest));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(28,79,61,0.3);
+    }
+    .btn-admin-secondary {
+      padding: 11px 20px;
+      background: transparent; border: 1.5px solid var(--vb-medium-gray);
+      color: var(--vb-medium-gray);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em;
+      cursor: pointer; transition: all 0.22s; min-height: 44px;
+      margin-left: 10px;
+    }
+    .btn-admin-secondary:hover { border-color: var(--vb-forest); color: var(--vb-forest); }
+
+    /* ── Document Upload ── */
+    .doc-upload-zone {
+      border: 2px dashed #C8BFB4;
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      text-align: center;
+      transition: all 0.22s;
+      cursor: pointer;
+      background: #fff;
+    }
+    .doc-upload-zone:hover, .doc-upload-zone.drag-over {
+      border-color: var(--vb-forest);
+      background: rgba(28,79,61,0.03);
+    }
+    .doc-upload-zone .upload-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .doc-upload-zone h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--vb-deep-maroon);
+      margin-bottom: 6px;
+    }
+    .doc-upload-zone .upload-hint {
+      font-size: 0.8rem;
+      color: var(--vb-medium-gray);
+      margin-bottom: 20px;
+    }
+
+    .uploaded-docs-list { list-style: none; margin: 16px 0 0; padding: 0; }
+    .uploaded-doc-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px;
+      background: var(--vb-cream);
+      border: 1px solid rgba(200,191,180,0.4);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+    }
+    .uploaded-doc-item .doc-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .uploaded-doc-item .doc-info { flex: 1; min-width: 0; }
+    .uploaded-doc-item .doc-name {
+      font-size: 0.85rem; font-weight: 600; color: var(--vb-deep-maroon);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .uploaded-doc-item .doc-size { font-size: 0.72rem; color: var(--vb-medium-gray); }
+    .btn-doc-remove {
+      background: none; border: none; color: var(--vb-medium-gray);
+      cursor: pointer; padding: 4px; border-radius: 4px; font-size: 1rem;
+      transition: color 0.18s; min-height: 32px; min-width: 32px;
+    }
+    .btn-doc-remove:hover { color: #8B3942; }
+
+    /* ── Verification Checklist ── */
+    .verify-checklist { list-style: none; margin: 24px 0 0; padding: 0; }
+    .verify-checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(200,191,180,0.2);
+      font-size: 0.88rem;
+      color: var(--vb-deep-maroon);
+    }
+    .verify-checklist li:last-child { border-bottom: none; }
+    .verify-checklist input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0;
+      margin-top: 1px; accent-color: var(--vb-forest); cursor: pointer;
+    }
+
+    /* ── Onboarding Table ── */
+    .onboarding-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .onboarding-col { background: #fff; border-radius: var(--radius-lg); padding: 24px; border: 1px solid rgba(200,191,180,0.3); }
+    .onboarding-col.public  { border-top: 3px solid var(--vb-forest); }
+    .onboarding-col.private { border-top: 3px solid #8B3942; }
+    .onboarding-col h4 {
+      font-size: 0.88rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.07em; margin-bottom: 16px;
+    }
+    .onboarding-col.public h4  { color: var(--vb-forest); }
+    .onboarding-col.private h4 { color: #8B3942; }
+    .onboarding-col ul { list-style: none; margin: 0; padding: 0; }
+    .onboarding-col ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; font-size: 0.85rem; color: var(--vb-deep-maroon);
+      border-bottom: 1px solid rgba(200,191,180,0.15);
+    }
+    .onboarding-col ul li:last-child { border-bottom: none; }
+    .onboarding-col ul li .li-icon { flex-shrink: 0; font-size: 0.9rem; margin-top: 1px; }
+
+    /* ── Activity Feed ── */
+    .activity-feed { list-style: none; margin: 0; padding: 0; }
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(200,191,180,0.2);
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-top: 5px;
+    }
+    .activity-text { font-size: 0.85rem; color: var(--vb-deep-maroon); line-height: 1.55; }
+    .activity-time { font-size: 0.75rem; color: var(--vb-medium-gray); margin-top: 2px; }
+
+    /* ── Toast notification ── */
+    .vb-toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      padding: 14px 20px; border-radius: var(--radius-md);
+      background: var(--vb-forest); color: #fff;
+      font-size: 0.88rem; font-weight: 700;
+      box-shadow: 0 8px 28px rgba(28,79,61,0.35);
+      animation: toastIn 0.3s ease;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .vb-toast.error { background: #8B3942; box-shadow: 0 8px 28px rgba(139,57,66,0.35); }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .admin-layout { grid-template-columns: 220px 1fr; }
+      .admin-main { padding: 28px 28px 60px; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .admin-form-grid.three { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .admin-layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .admin-sidebar { position: static; height: auto; flex-direction: row; overflow-x: auto; padding: 0; }
+      .admin-sidebar-header { display: none; }
+      .admin-nav { display: flex; flex-direction: row; }
+      .admin-nav-btn { padding: 14px 16px; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; }
+      .admin-nav-btn.active { border-bottom-color: var(--gold); border-left-color: transparent; }
+      .admin-nav-btn span { display: none; }
+      .admin-sidebar-footer { display: none; }
+      .admin-main { padding: 20px 16px 60px; }
+      .stat-cards { grid-template-columns: 1fr; }
+      .admin-form-grid { grid-template-columns: 1fr; }
+      .admin-form-grid.three { grid-template-columns: 1fr; }
+      .onboarding-split { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <div class="page-progress" data-page-progress aria-hidden="true"><span></span></div>
+
+  <!-- TOPBAR -->
+  <nav class="topbar" id="topbar">
+    <div class="container">
+      <a href="index.html" class="topbar-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
+          </svg>
+        </div>
+        VineBond
+      </a>
+      <div class="topbar-nav" id="topbarNav">
+        <a href="winery.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
+          <span>Wineries</span>
+        </a>
+        <a href="book.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>Book</span>
+        </a>
+        <a href="vinemap.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span>VineMap</span>
+        </a>
+        <a href="vineclub.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span>VineClub</span>
+        </a>
+      </div>
+      <div class="topbar-cta" id="topbarCta">
+        <!-- Populated by nav-role.js -->
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div id="menuBackdrop" class="menu-backdrop"></div>
+
+  <!-- ADMIN LAYOUT -->
+  <div class="admin-layout" id="main-content">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="admin-sidebar" role="complementary" aria-label="Admin navigation">
+
+      <div class="admin-sidebar-header" id="sidebarHeader">
+        <!-- Populated by JS -->
+      </div>
+
+      <ul class="admin-nav" role="tablist">
+        <li>
+          <button class="admin-nav-btn active" role="tab" aria-selected="true" data-section="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+            <span>Overview</span>
+          </button>
+        </li>
+        <li>
+          <button class="admin-nav-btn" role="tab" aria-selected="false" data-section="wineries">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
+            <span>Wineries</span>
+          </button>
+        </li>
+        <li>
+          <button class="admin-nav-btn" role="tab" aria-selected="false" data-section="media-specs">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Media Specs</span>
+          </button>
+        </li>
+        <li>
+          <button class="admin-nav-btn" role="tab" aria-selected="false" data-section="doc-upload">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            <span>Doc Upload</span>
+          </button>
+        </li>
+        <li>
+          <button class="admin-nav-btn" role="tab" aria-selected="false" data-section="onboarding">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Onboarding Docs</span>
+          </button>
+        </li>
+        <li>
+          <button class="admin-nav-btn" role="tab" aria-selected="false" data-section="users">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            <span>User Management</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="admin-sidebar-footer">
+        <button class="btn-signout" onclick="VineBondAuth.logout()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="admin-main">
+
+      <!-- ══ SECTION 1: OVERVIEW ══ -->
+      <section class="admin-section active" id="section-overview" role="tabpanel">
+        <h1 class="admin-page-title">Dashboard Overview</h1>
+        <p class="admin-page-subtitle">Monitor your winery listings, pending verifications, and platform activity.</p>
+
+        <div class="stat-cards" id="statCards">
+          <div class="stat-card">
+            <div class="stat-icon burgundy">🍷</div>
+            <div class="stat-value" id="statWineries">—</div>
+            <div class="stat-label">Wineries Listed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon gold">📄</div>
+            <div class="stat-value" id="statDocs">—</div>
+            <div class="stat-label">Documents Uploaded</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon forest">👥</div>
+            <div class="stat-value" id="statUsers">—</div>
+            <div class="stat-label">Registered Users</div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span class="admin-card-title">Recent Activity</span>
+          </div>
+          <div class="admin-card-body">
+            <ul class="activity-feed" id="activityFeed">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION 2: WINERY MANAGEMENT ══ -->
+      <section class="admin-section" id="section-wineries" role="tabpanel">
+        <h1 class="admin-page-title">Winery Management</h1>
+        <p class="admin-page-subtitle">Add, edit, or remove winery listings. Changes appear live on Wineries and VineMap pages.</p>
+
+        <!-- Add Winery Form -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span class="admin-card-title" id="wineryFormTitle">Add New Winery</span>
+            <button class="btn-admin-secondary" id="btnResetWineryForm" style="margin-left:0;">Cancel</button>
+          </div>
+          <div class="admin-card-body">
+            <form id="wineryForm" novalidate>
+              <input type="hidden" id="editWineryId" value="" />
+              <div class="admin-form-grid">
+                <div class="admin-form-field">
+                  <label for="wf-name">Winery Name *</label>
+                  <input type="text" id="wf-name" placeholder="e.g. Weingut Mustermann" required />
+                </div>
+                <div class="admin-form-field">
+                  <label for="wf-region-label">Region Label</label>
+                  <input type="text" id="wf-region-label" placeholder="e.g. Rheingau, Germany" />
+                </div>
+              </div>
+              <div class="admin-form-grid three">
+                <div class="admin-form-field">
+                  <label for="wf-region">Region (filter key) *</label>
+                  <select id="wf-region">
+                    <option value="rheingau">Rheingau</option>
+                    <option value="bordeaux">Bordeaux</option>
+                    <option value="tuscany">Tuscany</option>
+                    <option value="napa">Napa Valley</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="admin-form-field">
+                  <label for="wf-type">Classification *</label>
+                  <select id="wf-type">
+                    <option value="GG">GG — Grosses Gewächs</option>
+                    <option value="1G">1G — Erstes Gewächs</option>
+                    <option value="organic">Organic</option>
+                    <option value="global">Global / Other</option>
+                  </select>
+                </div>
+                <div class="admin-form-field">
+                  <label for="wf-gradient">Header Colour</label>
+                  <select id="wf-gradient">
+                    <option value="burgundy">Burgundy (default)</option>
+                    <option value="maroon">Deep Maroon</option>
+                    <option value="violet">Violet Burgundy</option>
+                    <option value="forest">Forest Green</option>
+                    <option value="green">Leaf Green</option>
+                  </select>
+                </div>
+              </div>
+              <div class="admin-form-grid three">
+                <div class="admin-form-field">
+                  <label for="wf-grape">Grape Variety</label>
+                  <input type="text" id="wf-grape" placeholder="e.g. Riesling" />
+                </div>
+                <div class="admin-form-field">
+                  <label for="wf-classification">Formal Classification</label>
+                  <input type="text" id="wf-classification" placeholder="e.g. Grosses Gewächs" />
+                </div>
+                <div class="admin-form-field">
+                  <label for="wf-soil">Soil Type</label>
+                  <input type="text" id="wf-soil" placeholder="e.g. Phyllit-Schiefer" />
+                </div>
+              </div>
+              <div class="admin-form-grid">
+                <div class="admin-form-field">
+                  <label for="wf-emoji">Emoji Icon</label>
+                  <input type="text" id="wf-emoji" placeholder="🍷" maxlength="4" />
+                </div>
+                <div class="admin-form-field">
+                  <label for="wf-search-extra">Extra Search Keywords</label>
+                  <input type="text" id="wf-search-extra" placeholder="e.g. alternate estate name" />
+                </div>
+              </div>
+              <div class="admin-form-grid full">
+                <div class="admin-form-field">
+                  <label for="wf-description">Description *</label>
+                  <textarea id="wf-description" placeholder="Short description of the winery and its experience offering…" required></textarea>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="submit" class="btn-admin-primary" id="btnWinerySubmit">Add Winery</button>
+                <button type="button" class="btn-admin-secondary" id="btnResetToDefaults">Reset to Defaults</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Winery Table -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span class="admin-card-title">All Wineries</span>
+            <span id="wineryTableCount" style="font-size:0.8rem;color:var(--vb-medium-gray);"></span>
+          </div>
+          <div class="admin-card-body" style="padding:0;">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="wineryTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Region</th>
+                    <th>Type</th>
+                    <th>Added By</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="wineryTableBody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION 3: MEDIA SPECIFICATIONS ══ -->
+      <section class="admin-section" id="section-media-specs" role="tabpanel">
+        <h1 class="admin-page-title">Media Specifications</h1>
+        <p class="admin-page-subtitle">Requirements for images and videos uploaded to winery listings. See also <code>docs/admin-specs.md</code>.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header"><span class="admin-card-title">🖼 Wine Image Requirements</span></div>
+          <div class="admin-card-body">
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead><tr><th>Property</th><th>Requirement</th></tr></thead>
+                <tbody>
+                  <tr><td>Minimum Dimensions</td><td>800 × 600 px (landscape) · 600 × 800 px (portrait)</td></tr>
+                  <tr><td>Card Header (retina)</td><td>1600 × 320 px recommended (2× supply)</td></tr>
+                  <tr><td>Profile Hero</td><td>Minimum 1920 × 1080 px</td></tr>
+                  <tr><td>Accepted Formats</td><td>JPEG (.jpg, .jpeg) · WebP (.webp)</td></tr>
+                  <tr><td>Maximum File Size</td><td>2 MB per image</td></tr>
+                  <tr><td>Colour Space</td><td>sRGB</td></tr>
+                  <tr><td>JPEG Quality</td><td>Minimum 80% · WebP lossless preferred</td></tr>
+                  <tr><td>EXIF Data</td><td>Strip all EXIF before upload (privacy requirement)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card" style="margin-top:20px;">
+          <div class="admin-card-header"><span class="admin-card-title">🎥 Video Format Specifications</span></div>
+          <div class="admin-card-body">
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead><tr><th>Property</th><th>Requirement</th></tr></thead>
+                <tbody>
+                  <tr><td>Accepted Formats</td><td>MP4 (H.264 / AAC) · WebM (VP9 / Opus)</td></tr>
+                  <tr><td>Max Duration — Vineyard Tour</td><td>90 seconds</td></tr>
+                  <tr><td>Max Duration — Highlight Reel</td><td>30 seconds</td></tr>
+                  <tr><td>Maximum Resolution</td><td>1920 × 1080 (1080p)</td></tr>
+                  <tr><td>Minimum Resolution</td><td>854 × 480 (480p)</td></tr>
+                  <tr><td>Maximum File Size</td><td>50 MB</td></tr>
+                  <tr><td>Frame Rate</td><td>24 fps or 30 fps</td></tr>
+                  <tr><td>Audio</td><td>Stereo · 44.1 kHz · AAC 128 kbps minimum</td></tr>
+                  <tr><td>Autoplay Policy</td><td>Muted only (browser policy compliance)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card" style="margin-top:20px;">
+          <div class="admin-card-header"><span class="admin-card-title">📋 Wine List Limits &amp; Naming Conventions</span></div>
+          <div class="admin-card-body">
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead><tr><th>Property</th><th>Rule</th></tr></thead>
+                <tbody>
+                  <tr><td>Max Wines per Listing</td><td>24 (6 per row × 4 rows)</td></tr>
+                  <tr><td>Max Wine Name Length</td><td>80 characters</td></tr>
+                  <tr><td>Max Tasting Note Length</td><td>320 characters</td></tr>
+                  <tr><td>Required Wine Fields</td><td>Name · Vintage Year · Grape Variety · Classification</td></tr>
+                  <tr><td>Winery Slug Format</td><td>kebab-case · ASCII · Umlauts substituted (ä→ae, ö→oe, ü→ue, ß→ss) · max 60 chars</td></tr>
+                  <tr><td>Image File Naming</td><td><code>{slug}_{type}_{variant}.{ext}</code> e.g. <code>schloss-johannisberg_hero_desktop.jpg</code></td></tr>
+                  <tr><td>CSS Class Prefix</td><td><code>vb-admin-</code> for admin UI · <code>vb-role-</code> for role state · <code>vb-</code> for shared</td></tr>
+                  <tr><td>JS Namespace</td><td><code>window.VineBond{ModuleName}</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION 4: DOCUMENT UPLOAD ══ -->
+      <section class="admin-section" id="section-doc-upload" role="tabpanel">
+        <h1 class="admin-page-title">Private Document Upload</h1>
+        <p class="admin-page-subtitle">Upload and manage proof-of-truth documents for winery verification. Documents are stored locally and are never publicly accessible.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header"><span class="admin-card-title">Upload Documents</span></div>
+          <div class="admin-card-body">
+            <div class="doc-upload-zone" id="docUploadZone" role="region" aria-label="Document upload area">
+              <span class="upload-icon">📁</span>
+              <h4>Drop files here or click to select</h4>
+              <p class="upload-hint">Accepted: PDF, JPG, PNG &nbsp;·&nbsp; Max 5 MB per file</p>
+              <input type="file" id="docFileInput" accept=".pdf,.jpg,.jpeg,.png" multiple hidden />
+              <button type="button" class="btn-admin-primary" id="docUploadBtn">Select Documents</button>
+            </div>
+            <p id="docErrorMsg" style="color:#8B3942;font-size:0.82rem;margin-top:10px;display:none;"></p>
+            <ul class="uploaded-docs-list" id="uploadedDocsList"></ul>
+          </div>
+        </div>
+
+        <div class="admin-card" style="margin-top:20px;">
+          <div class="admin-card-header"><span class="admin-card-title">Verification Checklist</span></div>
+          <div class="admin-card-body">
+            <p style="font-size:0.85rem;color:var(--vb-medium-gray);margin-bottom:16px;">Mark each item once the corresponding document has been uploaded and verified.</p>
+            <ul class="verify-checklist">
+              <li>
+                <input type="checkbox" id="vc-1" />
+                <label for="vc-1"><span class="li-icon">🏢</span> Business registration document uploaded</label>
+              </li>
+              <li>
+                <input type="checkbox" id="vc-2" />
+                <label for="vc-2"><span class="li-icon">🍷</span> Wine certification / VDP membership document uploaded</label>
+              </li>
+              <li>
+                <input type="checkbox" id="vc-3" />
+                <label for="vc-3"><span class="li-icon">🌿</span> Organic certification uploaded (if applicable)</label>
+              </li>
+              <li>
+                <input type="checkbox" id="vc-4" />
+                <label for="vc-4"><span class="li-icon">📞</span> Contact information verified</label>
+              </li>
+              <li>
+                <input type="checkbox" id="vc-5" />
+                <label for="vc-5"><span class="li-icon">📍</span> Location coordinates verified on VineMap</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION 5: ONBOARDING DOCUMENTATION ══ -->
+      <section class="admin-section" id="section-onboarding" role="tabpanel">
+        <h1 class="admin-page-title">Onboarding Documentation</h1>
+        <p class="admin-page-subtitle">Structured criteria defining what winery information is public-facing versus private and kept for admin verification only.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header"><span class="admin-card-title">Data Segregation Policy</span></div>
+          <div class="admin-card-body">
+            <p style="font-size:0.88rem;color:var(--vb-medium-gray);margin-bottom:8px;">
+              All winery data is classified into two tiers. <strong>Public details</strong> are displayed on the Wineries page and VineMap to all visitors. <strong>Private details</strong> are collected for verification purposes and are never exposed in front-end code or accessible to non-admin users.
+            </p>
+            <div class="onboarding-split">
+              <div class="onboarding-col public">
+                <h4>✅ Public Details</h4>
+                <ul>
+                  <li><span class="li-icon">🏰</span> Winery name and estate identity</li>
+                  <li><span class="li-icon">📍</span> Region, country, and municipality</li>
+                  <li><span class="li-icon">🍇</span> Primary grape variety</li>
+                  <li><span class="li-icon">🥇</span> Classification (GG / 1G / Organic / Global)</li>
+                  <li><span class="li-icon">🌍</span> Soil type and terroir description</li>
+                  <li><span class="li-icon">🗺</span> VineMap coordinates (lat / lng)</li>
+                  <li><span class="li-icon">📸</span> Winery hero image and card emoji</li>
+                  <li><span class="li-icon">📅</span> Booking availability and experience types</li>
+                  <li><span class="li-icon">💶</span> Tasting experience prices</li>
+                  <li><span class="li-icon">🌿</span> Sustainability and organic certifications (label only)</li>
+                </ul>
+              </div>
+              <div class="onboarding-col private">
+                <h4>🔒 Private Details (Admin Only)</h4>
+                <ul>
+                  <li><span class="li-icon">📋</span> Business registration number (HRB / SIREN)</li>
+                  <li><span class="li-icon">🏦</span> VAT identification number</li>
+                  <li><span class="li-icon">📄</span> Legal entity documentation and articles of incorporation</li>
+                  <li><span class="li-icon">💳</span> Bank account / IBAN for payout processing</li>
+                  <li><span class="li-icon">🔏</span> VDP / AOC / DOC certification scan</li>
+                  <li><span class="li-icon">🌿</span> Full organic certification body + certificate number</li>
+                  <li><span class="li-icon">👤</span> Owner / manager legal name and personal contact</li>
+                  <li><span class="li-icon">📞</span> Direct phone and private email for communications</li>
+                  <li><span class="li-icon">🔐</span> Proof-of-ownership documents (land title, lease)</li>
+                  <li><span class="li-icon">🛡</span> Insurance policy reference number</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card" style="margin-top:20px;">
+          <div class="admin-card-header"><span class="admin-card-title">Winery Registration Process</span></div>
+          <div class="admin-card-body">
+            <ol style="font-size:0.88rem;color:var(--vb-deep-maroon);line-height:1.8;padding-left:20px;">
+              <li>Winery owner registers with a corporate email domain (e.g. @winery.com).</li>
+              <li>Admin receives notification and opens the Winery Management section to add the listing.</li>
+              <li>Winery owner provides private proof documents via the Document Upload section.</li>
+              <li>Admin verifies each item in the Verification Checklist and marks it complete.</li>
+              <li>Once all 5 checklist items are ticked, the listing is promoted to public status.</li>
+              <li>Public winery details become visible on winery.html and vinemap.html.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION 6: USER MANAGEMENT ══ -->
+      <section class="admin-section" id="section-users" role="tabpanel">
+        <h1 class="admin-page-title">User Management</h1>
+        <p class="admin-page-subtitle">View and manage registered users across all roles.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span class="admin-card-title">Registered Users</span>
+            <span id="userTableCount" style="font-size:0.8rem;color:var(--vb-medium-gray);"></span>
+          </div>
+          <div class="admin-card-body" style="padding:0;">
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="userTable">
+                <thead>
+                  <tr>
+                    <th>Display Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Session Active</th>
+                  </tr>
+                </thead>
+                <tbody id="userTableBody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main><!-- /.admin-main -->
+  </div><!-- /.admin-layout -->
+
+  <!-- ── SCRIPTS ── -->
+  <script src="js/winery-data.js"></script>
+  <script src="js/nav-role.js"></script>
+
+  <script>
+    /* ── Admin Dashboard Controller ─────────────────────────────────── */
+
+    // ── Populate sidebar header ──────────────────────────────────────
+    (function () {
+      var name  = VineBondAuth.getDisplayName() || 'Admin';
+      var email = VineBondAuth.getEmail() || '';
+      document.getElementById('sidebarHeader').innerHTML =
+        '<div class="admin-user-name">' + esc(name) + '</div>' +
+        '<div class="admin-user-email">' + esc(email) + '</div>' +
+        '<span class="admin-role-pill">Admin</span>';
+    })();
+
+    // ── Section Navigation ───────────────────────────────────────────
+    document.querySelectorAll('.admin-nav-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.admin-nav-btn').forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.admin-section').forEach(function (s) {
+          s.classList.remove('active');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        var target = document.getElementById('section-' + btn.dataset.section);
+        if (target) target.classList.add('active');
+        if (btn.dataset.section === 'wineries') renderWineryTable();
+        if (btn.dataset.section === 'users')    renderUserTable();
+        if (btn.dataset.section === 'overview') renderOverview();
+      });
+    });
+
+    // ── Topbar scroll ────────────────────────────────────────────────
+    var topbar = document.getElementById('topbar');
+    window.addEventListener('scroll', function () {
+      topbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    var menuBackdrop = document.getElementById('menuBackdrop');
+    var menuIsOpen = false;
+    function openMobileMenu() {
+      topbar.classList.add('menu-open');
+      menuBackdrop.classList.add('visible');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      menuIsOpen = true;
+    }
+    function closeMobileMenu() {
+      topbar.classList.remove('menu-open');
+      menuBackdrop.classList.remove('visible');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      menuIsOpen = false;
+    }
+    document.getElementById('mobileToggle').addEventListener('click', function () {
+      menuIsOpen ? closeMobileMenu() : openMobileMenu();
+    });
+    menuBackdrop.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.topbar-nav a').forEach(function(a) { a.addEventListener('click', closeMobileMenu); });
+    window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMobileMenu(); });
+
+    // ── XSS-safe escape ─────────────────────────────────────────────
+    function esc(str) {
+      return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Toast ────────────────────────────────────────────────────────
+    function showToast(msg, isError) {
+      var old = document.querySelector('.vb-toast');
+      if (old) old.remove();
+      var t = document.createElement('div');
+      t.className = 'vb-toast' + (isError ? ' error' : '');
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(function () { t.remove(); }, 3200);
+    }
+
+    // ── Overview ─────────────────────────────────────────────────────
+    function renderOverview() {
+      var wineries = VineBondWineries.getAll();
+      var docs = [];
+      try { docs = JSON.parse(localStorage.getItem('vb_verification_docs') || '[]'); } catch (e) {}
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('vb_users') || '[]'); } catch (e) {}
+      document.getElementById('statWineries').textContent = wineries.length;
+      document.getElementById('statDocs').textContent     = docs.length;
+      document.getElementById('statUsers').textContent    = users.length || '—';
+
+      var adminAdded = wineries.filter(function (w) { return w.addedBy === 'admin'; });
+      var feed = document.getElementById('activityFeed');
+      if (adminAdded.length === 0) {
+        feed.innerHTML = '<li class="activity-item"><div class="activity-dot"></div><div><div class="activity-text">No admin-added wineries yet. Use the Wineries section to add your first listing.</div></div></li>';
+      } else {
+        feed.innerHTML = adminAdded.slice(-5).reverse().map(function (w) {
+          return '<li class="activity-item">' +
+            '<div class="activity-dot"></div>' +
+            '<div><div class="activity-text">Winery added: <strong>' + esc(w.name) + '</strong> (' + esc(w.type) + ')</div>' +
+            '<div class="activity-time">' + (w.createdAt ? new Date(w.createdAt).toLocaleDateString() : 'Unknown date') + '</div>' +
+            '</div></li>';
+        }).join('');
+      }
+    }
+    renderOverview();
+
+    // ── Winery Table ─────────────────────────────────────────────────
+    function renderWineryTable() {
+      var wineries = VineBondWineries.getAll();
+      document.getElementById('wineryTableCount').textContent = wineries.length + ' total';
+      var BADGE_CLASSES = { GG: 'gg', '1G': 'one-g', 'organic': 'organic', 'global': 'global' };
+      document.getElementById('wineryTableBody').innerHTML = wineries.map(function (w) {
+        var bcls = BADGE_CLASSES[w.type] || 'global';
+        return '<tr>' +
+          '<td><strong>' + esc(w.name) + '</strong></td>' +
+          '<td>' + esc(w.regionLabel || w.region) + '</td>' +
+          '<td><span class="tbl-badge ' + bcls + '">' + esc(w.type) + '</span></td>' +
+          '<td><span class="tbl-badge ' + (w.addedBy === 'admin' ? 'admin' : 'default') + '">' + esc(w.addedBy) + '</span></td>' +
+          '<td>' +
+            '<button class="btn-tbl-edit" onclick="editWinery(' + "'" + esc(w.id) + "'" + ')">Edit</button>' +
+            (w.addedBy !== 'default' ? '<button class="btn-tbl-delete" onclick="deleteWinery(' + "'" + esc(w.id) + "'" + ')">Delete</button>' : '') +
+          '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    // ── Winery Form ──────────────────────────────────────────────────
+    document.getElementById('wineryForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('wf-name').value.trim();
+      var desc = document.getElementById('wf-description').value.trim();
+      if (!name) { showToast('Winery name is required.', true); return; }
+      if (!desc) { showToast('Description is required.', true); return; }
+
+      var editId = document.getElementById('editWineryId').value;
+      var data = {
+        name:           name,
+        regionLabel:    document.getElementById('wf-region-label').value.trim(),
+        region:         document.getElementById('wf-region').value,
+        type:           document.getElementById('wf-type').value,
+        gradientKey:    document.getElementById('wf-gradient').value,
+        grape:          document.getElementById('wf-grape').value.trim(),
+        classification: document.getElementById('wf-classification').value.trim(),
+        soil:           document.getElementById('wf-soil').value.trim(),
+        emoji:          document.getElementById('wf-emoji').value.trim() || '🍷',
+        searchExtra:    document.getElementById('wf-search-extra').value.trim(),
+        description:    desc
+      };
+
+      if (editId) {
+        VineBondWineries.updateWinery(editId, data);
+        showToast('Winery updated successfully.');
+      } else {
+        VineBondWineries.addWinery(data);
+        showToast('Winery added successfully.');
+      }
+      resetWineryForm();
+      renderWineryTable();
+      renderOverview();
+    });
+
+    function resetWineryForm() {
+      document.getElementById('wineryForm').reset();
+      document.getElementById('editWineryId').value = '';
+      document.getElementById('wineryFormTitle').textContent = 'Add New Winery';
+      document.getElementById('btnWinerySubmit').textContent = 'Add Winery';
+    }
+    document.getElementById('btnResetWineryForm').addEventListener('click', resetWineryForm);
+
+    document.getElementById('btnResetToDefaults').addEventListener('click', function () {
+      if (confirm('Reset all wineries to the 6 default listings? Admin-added wineries will be removed.')) {
+        VineBondWineries.resetToDefaults();
+        renderWineryTable();
+        renderOverview();
+        showToast('Wineries reset to defaults.');
+      }
+    });
+
+    window.editWinery = function (id) {
+      var w = VineBondWineries.getById(id);
+      if (!w) return;
+      document.getElementById('editWineryId').value       = id;
+      document.getElementById('wf-name').value            = w.name;
+      document.getElementById('wf-region-label').value   = w.regionLabel || '';
+      document.getElementById('wf-region').value         = w.region;
+      document.getElementById('wf-type').value           = w.type;
+      document.getElementById('wf-grape').value          = w.grape || '';
+      document.getElementById('wf-classification').value = w.classification || '';
+      document.getElementById('wf-soil').value           = w.soil || '';
+      document.getElementById('wf-emoji').value          = w.emoji || '';
+      document.getElementById('wf-description').value    = w.description || '';
+      document.getElementById('wineryFormTitle').textContent = 'Edit Winery';
+      document.getElementById('btnWinerySubmit').textContent = 'Save Changes';
+      document.querySelector('[data-section="wineries"]').click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.deleteWinery = function (id) {
+      var w = VineBondWineries.getById(id);
+      if (!w) return;
+      if (confirm('Delete "' + w.name + '"? This cannot be undone.')) {
+        VineBondWineries.deleteWinery(id);
+        renderWineryTable();
+        renderOverview();
+        showToast('Winery deleted.');
+      }
+    };
+
+    // ── Document Upload ──────────────────────────────────────────────
+    var MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
+    function getDocs() {
+      try { return JSON.parse(localStorage.getItem('vb_verification_docs') || '[]'); } catch (e) { return []; }
+    }
+    function saveDocs(arr) {
+      try { localStorage.setItem('vb_verification_docs', JSON.stringify(arr)); } catch (e) {
+        showToast('Storage quota exceeded. Remove some documents first.', true);
+      }
+    }
+
+    function renderDocList() {
+      var docs = getDocs();
+      var list = document.getElementById('uploadedDocsList');
+      if (docs.length === 0) { list.innerHTML = ''; return; }
+      list.innerHTML = docs.map(function (doc, i) {
+        var icon = doc.type === 'application/pdf' ? '📄' : '🖼';
+        var sizeMB = (doc.size / 1024 / 1024).toFixed(2);
+        return '<li class="uploaded-doc-item">' +
+          '<span class="doc-icon">' + icon + '</span>' +
+          '<div class="doc-info"><div class="doc-name">' + esc(doc.name) + '</div>' +
+          '<div class="doc-size">' + sizeMB + ' MB · Uploaded ' + new Date(doc.uploadedAt).toLocaleDateString() + '</div></div>' +
+          '<button class="btn-doc-remove" onclick="removeDoc(' + i + ')" aria-label="Remove document">✕</button>' +
+          '</li>';
+      }).join('');
+    }
+    renderDocList();
+
+    window.removeDoc = function (idx) {
+      var docs = getDocs();
+      docs.splice(idx, 1);
+      saveDocs(docs);
+      renderDocList();
+      renderOverview();
+    };
+
+    document.getElementById('docUploadBtn').addEventListener('click', function () {
+      document.getElementById('docFileInput').click();
+    });
+    document.getElementById('docUploadZone').addEventListener('click', function (e) {
+      if (e.target === this || e.target.tagName === 'H4' || e.target.tagName === 'P') {
+        document.getElementById('docFileInput').click();
+      }
+    });
+
+    // Drag-and-drop
+    var zone = document.getElementById('docUploadZone');
+    zone.addEventListener('dragover', function (e) { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', function () { zone.classList.remove('drag-over'); });
+    zone.addEventListener('drop', function (e) {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      processFiles(Array.from(e.dataTransfer.files));
+    });
+
+    document.getElementById('docFileInput').addEventListener('change', function () {
+      processFiles(Array.from(this.files));
+      this.value = '';
+    });
+
+    function processFiles(files) {
+      var errEl = document.getElementById('docErrorMsg');
+      errEl.style.display = 'none';
+      var errors = [];
+      var valid  = files.filter(function (f) {
+        if (f.size > MAX_FILE_SIZE) { errors.push('"' + f.name + '" exceeds 5 MB.'); return false; }
+        if (!f.type.match(/^(application\/pdf|image\/(jpeg|png))$/)) {
+          errors.push('"' + f.name + '" is not an accepted format (PDF, JPG, PNG).'); return false;
+        }
+        return true;
+      });
+      if (errors.length) { errEl.textContent = errors.join(' '); errEl.style.display = 'block'; }
+      valid.forEach(function (f) {
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          var docs = getDocs();
+          docs.push({ name: f.name, type: f.type, size: f.size, dataUrl: ev.target.result, uploadedAt: new Date().toISOString() });
+          saveDocs(docs);
+          renderDocList();
+          renderOverview();
+        };
+        reader.readAsDataURL(f);
+      });
+      if (valid.length) showToast(valid.length + ' document(s) uploaded.');
+    }
+
+    // ── User Table ───────────────────────────────────────────────────
+    function renderUserTable() {
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('vb_users') || '[]'); } catch (e) {}
+
+      // Always show current admin session as the first row
+      var currentEmail = VineBondAuth.getEmail() || '';
+      var currentName  = VineBondAuth.getDisplayName() || 'Admin';
+      var currentRow   = [{
+        name: currentName, email: currentEmail, role: 'ADMIN', active: true
+      }];
+      // Merge with stored users, avoiding duplicates
+      var merged = currentRow.concat(users.filter(function (u) {
+        return u.email !== currentEmail;
+      }));
+
+      document.getElementById('userTableCount').textContent = merged.length + ' total';
+      var ROLE_CLS = { ADMIN: 'admin', USER: 'user', GUEST: 'default' };
+      document.getElementById('userTableBody').innerHTML = merged.map(function (u) {
+        var rcls = ROLE_CLS[u.role] || 'default';
+        return '<tr>' +
+          '<td>' + esc(u.name || '—') + '</td>' +
+          '<td>' + esc(u.email || '—') + '</td>' +
+          '<td><span class="tbl-badge ' + rcls + '">' + esc(u.role || 'GUEST') + '</span></td>' +
+          '<td>' + (u.active ? '✅ Yes' : '—') + '</td>' +
+          '</tr>';
+      }).join('');
+    }
+  </script>
+
+  <button class="back-to-top" data-back-to-top aria-label="Back to top" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+  <script src="js/ui-enhancements.js"></script>
+</body>
+</html>

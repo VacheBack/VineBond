@@ -1804,11 +1804,13 @@
 
     function lockScroll() {
       _menuOpen = true;
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     }
 
     function unlockScroll() {
       _menuOpen = false;
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
 

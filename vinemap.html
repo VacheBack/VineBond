@@ -260,6 +260,7 @@
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+  <div id="menuBackdrop" class="menu-backdrop"></div>
 
   <!-- ── PAGE HERO ── -->
   <section class="page-hero" id="main-content">
@@ -401,12 +402,26 @@
     /* Topbar scroll */
     const topbar = document.getElementById('topbar');
     window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 40));
-    document.getElementById('mobileToggle').addEventListener('click', () => {
-      document.getElementById('topbar').classList.toggle('menu-open');
-    });
-    document.querySelectorAll('.topbar-nav a').forEach(a => {
-      a.addEventListener('click', () => document.getElementById('topbar').classList.remove('menu-open'));
-    });
+    var menuBackdrop = document.getElementById('menuBackdrop');
+    var menuIsOpen = false;
+    function openMobileMenu() {
+      document.getElementById('topbar').classList.add('menu-open');
+      menuBackdrop.classList.add('visible');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      menuIsOpen = true;
+    }
+    function closeMobileMenu() {
+      document.getElementById('topbar').classList.remove('menu-open');
+      menuBackdrop.classList.remove('visible');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      menuIsOpen = false;
+    }
+    document.getElementById('mobileToggle').addEventListener('click', () => menuIsOpen ? closeMobileMenu() : openMobileMenu());
+    menuBackdrop.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.topbar-nav a').forEach(a => a.addEventListener('click', closeMobileMenu));
+    window.addEventListener('resize', () => { if (window.innerWidth > 768 && menuIsOpen) closeMobileMenu(); });
 
     /* Scroll reveal */
     const obs = new IntersectionObserver(entries => {
