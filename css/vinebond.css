@@ -401,8 +401,6 @@ button, select, input, textarea { font-family: inherit; }
   margin: 0 8px;
 }
 .topbar-search:focus-within {
-  border-color: var(--vb-forest);
-  box-shadow: 0 0 0 3px rgba(28,79,61,0.12);
   background: #FFFFFF;
 }
 .topbar-search svg { width: 16px; height: 16px; color: var(--vb-medium-gray); flex-shrink: 0; }
