@@ -113,7 +113,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('estatesTrack');
     if (!track || !window.VineBondWineries) return;
-    const wineries = window.VineBondWineries.getAll();
+    const wineries = window.VineBondWineries.getAll().slice(0, 6);
     track.innerHTML = wineries.map(w => {
       const badgeClass = w.badgeClass || '';
       const badgeLabel = w.badgeLabel || w.type || '';
