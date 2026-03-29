@@ -908,6 +908,7 @@ footer {
   .mobile-menu-overlay .mob-nav a:visited,
   .mobile-menu-overlay .mob-nav a:active { color: var(--vb-deep-maroon, #4A1F2A); text-decoration: none; }
   .mobile-menu-overlay .mob-nav a:hover { color: var(--vb-forest, #1C4F3D); background: rgba(245,242,237,0.6); border-radius: 8px; }
+  .mobile-menu-overlay .mob-nav a.active { color: var(--vb-forest, #1C4F3D); background: var(--vb-light-beige, #F5F2ED); border-radius: 8px; }
   .mobile-menu-overlay .mob-nav a svg { width: 20px; height: 20px; flex-shrink: 0; }
   .mobile-menu-overlay .mob-cta {
     display: flex; flex-direction: row; gap: 10px;
