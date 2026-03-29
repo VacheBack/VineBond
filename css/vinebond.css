@@ -834,7 +834,7 @@ footer {
   }
   .topbar.menu-open .topbar-nav a {
     padding: 13px 8px; border-radius: 0;
-    border-bottom: 1px solid var(--vb-cream);
+    border-bottom: none;
     min-height: 48px; display: flex; align-items: center;
   }
   .topbar.menu-open .topbar-nav a::after { display: none; }
