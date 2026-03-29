@@ -180,13 +180,18 @@
     .winery-card-actions { display: flex; gap: 10px; }
     .winery-card-actions .btn { flex: 1; justify-content: center; }
 
-    /* Results bar */
-    .results-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
+    /* Results count in filter bar */
+    #resultsCountBar {
+      font-size: 0.85rem; color: var(--vb-medium-gray, #8B8578);
+      white-space: nowrap; margin-left: auto;
     }
-    .results-count { font-size: 0.9rem; color: var(--vb-medium-gray); }
-    .results-count strong { color: var(--vb-burgundy); }
+    #resultsCountBar strong { color: var(--vb-burgundy, #5C2632); }
+
+    /* Results bar — sort + vinemap only */
+    .results-bar {
+      display: flex; align-items: center; justify-content: flex-end;
+      margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+    }
     .results-bar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .sort-label { font-size: 0.78rem; font-weight: 700; color: var(--vb-medium-gray, #8B8578); white-space: nowrap; }
     .filter-select {
@@ -223,10 +228,12 @@
       .results-bar { flex-direction: column; align-items: stretch; }
     }
     @media (max-width: 479px) {
-      .filter-dropdowns { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+      .filter-bar .container { flex-wrap: nowrap; }
+      .filter-dropdowns { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0; }
       .filter-dropdowns::-webkit-scrollbar { display: none; }
       .filter-dropdown-btn { flex-shrink: 0; }
       .filter-dropdown-panel { left: 0; right: auto; min-width: 200px; }
+      #resultsCountBar { display: none; }
       .winery-card-actions { flex-direction: column; }
       .winery-card-actions .btn { width: 100%; min-width: 0; }
       .winery-card-body { padding: 16px; }
@@ -305,6 +312,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
         Clear All
       </button>
+      <p class="results-count" id="resultsCountBar">Showing <strong id="resultsCount">10</strong> estates</p>
     </div>
   </div>
 
@@ -312,7 +320,6 @@
   <section class="winery-section">
     <div class="container">
       <div class="results-bar">
-        <p class="results-count">Showing <strong id="resultsCount">10</strong> <span>estates</span></p>
         <div class="results-bar-right">
           <label class="sort-label" for="sortSelect">Sort:</label>
           <select class="filter-select sort-select" id="sortSelect">
