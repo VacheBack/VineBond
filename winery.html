@@ -231,6 +231,8 @@
       .winery-details { grid-template-columns: 1fr; }
       .results-bar { flex-direction: column; align-items: stretch; }
       .filter-dropdown-panel { max-height: 40vh; min-width: 250px; max-width: calc(100vw - 32px); }
+      /* Hide sort label + select on mobile — not needed, keeps layout clean */
+      .sort-label, .sort-select { display: none; }
     }
     @media (max-width: 479px) {
       .winery-card-actions { flex-direction: column; }
