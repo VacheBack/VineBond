@@ -8,5 +8,10 @@
         "vision,pdf,devtools"
       ]
     }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)"
+    ]
   }
 }
