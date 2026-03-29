@@ -378,6 +378,11 @@ button, select, input, textarea { font-family: inherit; }
   color: var(--vb-forest);
   background: var(--vb-light-beige);
 }
+.topbar-nav a:visited,
+.topbar-nav a:active {
+  color: var(--vb-deep-maroon);
+  text-decoration: none;
+}
 .topbar-nav a:hover::after, .topbar-nav a.active::after { transform: scaleX(1); }
 .topbar-nav svg { width: 20px; height: 20px; flex-shrink: 0; }
 
