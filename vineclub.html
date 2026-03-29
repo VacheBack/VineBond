@@ -112,6 +112,17 @@
       color: var(--oak);
       margin: 0 0 10px;
     }
+
+    /* ── M — Large Phone (≤ 479px) ─────────────────────── */
+    @media (max-width: 479px) {
+      .form-field label { white-space: normal; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── Landscape Phone ───────────────────────────────── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .vc-hero { margin-top: 48px; min-height: 300px; padding: 32px 0; }
+    }
   </style>
 </head>
 <body>
@@ -734,6 +745,8 @@
     fadeEls.forEach(el => obs.observe(el));
   </script>
 
+  <script src="js/auth.js"></script>
+  <script src="js/nav-role.js"></script>
   <script src="js/ui-enhancements.js"></script>
   <script src="js/vineclub.js"></script>
 </body>
