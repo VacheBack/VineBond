@@ -1,0 +1,224 @@
+================================================================================
+REQUIREMENTS DOCUMENT
+Feature: Cascading Filter Dropdowns — winery.html
+Project: VineBond
+Date: 2026-03-30
+================================================================================
+
+
+1. PROBLEM STATEMENT
+--------------------------------------------------------------------------------
+The winery directory page (winery.html) has four filter dropdowns:
+  - Village
+  - Classification (GG / 1G)
+  - Grape (variety)
+  - Soil Type
+
+Currently these filters are INDEPENDENT. Each dropdown always shows every
+possible value regardless of what is selected in the other dropdowns.
+
+Example of the broken behaviour:
+  - User selects Village = "Assmannshausen"
+  - Assmannshausen has only one winery: August Kesseler, which grows
+    Spätburgunder (Pinot Noir), classified GG
+  - But the Grape dropdown still shows "Riesling" as an option
+  - Selecting Village = "Assmannshausen" + Grape = "Riesling" returns 0 results
+  - This is confusing and misleading
+
+The goal is to make the filters AWARE of each other, so that each dropdown
+only shows options that have at least one matching winery given the current
+state of all other filters.
+
+
+2. DEFINITIONS
+--------------------------------------------------------------------------------
+Active filters     : The set of currently checked values across all dropdowns.
+
+Context wineries   : For a given dropdown D, the subset of all wineries that
+                     match every active filter EXCEPT D's own filter.
+                     (Used to compute which options are valid for D.)
+
+Available option   : An option whose count in the context wineries is >= 1.
+
+Unavailable option : An option whose count in the context wineries is 0
+                     AND which is not currently checked.
+
+Option count badge : The small number shown next to each option label inside
+                     the dropdown panel. Must always reflect the number of
+                     context wineries that have that option's value.
+
+
+3. FUNCTIONAL REQUIREMENTS
+--------------------------------------------------------------------------------
+
+FR-1  When the user selects a value in any dropdown, every OTHER dropdown
+      must immediately recalculate which of its options are available, and
+      update its option list and count badges accordingly.
+
+FR-2  Unavailable options (count = 0, not checked) must be hidden from the
+      dropdown panel. They must not be merely greyed out — they must be
+      removed from view so the list stays clean.
+
+FR-3  An option that IS currently checked must remain visible even if its
+      context count drops to 0 (so the user can uncheck it to reset).
+      Its count badge should display "0" in that case to signal no matches.
+
+FR-4  When the user clears a filter value (unchecks it), the dependent
+      dropdowns must recalculate and may reveal previously hidden options.
+
+FR-5  "Clear All" resets all active filters and restores all dropdowns to
+      their full, unfiltered option lists (same state as page load).
+
+FR-6  A dropdown that would have only one visible option after cascading
+      must still show that option — do NOT auto-select it silently.
+
+FR-7  A dropdown that has zero visible options (all values filtered out by
+      other dropdowns, none currently checked) must be hidden entirely
+      (the dropdown wrapper disappears). This prevents an empty, broken UI.
+
+FR-8  The total results count ("X wineries") must update after every filter
+      change, reflecting only the fully filtered winery set.
+
+FR-9  The "Clear All" button must appear whenever any filter is active,
+      and disappear when no filters are active.
+
+
+4. NON-FUNCTIONAL REQUIREMENTS
+--------------------------------------------------------------------------------
+
+NFR-1  No new dependencies. Implementation is vanilla JavaScript only,
+       consistent with the existing codebase.
+
+NFR-2  Performance: recalculation happens synchronously on each filter
+       change. The dataset is small (≤ 50 wineries), so no debouncing
+       is required.
+
+NFR-3  Accessibility: hidden options are removed from view via
+       display:none on the <label>, ensuring they are not reachable
+       by keyboard or screen reader.
+
+NFR-4  The visual design of the filter dropdowns must not change. Only
+       option visibility and count values change.
+
+NFR-5  The winery card visibility logic (applyFilters) is unchanged.
+       Cascading only affects what options appear inside the dropdowns.
+
+
+5. FILTER DEPENDENCY MODEL
+--------------------------------------------------------------------------------
+All four filters are peers — there is no fixed hierarchy.
+Each filter's available options are constrained by the intersection of all
+OTHER active filters.
+
+Example walkthroughs:
+
+  Scenario A — Single filter: Village = "Assmannshausen"
+    Context wineries for Grape  = wineries where village = "Assmannshausen"
+                                = [August Kesseler] → grape: Spätburgunder
+    Grape dropdown shows        : Spätburgunder (Pinot Noir) (1)
+                                  Riesling hidden (count = 0)
+    Context for Classification  = same 1 winery → type: GG
+    Classification shows        : GG (1) — 1G hidden
+    Context for Soil            = same 1 winery → soil: Roter Phyllitschiefer
+    Soil dropdown shows         : Roter Phyllitschiefer (1) — all other soils hidden
+
+  Scenario B — Single filter: Grape = "Riesling"
+    Context wineries for Village = 9 wineries (all Riesling estates)
+    Village dropdown shows       : all villages EXCEPT Assmannshausen
+    Context for Classification   = same 9 wineries → includes GG and 1G
+    Classification shows         : GG (8), 1G (2) — both visible
+
+  Scenario C — Two incompatible filters: Village="Assmannshausen" + Grape="Riesling"
+    0 wineries match both conditions
+    Both checked options stay visible (FR-3) with count badge "0"
+    Soil and Classification dropdowns become fully hidden (FR-7)
+
+  Scenario D — Unchecking restores options: uncheck Village="Assmannshausen"
+    No active filters remain
+    All dropdowns restore full option lists
+
+
+6. DATA SCOPE
+--------------------------------------------------------------------------------
+The filter system operates on the winery dataset returned by
+window.VineBondWineries.getAll() — the same source used today.
+
+Fields used per winery:
+  - village       (mapped to Village filter)
+  - type          (mapped to Classification filter, values: "GG" / "1G")
+  - grape         (mapped to Grape filter)
+  - soil          (mapped to Soil Type filter)
+
+Default dataset summary (10 wineries):
+  Village          | Grape                      | Type
+  ─────────────────┼────────────────────────────┼──────
+  Johannisberg     | Riesling                   | GG
+  Rüdesheim        | Riesling                   | GG
+  Kiedrich         | Riesling                   | GG
+  Hattenheim       | Riesling                   | 1G
+  Erbach           | Riesling                   | GG
+  Assmannshausen   | Spätburgunder (Pinot Noir) | GG
+  Geisenheim       | Riesling                   | GG
+  Hattenheim       | Riesling                   | GG
+  Rüdesheim        | Riesling                   | 1G
+  Hochheim         | Riesling                   | GG
+
+Admin-added wineries (stored in localStorage) are included automatically.
+
+
+7. IMPLEMENTATION APPROACH (HIGH LEVEL)
+--------------------------------------------------------------------------------
+One new function + two modified call sites, all in winery.html.
+
+rebuildDropdownOptions()
+  For each filter category D:
+    a. Compute context wineries = all wineries filtered by every active filter
+       EXCEPT D's own key (multiple values per filter are OR'd together).
+    b. For each <label> in D's panel:
+         - Count how many context wineries match this label's value
+         - Update the count badge text
+         - If count = 0 AND checkbox is NOT checked → display:none
+         - Otherwise → display:'' (visible), increment visibleCount
+    c. If visibleCount = 0 → hide the entire dropdown wrapper (display:none)
+       If visibleCount > 0 → show wrapper (display:'')
+
+Call sites:
+  - onFilterChange() — after updateButtonStates() and applyFilters()
+  - clearAllFilters() — after updateButtonStates() and applyFilters()
+
+
+8. ACCEPTANCE CRITERIA
+--------------------------------------------------------------------------------
+AC-1  Selecting Village = "Assmannshausen" hides "Riesling" in the Grape
+      dropdown (only Spätburgunder (Pinot Noir) remains visible).
+
+AC-2  Selecting Village = "Assmannshausen" hides "1G" in the Classification
+      dropdown (only GG remains visible).
+
+AC-3  Selecting Grape = "Riesling" hides "Assmannshausen" in the Village
+      dropdown.
+
+AC-4  Selecting Grape = "Riesling" keeps both "GG" and "1G" visible in the
+      Classification dropdown (Rüdesheim-1G and Hattenheim-1G both grow Riesling).
+
+AC-5  When Village = "Assmannshausen" is checked and Grape = "Riesling" is
+      also checked, the Assmannshausen label stays visible (checked) with
+      count badge "0".
+
+AC-6  Unchecking Village = "Johannisberg" reveals Spätburgunder in the Grape
+      dropdown (which was hidden while that filter was active).
+
+AC-7  Clicking "Clear All" after any filter is active restores every dropdown
+      to its full, unfiltered option list.
+
+AC-8  Selecting Village = "Assmannshausen" + Grape = "Riesling" (incompatible)
+      hides the Soil Type and Classification dropdown wrappers entirely.
+
+AC-9  After selecting Village = "Assmannshausen", the results count shows "1".
+
+AC-10 "Clear All" button is visible when a filter is active and hidden when no
+      filters are active.
+
+================================================================================
+END OF DOCUMENT
+================================================================================

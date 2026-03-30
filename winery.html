@@ -527,6 +527,48 @@
       });
     }
 
+    function rebuildDropdownOptions() {
+      var allWineries = VineBondWineries.getAll();
+
+      FILTER_CATEGORIES.forEach(function(cat) {
+        var dd = document.querySelector('.filter-dropdown[data-filter-key="' + cat.key + '"]');
+        if (!dd) return;
+
+        // Context = wineries matching ALL active filters EXCEPT this category's own
+        var context = allWineries.filter(function(w) {
+          return FILTER_CATEGORIES.every(function(other) {
+            if (other.key === cat.key) return true;
+            var sel = activeFilters[other.key];
+            if (!sel || sel.length === 0) return true;
+            return sel.indexOf(w[other.field]) !== -1;
+          });
+        });
+
+        var visibleCount = 0;
+        dd.querySelectorAll('.filter-dropdown-panel label').forEach(function(label) {
+          var cb = label.querySelector('input[type="checkbox"]');
+          if (!cb) return;
+          var val = cb.value;
+          var n = 0;
+          for (var i = 0; i < context.length; i++) {
+            if (context[i][cat.field] === val) n++;
+          }
+          var badge = label.querySelector('.panel-count');
+          if (badge) badge.textContent = n;
+
+          if (n === 0 && !cb.checked) {
+            label.style.display = 'none';
+          } else {
+            label.style.display = '';
+            visibleCount++;
+          }
+        });
+
+        // Hide the entire dropdown wrapper when no options are available
+        dd.style.display = visibleCount === 0 ? 'none' : '';
+      });
+    }
+
     function onFilterChange(key, value, checked) {
       if (checked) {
         if (activeFilters[key].indexOf(value) === -1) activeFilters[key].push(value);
@@ -535,6 +577,7 @@
       }
       updateButtonStates();
       applyFilters();
+      rebuildDropdownOptions();
     }
 
     function updateButtonStates() {
@@ -623,6 +666,7 @@
       });
       updateButtonStates();
       applyFilters();
+      rebuildDropdownOptions();
     }
 
     /* ── Card Builder ── */
