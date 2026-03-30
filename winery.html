@@ -668,25 +668,26 @@
     var topbar = document.getElementById('topbar');
     window.addEventListener('scroll', function() { topbar.classList.toggle('scrolled', window.scrollY > 40); });
     var menuBackdrop = document.getElementById('menuBackdrop');
+    var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
     var menuIsOpen = false;
-    function openMobileMenu() {
-      document.getElementById('topbar').classList.add('menu-open');
+    function openMenu() {
+      mobileMenuOverlay.classList.add('open');
       menuBackdrop.classList.add('visible');
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       menuIsOpen = true;
     }
-    function closeMobileMenu() {
-      document.getElementById('topbar').classList.remove('menu-open');
+    function closeMenu() {
+      mobileMenuOverlay.classList.remove('open');
       menuBackdrop.classList.remove('visible');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       menuIsOpen = false;
     }
-    document.getElementById('mobileToggle').addEventListener('click', function() { menuIsOpen ? closeMobileMenu() : openMobileMenu(); });
-    menuBackdrop.addEventListener('click', closeMobileMenu);
-    document.querySelectorAll('.topbar-nav a').forEach(function(a) { a.addEventListener('click', closeMobileMenu); });
-    window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMobileMenu(); });
+    document.getElementById('mobileToggle').addEventListener('click', function() { menuIsOpen ? closeMenu() : openMenu(); });
+    menuBackdrop.addEventListener('click', closeMenu);
+    mobileMenuOverlay.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMenu); });
+    window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMenu(); });
 
     /* ── Intersection Observer ── */
     var obs = new IntersectionObserver(function(entries) {
