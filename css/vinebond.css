@@ -848,15 +848,16 @@ footer {
     border-top: 1px solid rgba(28,79,61,0.15); padding: 4px 0 6px;
   }
   .topbar.menu-open .topbar-nav a {
-    padding: 14px 8px; border-radius: 0;
+    padding: 14px 16px; border-radius: 0;
     border-bottom: none;
     min-height: 48px; display: flex; align-items: center;
-    justify-content: center; gap: 10px;
+    justify-content: flex-start; gap: 10px;
     font-weight: 600; font-size: 0.97rem;
     color: var(--vb-deep-maroon, #4A1F2A);
     text-decoration: none;
     transition: color 0.2s;
   }
+  .topbar.menu-open .topbar-nav a svg { width: 20px; height: 20px; flex-shrink: 0; }
   .topbar.menu-open .topbar-nav a:visited,
   .topbar.menu-open .topbar-nav a:active {
     color: var(--vb-deep-maroon, #4A1F2A);
@@ -910,8 +911,8 @@ footer {
     padding: 4px 0 6px;
   }
   .mobile-menu-overlay .mob-nav a {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 14px 8px; font-weight: 600; font-size: 0.97rem;
+    display: flex; align-items: center; justify-content: flex-start; gap: 10px;
+    padding: 14px 16px; font-weight: 600; font-size: 0.97rem;
     color: var(--vb-deep-maroon, #4A1F2A); border-bottom: none;
     text-decoration: none; transition: color 0.2s;
   }
