@@ -50,6 +50,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Join VineClub — VineBond</title>
+  <script>(function(){var t=localStorage.getItem('vb_theme');var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
   <link rel="stylesheet" href="css/vinebond.css" />
   <script src="https://js.stripe.com/v3/"></script>
   <style>
@@ -120,6 +121,26 @@
     @media (max-height: 500px) and (orientation: landscape) {
       .vc-hero { margin-top: 48px; min-height: 300px; padding: 32px 0; }
     }
+  .bonus-badge {
+    background: linear-gradient(135deg,#4A5D3E,#3A4D2E);
+    color: #EDE8E0;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  [data-theme="dark"] .bonus-badge {
+    background: linear-gradient(135deg,#4DAA7A,#3A7F5F);
+    color: #141D19;
+  }
+  .stripe-error-msg {
+    color: var(--vb-error, #8B3942);
+    font-size: 0.82rem;
+    margin-top: 6px;
+  }
+  [data-theme="dark"] .stripe-error-msg {
+    color: #C4808C;
+  }
   </style>
 </head>
 <body>
@@ -180,6 +201,11 @@
         </a>
       </div>
 
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="theme-icon-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </button>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -370,7 +396,7 @@
             <td>
               <strong>Wine Pre-purchase</strong>
             </td>
-            <td class="credit-pts"><span style="background: linear-gradient(135deg,#4A5D3E,#3A4D2E);">+15 bonus</span></td>
+            <td class="credit-pts"><span class="bonus-badge">+15 bonus</span></td>
             <td>Tasting advantage — add bottles to booking</td>
           </tr>
         </tbody>
@@ -553,7 +579,7 @@
             <label>Card Details</label>
             <!-- Stripe Card Element mounts here -->
             <div class="stripe-element-wrap" id="stripe-card-element"></div>
-            <div id="stripe-card-errors" style="color:#C0392B;font-size:0.82rem;margin-top:6px;" role="alert"></div>
+            <div id="stripe-card-errors" class="stripe-error-msg" role="alert"></div>
             <div class="stripe-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
               <span>Secured by Stripe · 256-bit TLS encryption</span>
@@ -727,5 +753,6 @@
   <script src="js/nav-role.js"></script>
   <script src="js/ui-enhancements.js"></script>
   <script src="js/vineclub.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>

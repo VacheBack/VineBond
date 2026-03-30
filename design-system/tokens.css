@@ -279,54 +279,92 @@
    ───────────────────────────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --vb-cream:         #1A1A1A;
-    --vb-white:         #2A2A2A;
-    --vb-warm-white:    #222222;
-    --vb-light-beige:   #2E2E2E;
-    --vb-deep-maroon:   #EDE8E0;   /* Body text → light on dark BG */
-    --vb-forest:        #3A7F5F;   /* Lightened for dark BG contrast */
-    --vb-burgundy:      #9B6570;   /* Softened for dark BG readability */
-    --vb-medium-gray:   #9A948A;
-    --vb-dark-gray:     #C0B8B0;
+    --vb-cream:         #141D19;   /* Primary BG — forest-tinted dark */
+    --vb-white:         #2A3828;   /* Highest elevation surfaces */
+    --vb-warm-white:    #1C2822;   /* Section/card backgrounds */
+    --vb-light-beige:   #243020;   /* Hover/elevated states */
+    --vb-deep-maroon:   #EDE8E0;   /* Body text — warm cream on dark */
+    --vb-forest:        #4DAA7A;   /* Lightened for AAA contrast on dark */
+    --vb-leaf-green:    #5DC08A;
+    --vb-burgundy:      #C4808C;   /* Lightened for AA contrast on dark */
+    --vb-medium-gray:   #9E968A;   /* Secondary text */
+    --vb-dark-gray:     #C8C0B4;   /* Caption / muted text */
+    --vb-success:       #4DAA7A;
 
-    --vb-shadow-md:     0 4px  12px rgba(0,0,0,0.3);
-    --vb-shadow-lg:     0 8px  24px rgba(0,0,0,0.4);
+    --vb-shadow-xs:     0 2px  4px  rgba(0,0,0,0.20);
+    --vb-shadow-sm:     0 2px  8px  rgba(0,0,0,0.25);
+    --vb-shadow-md:     0 4px  12px rgba(0,0,0,0.35);
+    --vb-shadow-lg:     0 8px  24px rgba(0,0,0,0.45);
+    --vb-shadow-xl:     0 16px 40px rgba(0,0,0,0.55);
+    --vb-shadow-card:   0 4px  12px rgba(0,0,0,0.35);
+    --vb-shadow-elev:   0 8px  24px rgba(0,0,0,0.45);
 
-    --vb-input-bg:          #2A2A2A;
-    --vb-input-error-bg:    #2A1A1A;
-    --vb-input-success-bg:  #1A2A22;
-    --vb-section-hero:      #1A1A1A;
-    --vb-section-alt-1:     #2A2A2A;
-    --vb-section-alt-2:     #222222;
-    --vb-section-dark:      #111111;
-    --vb-section-card:      #2A2A2A;
-    --vb-section-card-hi:   #2E2E2E;
-    --vb-divider-color:     #333333;
+    --vb-input-bg:            #1C2822;
+    --vb-input-border:        1px solid rgba(237,232,224,0.20);
+    --vb-input-text:          #EDE8E0;
+    --vb-input-placeholder:   #7A7068;
+    --vb-input-disabled-bg:   #243020;
+    --vb-input-error-bg:      #2A1A1C;
+    --vb-input-success-bg:    #141D19;
+
+    --vb-section-hero:      #141D19;
+    --vb-section-alt-1:     #1C2822;
+    --vb-section-alt-2:     #1C2822;
+    --vb-section-dark:      #0E1612;
+    --vb-section-card:      #1C2822;
+    --vb-section-card-hi:   #243020;
+    --vb-divider-color:     rgba(237,232,224,0.10);
+
+    --vb-topbar-bg:         rgba(20,29,25,0.95);
+    --vb-topbar-border:     rgba(237,232,224,0.10);
+    --surface-soft:         rgba(28,40,34,0.85);
+    --surface-border:       rgba(212,175,55,0.18);
+    --ring-focus:           0 0 0 4px rgba(77,170,122,0.25);
   }
 }
 
 [data-theme="dark"] {
-  --vb-cream:         #1A1A1A;
-  --vb-white:         #2A2A2A;
-  --vb-warm-white:    #222222;
-  --vb-light-beige:   #2E2E2E;
+  --vb-cream:         #141D19;
+  --vb-white:         #2A3828;
+  --vb-warm-white:    #1C2822;
+  --vb-light-beige:   #243020;
   --vb-deep-maroon:   #EDE8E0;
-  --vb-forest:        #3A7F5F;
-  --vb-burgundy:      #9B6570;
-  --vb-medium-gray:   #9A948A;
-  --vb-dark-gray:     #C0B8B0;
-  --vb-shadow-md:     0 4px  12px rgba(0,0,0,0.3);
-  --vb-shadow-lg:     0 8px  24px rgba(0,0,0,0.4);
-  --vb-input-bg:          #2A2A2A;
-  --vb-input-error-bg:    #2A1A1A;
-  --vb-input-success-bg:  #1A2A22;
-  --vb-section-hero:      #1A1A1A;
-  --vb-section-alt-1:     #2A2A2A;
-  --vb-section-alt-2:     #222222;
-  --vb-section-dark:      #111111;
-  --vb-section-card:      #2A2A2A;
-  --vb-section-card-hi:   #2E2E2E;
-  --vb-divider-color:     #333333;
+  --vb-forest:        #4DAA7A;
+  --vb-leaf-green:    #5DC08A;
+  --vb-burgundy:      #C4808C;
+  --vb-medium-gray:   #9E968A;
+  --vb-dark-gray:     #C8C0B4;
+  --vb-success:       #4DAA7A;
+
+  --vb-shadow-xs:     0 2px  4px  rgba(0,0,0,0.20);
+  --vb-shadow-sm:     0 2px  8px  rgba(0,0,0,0.25);
+  --vb-shadow-md:     0 4px  12px rgba(0,0,0,0.35);
+  --vb-shadow-lg:     0 8px  24px rgba(0,0,0,0.45);
+  --vb-shadow-xl:     0 16px 40px rgba(0,0,0,0.55);
+  --vb-shadow-card:   0 4px  12px rgba(0,0,0,0.35);
+  --vb-shadow-elev:   0 8px  24px rgba(0,0,0,0.45);
+
+  --vb-input-bg:            #1C2822;
+  --vb-input-border:        1px solid rgba(237,232,224,0.20);
+  --vb-input-text:          #EDE8E0;
+  --vb-input-placeholder:   #7A7068;
+  --vb-input-disabled-bg:   #243020;
+  --vb-input-error-bg:      #2A1A1C;
+  --vb-input-success-bg:    #141D19;
+
+  --vb-section-hero:      #141D19;
+  --vb-section-alt-1:     #1C2822;
+  --vb-section-alt-2:     #1C2822;
+  --vb-section-dark:      #0E1612;
+  --vb-section-card:      #1C2822;
+  --vb-section-card-hi:   #243020;
+  --vb-divider-color:     rgba(237,232,224,0.10);
+
+  --vb-topbar-bg:         rgba(20,29,25,0.95);
+  --vb-topbar-border:     rgba(237,232,224,0.10);
+  --surface-soft:         rgba(28,40,34,0.85);
+  --surface-border:       rgba(212,175,55,0.18);
+  --ring-focus:           0 0 0 4px rgba(77,170,122,0.25);
 }
 
 
