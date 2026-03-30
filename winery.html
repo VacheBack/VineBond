@@ -18,6 +18,10 @@
       position: sticky;
       top: 80px;
       z-index: 100;
+      transition: top 0.28s cubic-bezier(0.4,0,0.2,1);
+    }
+    body:has(#topbar.scrolled) .filter-bar {
+      top: 64px;
     }
     .filter-bar .container {
       display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
