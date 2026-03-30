@@ -852,6 +852,7 @@ footer {
     border-bottom: none;
     min-height: 48px; display: flex; align-items: center;
     justify-content: flex-start; gap: 10px;
+    width: 100%; min-width: 0; box-sizing: border-box;
     font-weight: 600; font-size: 0.97rem;
     color: var(--vb-deep-maroon, #4A1F2A);
     text-decoration: none;
