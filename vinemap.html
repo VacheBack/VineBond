@@ -211,6 +211,70 @@
     .map-results-bar { background: #fff; border-bottom: 1px solid #E8DFD0; padding: 8px 0; }
     .map-results-count { font-size: 0.88rem; color: var(--vb-medium-gray, #8B8578); margin: 0; }
     .map-results-count strong { color: var(--vb-burgundy, #5C2632); font-weight: 700; }
+
+    /* ── Dark Mode Overrides ── */
+    [data-theme="dark"] .map-controls {
+      background: #0E1917;
+      border-bottom-color: rgba(90,150,144,0.18);
+    }
+    [data-theme="dark"] .map-filter-btn {
+      background: #162321;
+      border-color: rgba(90,150,144,0.35);
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] .map-filter-btn:hover {
+      border-color: #5A9690;
+      color: #5A9690;
+    }
+    [data-theme="dark"] .map-filter-btn.active {
+      background: #432323;
+      color: #EDE8E0;
+      border-color: #432323;
+    }
+    [data-theme="dark"] .map-filter-btn.active-1g {
+      background: #B8960F;
+      border-color: #B8960F;
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] #vinemap-container {
+      border-color: rgba(90,150,144,0.25);
+    }
+    [data-theme="dark"] .map-results-bar {
+      background: #0E1917;
+      border-bottom-color: rgba(90,150,144,0.18);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .map-controls {
+        background: #0E1917;
+        border-bottom-color: rgba(90,150,144,0.18);
+      }
+      :root:not([data-theme="light"]) .map-filter-btn {
+        background: #162321;
+        border-color: rgba(90,150,144,0.35);
+        color: #EDE8E0;
+      }
+      :root:not([data-theme="light"]) .map-filter-btn:hover {
+        border-color: #5A9690;
+        color: #5A9690;
+      }
+      :root:not([data-theme="light"]) .map-filter-btn.active {
+        background: #432323;
+        color: #EDE8E0;
+        border-color: #432323;
+      }
+      :root:not([data-theme="light"]) .map-filter-btn.active-1g {
+        background: #B8960F;
+        border-color: #B8960F;
+        color: #EDE8E0;
+      }
+      :root:not([data-theme="light"]) #vinemap-container {
+        border-color: rgba(90,150,144,0.25);
+      }
+      :root:not([data-theme="light"]) .map-results-bar {
+        background: #0E1917;
+        border-bottom-color: rgba(90,150,144,0.18);
+      }
+    }
   </style>
 </head>
 <body>

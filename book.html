@@ -270,6 +270,78 @@
       .page-hero { margin-top: 48px; padding: 20px 0 12px; }
       .confirmation-card { max-height: calc(100vh - 20px); overflow-y: auto; }
     }
+
+    /* ── Dark Mode Overrides ── */
+    [data-theme="dark"] .form-card {
+      background: #162321;
+      border-color: rgba(90,150,144,0.18);
+    }
+    [data-theme="dark"] .summary-card {
+      background: #162321;
+      border-color: rgba(90,150,144,0.20);
+    }
+    [data-theme="dark"] .summary-row {
+      border-bottom-color: rgba(237,232,224,0.10);
+    }
+    [data-theme="dark"] .summary-row .label { color: #A8A09A; }
+    [data-theme="dark"] .summary-row .value { color: #EDE8E0; }
+    [data-theme="dark"] .summary-total {
+      background: rgba(90,150,144,0.10);
+      border: 1px solid rgba(90,150,144,0.20);
+    }
+    [data-theme="dark"] .summary-perks {
+      border-top-color: rgba(90,150,144,0.15);
+    }
+    [data-theme="dark"] .exp-type-card {
+      background: #1F3230;
+      border-color: rgba(90,150,144,0.25);
+    }
+    [data-theme="dark"] .exp-type-card:hover,
+    [data-theme="dark"] .exp-type-card.selected {
+      border-color: #D4AF37;
+      background: #2F5755;
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+    }
+    [data-theme="dark"] .form-field select:focus,
+    [data-theme="dark"] .form-field input:focus,
+    [data-theme="dark"] .form-field textarea:focus {
+      background: #1F3230;
+      border-color: #5A9690;
+      box-shadow: 0 0 0 3px rgba(90,150,144,0.20);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .form-card {
+        background: #162321;
+        border-color: rgba(90,150,144,0.18);
+      }
+      :root:not([data-theme="light"]) .summary-card {
+        background: #162321;
+        border-color: rgba(90,150,144,0.20);
+      }
+      :root:not([data-theme="light"]) .summary-row {
+        border-bottom-color: rgba(237,232,224,0.10);
+      }
+      :root:not([data-theme="light"]) .summary-row .label { color: #A8A09A; }
+      :root:not([data-theme="light"]) .summary-row .value { color: #EDE8E0; }
+      :root:not([data-theme="light"]) .summary-total {
+        background: rgba(90,150,144,0.10);
+        border: 1px solid rgba(90,150,144,0.20);
+      }
+      :root:not([data-theme="light"]) .summary-perks {
+        border-top-color: rgba(90,150,144,0.15);
+      }
+      :root:not([data-theme="light"]) .exp-type-card {
+        background: #1F3230;
+        border-color: rgba(90,150,144,0.25);
+      }
+      :root:not([data-theme="light"]) .form-field select:focus,
+      :root:not([data-theme="light"]) .form-field input:focus,
+      :root:not([data-theme="light"]) .form-field textarea:focus {
+        background: #1F3230;
+        border-color: #5A9690;
+        box-shadow: 0 0 0 3px rgba(90,150,144,0.20);
+      }
+    }
   </style>
 </head>
 <body>

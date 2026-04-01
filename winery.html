@@ -241,6 +241,84 @@
     @media (max-height: 500px) and (orientation: landscape) {
       .filter-bar { top: 48px; }
     }
+
+    /* ── Dark Mode Overrides ── */
+    [data-theme="dark"] .filter-bar {
+      background: #0E1917;
+      border-bottom-color: rgba(90,150,144,0.18);
+    }
+    [data-theme="dark"] .filter-dropdown-btn {
+      border-color: rgba(90,150,144,0.35);
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] .filter-dropdown-btn:hover {
+      border-color: #5A9690;
+      color: #5A9690;
+    }
+    [data-theme="dark"] .filter-dropdown-panel {
+      background: #1F3230;
+      border-color: rgba(90,150,144,0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+    }
+    [data-theme="dark"] .filter-dropdown-panel label {
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] .filter-dropdown-panel label:hover {
+      background: rgba(90,150,144,0.12);
+    }
+    [data-theme="dark"] .filter-dropdown-panel .panel-count {
+      background: rgba(90,150,144,0.18);
+      color: #A8A09A;
+    }
+    [data-theme="dark"] .filter-clear-btn {
+      border-color: rgba(90,150,144,0.30);
+      color: #A8A09A;
+    }
+    [data-theme="dark"] .filter-clear-btn:hover {
+      border-color: #7A4545;
+      color: #C4909A;
+    }
+    [data-theme="dark"] .winery-card {
+      background: #162321;
+      border-color: rgba(90,150,144,0.18);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .filter-bar {
+        background: #0E1917;
+        border-bottom-color: rgba(90,150,144,0.18);
+      }
+      :root:not([data-theme="light"]) .filter-dropdown-btn {
+        border-color: rgba(90,150,144,0.35);
+        color: #EDE8E0;
+      }
+      :root:not([data-theme="light"]) .filter-dropdown-btn:hover {
+        border-color: #5A9690;
+        color: #5A9690;
+      }
+      :root:not([data-theme="light"]) .filter-dropdown-panel {
+        background: #1F3230;
+        border-color: rgba(90,150,144,0.25);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+      }
+      :root:not([data-theme="light"]) .filter-dropdown-panel label {
+        color: #EDE8E0;
+      }
+      :root:not([data-theme="light"]) .filter-dropdown-panel label:hover {
+        background: rgba(90,150,144,0.12);
+      }
+      :root:not([data-theme="light"]) .filter-dropdown-panel .panel-count {
+        background: rgba(90,150,144,0.18);
+        color: #A8A09A;
+      }
+      :root:not([data-theme="light"]) .filter-clear-btn {
+        border-color: rgba(90,150,144,0.30);
+        color: #A8A09A;
+      }
+      :root:not([data-theme="light"]) .winery-card {
+        background: #162321;
+        border-color: rgba(90,150,144,0.18);
+      }
+    }
   </style>
 </head>
 <body>

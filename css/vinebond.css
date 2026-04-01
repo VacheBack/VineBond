@@ -1203,61 +1203,67 @@ footer {
   html { scroll-behavior: auto; }
 }
 
-/* ── Dark Mode — Forest-tinted surfaces, not pure black ──────── */
+/* ── Dark Mode — Teal-tinted surfaces, not pure black ──────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --vb-cream:         #141D19;
-    --vb-warm-white:    #1C2822;
-    --vb-light-beige:   #243020;
-    --vb-white:         #2A3828;
+    --vb-cream:         #0E1917;
+    --vb-warm-white:    #162321;
+    --vb-light-beige:   #1F3230;
+    --vb-white:         #2F5755;
     --vb-deep-maroon:   #EDE8E0;
-    --vb-forest:        #4DAA7A;
-    --vb-leaf-green:    #5DC08A;
-    --vb-burgundy:      #C4808C;
-    --vb-medium-gray:   #9E968A;
+    --vb-forest:        #5A9690;
+    --vb-leaf-green:    #6DAAA5;
+    --vb-burgundy:      #7A4545;
+    --vb-medium-gray:   #A8A09A;
     --vb-dark-gray:     #C8C0B4;
-    --vb-success:       #4DAA7A;
+    --vb-success:       #5A9690;
     --vb-shadow-sm:     0 2px 8px rgba(0,0,0,0.25);
     --vb-shadow-md:     0 4px 12px rgba(0,0,0,0.35);
     --vb-shadow-lg:     0 8px 24px rgba(0,0,0,0.45);
     --vb-shadow-el:     0 12px 34px rgba(0,0,0,0.55);
-    --vb-topbar-bg:     rgba(20,29,25,0.95);
+    --vb-topbar-bg:     rgba(8,15,14,0.96);
     --vb-topbar-border: rgba(237,232,224,0.10);
+    --vb-divider-color: rgba(90,150,144,0.18);
+    --vb-section-dark:  #080F0E;
+    --vb-section-card:  #162321;
     /* Legacy aliases */
-    --burgundy:         #C4808C;
+    --burgundy:         #7A4545;
     --burgundy-deep:    #EDE8E0;
-    --green:            #4DAA7A;
-    --cream:            #141D19;
-    --cream-dark:       #1C2822;
-    --oak:              #9E968A;
+    --green:            #5A9690;
+    --cream:            #0E1917;
+    --cream-dark:       #162321;
+    --oak:              #A8A09A;
   }
 }
 
 [data-theme="dark"] {
-  --vb-cream:         #141D19;
-  --vb-warm-white:    #1C2822;
-  --vb-light-beige:   #243020;
-  --vb-white:         #2A3828;
+  --vb-cream:         #0E1917;
+  --vb-warm-white:    #162321;
+  --vb-light-beige:   #1F3230;
+  --vb-white:         #2F5755;
   --vb-deep-maroon:   #EDE8E0;
-  --vb-forest:        #4DAA7A;
-  --vb-leaf-green:    #5DC08A;
-  --vb-burgundy:      #C4808C;
-  --vb-medium-gray:   #9E968A;
+  --vb-forest:        #5A9690;
+  --vb-leaf-green:    #6DAAA5;
+  --vb-burgundy:      #7A4545;
+  --vb-medium-gray:   #A8A09A;
   --vb-dark-gray:     #C8C0B4;
-  --vb-success:       #4DAA7A;
+  --vb-success:       #5A9690;
   --vb-shadow-sm:     0 2px 8px rgba(0,0,0,0.25);
   --vb-shadow-md:     0 4px 12px rgba(0,0,0,0.35);
   --vb-shadow-lg:     0 8px 24px rgba(0,0,0,0.45);
   --vb-shadow-el:     0 12px 34px rgba(0,0,0,0.55);
-  --vb-topbar-bg:     rgba(20,29,25,0.95);
+  --vb-topbar-bg:     rgba(8,15,14,0.96);
   --vb-topbar-border: rgba(237,232,224,0.10);
+  --vb-divider-color: rgba(90,150,144,0.18);
+  --vb-section-dark:  #080F0E;
+  --vb-section-card:  #162321;
   /* Legacy aliases */
-  --burgundy:         #C4808C;
+  --burgundy:         #7A4545;
   --burgundy-deep:    #EDE8E0;
-  --green:            #4DAA7A;
-  --cream:            #141D19;
-  --cream-dark:       #1C2822;
-  --oak:              #9E968A;
+  --green:            #5A9690;
+  --cream:            #0E1917;
+  --cream-dark:       #162321;
+  --oak:              #A8A09A;
 }
 
 /* ── Dark Mode Component Overrides ──────────────────────────── */
@@ -1269,7 +1275,7 @@ footer {
 
 /* Topbar scrolled state */
 [data-theme="dark"] .topbar.scrolled {
-  background: rgba(14,22,18,0.98);
+  background: rgba(4,8,7,0.99);
 }
 
 /* Cards: border and shadows */
@@ -1282,7 +1288,7 @@ footer {
 [data-theme="dark"] .summary-card,
 [data-theme="dark"] .confirmation-card,
 [data-theme="dark"] .login-form-wrap {
-  border-color: rgba(237,232,224,0.10);
+  border-color: rgba(90,150,144,0.18);
   box-shadow: 0 4px 12px rgba(0,0,0,0.35);
 }
 [data-theme="dark"] .terroir-card:hover,
@@ -1291,77 +1297,87 @@ footer {
 [data-theme="dark"] .map-info-card:hover,
 [data-theme="dark"] .winery-card:hover {
   box-shadow: 0 12px 32px rgba(0,0,0,0.50);
-  border-color: rgba(77,170,122,0.25);
+  border-color: rgba(90,150,144,0.30);
 }
 
 /* Filter chips */
 [data-theme="dark"] .filter-chip {
-  border-color: rgba(237,232,224,0.20);
-  color: #9E968A;
+  border-color: rgba(90,150,144,0.35);
+  color: #A8A09A;
 }
 [data-theme="dark"] .filter-chip:hover,
 [data-theme="dark"] .filter-chip.active {
-  background: #4DAA7A;
-  border-color: #4DAA7A;
-  color: #141D19;
+  background: #5A9690;
+  border-color: #5A9690;
+  color: #0E1917;
 }
 
 /* Form input states */
 [data-theme="dark"] input.error,
 [data-theme="dark"] select.error,
 [data-theme="dark"] textarea.error {
-  background: #2A1A1C !important;
-  border-color: #C4808C !important;
+  background: #2A1517 !important;
+  border-color: #7A4545 !important;
 }
 [data-theme="dark"] input.success,
 [data-theme="dark"] select.success,
 [data-theme="dark"] textarea.success {
-  background: #141D19 !important;
-  border-color: #4DAA7A !important;
+  background: #0E1917 !important;
+  border-color: #5A9690 !important;
 }
 [data-theme="dark"] input:focus,
 [data-theme="dark"] select:focus,
 [data-theme="dark"] textarea:focus {
-  box-shadow: 0 0 0 3px rgba(77,170,122,0.18);
+  box-shadow: 0 0 0 3px rgba(90,150,144,0.20);
 }
 
 /* Buttons */
 [data-theme="dark"] .btn-secondary:hover {
-  background: rgba(77,170,122,0.12);
-  border-color: #4DAA7A;
-  color: #4DAA7A;
+  background: rgba(90,150,144,0.14);
+  border-color: #5A9690;
+  color: #5A9690;
 }
 [data-theme="dark"] .btn-secondary:active {
-  background: rgba(77,170,122,0.20);
-  color: #5DC08A;
-  border-color: #5DC08A;
+  background: rgba(90,150,144,0.22);
+  color: #6DAAA5;
+  border-color: #6DAAA5;
+}
+
+/* Mobile nav links */
+[data-theme="dark"] .mobile-menu-overlay .mob-nav a:hover {
+  background: rgba(90,150,144,0.14);
+  color: #5A9690;
+}
+[data-theme="dark"] .mobile-menu-overlay .mob-nav a.active {
+  background: rgba(90,150,144,0.18);
+  color: #5A9690;
 }
 
 /* Page hero circle */
 [data-theme="dark"] .page-hero::before {
-  background: radial-gradient(circle, rgba(77,170,122,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(90,150,144,0.07) 0%, transparent 70%);
 }
 
 /* Progress bar */
 [data-theme="dark"] #progressBar {
-  background: linear-gradient(90deg, #4DAA7A, #5DC08A);
+  background: linear-gradient(90deg, #5A9690, #6DAAA5);
 }
 
 /* Footer */
 [data-theme="dark"] footer {
-  background: #0E1612;
-  border-top-color: rgba(237,232,224,0.08);
+  background: #080F0E;
+  border-top-color: rgba(90,150,144,0.14);
 }
 
 /* Divider */
 [data-theme="dark"] .divider {
-  background: linear-gradient(90deg, transparent, rgba(77,170,122,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(90,150,144,0.45), transparent);
 }
 
 /* ─── (b) OS preference — mirrors rules above ─── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .topbar.scrolled {
-    background: rgba(14,22,18,0.98);
+    background: rgba(4,8,7,0.99);
   }
   :root:not([data-theme="light"]) .terroir-card,
   :root:not([data-theme="light"]) .exp-card,
@@ -1372,7 +1388,7 @@ footer {
   :root:not([data-theme="light"]) .summary-card,
   :root:not([data-theme="light"]) .confirmation-card,
   :root:not([data-theme="light"]) .login-form-wrap {
-    border-color: rgba(237,232,224,0.10);
+    border-color: rgba(90,150,144,0.18);
     box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   }
   :root:not([data-theme="light"]) .terroir-card:hover,
@@ -1381,52 +1397,155 @@ footer {
   :root:not([data-theme="light"]) .map-info-card:hover,
   :root:not([data-theme="light"]) .winery-card:hover {
     box-shadow: 0 12px 32px rgba(0,0,0,0.50);
-    border-color: rgba(77,170,122,0.25);
+    border-color: rgba(90,150,144,0.30);
   }
   :root:not([data-theme="light"]) .filter-chip {
-    border-color: rgba(237,232,224,0.20);
-    color: #9E968A;
+    border-color: rgba(90,150,144,0.35);
+    color: #A8A09A;
   }
   :root:not([data-theme="light"]) .filter-chip:hover,
   :root:not([data-theme="light"]) .filter-chip.active {
-    background: #4DAA7A;
-    border-color: #4DAA7A;
-    color: #141D19;
+    background: #5A9690;
+    border-color: #5A9690;
+    color: #0E1917;
   }
   :root:not([data-theme="light"]) input.error,
   :root:not([data-theme="light"]) select.error,
   :root:not([data-theme="light"]) textarea.error {
-    background: #2A1A1C !important;
-    border-color: #C4808C !important;
+    background: #2A1517 !important;
+    border-color: #7A4545 !important;
   }
   :root:not([data-theme="light"]) input.success,
   :root:not([data-theme="light"]) select.success,
   :root:not([data-theme="light"]) textarea.success {
-    background: #141D19 !important;
-    border-color: #4DAA7A !important;
+    background: #0E1917 !important;
+    border-color: #5A9690 !important;
   }
   :root:not([data-theme="light"]) input:focus,
   :root:not([data-theme="light"]) select:focus,
   :root:not([data-theme="light"]) textarea:focus {
-    box-shadow: 0 0 0 3px rgba(77,170,122,0.18);
+    box-shadow: 0 0 0 3px rgba(90,150,144,0.20);
   }
   :root:not([data-theme="light"]) .btn-secondary:hover {
-    background: rgba(77,170,122,0.12);
-    border-color: #4DAA7A;
-    color: #4DAA7A;
+    background: rgba(90,150,144,0.14);
+    border-color: #5A9690;
+    color: #5A9690;
+  }
+  :root:not([data-theme="light"]) .mobile-menu-overlay .mob-nav a:hover {
+    background: rgba(90,150,144,0.14);
+    color: #5A9690;
+  }
+  :root:not([data-theme="light"]) .mobile-menu-overlay .mob-nav a.active {
+    background: rgba(90,150,144,0.18);
+    color: #5A9690;
   }
   :root:not([data-theme="light"]) .page-hero::before {
-    background: radial-gradient(circle, rgba(77,170,122,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(90,150,144,0.07) 0%, transparent 70%);
   }
   :root:not([data-theme="light"]) #progressBar {
-    background: linear-gradient(90deg, #4DAA7A, #5DC08A);
+    background: linear-gradient(90deg, #5A9690, #6DAAA5);
   }
   :root:not([data-theme="light"]) footer {
-    background: #0E1612;
-    border-top-color: rgba(237,232,224,0.08);
+    background: #080F0E;
+    border-top-color: rgba(90,150,144,0.14);
   }
   :root:not([data-theme="light"]) .divider {
-    background: linear-gradient(90deg, transparent, rgba(77,170,122,0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(90,150,144,0.45), transparent);
+  }
+}
+
+/* ── VineClub: Tier Cards & Credits Table ────────────────── */
+/* Silver tier — dark teal instead of light gray */
+[data-theme="dark"] .tier-silver .tier-card-header {
+  background: linear-gradient(135deg, #263C3A 0%, #2F5755 100%);
+  color: #EDE8E0;
+}
+[data-theme="dark"] .tier-silver .tier-benefit-check {
+  background: #2F5755;
+  color: #EDE8E0;
+}
+[data-theme="dark"] .tier-silver .tier-cta {
+  border-color: rgba(90,150,144,0.50);
+  color: #5A9690;
+}
+
+/* Gold tier — unchanged, works on dark */
+[data-theme="dark"] .tier-gold .tier-benefit-check {
+  background: #D4AF37;
+  color: #0E1917;
+}
+
+/* Platinum tier — deep navy instead of light purple */
+[data-theme="dark"] .tier-platinum .tier-card-header {
+  background: linear-gradient(135deg, #1C2030 0%, #2E3050 35%, #1C2030 100%);
+  color: #EDE8E0;
+}
+[data-theme="dark"] .tier-platinum .tier-benefit-check {
+  background: #3A3A6A;
+  color: #EDE8E0;
+}
+[data-theme="dark"] .tier-platinum .tier-cta {
+  border-color: rgba(150,144,200,0.50);
+  color: #A8A0D8;
+}
+
+/* Credits table */
+[data-theme="dark"] .vc-credits {
+  background: #162321;
+}
+[data-theme="dark"] .credit-table thead tr {
+  background: linear-gradient(90deg, #432323, #6B3535);
+}
+[data-theme="dark"] .credit-table tbody tr:nth-child(odd)  { background: #162321; }
+[data-theme="dark"] .credit-table tbody tr:nth-child(even) { background: #1F3230; }
+[data-theme="dark"] .credit-table tbody tr:hover { background: rgba(90,150,144,0.10); }
+[data-theme="dark"] .credit-table tbody td {
+  color: #EDE8E0;
+  border-bottom-color: rgba(237,232,224,0.08);
+}
+
+/* OS preference mirrors */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tier-silver .tier-card-header {
+    background: linear-gradient(135deg, #263C3A 0%, #2F5755 100%);
+    color: #EDE8E0;
+  }
+  :root:not([data-theme="light"]) .tier-silver .tier-benefit-check {
+    background: #2F5755;
+    color: #EDE8E0;
+  }
+  :root:not([data-theme="light"]) .tier-silver .tier-cta {
+    border-color: rgba(90,150,144,0.50);
+    color: #5A9690;
+  }
+  :root:not([data-theme="light"]) .tier-gold .tier-benefit-check {
+    background: #D4AF37;
+    color: #0E1917;
+  }
+  :root:not([data-theme="light"]) .tier-platinum .tier-card-header {
+    background: linear-gradient(135deg, #1C2030 0%, #2E3050 35%, #1C2030 100%);
+    color: #EDE8E0;
+  }
+  :root:not([data-theme="light"]) .tier-platinum .tier-benefit-check {
+    background: #3A3A6A;
+    color: #EDE8E0;
+  }
+  :root:not([data-theme="light"]) .tier-platinum .tier-cta {
+    border-color: rgba(150,144,200,0.50);
+    color: #A8A0D8;
+  }
+  :root:not([data-theme="light"]) .vc-credits {
+    background: #162321;
+  }
+  :root:not([data-theme="light"]) .credit-table thead tr {
+    background: linear-gradient(90deg, #432323, #6B3535);
+  }
+  :root:not([data-theme="light"]) .credit-table tbody tr:nth-child(odd)  { background: #162321; }
+  :root:not([data-theme="light"]) .credit-table tbody tr:nth-child(even) { background: #1F3230; }
+  :root:not([data-theme="light"]) .credit-table tbody tr:hover { background: rgba(90,150,144,0.10); }
+  :root:not([data-theme="light"]) .credit-table tbody td {
+    color: #EDE8E0;
+    border-bottom-color: rgba(237,232,224,0.08);
   }
 }
 
