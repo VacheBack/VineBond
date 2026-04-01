@@ -479,34 +479,6 @@ button, select, input, textarea { font-family: inherit; }
 }
 
 /* ── Theme Toggle Button ─────────────────────────────────────── */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  min-height: 38px;
-  border-radius: 50%;
-  border: 1.5px solid var(--vb-topbar-border, rgba(28,79,61,0.18));
-  background: var(--vb-cream);
-  color: var(--vb-forest);
-  cursor: pointer;
-  transition: var(--transition);
-  flex-shrink: 0;
-  padding: 0;
-}
-.theme-toggle:hover {
-  background: var(--vb-light-beige);
-  border-color: var(--vb-forest);
-  color: var(--vb-forest);
-  transform: scale(1.08);
-}
-.theme-toggle svg { width: 18px; height: 18px; display: block; }
-/* Each state shows exactly one icon */
-.theme-icon-sun,
-.theme-icon-moon,
-.theme-icon-auto { display: none; }
 
 /* Mobile toggle (44×44px touch target) */
 .mobile-toggle {
@@ -1232,6 +1204,7 @@ footer {
     --green:            #5A9690;
     --cream:            #0E1917;
     --cream-dark:       #162321;
+    --white:            #1F3230;
     --oak:              #A8A09A;
   }
 }
@@ -1263,6 +1236,7 @@ footer {
   --green:            #5A9690;
   --cream:            #0E1917;
   --cream-dark:       #162321;
+  --white:            #1F3230;
   --oak:              #A8A09A;
 }
 
@@ -1366,6 +1340,7 @@ footer {
 /* Footer */
 [data-theme="dark"] footer {
   background: #080F0E;
+  color: #EDE8E0;
   border-top-color: rgba(90,150,144,0.14);
 }
 
@@ -1447,6 +1422,7 @@ footer {
   }
   :root:not([data-theme="light"]) footer {
     background: #080F0E;
+    color: #EDE8E0;
     border-top-color: rgba(90,150,144,0.14);
   }
   :root:not([data-theme="light"]) .divider {
