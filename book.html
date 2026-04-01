@@ -312,6 +312,89 @@
       border-color: #5A9690;
       box-shadow: 0 0 0 3px rgba(90,150,144,0.20);
     }
+
+    /* ── Custom Select (replaces native on all devices) ── */
+    .csel { position: relative; }
+    .csel-trigger {
+      width: 100%;
+      padding: 12px 40px 12px 16px;
+      border: 1.5px solid #DDD2BF;
+      border-radius: var(--radius-md);
+      font-size: 0.93rem;
+      color: var(--burgundy-deep);
+      background: var(--cream);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238B7355'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      transition: var(--transition);
+      cursor: pointer;
+      user-select: none;
+      box-sizing: border-box;
+      text-align: left;
+    }
+    .csel-trigger:focus,
+    .csel.open .csel-trigger {
+      outline: none;
+      border-color: var(--gold);
+      background-color: var(--white);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+    }
+    .csel-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border: 1.5px solid #DDD2BF;
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(28,79,61,0.12);
+      z-index: 200;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .csel.open .csel-dropdown { display: block; }
+    .csel-group-label {
+      padding: 8px 16px 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--oak);
+    }
+    .csel-option {
+      padding: 10px 16px;
+      font-size: 0.93rem;
+      color: var(--burgundy-deep);
+      cursor: pointer;
+      text-align: left;
+    }
+    .csel-option:hover,
+    .csel-option.selected {
+      background: var(--cream);
+      color: var(--burgundy);
+    }
+    [data-theme="dark"] .csel-trigger {
+      background-color: #1F3230;
+      border-color: #3A5A4F;
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] .csel-trigger:focus,
+    [data-theme="dark"] .csel.open .csel-trigger {
+      background-color: #1F3230;
+      border-color: #5A9690;
+      box-shadow: 0 0 0 3px rgba(90,150,144,0.20);
+    }
+    [data-theme="dark"] .csel-dropdown {
+      background: #162321;
+      border-color: #3A5A4F;
+    }
+    [data-theme="dark"] .csel-option { color: #EDE8E0; }
+    [data-theme="dark"] .csel-option:hover,
+    [data-theme="dark"] .csel-option.selected {
+      background: #2F5755;
+    }
+
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) .form-card {
         background: #162321;
@@ -716,6 +799,69 @@
       const opt = this.options[this.selectedIndex];
       document.getElementById('summaryWinery').textContent = opt.text || 'Select a winery';
     });
+
+    // Custom dropdown for #bookWinery — replaces native select on all devices
+    (function() {
+      const sel = document.getElementById('bookWinery');
+      const field = sel.parentElement;
+
+      const csel = document.createElement('div');
+      csel.className = 'csel';
+
+      const trigger = document.createElement('div');
+      trigger.className = 'csel-trigger';
+      trigger.setAttribute('tabindex', '0');
+      trigger.setAttribute('role', 'button');
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.textContent = '— Choose a winery —';
+
+      const dropdown = document.createElement('div');
+      dropdown.className = 'csel-dropdown';
+      dropdown.setAttribute('role', 'listbox');
+
+      Array.from(sel.children).forEach(function(child) {
+        if (child.tagName === 'OPTGROUP') {
+          var gl = document.createElement('div');
+          gl.className = 'csel-group-label';
+          gl.textContent = child.label;
+          dropdown.appendChild(gl);
+          Array.from(child.children).forEach(function(opt) {
+            var o = document.createElement('div');
+            o.className = 'csel-option';
+            o.dataset.value = opt.value;
+            o.textContent = opt.textContent;
+            o.setAttribute('role', 'option');
+            dropdown.appendChild(o);
+          });
+        }
+      });
+
+      csel.appendChild(trigger);
+      csel.appendChild(dropdown);
+      field.insertBefore(csel, sel);
+      sel.style.display = 'none';
+
+      trigger.addEventListener('click', function() {
+        csel.classList.toggle('open');
+      });
+      trigger.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); csel.classList.toggle('open'); }
+        if (e.key === 'Escape') csel.classList.remove('open');
+      });
+      dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.csel-option');
+        if (!opt) return;
+        dropdown.querySelectorAll('.csel-option').forEach(function(o) { o.classList.remove('selected'); });
+        opt.classList.add('selected');
+        trigger.textContent = opt.textContent;
+        sel.value = opt.dataset.value;
+        csel.classList.remove('open');
+        sel.dispatchEvent(new Event('change'));
+      });
+      document.addEventListener('click', function(e) {
+        if (!csel.contains(e.target)) csel.classList.remove('open');
+      });
+    })();
 
     function updateTotal() {
       const vatLabel = 'incl. VAT';
