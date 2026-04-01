@@ -711,6 +711,12 @@
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    @media (min-width: 769px) and (max-width: 1024px) {
+      /* Override index-specific btn min-widths that would re-expand Sign In */
+      .topbar-cta .btn-secondary { min-width: auto; }
+      .topbar-cta .btn-primary   { min-width: auto; }
+    }
+
     @media (max-width: 768px) {
       /* ─── Topbar: stays a thin fixed bar, NEVER expands ── */
       .topbar { height: 64px; min-height: 64px; overflow: visible; }
