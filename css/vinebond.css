@@ -307,6 +307,7 @@ button, select, input, textarea { font-family: inherit; }
   top: calc(env(safe-area-inset-top, 0px) + 40px);
   transform: translateY(-50%);
   z-index: 1002;
+  transition: top var(--transition);
 }
 .topbar.scrolled .topbar-logo {
   top: calc(env(safe-area-inset-top, 0px) + 32px);
