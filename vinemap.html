@@ -195,6 +195,29 @@
       .leaflet-popup-content { width: 220px !important; }
     }
 
+    /* ── XS — Small Phone (≤ 374px) ────────────────────── */
+    @media (max-width: 374px) {
+      .map-filter-btn { font-size: 0.7rem; padding: 6px 10px; }
+      .leaflet-popup-content { width: 200px !important; }
+      .map-info-card p { font-size: 0.82rem; }
+      .map-info-card .info-stat { font-size: 1.2rem; }
+    }
+
+    /* ── 2XS — Budget Phone (≤ 320px) ──────────────────── */
+    @media (max-width: 320px) {
+      .map-outer { padding: 0 8px; }
+      #vinemap-container { height: 45vh; min-height: 240px; border-radius: var(--radius-md); }
+      .map-filter-btn { font-size: 0.65rem; padding: 5px 8px; min-height: 40px; }
+      .leaflet-popup-content { width: 180px !important; }
+      .leaflet-popup-content-wrapper { border-radius: var(--radius-md) !important; }
+      .map-info-card { padding: 12px; }
+      .map-info-card h4 { font-size: 0.82rem; }
+      .map-info-card p { font-size: 0.78rem; }
+      .map-info-card .info-stat { font-size: 1.1rem; }
+      .trail-tag { padding: 6px 12px; font-size: 0.75rem; }
+      .map-results-count { font-size: 0.8rem; }
+    }
+
     /* ── Landscape Phone ───────────────────────────────── */
     @media (max-height: 500px) and (orientation: landscape) {
       .map-controls { top: 48px; }

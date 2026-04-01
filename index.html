@@ -1089,6 +1089,12 @@
       .tier-table th, .tier-table td { padding: 14px 12px; font-size: 0.85rem; }
     }
 
+    /* ── L — Small Tablet / Large Phone (≤ 600px) ─────── */
+    @media (max-width: 600px) {
+      /* Hero KPIs: switch to 2-column earlier to avoid cramped 3-col on mid-range Androids */
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ── M — Large Phone (≤ 479px) ─────────────────────── */
     @media (max-width: 479px) {
       .hero-actions { flex-direction: column; }
@@ -1104,6 +1110,8 @@
       .qr-steps { grid-template-columns: 1fr; }
       .vineclub-inner { padding: 28px 16px; }
       .tier-table th, .tier-table td { padding: 10px 8px; font-size: 0.8rem; }
+      /* Single column KPIs on phones */
+      .hero-kpis { grid-template-columns: 1fr; }
     }
 
     /* ── XS — Small Phone (≤ 374px) ────────────────────── */
@@ -1115,6 +1123,24 @@
 
       .filter-select { min-width: 0; width: 100%; }
       .filter-chip { min-width: 0; }
+    }
+
+    /* ── 2XS — Budget Phone (≤ 320px) ──────────────────── */
+    @media (max-width: 320px) {
+      .hero-content h1 { font-size: clamp(1.4rem, 6.5vw, 1.8rem); }
+      .hero-content p { font-size: 0.85rem; }
+      .hero-booking { padding: 16px 12px; }
+      .hero-booking h3 { font-size: 0.95rem; }
+      .booking-field select, .booking-field input { font-size: 0.85rem; padding: 9px 10px; }
+      .booking-field label { font-size: 0.7rem; }
+      .hero-kpi { padding: 8px 10px; }
+      .hero-kpi .num { font-size: 0.88rem; }
+      .hero-kpi .txt { font-size: 0.6rem; }
+      .qr-graphic { width: 120px; height: 120px; }
+      .qr-step p { font-size: 0.75rem; }
+      .tier-table th, .tier-table td { padding: 8px 6px; font-size: 0.75rem; }
+      .vineclub-inner { padding: 20px 12px; }
+      .vineclub-header h2 { font-size: clamp(1.2rem, 5vw, 1.5rem); }
     }
 
     /* ── Landscape Phone (short viewport) ──────────────── */

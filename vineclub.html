@@ -117,6 +117,22 @@
       .form-row { grid-template-columns: 1fr; }
     }
 
+    /* ── XS — Small Phone (≤ 374px) ──────────────────── */
+    @media (max-width: 374px) {
+      .form-field input,
+      .form-field select { font-size: 0.88rem; padding: 10px 12px; }
+      .form-field label { font-size: 0.7rem; }
+    }
+
+    /* ── 2XS — Budget Phone (≤ 320px) ──────────────────── */
+    @media (max-width: 320px) {
+      .form-field input,
+      .form-field select { font-size: 0.85rem; padding: 9px 10px; }
+      .form-field label { font-size: 0.65rem; }
+      .form-section-title { font-size: 0.65rem; }
+      .pref-section-title { font-size: 0.68rem; }
+    }
+
     /* ── Landscape Phone ───────────────────────────────── */
     @media (max-height: 500px) and (orientation: landscape) {
       .vc-hero { margin-top: 48px; min-height: 300px; padding: 32px 0; }

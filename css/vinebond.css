@@ -107,13 +107,15 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Keep wine-glass cursor on ALL interactive elements */
-*, *::before, *::after,
-a, button, select, input, label, textarea,
-[role="button"], .filter-chip, .trail-tag,
-.map-filter-btn, .topbar-nav a, .btn,
-.winery-card, .lang-option {
-  cursor: url('../assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+/* Keep wine-glass cursor on ALL interactive elements — skip on touch-only Android */
+@media (pointer: fine) {
+  *, *::before, *::after,
+  a, button, select, input, label, textarea,
+  [role="button"], .filter-chip, .trail-tag,
+  .map-filter-btn, .topbar-nav a, .btn,
+  .winery-card, .lang-option {
+    cursor: url('../assets/figma-elements/custom-cursor-wineglass.svg') 4 4, auto !important;
+  }
 }
 
 a { text-decoration: none; color: inherit; }
@@ -732,11 +734,20 @@ footer {
 .footer-bottom p { font-size: 0.78rem; opacity: 0.55; }
 
 /* ── GPU Performance Hints ────────────────────────────────── */
-.topbar { will-change: transform; }
-.back-to-top { will-change: transform, opacity; }
-.fade-up { will-change: transform, opacity; }
+/* Only promote layers on devices that benefit (fine pointer = mouse/trackpad) */
+@media (pointer: fine) {
+  .topbar { will-change: transform; }
+  .back-to-top { will-change: transform, opacity; }
+  .fade-up { will-change: transform, opacity; }
+}
 .winery-card, .exp-card, .terroir-card, .review-card,
 .tier-card, .map-info-card, .cert-wrap { contain: content; }
+
+/* Budget Android: reduce backdrop-filter to avoid GPU jank */
+@media (hover: none) and (pointer: coarse) {
+  .topbar { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .back-to-top { backdrop-filter: none; }
+}
 
 /* ══════════════════════════════════════════════════════════════
    RESPONSIVE — 9-Tier Breakpoint System
@@ -980,6 +991,27 @@ footer {
   .btn { padding: 10px 14px; font-size: 0.76rem; min-width: 0; }
   .lang-option { padding: 4px 8px; font-size: 0.68rem; }
   .section-title { font-size: clamp(1.25rem, 6vw, 1.5rem); }
+}
+
+/* ── 2XS — Budget Phone (≤ 320px) ────────────────────────── */
+/* Targets: Redmi A-series, older Sony Compact, budget Androids */
+@media (max-width: 320px) {
+  .container { padding: 0 10px; }
+  .topbar-logo { font-size: 1rem; gap: 6px; }
+  .topbar-logo .logo-icon { width: 28px; height: 28px; }
+  .btn { padding: 9px 12px; font-size: 0.72rem; }
+  .btn-sm { padding: 7px 12px; font-size: 0.72rem; }
+  .section-title { font-size: clamp(1.1rem, 5.5vw, 1.35rem); }
+  .section-subtitle { font-size: var(--text-xs); }
+  .section-label { font-size: 0.6rem; }
+  .lang-option { padding: 3px 6px; font-size: 0.62rem; min-height: 36px; }
+  .footer-grid { gap: 14px; }
+  .footer-col h4 { font-size: 0.72rem; margin-bottom: 10px; }
+  .footer-col a { font-size: 0.8rem; }
+  .footer-brand p { font-size: 0.8rem; }
+  .footer-bottom p { font-size: 0.7rem; }
+  .back-to-top { width: 40px; height: 40px; right: 10px; bottom: 10px; }
+  .back-to-top svg { width: 16px; height: 16px; }
 }
 
 /* ── 3XL — Laptop (≥ 1280px) ─────────────────────────────── */
@@ -2155,6 +2187,28 @@ footer {
   .tier-card-name { font-size: 1.1rem; }
   .credit-table { font-size: 0.75rem; }
   .credit-pts span { font-size: 0.75rem; padding: 3px 10px; }
+}
+
+/* ── 2XS — Budget Phone (≤ 320px) — VineClub ────────────── */
+@media (max-width: 320px) {
+  .vc-hero { min-height: 320px; padding: 32px 0; }
+  .vc-hero h1 { font-size: 1.25rem; }
+  .vc-hero-sub { font-size: 0.82rem; }
+  .vc-tier-pill { padding: 6px 10px; font-size: 0.68rem; }
+  .vc-tiers, .vc-credits, .vc-register, .vc-certificates { padding: 32px 0; }
+  .vc-section-title { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+  .vc-section-sub { font-size: 0.82rem; }
+  .vc-register .form-card { padding: 16px 12px; }
+  .tier-card-header { padding: 18px 14px 14px; }
+  .tier-card-body { padding: 14px; }
+  .tier-card-name { font-size: 1rem; }
+  .tier-benefits-list li { font-size: 0.78rem; }
+  .credit-table thead th { padding: 6px; font-size: 0.6rem; }
+  .credit-table tbody td { padding: 6px; font-size: 0.72rem; }
+  .cert-wrap { padding: 12px; }
+  .cert-btn { padding: 7px 10px; font-size: 0.68rem; }
+  .vine-step-circle { width: 24px; height: 24px; font-size: 0.68rem; }
+  .vine-step-label { font-size: 0.55rem; }
 }
 
 

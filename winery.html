@@ -51,7 +51,7 @@
       cursor: pointer;
       transition: var(--transition);
       white-space: nowrap;
-      min-height: 40px;
+      min-height: 44px; /* WCAG AA touch target for Android */
       flex-shrink: 0;
     }
     .filter-dropdown-btn:hover {
@@ -137,7 +137,7 @@
       cursor: pointer;
       transition: var(--transition);
       white-space: nowrap;
-      min-height: 40px;
+      min-height: 44px; /* WCAG AA touch target for Android */
     }
     .filter-clear-btn.visible {
       display: inline-flex;
@@ -235,8 +235,19 @@
     @media (max-width: 374px) {
       .winery-card-body h3 { font-size: 0.95rem; }
       .winery-card-desc { font-size: 0.82rem; }
-      .winery-detail .detail-value { font-size: 0.78rem; }
-      .filter-bar { top: 64px; padding: 12px 0; }
+      .filter-dropdown-btn { padding: 6px 12px; font-size: 0.78rem; }
+    }
+    /* ── 2XS — Budget Phone (≤ 320px) ──────────────────── */
+    @media (max-width: 320px) {
+      .winery-card-body { padding: 16px; }
+      .winery-card-body h3 { font-size: 0.9rem; }
+      .winery-card-desc { font-size: 0.78rem; }
+      .winery-card-header { height: 110px; }
+      .winery-detail .detail-label { font-size: 0.6rem; }
+      .winery-detail .detail-value { font-size: 0.75rem; }
+      .winery-card-actions .btn { font-size: 0.72rem; padding: 8px 10px; }
+      .filter-dropdown-btn { padding: 6px 10px; font-size: 0.75rem; gap: 4px; }
+      .filter-dropdown-panel label { padding: 8px 12px; font-size: 0.82rem; }
     }
     @media (max-height: 500px) and (orientation: landscape) {
       .filter-bar { top: 48px; }
