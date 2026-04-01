@@ -1,4 +1,4 @@
-/* VineBond global UI enhancements: page progress, back-to-top, and small UX helpers */
+/* VineBond global UI enhancements: back-to-top and small UX helpers */
 (() => {
   const onReady = (fn) => {
     if (document.readyState === 'loading') {
@@ -9,17 +9,10 @@
   };
 
   onReady(() => {
-    const progressBar = document.querySelector('[data-page-progress] > span');
     const backToTop = document.querySelector('[data-back-to-top]');
     const topbar = document.getElementById('topbar');
 
     const syncScrollUI = () => {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - window.innerHeight;
-      const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
-
-      if (progressBar) progressBar.style.width = `${pct}%`;
-
       if (backToTop) {
         backToTop.classList.toggle('show', window.scrollY > 420);
         backToTop.setAttribute('aria-hidden', window.scrollY > 420 ? 'false' : 'true');

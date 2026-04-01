@@ -160,25 +160,6 @@ button, select, input, textarea { font-family: inherit; }
 }
 
 /* ── Global UX Utilities ─────────────────────────────────── */
-.page-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  z-index: 2002;
-  pointer-events: none;
-  background: rgba(237,232,224,0.35);
-}
-.page-progress > span {
-  display: block;
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, var(--vb-forest), var(--vb-burgundy));
-  box-shadow: 0 0 14px rgba(28,79,61,0.4);
-  transition: width 0.1s linear;
-}
-
 .back-to-top {
   position: fixed;
   right: 18px;
