@@ -2538,6 +2538,42 @@ footer {
   :root:not([data-theme="light"]) .tier-dash { color: rgba(237,232,224,0.35); }
 }
 
+/* Mobile (≤600px) — reduce padding so "PLATINUM" fits in narrow tier columns */
+@media (max-width: 600px) {
+  .vc-tier-table th,
+  .vc-tier-table td {
+    padding: 9px 6px;
+    font-size: 12px;
+  }
+
+  /* Tier header cells: tighter padding + no letter-spacing so "PLATINUM" fits */
+  .vc-tier-table thead .tier-col {
+    font-size: 10px;
+    letter-spacing: 0;
+    padding: 9px 3px;
+  }
+
+  .tier-check { width: 15px; height: 15px; }
+  .tier-dash  { font-size: 15px; }
+}
+
+/* Very small phones (≤374px) */
+@media (max-width: 374px) {
+  .vc-tier-table .benefit-col { width: 40%; }
+  .vc-tier-table .tier-col    { width: 20%; }
+
+  .vc-tier-table th,
+  .vc-tier-table td {
+    padding: 7px 4px;
+    font-size: 11px;
+  }
+
+  .vc-tier-table thead .tier-col {
+    font-size: 9px;
+    padding: 7px 2px;
+  }
+}
+
 /* iPad mini (768px+) — more generous padding and font */
 @media (min-width: 768px) {
   .vc-tier-table th,
