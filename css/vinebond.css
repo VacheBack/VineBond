@@ -6,6 +6,41 @@
    index.html uses its own inline <style> block (backward compat)
    ============================================================ */
 
+/* ── Landscape Block Overlay ───────────────────────────────── */
+#vb-landscape-block {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #1C4F3D;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+  color: #EDE8E0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+#vb-landscape-block svg {
+  opacity: 0.85;
+  animation: vb-rotate-hint 2.5s ease-in-out infinite;
+}
+#vb-landscape-block p {
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+}
+@keyframes vb-rotate-hint {
+  0%, 100% { transform: rotate(0deg); }
+  40%       { transform: rotate(90deg); }
+  60%       { transform: rotate(90deg); }
+}
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  #vb-landscape-block { display: flex; }
+  body > *:not(#vb-landscape-block) { visibility: hidden; pointer-events: none; }
+}
+
 /* ── Reset & Root ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
