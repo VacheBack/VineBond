@@ -450,94 +450,57 @@
 
     /* ===== INTERACTIVE MAP ===== */
     .map-section { padding: 80px 0; }
-    .map-header { text-align: center; margin-bottom: 40px; }
-    .map-header .section-subtitle { margin: 0 auto; }
 
-    .map-wrapper {
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      border: 2px solid #E8DFD0;
-      position: relative;
-      background: linear-gradient(170deg, #EAE3D5 0%, #DDD6C6 40%, #D5CDB9 100%);
-      min-height: 480px;
+    .map-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .map-intro { padding-right: 16px; border-right: 1.5px solid rgba(74,93,62,0.15); }
+    .map-intro .section-title { text-align: left; margin-bottom: 16px; }
+    .map-desc {
+      color: var(--oak);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .map-cta { display: inline-block; }
+
+    .map-benefits {
+      list-style: none;
+      margin: 0; padding: 0;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
     }
-    .map-placeholder {
-      text-align: center;
-      padding: 60px 24px;
-      position: relative;
-      z-index: 1;
+    .map-benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
     }
-    .map-placeholder .map-icon {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px;
-      box-shadow: 0 8px 32px var(--shadow);
+    .mb-icon {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      color: var(--green);
+      margin-top: 2px;
     }
-    .map-placeholder .map-icon svg { width: 36px; height: 36px; }
-    .map-placeholder h3 {
-      font-size: 1.4rem;
+    .map-benefits strong {
+      display: block;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--burgundy);
-      margin-bottom: 8px;
+      margin-bottom: 2px;
     }
-    .map-placeholder p {
+    .map-benefits span {
+      font-size: 0.875rem;
       color: var(--oak);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      line-height: 1.5;
     }
-
-    /* Map decorative pins */
-    .map-pin {
-      position: absolute;
-      width: 36px; height: 42px;
-      cursor: pointer;
-      transition: var(--transition);
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    @media (max-width: 768px) {
+      .map-cols { grid-template-columns: 1fr; gap: 36px; }
+      .map-intro { border-right: none; padding-right: 0; border-bottom: 1.5px solid rgba(74,93,62,0.15); padding-bottom: 28px; }
     }
-    .map-pin:hover { transform: translateY(-6px) scale(1.1); }
-    .map-pin.p1 { top: 18%; left: 22%; }
-    .map-pin.p2 { top: 35%; left: 58%; }
-    .map-pin.p3 { top: 60%; left: 34%; }
-    .map-pin.p4 { top: 28%; left: 75%; }
-    .map-pin.p5 { top: 55%; left: 68%; }
-    .map-pin.featured { width: 44px; height: 50px; }
-
-    .map-trails {
-      display: flex;
-      gap: 16px;
-      margin-top: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .trail-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 18px;
-      background: var(--white);
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--green);
-      border: 1.5px solid rgba(74,93,62,0.2);
-      cursor: pointer;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .trail-tag:hover {
-      background: var(--green);
-      color: var(--cream);
-      border-color: var(--green);
-    }
-    .trail-tag svg { width: 16px; height: 16px; }
 
     /* ===== COMMUNITY & REVIEWS ===== */
     .community { padding: 80px 0; background: var(--white); }
@@ -1622,7 +1585,7 @@
             <rect x="36" y="36" width="8" height="8" rx="1.5" fill="#4A5D3E" stroke="none"/>
             <rect x="36" y="48" width="8" height="8" rx="1.5" fill="#4A5D3E" stroke="none"/>
           </svg>
-          <span style="font-size:0.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.05em;">Scan at Vineyard</span>
+          <span style="font-size:0.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.05em;display:block;text-align:center;">Scan at Vineyard</span>
         </div>
         <div>
           <p class="section-label">Physical Integration &middot; Rheingau</p>
@@ -1659,54 +1622,66 @@
   <!-- ===== INTERACTIVE MAP ===== -->
   <section class="map-section" id="map">
     <div class="container">
-      <div class="map-header fade-up">
-        <p class="section-label">Region &amp; Terroir Browser</p>
-        <h2 class="section-title">Explore Wine Regions on the VineMap</h2>
-        <p class="section-subtitle">Navigate global wine trails, discover hidden vineyards, and plan your terroir journey.</p>
-      </div>
+      <div class="map-cols">
 
-      <div class="map-wrapper fade-up">
-        <!-- Decorative vineyard pins -->
-        <svg class="map-pin p1" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#6B1F3C"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/><path d="M13 18c2-3 3.5-4 5-4s3 1 5 4" stroke="#4A5D3E" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <svg class="map-pin p2 featured" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#D4AF37"/><circle cx="18" cy="15" r="6" fill="#FFF"/><path d="M15 15l2 2 4-4" stroke="#6B1F3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <svg class="map-pin p3" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#C97450"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/></svg>
-        <svg class="map-pin p4" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#6B1F3C"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/></svg>
-        <svg class="map-pin p5" viewBox="0 0 36 42" fill="none"><path d="M18 2C10.82 2 5 7.82 5 15c0 9.94 13 25 13 25s13-15.06 13-25c0-7.18-5.82-13-13-13z" fill="#4A5D3E"/><circle cx="18" cy="15" r="6" fill="#F5F1E8"/></svg>
-
-        <div class="map-placeholder">
-          <div class="map-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6B1F3C" stroke-width="2" stroke-linecap="round">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-              <circle cx="12" cy="9" r="2.5"/>
-            </svg>
-          </div>
-          <h3>Interactive VineMap</h3>
-          <p>Click a region to explore vineyards, terroir profiles, and bookable experiences on the trail.</p>
-          <button class="btn btn-primary" onclick="window.location.href='vinemap.html'">Launch Full Map</button>
+        <!-- LEFT: what the map is -->
+        <div class="map-intro fade-up">
+          <p class="section-label">Region &amp; Terroir Browser</p>
+          <h2 class="section-title">Explore Wine Regions on the VineMap</h2>
+          <p class="map-desc">
+            VineMap is your interactive guide to the world's finest wine regions.
+            Browse hundreds of estates, explore terroir profiles, and plan every
+            step of your tasting journey — all from one place.
+          </p>
+          <a href="vinemap.html" class="btn btn-primary map-cta">Launch VineMap</a>
         </div>
-      </div>
 
-      <div class="map-trails fade-up">
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>Bordeaux Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>Tuscany Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>Napa Valley Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>Armenian Highland Trail</span>
-        </span>
-        <span class="trail-tag">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>Rioja Trail</span>
-        </span>
+        <!-- RIGHT: customer benefits -->
+        <ul class="map-benefits fade-up">
+          <li>
+            <svg class="mb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div>
+              <strong>Find wineries near &amp; far</strong>
+              <span>Locate estates by distance from your position or any chosen town.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="mb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div>
+              <strong>Build multi-stop winery routes</strong>
+              <span>Organise a single trip to visit several estates in the most efficient order.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="mb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <div>
+              <strong>Filter by region, grape &amp; style</strong>
+              <span>Narrow your search to the exact terroir, variety, or classification you want.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="mb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <strong>Check availability &amp; book instantly</strong>
+              <span>See real-time tasting slots and reserve your experience without leaving the map.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="mb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <div>
+              <strong>Save &amp; share your personal trail</strong>
+              <span>Bookmark favourite estates and send your curated itinerary to travel companions.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="mb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div>
+              <strong>Discover hidden gem estates</strong>
+              <span>Surface boutique producers and lesser-known appellations beyond the tourist trail.</span>
+            </div>
+          </li>
+        </ul>
+
       </div>
     </div>
   </section>
