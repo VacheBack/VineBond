@@ -449,7 +449,7 @@ button, select, input, textarea { font-family: inherit; }
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: auto;
 }
 .nav-utility .btn { padding: 9px 20px; font-size: 0.78rem; }
 
@@ -818,6 +818,9 @@ footer {
   .nav-primary { gap: 8px; padding: 8px 16px; }
   .nav-primary a { flex-shrink: 0; padding: 6px 14px; font-size: 0.85rem; gap: 6px; min-height: 36px; }
   .nav-primary a svg { width: 18px; height: 18px; }
+
+  /* VineClub chip: desktop only */
+  .nav-primary li.vineclub-chip { display: none; }
 
   /* Desktop utility hidden; hamburger trigger shows */
   .nav-utility { display: none; }

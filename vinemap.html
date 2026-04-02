@@ -10,292 +10,542 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
-    /* ── VineMap Page Specific ── */
+    /* ══════════════════════════════════════════════════════
+       VineMap v2.0 — Two-Panel Workspace Layout
+       ══════════════════════════════════════════════════════ */
 
-    .map-controls {
-      background: var(--white);
+    /* ── Page hero (compact for workspace) ── */
+    .vm-page-hero {
+      padding: 20px 24px 12px;
+      background: var(--white, #fff);
       border-bottom: 1px solid #E8DFD0;
-      padding: 14px 0;
-      position: sticky;
-      top: 80px;
-      z-index: 400;
     }
-    .map-controls .container {
+    .vm-page-hero .section-label { margin-bottom: 2px; }
+    .vm-page-hero h1 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-bottom: 4px; }
+    .vm-page-hero p  { font-size: 0.85rem; color: var(--oak); margin: 0; }
+
+    /* ── Mobile filter chip bar (hidden on desktop) ── */
+    .vm-mobile-chips {
+      display: none;
+      background: var(--white, #fff);
+      border-bottom: 1px solid #E8DFD0;
+      padding: 10px 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 8px;
+    }
+    .vm-mobile-chips::-webkit-scrollbar { display: none; }
+
+    .vm-mobile-chip {
+      flex-shrink: 0;
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1.5px solid #DDD2BF;
+      background: var(--white, #fff);
+      color: var(--oak);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition, 0.28s ease);
+    }
+    .vm-mobile-chip:hover { border-color: var(--burgundy); color: var(--burgundy); }
+    .vm-mobile-chip.active { background: var(--burgundy); color: var(--cream); border-color: var(--burgundy); }
+
+    /* ── Workspace: sidebar + map ── */
+    .vm-workspace {
+      display: flex;
+      height: calc(100vh - 180px);
+      min-height: 480px;
+      overflow: hidden;
+    }
+
+    /* ── Left sidebar ── */
+    .vm-sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--white, #fff);
+      border-right: 1px solid #E8DFD0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #DDD2BF transparent;
+      flex-shrink: 0;
+    }
+    .vm-sidebar::-webkit-scrollbar { width: 5px; }
+    .vm-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .vm-sidebar::-webkit-scrollbar-thumb { background: #DDD2BF; border-radius: 10px; }
+
+    .vm-sidebar-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid #E8DFD0;
+      position: sticky;
+      top: 0;
+      background: var(--white, #fff);
+      z-index: 10;
     }
-    .map-controls-label {
-      font-size: 0.78rem;
+    .vm-sidebar-header h3 {
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--oak);
-      white-space: nowrap;
+      margin: 0;
     }
-    .map-filter-btn {
-      padding: 7px 18px;
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      border: 1.5px solid #DDD2BF;
-      background: var(--white);
-      color: var(--oak);
-      transition: var(--transition);
+    .vm-clear-btn {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--burgundy, #5C2632);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
     }
-    .map-filter-btn:hover { border-color: var(--burgundy); color: var(--burgundy); }
-    .map-filter-btn.active { background: var(--burgundy); color: var(--cream); border-color: var(--burgundy); }
-    .map-filter-btn.active-1g { background: var(--gold-warm); border-color: var(--gold-warm); color: #fff; }
+    .vm-clear-btn:hover { color: var(--vb-deep-maroon, #4A1F2A); }
 
-    .map-legend {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-left: auto;
+    /* Result count bar inside sidebar */
+    .vm-result-bar {
+      padding: 10px 18px;
+      border-bottom: 1px solid #E8DFD0;
+      font-size: 0.82rem;
+      color: var(--oak);
     }
-    .legend-item {
+    .vm-result-bar strong { color: var(--burgundy); font-weight: 700; }
+
+    /* Filter sections */
+    .vm-filter-section {
+      padding: 14px 18px;
+      border-bottom: 1px solid #F0EDE6;
+    }
+    .vm-filter-section:last-child { border-bottom: none; }
+
+    .vm-filter-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--vb-deep-maroon, #4A1F2A);
+      margin-bottom: 10px;
+    }
+
+    .vm-filter-item {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 0.8rem;
+      gap: 8px;
+      padding: 5px 0;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: var(--oak);
+      transition: color 0.15s;
+    }
+    .vm-filter-item:hover { color: var(--burgundy); }
+
+    .vm-filter-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #D0C9BD;
+      border-radius: 3px;
+      background: var(--white, #fff);
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: all 0.15s;
+    }
+    .vm-filter-item input[type="checkbox"]:checked {
+      background: var(--burgundy, #5C2632);
+      border-color: var(--burgundy, #5C2632);
+    }
+    .vm-filter-item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px; top: 1px;
+      width: 5px; height: 9px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .vm-filter-count {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--oak);
+      background: #F0EDE6;
+      padding: 1px 7px;
+      border-radius: 100px;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    /* Legend in sidebar */
+    .vm-legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 18px;
+      border-bottom: 1px solid #E8DFD0;
+    }
+    .vm-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--oak);
     }
-    .legend-dot {
-      width: 14px; height: 14px;
+    .vm-legend-dot {
+      width: 12px; height: 12px;
       border-radius: 50% 50% 50% 0;
       transform: rotate(-45deg);
       flex-shrink: 0;
     }
-    .legend-dot.gg { background: var(--burgundy); }
-    .legend-dot.first-growth { background: var(--gold-warm); }
+    .vm-legend-dot.gg { background: var(--burgundy, #5C2632); }
+    .vm-legend-dot.fg { background: var(--gold-warm, #B8960F); }
 
-    /* ── Map wrapper ── */
-    .map-section { padding: 0 0 64px; }
-    .map-outer {
-      padding: 0 24px;
-      max-width: 1240px;
-      margin: 0 auto;
+    /* ── Right panel (map) ── */
+    .vm-map-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-width: 0;
     }
+
+    /* Map toolbar */
+    .vm-map-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--white, #fff);
+      border-bottom: 1px solid #E8DFD0;
+      z-index: 10;
+    }
+    .vm-search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 320px;
+    }
+    .vm-search-wrap input {
+      width: 100%;
+      padding: 8px 14px 8px 36px;
+      border: 1.5px solid #DDD2BF;
+      border-radius: var(--radius-md, 12px);
+      font-size: 0.82rem;
+      color: var(--vb-deep-maroon, #4A1F2A);
+      background: var(--white, #fff);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .vm-search-wrap input:focus { border-color: var(--burgundy, #5C2632); }
+    .vm-search-wrap input::placeholder { color: var(--oak); }
+    .vm-search-icon {
+      position: absolute;
+      left: 11px; top: 50%;
+      transform: translateY(-50%);
+      width: 16px; height: 16px;
+      color: var(--oak);
+      pointer-events: none;
+    }
+
+    /* Search dropdown */
+    .vm-search-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: var(--white, #fff);
+      border: 1px solid #E8DFD0;
+      border-radius: var(--radius-md, 12px);
+      box-shadow: 0 8px 24px rgba(28,79,61,0.12);
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 500;
+      list-style: none;
+      padding: 4px;
+      margin: 0;
+    }
+    .vm-search-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: var(--vb-deep-maroon, #4A1F2A);
+      transition: background 0.12s;
+    }
+    .vm-search-item:hover { background: #F5F2ED; }
+    .vm-search-name { font-weight: 600; }
+    .vm-search-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 100px;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .vm-search-badge--gg { background: #5C2632; }
+    .vm-search-badge--1g { background: #B8960F; }
+
+    /* Reset view button */
+    .vm-reset-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-md, 12px);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1.5px solid #DDD2BF;
+      background: var(--white, #fff);
+      color: var(--oak);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition, 0.28s ease);
+    }
+    .vm-reset-btn:hover { border-color: var(--burgundy); color: var(--burgundy); }
+
+    /* Map container */
     #vinemap-container {
-      height: 72vh;
-      min-height: 480px;
-      border-radius: var(--radius-xl);
-      border: 2px solid #E8DFD0;
-      box-shadow: 0 8px 32px var(--shadow);
-      margin: 24px 0;
+      flex: 1;
+      min-height: 0;
       z-index: 1;
     }
 
-    /* Leaflet popup custom styles */
+    /* Empty state overlay */
+    .vm-empty-state {
+      display: none;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.95);
+      border-radius: var(--radius-xl, 24px);
+      padding: 40px 48px;
+      text-align: center;
+      z-index: 400;
+      box-shadow: 0 12px 40px rgba(28,79,61,0.12);
+      border: 1px solid #E8DFD0;
+    }
+    .vm-empty-state h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      margin: 0 0 8px;
+    }
+    .vm-empty-state p {
+      font-size: 0.88rem;
+      color: var(--oak);
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+    .vm-empty-state button {
+      padding: 10px 24px;
+      border-radius: var(--radius-md, 12px);
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: none;
+      background: var(--burgundy, #5C2632);
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .vm-empty-state button:hover { background: var(--vb-deep-maroon, #4A1F2A); }
+
+    /* ── Vineyard name labels on map ── */
+    .vine-label { background: none !important; border: none !important; }
+    .vine-label-text {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #4A1F2A;
+      text-shadow: 0 0 4px rgba(255,255,255,0.95), 0 0 8px rgba(255,255,255,0.8);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* ── Leaflet popup custom styles ── */
     .leaflet-popup-content-wrapper {
-      border-radius: var(--radius-lg) !important;
+      border-radius: var(--radius-lg, 16px) !important;
       padding: 0 !important;
       box-shadow: 0 12px 40px rgba(42,14,24,0.2) !important;
       border: 1px solid #E8DFD0 !important;
       overflow: hidden;
     }
-    .leaflet-popup-content {
-      margin: 0 !important;
-      width: 272px !important;
-    }
-    .leaflet-popup-tip { background: var(--white) !important; }
-    .leaflet-popup-close-button {
-      color: var(--oak) !important;
-      font-size: 18px !important;
-      top: 8px !important;
-      right: 10px !important;
-    }
+    .leaflet-popup-content { margin: 0 !important; width: 272px !important; }
+    .leaflet-popup-tip { background: var(--white, #fff) !important; }
+    .leaflet-popup-close-button { color: var(--oak) !important; font-size: 18px !important; top: 8px !important; right: 10px !important; }
 
-    /* Leaflet layer control */
     .leaflet-control-layers {
-      border-radius: var(--radius-md) !important;
+      border-radius: var(--radius-md, 12px) !important;
       border: 1px solid #E8DFD0 !important;
       font-family: 'Segoe UI', sans-serif !important;
       font-size: 0.83rem !important;
     }
-    .leaflet-control-layers-toggle { background-color: var(--white) !important; }
 
-    /* ── Trail tags below map ── */
-    .trail-tags {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-    .trail-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 18px;
-      background: var(--white);
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--green);
-      border: 1.5px solid rgba(74,93,62,0.22);
-      transition: var(--transition);
-    }
-    .trail-tag:hover { background: var(--green); color: var(--cream); border-color: var(--green); }
-    .trail-tag svg { width: 15px; height: 15px; }
+    /* ══════════════════════════════════════════════════════
+       RESPONSIVE
+       ══════════════════════════════════════════════════════ */
 
-    /* ── Sidebar info panel ── */
-    .map-info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-      padding: 32px 0;
-    }
-    .map-info-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      border: 1px solid #E8DFD0;
-      transition: var(--transition);
-    }
-    .map-info-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px var(--shadow); }
-    .map-info-card .info-icon { font-size: 1.8rem; margin-bottom: 10px; }
-    .map-info-card h4 { font-size: 1rem; font-weight: 700; color: var(--burgundy); margin-bottom: 6px; }
-    .map-info-card p { font-size: 0.87rem; color: var(--oak); line-height: 1.55; }
-    .map-info-card .info-stat {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--gold-warm);
-      margin-top: 10px;
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .vm-sidebar { width: 240px; min-width: 240px; }
     }
 
+    /* Mobile */
     @media (max-width: 768px) {
-      .map-controls { top: 64px; }
-      #vinemap-container { height: 55vh; min-height: 320px; border-radius: var(--radius-lg); }
-      .map-legend { display: none; }
-      .map-info-grid { grid-template-columns: 1fr; }
-      .map-filter-btn { min-height: 44px; padding: 8px 14px; }
+      .vm-sidebar { display: none; }
+      .vm-mobile-chips { display: flex; }
+      .vm-workspace { height: calc(100vh - 220px); min-height: 320px; }
+      .vm-map-toolbar { flex-wrap: wrap; }
+      .vm-search-wrap { max-width: none; }
+      .vm-page-hero h1 { font-size: 1rem; }
+      .vm-page-hero p { font-size: 0.8rem; }
+      .leaflet-popup-content { width: 240px !important; }
     }
 
-    /* ── M — Large Phone (≤ 479px) ─────────────────────── */
     @media (max-width: 479px) {
-      .map-controls .container {
-        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; scroll-snap-type: x mandatory;
-      }
-      .map-controls .container::-webkit-scrollbar { display: none; }
-      .map-filter-btn { flex-shrink: 0; scroll-snap-align: start; font-size: 0.75rem; padding: 6px 12px; }
-      .map-controls-label { display: none; }
-      #vinemap-container { height: 50vh; min-height: 280px; }
-      .map-outer { padding: 0 12px; }
-      .map-info-card { padding: 16px; }
-      .map-info-card h4 { font-size: 0.9rem; }
-      .trail-tags {
-        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .trail-tags::-webkit-scrollbar { display: none; }
-      .trail-tag { flex-shrink: 0; }
+      .vm-workspace { height: calc(100vh - 240px); min-height: 280px; }
+      .vm-map-toolbar { padding: 8px 12px; gap: 6px; }
+      .vm-search-wrap input { font-size: 0.78rem; padding: 7px 12px 7px 32px; }
+      .vm-reset-btn { padding: 7px 12px; font-size: 0.74rem; }
+      .vm-mobile-chips { padding: 8px 12px; gap: 6px; }
+      .vm-mobile-chip { font-size: 0.72rem; padding: 6px 12px; }
+      .vm-page-hero { padding: 14px 16px 10px; }
       .leaflet-popup-content { width: 220px !important; }
     }
 
-    /* ── XS — Small Phone (≤ 374px) ────────────────────── */
     @media (max-width: 374px) {
-      .map-filter-btn { font-size: 0.7rem; padding: 6px 10px; }
       .leaflet-popup-content { width: 200px !important; }
-      .map-info-card p { font-size: 0.82rem; }
-      .map-info-card .info-stat { font-size: 1.2rem; }
+      .vm-mobile-chip { font-size: 0.68rem; padding: 5px 10px; }
     }
 
-    /* ── 2XS — Budget Phone (≤ 320px) ──────────────────── */
-    @media (max-width: 320px) {
-      .map-outer { padding: 0 8px; }
-      #vinemap-container { height: 45vh; min-height: 240px; border-radius: var(--radius-md); }
-      .map-filter-btn { font-size: 0.65rem; padding: 5px 8px; min-height: 40px; }
-      .leaflet-popup-content { width: 180px !important; }
-      .leaflet-popup-content-wrapper { border-radius: var(--radius-md) !important; }
-      .map-info-card { padding: 12px; }
-      .map-info-card h4 { font-size: 0.82rem; }
-      .map-info-card p { font-size: 0.78rem; }
-      .map-info-card .info-stat { font-size: 1.1rem; }
-      .trail-tag { padding: 6px 12px; font-size: 0.75rem; }
-      .map-results-count { font-size: 0.8rem; }
-    }
-
-    /* ── Landscape Phone ───────────────────────────────── */
+    /* Landscape phone */
     @media (max-height: 500px) and (orientation: landscape) {
-      .map-controls { top: 48px; }
-      .page-hero { margin-top: 48px; padding: 20px 0 12px; }
-      #vinemap-container { height: 70vh; min-height: 200px; }
+      .vm-page-hero { padding: 10px 16px 6px; }
+      .vm-page-hero h1 { font-size: 0.95rem; }
+      .vm-workspace { height: calc(100vh - 130px); }
     }
 
-    /* ── Tall mobile — better map proportion ───────────── */
-    @media (min-height: 700px) and (max-width: 768px) {
-      #vinemap-container { height: 60vh; }
-    }
+    /* ══════════════════════════════════════════════════════
+       DARK MODE
+       ══════════════════════════════════════════════════════ */
 
-    /* ── Map result count row ── */
-    .map-results-bar { background: #fff; border-bottom: 1px solid #E8DFD0; padding: 8px 0; }
-    .map-results-count { font-size: 0.88rem; color: var(--vb-medium-gray, #8B8578); margin: 0; }
-    .map-results-count strong { color: var(--vb-burgundy, #5C2632); font-weight: 700; }
-
-    /* ── Dark Mode Overrides ── */
-    [data-theme="dark"] .map-controls {
+    [data-theme="dark"] .vm-page-hero,
+    [data-theme="dark"] .vm-sidebar,
+    [data-theme="dark"] .vm-sidebar-header,
+    [data-theme="dark"] .vm-map-toolbar,
+    [data-theme="dark"] .vm-mobile-chips {
       background: #0E1917;
-      border-bottom-color: rgba(90,150,144,0.18);
+      border-color: rgba(90,150,144,0.18);
     }
-    [data-theme="dark"] .map-filter-btn {
+    [data-theme="dark"] .vm-page-hero { border-bottom-color: rgba(90,150,144,0.18); }
+    [data-theme="dark"] .vm-sidebar { border-right-color: rgba(90,150,144,0.18); }
+    [data-theme="dark"] .vm-sidebar-header { border-bottom-color: rgba(90,150,144,0.18); }
+    [data-theme="dark"] .vm-sidebar-header h3,
+    [data-theme="dark"] .vm-filter-title { color: #C8C2B8; }
+    [data-theme="dark"] .vm-filter-item { color: #A8A298; }
+    [data-theme="dark"] .vm-filter-item:hover { color: #EDE8E0; }
+    [data-theme="dark"] .vm-filter-item input[type="checkbox"] {
+      background: #162321;
+      border-color: rgba(90,150,144,0.35);
+    }
+    [data-theme="dark"] .vm-filter-item input[type="checkbox"]:checked {
+      background: #432323;
+      border-color: #432323;
+    }
+    [data-theme="dark"] .vm-filter-section { border-bottom-color: rgba(90,150,144,0.12); }
+    [data-theme="dark"] .vm-filter-count { background: rgba(90,150,144,0.15); color: #A8A298; }
+    [data-theme="dark"] .vm-legend { border-bottom-color: rgba(90,150,144,0.18); }
+    [data-theme="dark"] .vm-legend-item { color: #A8A298; }
+    [data-theme="dark"] .vm-result-bar { border-bottom-color: rgba(90,150,144,0.18); color: #A8A298; }
+    [data-theme="dark"] .vm-result-bar strong { color: #D4A0A8; }
+    [data-theme="dark"] .vm-clear-btn { color: #D4A0A8; }
+
+    [data-theme="dark"] .vm-search-wrap input {
       background: #162321;
       border-color: rgba(90,150,144,0.35);
       color: #EDE8E0;
     }
-    [data-theme="dark"] .map-filter-btn:hover {
-      border-color: #5A9690;
-      color: #5A9690;
-    }
-    [data-theme="dark"] .map-filter-btn.active {
-      background: #432323;
-      color: #EDE8E0;
-      border-color: #432323;
-    }
-    [data-theme="dark"] .map-filter-btn.active-1g {
-      background: #B8960F;
-      border-color: #B8960F;
-      color: #EDE8E0;
-    }
-    [data-theme="dark"] #vinemap-container {
+    [data-theme="dark"] .vm-search-wrap input:focus { border-color: #5A9690; }
+    [data-theme="dark"] .vm-search-icon { color: #A8A298; }
+    [data-theme="dark"] .vm-search-dropdown {
+      background: #0E1917;
       border-color: rgba(90,150,144,0.25);
     }
-    [data-theme="dark"] .map-results-bar {
-      background: #0E1917;
-      border-bottom-color: rgba(90,150,144,0.18);
+    [data-theme="dark"] .vm-search-item { color: #EDE8E0; }
+    [data-theme="dark"] .vm-search-item:hover { background: rgba(90,150,144,0.1); }
+
+    [data-theme="dark"] .vm-reset-btn {
+      background: #162321;
+      border-color: rgba(90,150,144,0.35);
+      color: #A8A298;
     }
+    [data-theme="dark"] .vm-reset-btn:hover { border-color: #5A9690; color: #5A9690; }
+
+    [data-theme="dark"] .vm-mobile-chip {
+      background: #162321;
+      border-color: rgba(90,150,144,0.35);
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] .vm-mobile-chip:hover { border-color: #5A9690; color: #5A9690; }
+    [data-theme="dark"] .vm-mobile-chip.active {
+      background: #432323; color: #EDE8E0; border-color: #432323;
+    }
+
+    [data-theme="dark"] .vm-empty-state {
+      background: rgba(14,25,23,0.95);
+      border-color: rgba(90,150,144,0.25);
+    }
+    [data-theme="dark"] .vm-empty-state h3 { color: #D4A0A8; }
+    [data-theme="dark"] .vm-empty-state p { color: #A8A298; }
+
+    [data-theme="dark"] .vine-label-text {
+      color: #EDE8E0;
+      text-shadow: 0 0 4px rgba(14,25,23,0.95), 0 0 8px rgba(14,25,23,0.8);
+    }
+
+    [data-theme="dark"] #vinemap-container { border-color: rgba(90,150,144,0.25); }
+
+    /* prefers-color-scheme fallback (same as above) */
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) .map-controls {
+      :root:not([data-theme="light"]) .vm-page-hero,
+      :root:not([data-theme="light"]) .vm-sidebar,
+      :root:not([data-theme="light"]) .vm-sidebar-header,
+      :root:not([data-theme="light"]) .vm-map-toolbar,
+      :root:not([data-theme="light"]) .vm-mobile-chips {
         background: #0E1917;
-        border-bottom-color: rgba(90,150,144,0.18);
+        border-color: rgba(90,150,144,0.18);
       }
-      :root:not([data-theme="light"]) .map-filter-btn {
-        background: #162321;
-        border-color: rgba(90,150,144,0.35);
+      :root:not([data-theme="light"]) .vm-sidebar { border-right-color: rgba(90,150,144,0.18); }
+      :root:not([data-theme="light"]) .vm-filter-item { color: #A8A298; }
+      :root:not([data-theme="light"]) .vm-filter-item input[type="checkbox"] {
+        background: #162321; border-color: rgba(90,150,144,0.35);
+      }
+      :root:not([data-theme="light"]) .vm-filter-item input[type="checkbox"]:checked {
+        background: #432323; border-color: #432323;
+      }
+      :root:not([data-theme="light"]) .vm-filter-section { border-bottom-color: rgba(90,150,144,0.12); }
+      :root:not([data-theme="light"]) .vm-search-wrap input {
+        background: #162321; border-color: rgba(90,150,144,0.35); color: #EDE8E0;
+      }
+      :root:not([data-theme="light"]) .vm-reset-btn {
+        background: #162321; border-color: rgba(90,150,144,0.35); color: #A8A298;
+      }
+      :root:not([data-theme="light"]) .vm-mobile-chip {
+        background: #162321; border-color: rgba(90,150,144,0.35); color: #EDE8E0;
+      }
+      :root:not([data-theme="light"]) .vm-mobile-chip.active {
+        background: #432323; color: #EDE8E0; border-color: #432323;
+      }
+      :root:not([data-theme="light"]) .vine-label-text {
         color: #EDE8E0;
-      }
-      :root:not([data-theme="light"]) .map-filter-btn:hover {
-        border-color: #5A9690;
-        color: #5A9690;
-      }
-      :root:not([data-theme="light"]) .map-filter-btn.active {
-        background: #432323;
-        color: #EDE8E0;
-        border-color: #432323;
-      }
-      :root:not([data-theme="light"]) .map-filter-btn.active-1g {
-        background: #B8960F;
-        border-color: #B8960F;
-        color: #EDE8E0;
-      }
-      :root:not([data-theme="light"]) #vinemap-container {
-        border-color: rgba(90,150,144,0.25);
-      }
-      :root:not([data-theme="light"]) .map-results-bar {
-        background: #0E1917;
-        border-bottom-color: rgba(90,150,144,0.18);
+        text-shadow: 0 0 4px rgba(14,25,23,0.95), 0 0 8px rgba(14,25,23,0.8);
       }
     }
   </style>
@@ -337,6 +587,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             <span>VineMap</span>
           </a></li>
+          <li class="vineclub-chip"><a href="vineclub.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span>VineClub</span>
+          </a></li>
         </ul>
       </div>
     </nav>
@@ -374,55 +628,203 @@
     </div>
   </div>
 
-  <!-- ── PAGE HERO ── -->
-  <section class="page-hero" id="main-content">
-    <div class="container">
-      <nav class="vb-breadcrumb" aria-label="Breadcrumb">
-        <a href="index.html">VineBond</a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        <span>VineMap</span>
-      </nav>
-      <span class="section-label">Interactive Wine Region Map</span>
-      <h1 class="section-title">Rheingau — Grosses Gewächs & Erstes Gewächs</h1>
-      <p class="section-subtitle">Explore the precise vineyard sites of Germany's most prestigious white wine region. Click any marker to view terroir details and book a visit.</p>
-    </div>
+  <!-- ── COMPACT PAGE HERO ── -->
+  <section class="vm-page-hero" id="main-content">
+    <nav class="vb-breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">VineBond</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span>VineMap</span>
+    </nav>
+    <span class="section-label">Interactive Wine Region Map</span>
+    <h1 class="section-title">Rheingau — Grosses Gewächs & Erstes Gewächs</h1>
+    <p>Explore vineyard sites, filter by classification, grape, village, or tour type.</p>
   </section>
 
-  <!-- ── MAP CONTROLS ── -->
-  <div class="map-controls">
-    <div class="container">
-      <span class="map-controls-label">Filter:</span>
-      <button class="map-filter-btn active" data-filter="all">All Sites</button>
-      <button class="map-filter-btn" data-filter="GG">GG Only</button>
-      <button class="map-filter-btn" data-filter="1G">1G Only</button>
-      <div class="map-legend">
-        <div class="legend-item">
-          <span class="legend-dot gg"></span>
-          <span>Grosses Gewächs (GG)</span>
+  <!-- ── MOBILE FILTER CHIPS (visible < 768px) ── -->
+  <div class="vm-mobile-chips" id="vmMobileChips">
+    <button class="vm-mobile-chip active" data-mfilter="all">All</button>
+    <button class="vm-mobile-chip" data-mfilter="GG">GG</button>
+    <button class="vm-mobile-chip" data-mfilter="1G">1G</button>
+    <button class="vm-mobile-chip" data-mfilter="Riesling">Riesling</button>
+    <button class="vm-mobile-chip" data-mfilter="Spätburgunder">Pinot Noir</button>
+    <button class="vm-mobile-chip" data-mfilter="Tasting">Tasting</button>
+    <button class="vm-mobile-chip" data-mfilter="Vineyard Walk">Walk</button>
+    <button class="vm-mobile-chip" data-mfilter="Cellar Tour">Cellar</button>
+  </div>
+
+  <!-- ── TWO-PANEL WORKSPACE ── -->
+  <div class="vm-workspace">
+
+    <!-- LEFT: Filter Sidebar -->
+    <aside class="vm-sidebar" aria-label="Filter vineyards">
+
+      <div class="vm-sidebar-header">
+        <h3>Filter by</h3>
+        <button class="vm-clear-btn" id="vmClearFilters">Clear all</button>
+      </div>
+
+      <!-- Result count -->
+      <div class="vm-result-bar">
+        Showing <strong id="vmResultCount">14</strong> of <span id="vmTotalCount">14</span> vineyard sites
+      </div>
+
+      <!-- Legend -->
+      <div class="vm-legend">
+        <div class="vm-legend-item">
+          <span class="vm-legend-dot gg"></span>
+          <span>Grosses Gewächs</span>
         </div>
-        <div class="legend-item">
-          <span class="legend-dot first-growth"></span>
-          <span>Erstes Gewächs (1G)</span>
+        <div class="vm-legend-item">
+          <span class="vm-legend-dot fg"></span>
+          <span>Erstes Gewächs</span>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ── MAP RESULT COUNT ── -->
-  <div class="map-results-bar">
-    <div class="map-outer">
-      <p class="map-results-count">Showing <strong>14</strong> <span>Rheingau Vineyard Sites</span></p>
-    </div>
-  </div>
+      <!-- Classification -->
+      <div class="vm-filter-section" id="filterClassification">
+        <div class="vm-filter-title">Classification</div>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="GG" />
+          <span>Grosses Gewächs (GG)</span>
+          <span class="vm-filter-count">10</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="1G" />
+          <span>Erstes Gewächs (1G)</span>
+          <span class="vm-filter-count">4</span>
+        </label>
+      </div>
 
-  <!-- ── MAP ── -->
-  <section class="map-section">
-    <div class="map-outer">
-      <!-- Leaflet map renders here -->
+      <!-- Grape Variety -->
+      <div class="vm-filter-section" id="filterGrape">
+        <div class="vm-filter-title">Grape Variety</div>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Riesling" />
+          <span>Riesling</span>
+          <span class="vm-filter-count">13</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Spätburgunder" />
+          <span>Spätburgunder (Pinot Noir)</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+      </div>
+
+      <!-- Village / Location -->
+      <div class="vm-filter-section" id="filterVillage">
+        <div class="vm-filter-title">Village</div>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Rüdesheim" />
+          <span>Rüdesheim</span>
+          <span class="vm-filter-count">2</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Johannisberg" />
+          <span>Johannisberg</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Geisenheim" />
+          <span>Geisenheim</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Winkel" />
+          <span>Winkel</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Erbach" />
+          <span>Erbach</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Hattenheim" />
+          <span>Hattenheim</span>
+          <span class="vm-filter-count">2</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Rauenthal" />
+          <span>Rauenthal</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Kiedrich" />
+          <span>Kiedrich</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Hallgarten" />
+          <span>Hallgarten</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Eltville" />
+          <span>Eltville</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Assmannshausen" />
+          <span>Assmannshausen</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Hochheim" />
+          <span>Hochheim</span>
+          <span class="vm-filter-count">1</span>
+        </label>
+      </div>
+
+      <!-- Tour Type -->
+      <div class="vm-filter-section" id="filterTour">
+        <div class="vm-filter-title">Tour Type</div>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Tasting" />
+          <span>Tasting</span>
+          <span class="vm-filter-count">14</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Vineyard Walk" />
+          <span>Vineyard Walk</span>
+          <span class="vm-filter-count">9</span>
+        </label>
+        <label class="vm-filter-item">
+          <input type="checkbox" value="Cellar Tour" />
+          <span>Cellar Tour</span>
+          <span class="vm-filter-count">8</span>
+        </label>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT: Map Panel -->
+    <div class="vm-map-panel">
+
+      <!-- Map Toolbar -->
+      <div class="vm-map-toolbar">
+        <div class="vm-search-wrap">
+          <svg class="vm-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="vmSearchInput" placeholder="Search vineyard, estate, or village..." autocomplete="off" />
+          <ul class="vm-search-dropdown" id="vmSearchResults"></ul>
+        </div>
+        <button class="vm-reset-btn" id="vmResetView">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px;"><path d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+          Reset View
+        </button>
+      </div>
+
+      <!-- Leaflet Map -->
       <div id="vinemap-container"></div>
 
+      <!-- Empty State (shown when all filters exclude everything) -->
+      <div class="vm-empty-state" id="vmEmptyState">
+        <h3>No vineyards match</h3>
+        <p>Try adjusting your filters or clearing them to see all Rheingau vineyard sites.</p>
+        <button onclick="document.getElementById('vmClearFilters').click()">Clear All Filters</button>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <hr class="divider" />
 
@@ -453,7 +855,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 VineBond. All rights reserved.</p>
+        <p>&copy; 2026 VineBond. All rights reserved.</p>
         <p>Adults 18+ only. Please enjoy responsibly.</p>
       </div>
     </div>
@@ -493,17 +895,35 @@
     navBackdrop.addEventListener('click', closeMenu);
     window.addEventListener('resize', () => { if (window.innerWidth > 768 && menuIsOpen) closeMenu(); });
 
-    /* Scroll reveal */
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    /* ── Mobile filter chips ── */
+    document.querySelectorAll('.vm-mobile-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const val = chip.dataset.mfilter;
 
-    /* Trail tag click */
-    document.querySelectorAll('.trail-tag').forEach(tag => {
-      tag.addEventListener('click', () => {
-        document.querySelectorAll('.trail-tag').forEach(t => { t.style.background = ''; t.style.color = ''; t.style.borderColor = ''; });
-        tag.style.background = '#4A5D3E'; tag.style.color = '#F5F1E8'; tag.style.borderColor = '#4A5D3E';
+        if (val === 'all') {
+          /* Clear everything, activate "All" */
+          document.querySelectorAll('.vm-mobile-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          /* Clear sidebar filters too (for state consistency) */
+          document.querySelectorAll('.vm-sidebar input[type="checkbox"]').forEach(cb => cb.checked = false);
+          /* Trigger clear */
+          const evt = new Event('change');
+          document.querySelectorAll('.vm-sidebar input[type="checkbox"]').forEach(cb => cb.dispatchEvent(evt));
+          document.getElementById('vmClearFilters').click();
+        } else {
+          /* Toggle this chip */
+          document.querySelector('.vm-mobile-chip[data-mfilter="all"]').classList.remove('active');
+          chip.classList.toggle('active');
+
+          /* Build combined filter from active chips */
+          const activeChips = [...document.querySelectorAll('.vm-mobile-chip.active')].map(c => c.dataset.mfilter);
+
+          /* Clear sidebar checkboxes */
+          document.querySelectorAll('.vm-sidebar input[type="checkbox"]').forEach(cb => {
+            cb.checked = activeChips.includes(cb.value);
+            cb.dispatchEvent(new Event('change'));
+          });
+        }
       });
     });
   </script>
