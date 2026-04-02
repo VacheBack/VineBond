@@ -9,18 +9,24 @@
   <style>
     /* ===== INDEX-SPECIFIC STYLES =====
        Base reset, :root variables, body, typography, buttons,
-       topbar, search, lang-toggle, and mobile-toggle all come
+       site-header, nav chips, lang-toggle, and mobile trigger all come
        from the shared vinebond.css linked above.
        Only index-page-specific rules live here. */
 
     /* ===== TOP BAR ===== */
     /* CTA scroll-hide animation (index only — inner pages don't have this) */
-    .topbar-cta {
+    .nav-utility {
       opacity: 1;
       visibility: visible;
       max-width: 500px;
       overflow: visible;
       transition: opacity 0.3s ease, visibility 0.3s ease, max-width 0.35s ease;
+    }
+    .site-header.scrolled .nav-utility {
+      opacity: 0;
+      visibility: hidden;
+      max-width: 0;
+      overflow: hidden;
     }
 
     /* ===== HERO ===== */
@@ -676,54 +682,15 @@
 
     @media (min-width: 769px) and (max-width: 1024px) {
       /* Override index-specific btn min-widths that would re-expand Sign In */
-      .topbar-cta .btn-secondary { min-width: auto; }
-      .topbar-cta .btn-primary   { min-width: auto; }
+      .nav-utility .btn-secondary { min-width: auto; }
+      .nav-utility .btn-primary   { min-width: auto; }
       /* Center badge icons when loyalty section collapses to single column */
       .loyalty-badges { justify-content: center; }
     }
 
     @media (max-width: 768px) {
-      /* ─── Topbar: stays a thin fixed bar, NEVER expands ── */
-      .topbar { height: 64px; min-height: 64px; overflow: visible; }
-      .topbar .container {
-        display: flex; align-items: center; justify-content: space-between;
-        height: 64px; padding: 0 16px; padding-left: 16px; flex-wrap: nowrap;
-      }
-      .topbar-logo  {
-        flex: 1;
-        position: static;
-        left: auto;
-        top: auto;
-        transform: none;
-      }
-      .lang-toggle  {
-        display: flex;
-        flex-shrink: 0;
-        margin-right: 8px;
-        position: static;
-        right: auto;
-        top: auto;
-        transform: none;
-      }
-      .mobile-toggle { display: flex; flex-shrink: 0; }
-      /* These stay hidden inside the topbar on mobile always */
-      .topbar-nav, .topbar-search { display: none !important; }
-      .topbar-cta {
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-        max-width: 0 !important;
-        overflow: hidden !important;
-      }
-      /* Topbar itself never changes appearance — no menu-open styles here */
-
-      /* ─── Standalone mobile menu overlay ──────────────────
-         Lives OUTSIDE the topbar — its own fixed element with
-         a plain solid background. No backdrop-filter, no
-         compositing conflict, works identically in all browsers.
-         Mobile overlay styles now live in vinebond.css (shared). */
-
-      .hero { margin-top: 64px; min-height: auto; }
+      /* Two-row header: 56px top row + ~52px chips row = 108px total */
+      .hero { margin-top: 108px; min-height: auto; }
       .hero .container { padding-top: 40px; padding-bottom: 40px; }
       .booking-row { grid-template-columns: 1fr; }
 
@@ -780,11 +747,11 @@
 
     /* Safe Areas — Notched / Dynamic-Island devices */
     @supports (padding: env(safe-area-inset-top)) {
-      .topbar { padding-top: env(safe-area-inset-top, 0); }
+      .site-header { padding-top: env(safe-area-inset-top, 0); }
       .hero { margin-top: calc(80px + env(safe-area-inset-top, 0)); }
       footer { padding-bottom: calc(32px + env(safe-area-inset-bottom, 0)); }
       @media (max-width: 768px) {
-        .hero { margin-top: calc(64px + env(safe-area-inset-top, 0)); }
+        .hero { margin-top: calc(108px + env(safe-area-inset-top, 0)); }
       }
     }
 
@@ -792,8 +759,8 @@
     .btn-primary  { min-width: 200px; }
     .btn-secondary { min-width: 160px; }
     .btn-gold     { min-width: 200px; }
-    .topbar-cta .btn-secondary { min-width: 160px; }
-    .topbar-cta .btn-primary  { min-width: 220px; }
+    .nav-utility .btn-secondary { min-width: 160px; }
+    .nav-utility .btn-primary  { min-width: 220px; }
     .hero-actions .btn { min-width: 220px; }
     .filter-apply { min-width: 120px; }
 
@@ -1337,103 +1304,91 @@
 
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
-  <!-- ===== TOP BAR ===== -->
-  <nav class="topbar" id="topbar">
-    <div class="container">
-      <a href="index.html" class="topbar-logo">
-        <div class="logo-icon">
-          <img src="Vache's team library.png" alt="VineBond logo" />
+  <!-- ===== SITE HEADER ===== -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-container" aria-label="Main navigation">
+
+      <!-- Row 1: Brand + Utility -->
+      <div class="nav-row-top">
+
+        <!-- Brand -->
+        <a href="index.html" class="nav-brand">
+          <div class="nav-brand-icon">
+            <img src="Vache's team library.png" alt="" aria-hidden="true" />
+          </div>
+          <span class="nav-brand-wordmark">VineBond</span>
+        </a>
+
+        <!-- Utility zone — populated by nav-role.js -->
+        <div class="nav-utility" id="navUtility">
+          <a href="login.html" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Sign In</span>
+          </a>
+          <a href="login.html" class="btn btn-primary btn-sm"><span>Register</span></a>
         </div>
-        VineBond
-      </a>
 
-      <div class="topbar-nav" id="topbarNav">
-        <a href="winery.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/>
-            <path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/>
-          </svg>
-          <span>Wineries</span>
-        </a>
-        <a href="book.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"/>
-            <path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
-          <span>Book</span>
-        </a>
-        <a href="vinemap.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-            <circle cx="12" cy="9" r="2.5"/>
-          </svg>
-          <span>VineMap</span>
-        </a>
-        <a href="vineclub.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-          <span>VineClub</span>
-        </a>
+        <!-- Mobile hamburger -->
+        <button class="nav-mobile-trigger" id="navMobileTrigger"
+                aria-label="Open menu" aria-expanded="false"
+                aria-controls="navSheet">
+          <span></span><span></span><span></span>
+        </button>
       </div>
 
-      <div class="topbar-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="search" id="winerySearch"
-               placeholder="Search wineries…" />
+      <!-- Row 2: Primary nav chips (always visible on mobile) -->
+      <div class="nav-row-chips" aria-label="Product navigation">
+        <ul class="nav-primary" id="navPrimary" role="list">
+          <li><a href="winery.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
+            <span>Wineries</span>
+          </a></li>
+          <li><a href="book.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span>Book</span>
+          </a></li>
+          <li><a href="vinemap.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span>VineMap</span>
+          </a></li>
+        </ul>
       </div>
 
+    </nav>
+  </header>
 
-      <div class="topbar-cta" id="topbarCta">
-        <a href="login.html" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>Sign In</span>
-        </a>
-      </div>
+  <!-- Mobile utility sheet backdrop -->
+  <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
 
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
-        <span></span><span></span><span></span>
+  <!-- Mobile utility sheet -->
+  <div id="navSheet" class="nav-sheet" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div class="nav-sheet-header">
+      <span class="nav-sheet-title">Menu</span>
+      <button class="nav-sheet-close" id="navSheetClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-  </nav>
-
-  <!-- Backdrop overlay for mobile menu -->
-  <div id="menuBackdrop" class="menu-backdrop"></div>
-
-  <!-- ===== MOBILE MENU OVERLAY =====
-       Separate fixed element — completely outside the topbar's
-       backdrop-filter GPU layer. Solid background, no compositing issues. -->
-  <div id="mobileMenuOverlay" class="mobile-menu-overlay" role="dialog" aria-label="Navigation menu">
-    <!-- Search -->
-    <div class="mob-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" placeholder="Search wineries…" />
-    </div>
-    <!-- Nav links -->
-    <nav class="mob-nav">
-      <a href="winery.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
-        <span>Wineries</span>
-      </a>
-      <a href="book.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span>Book</span>
-      </a>
-      <a href="vinemap.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <span>VineMap</span>
-      </a>
-      <a href="vineclub.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <span>VineClub</span>
-      </a>
-    </nav>
-    <!-- CTA buttons -->
-    <div class="mob-cta">
-      <a href="login.html" class="btn btn-secondary">
+    <div class="nav-sheet-utility" id="navSheetUtility">
+      <a href="login.html" class="btn btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <span>Sign In</span>
+      </a>
+      <a href="login.html" class="btn btn-secondary"><span>Register</span></a>
+    </div>
+    <div class="nav-sheet-links">
+      <p class="nav-sheet-section-title">Explore</p>
+      <a href="vineclub.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>VineClub Membership</span>
+      </a>
+      <p class="nav-sheet-section-title">Support</p>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Help &amp; FAQ</span>
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Contact Us</span>
       </a>
     </div>
   </div>
@@ -1851,12 +1806,6 @@
       }).join('');
     })();
 
-    /* ---- Topbar scroll effect ---- */
-    const topbar = document.getElementById('topbar');
-    window.addEventListener('scroll', () => {
-      topbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
     /* ---- Scroll lock (position:fixed + document-level event blocking) ---- */
     let _lockedScrollY = 0;
     let _menuOpen = false;
@@ -1878,38 +1827,38 @@
     }
 
     /* ---- Mobile menu toggle ---- */
-    const mobileToggle      = document.getElementById('mobileToggle');
-    const menuBackdrop      = document.getElementById('menuBackdrop');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const navMobileTrigger = document.getElementById('navMobileTrigger');
+    const navBackdrop      = document.getElementById('navBackdrop');
+    const navSheet         = document.getElementById('navSheet');
 
     function openMenu() {
-      mobileMenuOverlay.classList.add('open');
-      menuBackdrop.classList.add('visible');
-      mobileToggle.setAttribute('aria-expanded', 'true');
+      navSheet.classList.add('open');
+      navBackdrop.classList.add('visible');
+      navMobileTrigger.setAttribute('aria-expanded', 'true');
       lockScroll();
     }
 
     function closeMenu() {
-      mobileMenuOverlay.classList.remove('open');
-      menuBackdrop.classList.remove('visible');
-      mobileToggle.setAttribute('aria-expanded', 'false');
+      navSheet.classList.remove('open');
+      navBackdrop.classList.remove('visible');
+      navMobileTrigger.setAttribute('aria-expanded', 'false');
       unlockScroll();
     }
 
-    mobileToggle.addEventListener('click', () => {
-      mobileMenuOverlay.classList.contains('open') ? closeMenu() : openMenu();
+    navMobileTrigger.addEventListener('click', () => {
+      navSheet.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    menuBackdrop.addEventListener('click', closeMenu);
+    navBackdrop.addEventListener('click', closeMenu);
 
-    // Close when any link inside the overlay is tapped
-    mobileMenuOverlay.querySelectorAll('a').forEach(a => {
+    // Close when any link inside the sheet is tapped
+    navSheet.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', closeMenu);
     });
 
     // Close menu when resized to desktop
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && mobileMenuOverlay.classList.contains('open')) {
+      if (window.innerWidth > 768 && navSheet.classList.contains('open')) {
         closeMenu();
       }
     });

@@ -1,8 +1,8 @@
 /* ── VineBond Nav Role Module ──────────────────────────────────────────────
    window.VineBondNav
-   Reads VineBondAuth.getRole() on DOMContentLoaded and rewrites #topbarCta
+   Reads VineBondAuth.getRole() on DOMContentLoaded and rewrites #navUtility
    to reflect the authenticated user's role state.
-   Also updates #mobileMenuOverlay .mob-cta when present (index.html only).
+   Also updates #navSheet .nav-sheet-utility when present (all pages).
    Depends on: js/auth.js (must load first)
    ─────────────────────────────────────────────────────────────────────────── */
 
@@ -20,6 +20,9 @@ window.VineBondNav = (function () {
   function _guestCta() {
     return '<a href="login.html" class="btn btn-secondary">' +
              ICON_SIGNIN + '<span>Sign In</span>' +
+           '</a>' +
+           '<a href="login.html" class="btn btn-primary btn-sm">' +
+             '<span>Register</span>' +
            '</a>';
   }
 
@@ -49,8 +52,11 @@ window.VineBondNav = (function () {
   }
 
   function _mobGuestCta() {
-    return '<a href="login.html" class="btn btn-secondary">' +
+    return '<a href="login.html" class="btn btn-primary">' +
              ICON_SIGNIN + '<span>Sign In</span>' +
+           '</a>' +
+           '<a href="login.html" class="btn btn-secondary">' +
+             '<span>Register</span>' +
            '</a>';
   }
 
@@ -86,7 +92,7 @@ window.VineBondNav = (function () {
 
     var role = VineBondAuth.getRole();
     var name = VineBondAuth.getDisplayName() || 'Guest';
-    var cta  = document.getElementById('topbarCta');
+    var cta  = document.getElementById('navUtility');
 
     if (cta) {
       if (role === VineBondAuth.ROLES.ADMIN) {
@@ -98,8 +104,8 @@ window.VineBondNav = (function () {
       }
     }
 
-    // Mobile menu overlay CTA (index.html only)
-    var mobCta = document.querySelector('#mobileMenuOverlay .mob-cta');
+    // Mobile sheet utility (all pages)
+    var mobCta = document.querySelector('#navSheet .nav-sheet-utility');
     if (mobCta) {
       if (role === VineBondAuth.ROLES.ADMIN) {
         mobCta.innerHTML = _mobAdminCta();

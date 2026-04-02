@@ -17,12 +17,8 @@
       border-bottom: 1px solid var(--vb-light-beige);
       padding: 14px 0;
       position: sticky;
-      top: 80px;
+      top: 108px;
       z-index: 100;
-      transition: top 0.28s cubic-bezier(0.4,0,0.2,1);
-    }
-    body:has(#topbar.scrolled) .filter-bar {
-      top: 64px;
     }
     .filter-bar .container {
       display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -225,7 +221,7 @@
     @media (max-width: 1024px) { .winery-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) {
       .winery-grid { grid-template-columns: 1fr; }
-      .filter-bar { top: 64px; }
+      .filter-bar { top: 108px; }
       .winery-details { grid-template-columns: 1fr; }
       .filter-dropdown-panel { position: fixed; left: 16px; right: 16px; width: auto; min-width: 0; }
       .filter-dropdown-panel .filter-dropdown-panel-inner { max-height: 40vh; }
@@ -340,78 +336,74 @@
 
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
-  <!-- TOP BAR -->
-  <nav class="topbar" id="topbar">
-    <div class="container">
-      <a href="index.html" class="topbar-logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
-            <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
-          </svg>
+  <!-- SITE HEADER -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-container" aria-label="Main navigation">
+      <div class="nav-row-top">
+        <a href="index.html" class="nav-brand">
+          <div class="nav-brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
+            </svg>
+          </div>
+          <span class="nav-brand-wordmark">VineBond</span>
+        </a>
+        <div class="nav-utility" id="navUtility">
+          <a href="login.html" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Sign In</span>
+          </a>
+          <a href="login.html" class="btn btn-primary btn-sm"><span>Register</span></a>
         </div>
-        VineBond
-      </a>
-      <div class="topbar-nav" id="topbarNav">
-        <a href="winery.html" class="active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
-          <span>Wineries</span>
-        </a>
-        <a href="book.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          <span>Book</span>
-        </a>
-        <a href="vinemap.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>VineMap</span>
-        </a>
-        <a href="vineclub.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <span>VineClub</span>
-        </a>
+        <button class="nav-mobile-trigger" id="navMobileTrigger" aria-label="Open menu" aria-expanded="false" aria-controls="navSheet"><span></span><span></span><span></span></button>
       </div>
-      <div class="topbar-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="search" id="winerySearch" placeholder="Search wineries…" />
+      <div class="nav-row-chips">
+        <ul class="nav-primary" role="list">
+          <li><a href="winery.html" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
+            <span>Wineries</span>
+          </a></li>
+          <li><a href="book.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span>Book</span>
+          </a></li>
+          <li><a href="vinemap.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span>VineMap</span>
+          </a></li>
+        </ul>
       </div>
-      <div class="topbar-cta" id="topbarCta">
-        <a href="login.html" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>Sign In</span>
-        </a>
-      </div>
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
-  <div id="menuBackdrop" class="menu-backdrop"></div>
-
-  <!-- MOBILE MENU OVERLAY -->
-  <div id="mobileMenuOverlay" class="mobile-menu-overlay" role="dialog" aria-label="Navigation menu">
-    <div class="mob-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" placeholder="Search wineries…" />
-    </div>
-    <nav class="mob-nav">
-      <a href="winery.html" class="active">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
-        <span>Wineries</span>
-      </a>
-      <a href="book.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span>Book</span>
-      </a>
-      <a href="vinemap.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <span>VineMap</span>
-      </a>
-      <a href="vineclub.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <span>VineClub</span>
-      </a>
     </nav>
-    <div class="mob-cta">
-      <a href="login.html" class="btn btn-secondary">
+  </header>
+  <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
+  <div id="navSheet" class="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="nav-sheet-header">
+      <span class="nav-sheet-title">Menu</span>
+      <button class="nav-sheet-close" id="navSheetClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-sheet-utility" id="navSheetUtility">
+      <a href="login.html" class="btn btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <span>Sign In</span>
+      </a>
+      <a href="login.html" class="btn btn-secondary"><span>Register</span></a>
+    </div>
+    <div class="nav-sheet-links">
+      <p class="nav-sheet-section-title">Explore</p>
+      <a href="vineclub.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>VineClub Membership</span>
+      </a>
+      <p class="nav-sheet-section-title">Support</p>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Help &amp; FAQ</span>
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Contact Us</span>
       </a>
     </div>
   </div>
@@ -419,6 +411,10 @@
   <!-- FILTER BAR -->
   <div class="filter-bar" id="main-content">
     <div class="container">
+      <div class="filter-bar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="search" id="winerySearch" placeholder="Search wineries…" />
+      </div>
       <div class="filter-dropdowns" id="filterDropdowns">
         <!-- Populated dynamically by JS -->
       </div>
@@ -808,29 +804,31 @@
       document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
     }
 
-    /* ── Topbar & Mobile Menu ── */
-    var topbar = document.getElementById('topbar');
-    window.addEventListener('scroll', function() { topbar.classList.toggle('scrolled', window.scrollY > 40); });
-    var menuBackdrop = document.getElementById('menuBackdrop');
-    var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    /* ── Site Header & Nav Sheet ── */
+    var siteHeader = document.getElementById('siteHeader');
+    window.addEventListener('scroll', function() { siteHeader.classList.toggle('scrolled', window.scrollY > 40); });
+    var navBackdrop = document.getElementById('navBackdrop');
+    var navSheet = document.getElementById('navSheet');
+    var navTrigger = document.getElementById('navMobileTrigger');
     var menuIsOpen = false;
     function openMenu() {
-      mobileMenuOverlay.classList.add('open');
-      menuBackdrop.classList.add('visible');
+      navSheet.classList.add('open');
+      navBackdrop.classList.add('visible');
+      navTrigger.setAttribute('aria-expanded', 'true');
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       menuIsOpen = true;
     }
     function closeMenu() {
-      mobileMenuOverlay.classList.remove('open');
-      menuBackdrop.classList.remove('visible');
+      navSheet.classList.remove('open');
+      navBackdrop.classList.remove('visible');
+      navTrigger.setAttribute('aria-expanded', 'false');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       menuIsOpen = false;
     }
-    document.getElementById('mobileToggle').addEventListener('click', function() { menuIsOpen ? closeMenu() : openMenu(); });
-    menuBackdrop.addEventListener('click', closeMenu);
-    mobileMenuOverlay.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMenu); });
+    navTrigger.addEventListener('click', function() { menuIsOpen ? closeMenu() : openMenu(); });
+    navBackdrop.addEventListener('click', closeMenu);
     window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMenu(); });
 
     /* ── Intersection Observer ── */

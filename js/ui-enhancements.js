@@ -10,7 +10,7 @@
 
   onReady(() => {
     const backToTop = document.querySelector('[data-back-to-top]');
-    const topbar = document.getElementById('topbar');
+    const siteHeader = document.getElementById('siteHeader');
 
     const syncScrollUI = () => {
       if (backToTop) {
@@ -18,8 +18,8 @@
         backToTop.setAttribute('aria-hidden', window.scrollY > 420 ? 'false' : 'true');
       }
 
-      if (topbar) {
-        topbar.classList.toggle('scrolled', window.scrollY > 40);
+      if (siteHeader) {
+        siteHeader.classList.toggle('scrolled', window.scrollY > 40);
       }
     };
 
@@ -42,12 +42,23 @@
       });
     }
 
+    function _closeNavSheet() {
+      const sheet = document.getElementById('navSheet');
+      if (!sheet || !sheet.classList.contains('open')) return;
+      sheet.classList.remove('open');
+      const backdrop = document.getElementById('navBackdrop');
+      if (backdrop) backdrop.classList.remove('visible');
+      const trigger = document.getElementById('navMobileTrigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+
+    const sheetClose = document.getElementById('navSheetClose');
+    if (sheetClose) sheetClose.addEventListener('click', _closeNavSheet);
+
     document.addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape') return;
-      const bar = document.getElementById('topbar');
-      if (bar && bar.classList.contains('menu-open')) {
-        bar.classList.remove('menu-open');
-      }
+      if (e.key === 'Escape') _closeNavSheet();
     });
 
     syncScrollUI();

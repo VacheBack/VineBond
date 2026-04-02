@@ -28,7 +28,7 @@
     body { background: var(--vb-cream); min-height: 100vh; margin: 0; }
 
     /* ── Topbar (shared) ── */
-    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+    .site-header { z-index: 200; }
 
     /* ── Layout ── */
     .admin-layout {
@@ -483,42 +483,69 @@
 
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
-  <!-- TOPBAR -->
-  <nav class="topbar" id="topbar">
-    <div class="container">
-      <a href="index.html" class="topbar-logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
-            <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
-          </svg>
+  <!-- SITE HEADER -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-container" aria-label="Main navigation">
+      <div class="nav-row-top">
+        <a href="index.html" class="nav-brand">
+          <div class="nav-brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/><path d="M12 22v-6"/>
+            </svg>
+          </div>
+          <span class="nav-brand-wordmark">VineBond</span>
+        </a>
+        <div class="nav-utility" id="navUtility">
+          <!-- Populated by nav-role.js -->
         </div>
-        VineBond
-      </a>
-      <div class="topbar-nav" id="topbarNav">
-        <a href="winery.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
-          <span>Wineries</span>
-        </a>
-        <a href="book.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          <span>Book</span>
-        </a>
-        <a href="vinemap.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>VineMap</span>
-        </a>
-        <a href="vineclub.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <span>VineClub</span>
-        </a>
+        <button class="nav-mobile-trigger" id="navMobileTrigger" aria-label="Open menu" aria-expanded="false" aria-controls="navSheet"><span></span><span></span><span></span></button>
       </div>
-      <div class="topbar-cta" id="topbarCta">
-        <!-- Populated by nav-role.js -->
+      <div class="nav-row-chips">
+        <ul class="nav-primary" role="list">
+          <li><a href="winery.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
+            <span>Wineries</span>
+          </a></li>
+          <li><a href="book.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span>Book</span>
+          </a></li>
+          <li><a href="vinemap.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span>VineMap</span>
+          </a></li>
+        </ul>
       </div>
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+  <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
+  <div id="navSheet" class="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="nav-sheet-header">
+      <span class="nav-sheet-title">Menu</span>
+      <button class="nav-sheet-close" id="navSheetClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
-  </nav>
-  <div id="menuBackdrop" class="menu-backdrop"></div>
+    <div class="nav-sheet-utility" id="navSheetUtility">
+      <!-- Populated by nav-role.js -->
+    </div>
+    <div class="nav-sheet-links">
+      <p class="nav-sheet-section-title">Explore</p>
+      <a href="vineclub.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>VineClub Membership</span>
+      </a>
+      <p class="nav-sheet-section-title">Support</p>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Help &amp; FAQ</span>
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Contact Us</span>
+      </a>
+    </div>
+  </div>
 
   <!-- ADMIN LAYOUT -->
   <div class="admin-layout" id="main-content">
@@ -986,32 +1013,35 @@
       });
     });
 
-    // ── Topbar scroll ────────────────────────────────────────────────
-    var topbar = document.getElementById('topbar');
+    // ── Site header & nav sheet ──────────────────────────────────────
+    var siteHeader = document.getElementById('siteHeader');
     window.addEventListener('scroll', function () {
-      topbar.classList.toggle('scrolled', window.scrollY > 40);
+      siteHeader.classList.toggle('scrolled', window.scrollY > 40);
     });
-    var menuBackdrop = document.getElementById('menuBackdrop');
+    var navBackdrop = document.getElementById('navBackdrop');
+    var navSheet = document.getElementById('navSheet');
+    var navTrigger = document.getElementById('navMobileTrigger');
     var menuIsOpen = false;
     function openMobileMenu() {
-      topbar.classList.add('menu-open');
-      menuBackdrop.classList.add('visible');
+      navSheet.classList.add('open');
+      navBackdrop.classList.add('visible');
+      navTrigger.setAttribute('aria-expanded', 'true');
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       menuIsOpen = true;
     }
     function closeMobileMenu() {
-      topbar.classList.remove('menu-open');
-      menuBackdrop.classList.remove('visible');
+      navSheet.classList.remove('open');
+      navBackdrop.classList.remove('visible');
+      navTrigger.setAttribute('aria-expanded', 'false');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       menuIsOpen = false;
     }
-    document.getElementById('mobileToggle').addEventListener('click', function () {
+    navTrigger.addEventListener('click', function () {
       menuIsOpen ? closeMobileMenu() : openMobileMenu();
     });
-    menuBackdrop.addEventListener('click', closeMobileMenu);
-    document.querySelectorAll('.topbar-nav a').forEach(function(a) { a.addEventListener('click', closeMobileMenu); });
+    navBackdrop.addEventListener('click', closeMobileMenu);
     window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMobileMenu(); });
 
     // ── XSS-safe escape ─────────────────────────────────────────────
