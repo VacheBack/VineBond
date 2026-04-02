@@ -36,7 +36,7 @@
   40%       { transform: rotate(90deg); }
   60%       { transform: rotate(90deg); }
 }
-@media screen and (orientation: landscape) and (max-width: 1024px) {
+@media screen and (orientation: landscape) and (max-height: 500px) {
   #vb-landscape-block { display: flex; }
   body > *:not(#vb-landscape-block) { visibility: hidden; pointer-events: none; }
 }
