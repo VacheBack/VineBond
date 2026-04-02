@@ -270,25 +270,6 @@
         Earn credits with every booking and wine pre-purchase. Unlock exclusive tier benefits, collect shareable digital certificates, and experience Rheingau like never before.
       </p>
 
-      <!-- Tier preview strip -->
-      <div class="vc-tier-strip">
-        <div class="vc-tier-pill silver">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          Silver &nbsp;·&nbsp; 0–199 pts
-        </div>
-        <div class="vc-tier-pill gold">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          Gold &nbsp;·&nbsp; 200–499 pts
-        </div>
-        <div class="vc-tier-pill platinum">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-          Platinum &nbsp;·&nbsp; 500+ pts
-        </div>
-      </div>
-
-      <a href="#vc-register" class="btn btn-gold" style="min-width:220px;">
-        Join VineClub — It's Free
-      </a>
     </div>
   </section>
 
@@ -299,68 +280,87 @@
       <h2 class="vc-section-title">Choose Your Path</h2>
       <p class="vc-section-sub">Earn more credits, unlock richer rewards. Every booking takes you closer to the next level.</p>
 
-      <div class="vc-tiers-grid">
-
-        <!-- Silver -->
-        <div class="tier-card tier-silver fade-up">
-          <div class="tier-card-header">
-            <span class="tier-card-icon"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="15" r="6"/><path d="M8.5 8.5 7 3h10l-1.5 5.5"/><path d="M8.5 8.5C10 11 11 12 12 12s2-1 3.5-3.5"/></svg></span>
-            <span class="tier-card-name">Silver</span>
-            <span class="tier-card-range">0 – 199 pts</span>
-          </div>
-          <div class="tier-card-body">
-            <ul class="tier-benefits-list">
-              <li><span class="tier-benefit-check">✓</span> Welcome email &amp; member newsletter</li>
-              <li><span class="tier-benefit-check">✓</span> 5% discount on all bookings</li>
-              <li><span class="tier-benefit-check">✓</span> Access to members-only tasting notes</li>
-              <li><span class="tier-benefit-check">✓</span> Early access to seasonal offerings</li>
-              <li><span class="tier-benefit-check">✓</span> Downloadable Silver Certificate</li>
-            </ul>
-            <a href="#vc-register" class="tier-cta">Join Now</a>
-          </div>
-        </div>
-
-        <!-- Gold -->
-        <div class="tier-card tier-gold fade-up">
-          <div class="tier-card-header">
-            <span class="tier-card-icon"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="15" r="6"/><path d="M8.5 8.5 7 3h10l-1.5 5.5"/><path d="M8.5 8.5C10 11 11 12 12 12s2-1 3.5-3.5"/><line x1="12" y1="12" x2="12" y2="15"/></svg></span>
-            <span class="tier-card-name">Gold</span>
-            <span class="tier-card-range">200 – 499 pts</span>
-          </div>
-          <div class="tier-card-body">
-            <ul class="tier-benefits-list">
-              <li><span class="tier-benefit-check">✓</span> All Silver benefits</li>
-              <li><span class="tier-benefit-check">✓</span> 10% discount on all bookings</li>
-              <li><span class="tier-benefit-check">✓</span> Priority booking (72-hour window)</li>
-              <li><span class="tier-benefit-check">✓</span> Invitations to exclusive tasting events</li>
-              <li><span class="tier-benefit-check">✓</span> Complimentary glass on arrival</li>
-              <li><span class="tier-benefit-check">✓</span> Downloadable Gold Certificate</li>
-            </ul>
-            <a href="#vc-register" class="tier-cta">Join Now</a>
-          </div>
-        </div>
-
-        <!-- Platinum -->
-        <div class="tier-card tier-platinum fade-up">
-          <div class="tier-card-header">
-            <span class="tier-card-icon"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9z"/><line x1="2" y1="9" x2="22" y2="9"/></svg></span>
-            <span class="tier-card-name">Platinum</span>
-            <span class="tier-card-range">500+ pts</span>
-          </div>
-          <div class="tier-card-body">
-            <ul class="tier-benefits-list">
-              <li><span class="tier-benefit-check">✓</span> All Gold benefits</li>
-              <li><span class="tier-benefit-check">✓</span> 20% discount on all bookings</li>
-              <li><span class="tier-benefit-check">✓</span> VIP access to private cellar events</li>
-              <li><span class="tier-benefit-check">✓</span> Dedicated wine concierge service</li>
-              <li><span class="tier-benefit-check">✓</span> Complimentary private tasting (annual)</li>
-              <li><span class="tier-benefit-check">✓</span> Downloadable Platinum Certificate</li>
-            </ul>
-            <a href="#vc-register" class="tier-cta">Join Now</a>
-          </div>
-        </div>
-
+      <div class="vc-tier-table-wrap">
+        <table class="vc-tier-table" role="table">
+          <thead>
+            <tr>
+              <th class="benefit-col">Benefit</th>
+              <th class="tier-col tier-col-silver">Silver</th>
+              <th class="tier-col tier-col-gold">Gold</th>
+              <th class="tier-col tier-col-platinum">Platinum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="benefit-col">Welcome email &amp; member newsletter</td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Booking discount</td>
+              <td class="tier-col tier-val-silver">5%</td>
+              <td class="tier-col tier-val-gold">10%</td>
+              <td class="tier-col tier-val-platinum">20%</td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Members-only tasting notes</td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Early access to seasonal offerings</td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Priority booking (72-hour window)</td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Invitations to exclusive tasting events</td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Complimentary glass on arrival</td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">VIP access to private cellar events</td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Dedicated wine concierge service</td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="benefit-col">Complimentary private tasting (annual)</td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><span class="tier-dash" aria-label="Not included">—</span></td>
+              <td class="tier-col"><svg class="tier-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><polyline points="20 6 9 17 4 12"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+      <div class="vc-tiers-cta">
+        <a href="login.html" class="btn btn-gold" style="min-width:220px;">
+          Join VineClub — It's Free
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -414,264 +414,7 @@
     </div>
   </section>
 
-  <!-- ===== REGISTRATION FORM ===== -->
-  <section class="vc-register" id="vc-register">
-    <div class="container">
-      <span class="vc-section-label">Get Started</span>
-      <h2 class="vc-section-title">Create Your Account</h2>
-      <p class="vc-section-sub">Join thousands of wine lovers. Membership is free — credits start accumulating from your very first booking.</p>
 
-      <div class="form-card">
-
-        <!-- Step indicator -->
-        <div class="vc-steps" id="vcSteps">
-          <div class="vine-step active" data-step="1">
-            <div class="vine-step-circle">1</div>
-            <span class="vine-step-label">Personal</span>
-          </div>
-          <div class="vine-step" data-step="2">
-            <div class="vine-step-circle">2</div>
-            <span class="vine-step-label">Preferences</span>
-          </div>
-          <div class="vine-step" data-step="3">
-            <div class="vine-step-circle">3</div>
-            <span class="vine-step-label">Payment</span>
-          </div>
-        </div>
-
-        <!-- Step 1: Personal Details -->
-        <div class="form-step-panel active" id="vcStep1">
-          <p class="form-section-title">Personal Details</p>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label for="vcFirstName">First Name</label>
-              <input type="text" id="vcFirstName" placeholder="e.g. Elena" required />
-            </div>
-            <div class="form-field">
-              <label for="vcLastName">Last Name</label>
-              <input type="text" id="vcLastName" placeholder="e.g. Weber" required />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label for="vcEmail">Email Address</label>
-              <input type="email" id="vcEmail" placeholder="you@example.com" required />
-            </div>
-            <div class="form-field">
-              <label for="vcPhone">Phone (optional)</label>
-              <input type="tel" id="vcPhone" placeholder="+49 6722 …" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label for="vcDob">Date of Birth</label>
-              <input type="date" id="vcDob" required />
-            </div>
-            <div class="form-field">
-              <label for="vcCountry">Country</label>
-              <select id="vcCountry">
-                <option value="">Select country…</option>
-                <option value="DE">Germany</option>
-                <option value="AT">Austria</option>
-                <option value="CH">Switzerland</option>
-                <option value="FR">France</option>
-                <option value="IT">Italy</option>
-                <option value="ES">Spain</option>
-                <option value="GB">United Kingdom</option>
-                <option value="US">United States</option>
-                <option value="OTHER">Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="vc-step-nav">
-            <span></span>
-            <button class="btn btn-primary" id="vcNext1">Next &rarr;</button>
-          </div>
-        </div>
-
-        <!-- Step 2: Wine Preferences -->
-        <div class="form-step-panel" id="vcStep2">
-          <p class="form-section-title">Wine Preferences</p>
-
-          <p class="pref-section-title">Favourite wine styles</p>
-          <div class="pref-grid">
-            <div class="pref-item">
-              <input type="checkbox" id="pref-red" name="wine" value="red" />
-              <label for="pref-red"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l-2.5 7a4 4 0 0 1-7 0L6 3z"/><line x1="12" y1="14" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg> Red</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-white" name="wine" value="white" />
-              <label for="pref-white"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l1 8a3 3 0 0 1-3 3 3 3 0 0 1-3-3l1-8z"/><path d="M15 3h4l1 8a3 3 0 0 1-3 3 3 3 0 0 1-3-3l1-8z"/><line x1="7" y1="14" x2="7" y2="21"/><line x1="17" y1="14" x2="17" y2="21"/><line x1="4" y1="21" x2="10" y2="21"/><line x1="14" y1="21" x2="20" y2="21"/></svg> White</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-rose" name="wine" value="rose" />
-              <label for="pref-rose"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="11" r="2"/><path d="M12 9c0 0-1-3-1-5a1 1 0 0 1 2 0c0 2-1 5-1 5z"/><path d="M12 13c0 0-1 3-1 5a1 1 0 0 0 2 0c0-2-1-5-1-5z"/><path d="M10 11c0 0-3-1-5-1a1 1 0 0 0 0 2c2 0 5-1 5-1z"/><path d="M14 11c0 0 3-1 5-1a1 1 0 0 1 0 2c-2 0-5-1-5-1z"/></svg> Rosé</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-sparkling" name="wine" value="sparkling" />
-              <label for="pref-sparkling"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M5 3l.6 1.8 1.8.6-1.8.6L5 7.8l-.6-1.8L2.6 5.4l1.8-.6z"/><path d="M19 15l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"/></svg> Sparkling</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-dessert" name="wine" value="dessert" />
-              <label for="pref-dessert"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6V4h6v2"/><path d="M7 8h10l1 2v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9l1-2z"/><line x1="6" y1="10" x2="18" y2="10"/><path d="M12 13v4"/><path d="M10 15h4"/></svg> Dessert</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-natural" name="wine" value="natural" />
-              <label for="pref-natural"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-7 7-11 7-11s7 4 7 11a7 7 0 0 1-7 7z"/><path d="M11 20v-9"/></svg> Natural</label>
-            </div>
-          </div>
-
-          <p class="pref-section-title" style="margin-top:20px;">Experience interests</p>
-          <div class="pref-grid">
-            <div class="pref-item">
-              <input type="checkbox" id="pref-cellar" name="exp" value="cellar" />
-              <label for="pref-cellar"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><line x1="2" y1="22" x2="22" y2="22"/><path d="M12 2 2 8h20L12 2z"/><line x1="6" y1="8" x2="6" y2="22"/><line x1="10" y1="8" x2="10" y2="22"/><line x1="14" y1="8" x2="14" y2="22"/><line x1="18" y1="8" x2="18" y2="22"/></svg> Cellar Tours</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-tasting" name="exp" value="tasting" />
-              <label for="pref-tasting"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><line x1="7" y1="2" x2="7" y2="22"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg> Tastings</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-dinner" name="exp" value="dinner" />
-              <label for="pref-dinner"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="9" width="8" height="13" rx="1"/><path d="M12 9V6"/><path d="M12 6c0 0-1.5-2-1-3.5C11.5 1 13.5 1.5 13 3c-.3 1-1 3-1 3z"/></svg> Winemaker Dinners</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-walk" name="exp" value="walk" />
-              <label for="pref-walk"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M10.5 8.5 9 15l3-1.5 2 4.5"/><path d="M10.5 8.5l3 1.5 3-1"/><path d="M9 15l-2 5"/></svg> Vineyard Walks</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-harvest" name="exp" value="harvest" />
-              <label for="pref-harvest"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="2"/><circle cx="15" cy="9" r="2"/><circle cx="6" cy="14" r="2"/><circle cx="12" cy="14" r="2"/><circle cx="18" cy="14" r="2"/><circle cx="9" cy="19" r="2"/><circle cx="15" cy="19" r="2"/><path d="M12 7V4M12 4c0 0 2-2 4-1"/></svg> Harvest Events</label>
-            </div>
-            <div class="pref-item">
-              <input type="checkbox" id="pref-vip" name="exp" value="vip" />
-              <label for="pref-vip"><svg class="vb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> VIP Access</label>
-            </div>
-          </div>
-
-          <!-- Newsletter toggle -->
-          <label class="newsletter-toggle" for="vcNewsletter">
-            <div class="toggle-switch">
-              <input type="checkbox" id="vcNewsletter" checked />
-              <span class="toggle-track"></span>
-            </div>
-            <span class="toggle-label-text">Send me exclusive offers &amp; curated wine picks</span>
-          </label>
-
-          <div class="vc-step-nav">
-            <button class="btn btn-secondary" id="vcBack2">&larr; Back</button>
-            <button class="btn btn-primary" id="vcNext2">Next &rarr;</button>
-          </div>
-        </div>
-
-        <!-- Step 3: Payment Setup -->
-        <div class="form-step-panel" id="vcStep3">
-          <p class="form-section-title">Payment Setup</p>
-
-          <div class="vc-payment-notice">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <span>Your card is tokenised via Stripe. VineBond never stores or processes raw banking data — PCI DSS SAQ-A compliant.</span>
-          </div>
-
-          <div class="form-field">
-            <label>Cardholder Name</label>
-            <input type="text" id="vcCardName" placeholder="As it appears on your card" required />
-          </div>
-
-          <div class="form-field">
-            <label>Card Details</label>
-            <!-- Stripe Card Element mounts here -->
-            <div class="stripe-element-wrap" id="stripe-card-element"></div>
-            <div id="stripe-card-errors" class="stripe-error-msg" role="alert"></div>
-            <div class="stripe-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
-              <span>Secured by Stripe · 256-bit TLS encryption</span>
-            </div>
-          </div>
-
-          <div class="vc-step-nav">
-            <button class="btn btn-secondary" id="vcBack3">&larr; Back</button>
-            <button class="btn btn-primary" id="vcSubmit">Complete Registration</button>
-          </div>
-        </div>
-
-        <!-- Success state (shown after submit) -->
-        <div class="vc-success" id="vcSuccess">
-          <div class="vc-success-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h3>Welcome to VineClub!</h3>
-          <p>Your membership is confirmed. Your payment method has been securely saved via Stripe. Start earning credits from your very next booking — your Silver tier certificate is ready below.</p>
-          <a href="#vc-certificates" class="btn btn-primary" style="margin-top:24px;">View My Certificate</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== DIGITAL CERTIFICATES ===== -->
-  <section class="vc-certificates" id="vc-certificates">
-    <div class="container">
-      <span class="vc-section-label">Shareable Certificates</span>
-      <h2 class="vc-section-title">Your VineClub Certificate</h2>
-      <p class="vc-section-sub">Each tier comes with a beautiful digital certificate. Download it as a PNG or share a direct link.</p>
-
-      <div class="vc-certs-grid">
-
-        <div class="cert-wrap" id="certWrap-silver">
-          <p class="cert-tier-name">Silver</p>
-          <canvas class="cert-canvas" id="cert-silver" width="800" height="560" aria-label="Silver VineClub certificate"></canvas>
-          <div class="cert-actions">
-            <button class="cert-btn cert-btn-download" data-tier="silver">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download PNG
-            </button>
-            <button class="cert-btn cert-btn-share" data-tier="silver">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              Copy Link
-            </button>
-          </div>
-        </div>
-
-        <div class="cert-wrap" id="certWrap-gold">
-          <p class="cert-tier-name">Gold</p>
-          <canvas class="cert-canvas" id="cert-gold" width="800" height="560" aria-label="Gold VineClub certificate"></canvas>
-          <div class="cert-actions">
-            <button class="cert-btn cert-btn-download" data-tier="gold">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download PNG
-            </button>
-            <button class="cert-btn cert-btn-share" data-tier="gold">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              Copy Link
-            </button>
-          </div>
-        </div>
-
-        <div class="cert-wrap" id="certWrap-platinum">
-          <p class="cert-tier-name">Platinum</p>
-          <canvas class="cert-canvas" id="cert-platinum" width="800" height="560" aria-label="Platinum VineClub certificate"></canvas>
-          <div class="cert-actions">
-            <button class="cert-btn cert-btn-download" data-tier="platinum">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download PNG
-            </button>
-            <button class="cert-btn cert-btn-share" data-tier="platinum">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              Copy Link
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- ===== FOOTER ===== -->
   <footer>
@@ -761,7 +504,6 @@
   <script src="js/auth.js"></script>
   <script src="js/nav-role.js"></script>
   <script src="js/ui-enhancements.js"></script>
-  <script src="js/vineclub.js"></script>
   <script src="js/theme.js"></script>
 </body>
 </html>

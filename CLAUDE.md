@@ -9,9 +9,11 @@ VineBond is a static multi-page wine tourism platform (exploring vineyards, book
 ## Commands
 
 ```bash
-npm run serve          # Python HTTP server at localhost:8000
-npm test               # Playwright E2E tests (headless)
-npm run test:headed    # Playwright with browser UI visible
+npm run serve                                        # Python HTTP server at localhost:8000
+npm test                                             # Playwright E2E tests (headless)
+npm run test:headed                                  # Playwright with browser UI visible
+npx playwright test tests/auth.spec.js               # Run a single test file
+npx playwright test --grep "TC-01"                   # Run tests matching a pattern
 ```
 
 Playwright auto-starts the Python server before running tests.
@@ -40,6 +42,7 @@ All modules use global `window.*` namespaces (no module bundler).
 - **`vinemap.js`** — Leaflet.js v1.9.x map of 14 Rheingau sites (10 GG + 4 1G). Language for popups sourced from `localStorage.getItem('vb_lang')`.
 - **`vineclub.js`** — Multi-step registration, Stripe.js card tokenisation, Canvas API certificate generation (800×560px PNG download), URL hash routing (`#certificate/{tier}`).
 - **`ui-enhancements.js`** — Page progress bar, back-to-top button, topbar `.scrolled` class, winery search filtering. Uses `requestAnimationFrame` throttling.
+- **`theme.js`** (`window.VineBondTheme`) — OS-preference-only dark mode. Sets `data-theme` attribute on `<html>` based on `prefers-color-scheme`. No manual toggle — reacts to system changes in real time.
 
 ### Styling
 
@@ -69,4 +72,8 @@ All modules use global `window.*` namespaces (no module bundler).
 
 ## Testing
 
-Tests live in `tests/auth.spec.js` (Playwright). They cover role detection, localStorage persistence, nav CTA rendering per role, admin access control, and logout. Config: `playwright.config.js` (Chromium only, 15s timeout, screenshots on failure).
+Two spec files in `tests/`:
+- **`auth.spec.js`** — Role detection, localStorage persistence, nav CTA rendering per role, admin access control, and logout.
+- **`winery-filter-cascade.spec.js`** — Cascading filter dropdown behavior on `winery.html` (11 test cases: village/grape/classification cross-filtering, clear-all, zero-option hiding, result count).
+
+Config: `playwright.config.js` (Chromium only, 15s timeout, screenshots on failure).
