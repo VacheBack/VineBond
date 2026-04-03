@@ -457,7 +457,7 @@ button, select, input, textarea { font-family: inherit; }
 .nav-mobile-trigger { display: none; }
 
 /* Nav sheet backdrop and panel: hidden on desktop */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   #navSheet, .nav-sheet, .nav-backdrop { display: none !important; }
 }
 
@@ -789,12 +789,33 @@ footer {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* ── iPad Portrait — 769px–1024px compact header ───────────── */
+/* ── iPad Portrait — 769px–1024px: hamburger menu, hide chips ── */
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav-row-top { padding: 0 16px; }
-  .nav-primary { padding: 8px 16px; }
-  .nav-primary a { padding: 7px 12px; font-size: 0.85rem; }
-  .nav-utility .btn { padding: 8px 16px; min-width: auto; }
+  .nav-row-chips { display: none; }
+  .nav-utility { display: none; }
+  .nav-mobile-trigger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-mobile-trigger span {
+    width: 22px; height: 2.5px;
+    background: var(--vb-deep-maroon);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+  .nav-mobile-trigger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .nav-mobile-trigger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-mobile-trigger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 }
 
 /* ── XL — Tablet Portrait (≤ 768px → two-row mobile header) ── */
@@ -811,13 +832,8 @@ footer {
   .nav-brand { margin-right: 0; font-size: 1.25rem; gap: 8px; }
   .nav-brand-icon { width: 32px; height: 32px; }
 
-  /* Chip strip background on mobile */
-  .nav-row-chips { background: var(--vb-topbar-bg, rgba(255,255,255,0.93)); }
-
-  /* Chips: smaller on mobile */
-  .nav-primary { gap: 8px; padding: 8px 16px; }
-  .nav-primary a { flex-shrink: 0; padding: 6px 14px; font-size: 0.85rem; gap: 6px; min-height: 36px; }
-  .nav-primary a svg { width: 18px; height: 18px; }
+  /* Chip strip hidden on mobile — nav items move to sheet */
+  .nav-row-chips { display: none; }
 
   /* VineClub chip: desktop only */
   .nav-primary li.vineclub-chip { display: none; }
@@ -1584,7 +1600,7 @@ footer {
 
 /* ── Hero ─────────────────────────────────────────────────────── */
 .vc-hero {
-  margin-top: 80px;
+  margin-top: 105px;
   min-height: 280px;
   background: linear-gradient(135deg, #3D1525 0%, #6B1F3C 45%, #4A1528 100%);
   color: var(--white);
@@ -2164,8 +2180,11 @@ footer {
   .vc-tiers-grid { grid-template-columns: 1fr; }
   .vc-certs-grid { grid-template-columns: 1fr; }
 }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .vc-hero { margin-top: 64px; }
+}
 @media (max-width: 768px) {
-  .vc-hero { margin-top: 64px; min-height: 200px; padding: 32px 0; }
+  .vc-hero { margin-top: 56px; min-height: 200px; padding: 32px 0; }
   .vc-tiers, .vc-credits, .vc-register, .vc-certificates { padding: 48px 0; }
   .credit-table thead th { padding: 10px 12px; font-size: 0.7rem; }
   .credit-table tbody td { padding: 10px 12px; font-size: 0.85rem; }
