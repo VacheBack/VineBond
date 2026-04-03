@@ -580,10 +580,13 @@
     .vm-mobile-searchbar { display: none; }
 
     @media (max-width: 1024px) {
+      /* Hide page hero — search bar is the entry point on mobile/iPad */
+      .vm-page-hero { display: none; }
+
       .vm-mobile-searchbar {
         display: flex;
         align-items: center;
-        margin: 10px 14px 0;
+        margin: 74px 14px 0; /* 64px fixed header + 10px gap */
         height: 48px;
         background: #2A2A2A;
         border-radius: 100px;
@@ -712,13 +715,19 @@
       .vm-msb-result-name { font-weight: 600; }
       .vm-msb-result-sub { font-size: 0.72rem; color: #8B8578; margin-top: 1px; }
 
-      /* Workspace height — accounts for header + new search bar */
-      .vm-workspace { height: calc(100vh - 178px); }
+      /* Workspace height: 74px margin + 48px bar + 8px gap = 130px */
+      .vm-workspace { height: calc(100vh - 130px); }
+    }
+
+    /* Mobile override: header shrinks to 56px → adjust margin */
+    @media (max-width: 768px) {
+      .vm-mobile-searchbar { margin-top: 66px; } /* 56px header + 10px gap */
+      .vm-workspace { height: calc(100vh - 122px) !important; } /* 66+48+8 */
     }
 
     @media (max-width: 479px) {
-      .vm-mobile-searchbar { margin: 8px 10px 0; height: 46px; }
-      .vm-workspace { height: calc(100vh - 190px) !important; }
+      .vm-mobile-searchbar { margin: 64px 10px 0; height: 46px; } /* 56px header + 8px */
+      .vm-workspace { height: calc(100vh - 116px) !important; } /* 64+46+6 */
     }
 
     /* Dark mode — [data-theme="dark"] */
