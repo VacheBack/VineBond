@@ -547,7 +547,194 @@
         color: #EDE8E0;
         text-shadow: 0 0 4px rgba(14,25,23,0.95), 0 0 8px rgba(14,25,23,0.8);
       }
+      /* Task 1 dark mode fallback */
+      :root:not([data-theme="light"]) .vm-mobile-searchbar {
+        background: #1A2A28;
+        box-shadow: 0 2px 14px rgba(0,0,0,0.45);
+      }
+      :root:not([data-theme="light"]) .vm-msb-divider { background: rgba(90,150,144,0.3); }
+      :root:not([data-theme="light"]) .vm-msb-dropdown {
+        background: #0E1917;
+        border-color: rgba(90,150,144,0.25);
+        box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+      }
+      :root:not([data-theme="light"]) .vm-msb-result { color: #EDE8E0; }
+      :root:not([data-theme="light"]) .vm-msb-result:hover { background: rgba(90,150,144,0.1); }
+      :root:not([data-theme="light"]) .vm-msb-result-sub { color: #A8A298; }
     }
+
+    /* ══════════════════════════════════════════════════════
+       TASK 1 — Mobile + iPad Search Bar (≤1024px)
+       ══════════════════════════════════════════════════════ */
+
+    /* Suppress old chip bar entirely — replaced by new search bar */
+    .vm-mobile-chips { display: none !important; }
+
+    /* On ≤1024px: hide desktop toolbar and sidebar */
+    @media (max-width: 1024px) {
+      .vm-map-toolbar { display: none; }
+      .vm-sidebar { display: none !important; }
+    }
+
+    /* New pill search bar — hidden on desktop */
+    .vm-mobile-searchbar { display: none; }
+
+    @media (max-width: 1024px) {
+      .vm-mobile-searchbar {
+        display: flex;
+        align-items: center;
+        margin: 10px 14px 0;
+        height: 48px;
+        background: #2A2A2A;
+        border-radius: 100px;
+        overflow: visible;
+        position: relative;
+        z-index: 200;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.22);
+        flex-shrink: 0;
+      }
+
+      /* Left half — location/search */
+      .vm-msb-location {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 14px 0 16px;
+        position: relative;
+        min-width: 0;
+      }
+
+      .vm-msb-icon {
+        width: 16px; height: 16px;
+        color: rgba(255,255,255,0.55);
+        flex-shrink: 0;
+        margin-right: 8px;
+      }
+
+      .vm-msb-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #fff;
+        min-width: 0;
+      }
+      .vm-msb-input::placeholder { color: rgba(255,255,255,0.45); }
+
+      .vm-msb-clear {
+        background: none;
+        border: none;
+        padding: 4px;
+        cursor: pointer;
+        color: rgba(255,255,255,0.5);
+        flex-shrink: 0;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
+
+      /* Divider between halves */
+      .vm-msb-divider {
+        width: 1px;
+        height: 26px;
+        background: rgba(255,255,255,0.2);
+        flex-shrink: 0;
+      }
+
+      /* Right half — date */
+      .vm-msb-date {
+        display: flex;
+        align-items: center;
+        padding: 0 16px 0 14px;
+        gap: 8px;
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      .vm-msb-date-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #fff;
+        padding: 0;
+        white-space: nowrap;
+      }
+
+      /* Native date input overlays the button for tap targeting */
+      .vm-msb-date-input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: none;
+      }
+
+      /* Typeahead dropdown */
+      .vm-msb-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: -16px;
+        right: -8px;
+        background: #fff;
+        border: 1px solid #E8DFD0;
+        border-radius: 16px;
+        box-shadow: 0 8px 28px rgba(28,79,61,0.14);
+        list-style: none;
+        padding: 4px;
+        margin: 0;
+        max-height: 220px;
+        overflow-y: auto;
+        z-index: 500;
+      }
+      .vm-msb-dropdown.open { display: block; }
+
+      .vm-msb-result {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        color: #4A1F2A;
+        transition: background 0.12s;
+      }
+      .vm-msb-result:hover { background: #F5F2ED; }
+      .vm-msb-result-info { display: flex; flex-direction: column; }
+      .vm-msb-result-name { font-weight: 600; }
+      .vm-msb-result-sub { font-size: 0.72rem; color: #8B8578; margin-top: 1px; }
+
+      /* Workspace height — accounts for header + new search bar */
+      .vm-workspace { height: calc(100vh - 178px); }
+    }
+
+    @media (max-width: 479px) {
+      .vm-mobile-searchbar { margin: 8px 10px 0; height: 46px; }
+      .vm-workspace { height: calc(100vh - 190px) !important; }
+    }
+
+    /* Dark mode — [data-theme="dark"] */
+    [data-theme="dark"] .vm-mobile-searchbar {
+      background: #1A2A28;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.45);
+    }
+    [data-theme="dark"] .vm-msb-divider { background: rgba(90,150,144,0.3); }
+    [data-theme="dark"] .vm-msb-dropdown {
+      background: #0E1917;
+      border-color: rgba(90,150,144,0.25);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+    [data-theme="dark"] .vm-msb-result { color: #EDE8E0; }
+    [data-theme="dark"] .vm-msb-result:hover { background: rgba(90,150,144,0.1); }
+    [data-theme="dark"] .vm-msb-result-sub { color: #A8A298; }
   </style>
 </head>
 <body>
@@ -637,6 +824,45 @@
         <span>Contact Us</span>
       </a>
     </div>
+  </div>
+
+
+  <!-- ── MOBILE / IPAD SEARCH BAR (visible ≤1024px) ── -->
+  <div class="vm-mobile-searchbar" id="vmMobileSearchBar">
+
+    <!-- Left half: vineyard/village typeahead -->
+    <div class="vm-msb-location" id="vmMsbLocationWrap">
+      <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+        <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="vmMsbSearch" class="vm-msb-input"
+             placeholder="Vineyard or village…" autocomplete="off"/>
+      <button class="vm-msb-clear" id="vmMsbClear" aria-label="Clear search" hidden>
+        <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+          <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <ul class="vm-msb-dropdown" id="vmMsbResults" role="listbox"></ul>
+    </div>
+
+    <div class="vm-msb-divider" aria-hidden="true"></div>
+
+    <!-- Right half: visit date picker -->
+    <div class="vm-msb-date" id="vmMsbDateWrap">
+      <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+        <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/>
+        <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <button class="vm-msb-date-btn" id="vmMsbDateBtn" aria-label="Set visit date">
+        <span id="vmMsbDateLabel">Select date</span>
+      </button>
+      <input type="date" id="vmMsbDateInput" class="vm-msb-date-input" aria-label="Visit date"/>
+    </div>
+
   </div>
 
 

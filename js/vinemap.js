@@ -523,5 +523,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── 12. Expose map for external use ───────────────────────────────── */
 
+  /* ── 13. Mobile / iPad Search Bar (≤1024px) ─────────────────────────── */
+
+  const msbSearch  = document.getElementById('vmMsbSearch');
+  const msbResults = document.getElementById('vmMsbResults');
+  const msbClear   = document.getElementById('vmMsbClear');
+
+  if (msbSearch && msbResults) {
+
+    /* Typeahead */
+    msbSearch.addEventListener('input', () => {
+      const q = msbSearch.value.trim().toLowerCase();
+      msbResults.innerHTML = '';
+      msbClear.hidden = q.length === 0;
+
+      if (q.length < 1) {
+        msbResults.classList.remove('open');
+        return;
+      }
+
+      const matches = RHEINGAU_VINEYARDS.filter(v =>
+        v.name.toLowerCase().includes(q) ||
+        v.village.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        msbResults.classList.remove('open');
+        return;
+      }
+
+      matches.forEach(v => {
+        const li = document.createElement('li');
+        li.className = 'vm-msb-result';
+        li.setAttribute('role', 'option');
+        li.innerHTML =
+          '<div class="vm-msb-result-info">' +
+            '<span class="vm-msb-result-name">' + v.name + '</span>' +
+            '<span class="vm-msb-result-sub">' + v.village + ' \u00B7 ' + v.type + '</span>' +
+          '</div>' +
+          '<span class="vm-search-badge vm-search-badge--' + v.type.toLowerCase() + '">' + v.type + '</span>';
+        li.addEventListener('click', () => {
+          map.setView([v.lat, v.lng], 15);
+          markerMap[v.id].openPopup();
+          msbSearch.value = v.name;
+          msbClear.hidden = false;
+          msbResults.classList.remove('open');
+        });
+        msbResults.appendChild(li);
+      });
+
+      msbResults.classList.add('open');
+    });
+
+    /* Clear button */
+    msbClear.addEventListener('click', () => {
+      msbSearch.value = '';
+      msbClear.hidden = true;
+      msbResults.classList.remove('open');
+      filterState.village.clear();
+      applyFilters();
+    });
+
+    /* Close dropdown on outside tap */
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('vmMsbLocationWrap').contains(e.target)) {
+        msbResults.classList.remove('open');
+      }
+    });
+  }
+
+  /* Date picker */
+  const msbDateBtn   = document.getElementById('vmMsbDateBtn');
+  const msbDateLabel = document.getElementById('vmMsbDateLabel');
+  const msbDateInput = document.getElementById('vmMsbDateInput');
+
+  if (msbDateInput && msbDateLabel) {
+    function formatVisitDate(dateStr) {
+      if (!dateStr) return 'Select date';
+      var parts = dateStr.split('-');
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return parseInt(parts[2], 10) + ' ' + months[parseInt(parts[1], 10) - 1];
+    }
+
+    var saved = localStorage.getItem('vb_visit_date') || '';
+    if (saved) {
+      msbDateInput.value = saved;
+      msbDateLabel.textContent = formatVisitDate(saved);
+    }
+
+    msbDateInput.addEventListener('change', () => {
+      var val = msbDateInput.value;
+      if (val) {
+        localStorage.setItem('vb_visit_date', val);
+        msbDateLabel.textContent = formatVisitDate(val);
+      }
+    });
+  }
+
   window.vineMap = map;
 });
