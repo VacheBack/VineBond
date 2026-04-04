@@ -594,8 +594,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* Clear button */
-    msbClear.addEventListener('click', () => {
+    msbClear.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       msbSearch.value = '';
+      msbSearch.focus();
       msbClear.hidden = true;
       msbResults.classList.remove('open');
       filterState.village.clear();
