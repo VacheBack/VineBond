@@ -538,6 +538,16 @@ document.addEventListener('DOMContentLoaded', () => {
         .replace(/é|è|ê/g, 'e').replace(/à|â/g, 'a');
     }
 
+    /* Position the fixed dropdown below the wrapper pill */
+    function positionDropdown() {
+      var wrapper = document.getElementById('vmMsbWrapper');
+      if (!wrapper) return;
+      var r = wrapper.getBoundingClientRect();
+      msbResults.style.top   = (r.bottom + 8) + 'px';
+      msbResults.style.left  = r.left + 'px';
+      msbResults.style.right = (window.innerWidth - r.right) + 'px';
+    }
+
     /* Typeahead */
     msbSearch.addEventListener('input', () => {
       const q = normalizeStr(msbSearch.value.trim());
@@ -579,6 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
         msbResults.appendChild(li);
       });
 
+      positionDropdown();
       msbResults.classList.add('open');
     });
 

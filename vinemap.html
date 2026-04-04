@@ -682,13 +682,11 @@
         padding: 0;
       }
 
-      /* Typeahead dropdown — sibling of the pill, positioned against .vm-msb-wrapper */
+      /* Typeahead dropdown — fixed to viewport so no stacking-context or
+         overflow ancestor can hide it; JS sets top/left/right on open */
       .vm-msb-dropdown {
         display: none;
-        position: absolute;
-        top: calc(100% + 8px); /* below the pill */
-        left: 0;
-        right: 0;
+        position: fixed;
         background: #fff;
         border: 1px solid #E8DFD0;
         border-radius: 16px;
@@ -698,7 +696,7 @@
         margin: 0;
         max-height: 220px;
         overflow-y: auto;
-        z-index: 10; /* relative to wrapper's stacking context (900) */
+        z-index: 1050; /* above header (1000) and nav sheet (1001) */
       }
       .vm-msb-dropdown.open { display: block; }
 
