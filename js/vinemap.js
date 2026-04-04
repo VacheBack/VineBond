@@ -652,5 +652,172 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ── 14. Mobile Filter Bar (≤1024px) ───────────────────────────────────── */
+
+  const filterToggle = document.getElementById('vmFilterToggle');
+  const filterBar    = document.getElementById('vmFilterBar');
+  const filterBadge  = document.getElementById('vmFilterBadge');
+
+  if (filterToggle && filterBar) {
+
+    /* ── Populate Village dropdown from dataset ─────────────────────────── */
+    const villageDropEl = document.getElementById('fbarDropVillage');
+    if (villageDropEl) {
+      const uniqueVillages = [...new Set(RHEINGAU_VINEYARDS.map(v => v.village))].sort();
+      uniqueVillages.forEach(village => {
+        const li = document.createElement('li');
+        li.className = 'vm-fbar-option';
+        li.dataset.value = village;
+        li.innerHTML =
+          '<span class="vm-fbar-check"></span>' +
+          '<span>' + village + '</span>' +
+          '<span class="vm-fbar-count">' +
+            RHEINGAU_VINEYARDS.filter(v => v.village === village).length +
+          '</span>';
+        villageDropEl.appendChild(li);
+      });
+    }
+
+    /* ── Helpers ────────────────────────────────────────────────────────── */
+    function closeAllFbarDropdowns() {
+      document.querySelectorAll('.vm-fbar-dropdown.open').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.vm-fbar-btn[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    }
+
+    /* Map filterKey → filterState key */
+    function filterKeyToState(key) {
+      if (key === 'classification') return filterState.type;
+      if (key === 'grape')          return filterState.grape;
+      if (key === 'village')        return filterState.village;
+      if (key === 'tour')           return filterState.tour;
+      return null;
+    }
+
+    /* Total count of active filter selections across all keys */
+    function activeFbarCount() {
+      return (filterState.type.size + filterState.grape.size +
+              filterState.village.size + filterState.tour.size);
+    }
+
+    /* Update badge + active state on toggle button */
+    function updateFilterBarState() {
+      const count = activeFbarCount();
+      filterBadge.hidden = count === 0;
+      filterBadge.textContent = count;
+      filterToggle.classList.toggle('active', count > 0);
+
+      /* Mark filter buttons as .active when their key has selections */
+      document.querySelectorAll('.vm-fbar-btn').forEach(btn => {
+        const key = btn.dataset.dropdown;
+        const set = filterKeyToState(key);
+        btn.classList.toggle('active', set !== null && set.size > 0);
+      });
+    }
+
+    /* Cascade: disable options that would yield zero results
+       given all OTHER active filter keys */
+    function updateCascadeDisabledState() {
+      document.querySelectorAll('.vm-fbar-group').forEach(group => {
+        const key = group.dataset.filterKey;
+        group.querySelectorAll('.vm-fbar-option').forEach(opt => {
+          const val = opt.dataset.value;
+
+          /* Build a hypothetical filterState with this option's key replaced by {val} */
+          const testType    = key === 'classification' ? new Set([val]) : new Set(filterState.type);
+          const testGrape   = key === 'grape'          ? new Set([val]) : new Set(filterState.grape);
+          const testVillage = key === 'village'        ? new Set([val]) : new Set(filterState.village);
+          const testTour    = key === 'tour'           ? new Set([val]) : new Set(filterState.tour);
+
+          const matches = RHEINGAU_VINEYARDS.filter(v => {
+            if (testType.size    && !testType.has(v.type))       return false;
+            if (testGrape.size   && !testGrape.has(v.grape))     return false;
+            if (testVillage.size && !testVillage.has(v.village)) return false;
+            if (testTour.size    && !v.tours.some(t => testTour.has(t))) return false;
+            return true;
+          });
+
+          /* Never disable an already-selected option */
+          const isSelected = opt.classList.contains('selected');
+          opt.classList.toggle('disabled', !isSelected && matches.length === 0);
+        });
+      });
+    }
+
+    /* ── Filter toggle button ───────────────────────────────────────────── */
+    filterToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = filterBar.classList.toggle('open');
+      filterBar.setAttribute('aria-hidden', String(!isOpen));
+      filterToggle.setAttribute('aria-expanded', String(isOpen));
+      if (!isOpen) closeAllFbarDropdowns();
+    });
+
+    /* ── Filter bar dropdown buttons ────────────────────────────────────── */
+    filterBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.vm-fbar-btn');
+      if (btn) {
+        e.stopPropagation();
+        const key = btn.dataset.dropdown;
+        const drop = document.getElementById('fbarDrop' + key.charAt(0).toUpperCase() + key.slice(1));
+        if (!drop) return;
+
+        const wasOpen = drop.classList.contains('open');
+        closeAllFbarDropdowns();
+        if (!wasOpen) {
+          drop.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          updateCascadeDisabledState();
+        }
+        return;
+      }
+
+      /* Option selection */
+      const opt = e.target.closest('.vm-fbar-option');
+      if (opt && !opt.classList.contains('disabled')) {
+        const group = opt.closest('.vm-fbar-group');
+        const key   = group.dataset.filterKey;
+        const val   = opt.dataset.value;
+        const set   = filterKeyToState(key);
+        if (!set) return;
+
+        opt.classList.toggle('selected');
+        if (opt.classList.contains('selected')) {
+          set.add(val);
+        } else {
+          set.delete(val);
+        }
+
+        /* Sync corresponding sidebar checkbox */
+        const sidebarCb = document.querySelector('.vm-sidebar input[type="checkbox"][value="' + val + '"]');
+        if (sidebarCb) sidebarCb.checked = opt.classList.contains('selected');
+
+        applyFilters();
+        updateFilterBarState();
+        updateCascadeDisabledState();
+      }
+    });
+
+    /* ── Hook into Clear All button ─────────────────────────────────────── */
+    const clearAllBtn = document.getElementById('vmClearFilters');
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', () => {
+        document.querySelectorAll('.vm-fbar-option.selected').forEach(o => o.classList.remove('selected'));
+        updateFilterBarState();
+        updateCascadeDisabledState();
+      });
+    }
+
+    /* ── Outside click closes dropdowns ────────────────────────────────── */
+    document.addEventListener('click', (e) => {
+      if (!filterBar.contains(e.target) && !filterToggle.contains(e.target)) {
+        closeAllFbarDropdowns();
+      }
+    });
+
+    /* ── Init ───────────────────────────────────────────────────────────── */
+    updateFilterBarState();
+    updateCascadeDisabledState();
+  }
+
   window.vineMap = map;
 });

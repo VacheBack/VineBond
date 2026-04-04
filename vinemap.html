@@ -746,6 +746,207 @@
     [data-theme="dark"] .vm-msb-result { color: #EDE8E0; }
     [data-theme="dark"] .vm-msb-result:hover { background: rgba(90,150,144,0.1); }
     [data-theme="dark"] .vm-msb-result-sub { color: #A8A298; }
+
+    /* ── Filter Row (≤1024px) ──────────────────────────────────────────── */
+    .vm-filter-row { display: none; }
+
+    @media (max-width: 1024px) {
+      .vm-filter-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0;
+        padding: 6px 14px 4px;
+        z-index: 190;
+        position: relative;
+      }
+
+      /* Filter icon toggle button */
+      .vm-filter-toggle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #2A2A2A;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .vm-filter-toggle.active { background: #5C2632; }
+
+      .vm-filter-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #5C2632;
+        color: #fff;
+        font-size: 0.62rem;
+        font-weight: 700;
+        width: 16px;
+        height: 16px;
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #fff;
+      }
+
+      /* Horizontal scrollable filter bar */
+      .vm-filter-bar {
+        display: none;
+        align-items: center;
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 8px;
+        padding: 0 0 0 8px;
+        flex: 1;
+      }
+      .vm-filter-bar::-webkit-scrollbar { display: none; }
+      .vm-filter-bar.open { display: flex; }
+
+      /* Each filter group */
+      .vm-fbar-group {
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      /* Pill filter button */
+      .vm-fbar-btn {
+        height: 36px;
+        border-radius: 100px;
+        background: rgba(255,255,255,0.08);
+        border: 1.5px solid rgba(255,255,255,0.22);
+        color: #fff;
+        font-size: 0.82rem;
+        font-weight: 500;
+        padding: 0 14px;
+        cursor: pointer;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .vm-fbar-btn.active {
+        background: #5C2632;
+        border-color: #5C2632;
+        color: #fff;
+      }
+      .vm-fbar-arrow { font-size: 0.7rem; opacity: 0.7; }
+
+      /* Dropdown panel */
+      .vm-fbar-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 200px;
+        background: #fff;
+        border: 1px solid #E8DFD0;
+        border-radius: 14px;
+        box-shadow: 0 8px 28px rgba(28,79,61,0.14);
+        list-style: none;
+        padding: 4px;
+        margin: 0;
+        z-index: 600;
+      }
+      .vm-fbar-dropdown.open { display: block; }
+
+      /* Last dropdown: align right to prevent off-screen clipping */
+      .vm-fbar-group:last-child .vm-fbar-dropdown {
+        left: auto;
+        right: 0;
+      }
+
+      /* Option rows */
+      .vm-fbar-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        color: #2A2A2A;
+        transition: background 0.1s;
+      }
+      .vm-fbar-option:hover { background: #F5F2ED; }
+      .vm-fbar-option.selected { color: #5C2632; font-weight: 600; }
+      .vm-fbar-option.disabled {
+        opacity: 0.35;
+        pointer-events: none;
+      }
+
+      /* Custom checkbox */
+      .vm-fbar-check {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1.5px solid #C8BEB5;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .vm-fbar-option.selected .vm-fbar-check {
+        background: #5C2632;
+        border-color: #5C2632;
+      }
+      .vm-fbar-option.selected .vm-fbar-check::after {
+        content: '';
+        display: block;
+        width: 9px;
+        height: 5px;
+        border-left: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        transform: translateY(-1px) rotate(-45deg);
+      }
+
+      /* Count badge */
+      .vm-fbar-count {
+        margin-left: auto;
+        font-size: 0.72rem;
+        color: #A8A298;
+        font-weight: 500;
+      }
+
+      /* Workspace height with filter row */
+      .vm-workspace {
+        height: calc(100vh - 180px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .vm-workspace { height: calc(100vh - 170px) !important; }
+    }
+
+    @media (max-width: 479px) {
+      .vm-workspace { height: calc(100vh - 164px) !important; }
+    }
+
+    /* Dark mode — filter row */
+    [data-theme="dark"] .vm-filter-toggle { background: #1A2A28; }
+    [data-theme="dark"] .vm-filter-toggle.active { background: #5C2632; }
+    [data-theme="dark"] .vm-filter-badge { border-color: #0C1410; }
+    [data-theme="dark"] .vm-fbar-btn {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(90,150,144,0.3);
+      color: #EDE8E0;
+    }
+    [data-theme="dark"] .vm-fbar-btn.active { background: #5C2632; border-color: #5C2632; }
+    [data-theme="dark"] .vm-fbar-dropdown {
+      background: #0E1917;
+      border-color: rgba(90,150,144,0.25);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+    [data-theme="dark"] .vm-fbar-option { color: #EDE8E0; }
+    [data-theme="dark"] .vm-fbar-option:hover { background: rgba(90,150,144,0.1); }
+    [data-theme="dark"] .vm-fbar-option.selected { color: #C47A8A; }
+    [data-theme="dark"] .vm-fbar-check { border-color: rgba(90,150,144,0.4); }
+    [data-theme="dark"] .vm-fbar-option.selected .vm-fbar-check { background: #5C2632; border-color: #5C2632; }
+    [data-theme="dark"] .vm-fbar-count { color: #6A8A84; }
   </style>
 </head>
 <body>
@@ -882,6 +1083,71 @@
 
   </div>
 
+
+  <!-- ── MOBILE FILTER ROW (visible ≤1024px) ── -->
+  <div class="vm-filter-row" id="vmFilterRow">
+    <!-- Filter icon button -->
+    <button type="button" class="vm-filter-toggle" id="vmFilterToggle" aria-label="Toggle filters" aria-expanded="false">
+      <svg class="vm-filter-icon-svg" viewBox="0 0 24 24" fill="none" width="18" height="18">
+        <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="8" cy="6" r="2.5" fill="currentColor"/>
+        <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="16" cy="12" r="2.5" fill="currentColor"/>
+        <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="10" cy="18" r="2.5" fill="currentColor"/>
+      </svg>
+      <span class="vm-filter-badge" id="vmFilterBadge" hidden>0</span>
+    </button>
+
+    <!-- Horizontal scrollable filter bar -->
+    <div class="vm-filter-bar" id="vmFilterBar" aria-hidden="true">
+
+      <div class="vm-fbar-group" data-filter-key="classification">
+        <button type="button" class="vm-fbar-btn" data-dropdown="classification" aria-haspopup="listbox" aria-expanded="false">
+          Classification <span class="vm-fbar-arrow">▾</span>
+        </button>
+        <ul class="vm-fbar-dropdown" id="fbarDropClassification" role="listbox">
+          <li class="vm-fbar-option" data-value="GG">
+            <span class="vm-fbar-check"></span><span>Grosses Gewächs (GG)</span><span class="vm-fbar-count">10</span>
+          </li>
+          <li class="vm-fbar-option" data-value="1G">
+            <span class="vm-fbar-check"></span><span>Erstes Gewächs (1G)</span><span class="vm-fbar-count">4</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="vm-fbar-group" data-filter-key="grape">
+        <button type="button" class="vm-fbar-btn" data-dropdown="grape" aria-haspopup="listbox" aria-expanded="false">
+          Grape <span class="vm-fbar-arrow">▾</span>
+        </button>
+        <ul class="vm-fbar-dropdown" id="fbarDropGrape" role="listbox">
+          <li class="vm-fbar-option" data-value="Riesling"><span class="vm-fbar-check"></span><span>Riesling</span><span class="vm-fbar-count">13</span></li>
+          <li class="vm-fbar-option" data-value="Spätburgunder"><span class="vm-fbar-check"></span><span>Spätburgunder</span><span class="vm-fbar-count">1</span></li>
+        </ul>
+      </div>
+
+      <div class="vm-fbar-group" data-filter-key="village">
+        <button type="button" class="vm-fbar-btn" data-dropdown="village" aria-haspopup="listbox" aria-expanded="false">
+          Village <span class="vm-fbar-arrow">▾</span>
+        </button>
+        <ul class="vm-fbar-dropdown" id="fbarDropVillage" role="listbox">
+          <!-- dynamically populated by JS -->
+        </ul>
+      </div>
+
+      <div class="vm-fbar-group" data-filter-key="tour">
+        <button type="button" class="vm-fbar-btn" data-dropdown="tour" aria-haspopup="listbox" aria-expanded="false">
+          Tour <span class="vm-fbar-arrow">▾</span>
+        </button>
+        <ul class="vm-fbar-dropdown" id="fbarDropTour" role="listbox">
+          <li class="vm-fbar-option" data-value="Tasting"><span class="vm-fbar-check"></span><span>Tasting</span><span class="vm-fbar-count">14</span></li>
+          <li class="vm-fbar-option" data-value="Vineyard Walk"><span class="vm-fbar-check"></span><span>Vineyard Walk</span><span class="vm-fbar-count">9</span></li>
+          <li class="vm-fbar-option" data-value="Cellar Tour"><span class="vm-fbar-check"></span><span>Cellar Tour</span><span class="vm-fbar-count">8</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ── MOBILE FILTER CHIPS (visible < 768px) ── -->
   <div class="vm-mobile-chips" id="vmMobileChips">
