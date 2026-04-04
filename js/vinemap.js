@@ -307,20 +307,73 @@ document.addEventListener('DOMContentLoaded', () => {
     allMarkers.push(marker);
     markerMap[v.id] = marker;
 
-    /* Always-visible name label */
+    /* Name label — shown above marker at sufficient zoom */
     const label = L.marker([v.lat, v.lng], {
       icon: L.divIcon({
         className: 'vine-label',
         html: `<span class="vine-label-text">${v.name}</span>`,
-        iconSize: [120, 20],
-        iconAnchor: [-6, 36]
+        iconSize: [200, 22],
+        iconAnchor: [100, 68]  /* centres label horizontally; bottom sits 46px above lat/lng (above 42px pin) */
       }),
       interactive: false
     });
     label._vineyardData = v;
-    label.addTo(map);
+    /* labels start hidden — smartenLabels() adds them at the right zoom */
     allLabels.push(label);
   });
+
+  /* ── Label visibility: zoom-gated + collision-free ──────────────────── */
+
+  const LABEL_MIN_ZOOM = 13;
+  const LABEL_W = 200;   /* pixels — matches iconSize width */
+  const LABEL_H = 22;    /* pixels — matches iconSize height */
+
+  function smartenLabels() {
+    const zoom = map.getZoom();
+
+    if (zoom < LABEL_MIN_ZOOM) {
+      allLabels.forEach(lb => { if (map.hasLayer(lb)) map.removeLayer(lb); });
+      return;
+    }
+
+    /* Restore filter-visible labels (marker on map → label candidate) */
+    RHEINGAU_VINEYARDS.forEach((v, i) => {
+      const lb = allLabels[i];
+      if (map.hasLayer(allMarkers[i])) {
+        if (!map.hasLayer(lb)) lb.addTo(map);
+      }
+    });
+
+    /* Greedy collision pass — GG wins over 1G on ties */
+    const priority = [...Array(RHEINGAU_VINEYARDS.length).keys()]
+      .filter(i => map.hasLayer(allLabels[i]))
+      .sort((a, b) => {
+        if (RHEINGAU_VINEYARDS[a].type === 'GG' && RHEINGAU_VINEYARDS[b].type !== 'GG') return -1;
+        if (RHEINGAU_VINEYARDS[a].type !== 'GG' && RHEINGAU_VINEYARDS[b].type === 'GG') return 1;
+        return 0;
+      });
+
+    const placed = [];
+    priority.forEach(i => {
+      const v  = RHEINGAU_VINEYARDS[i];
+      const pt = map.latLngToContainerPoint([v.lat, v.lng]);
+      /* label bottom = 46px above lat/lng; label top = 68px above lat/lng */
+      const r = {
+        l: pt.x - LABEL_W / 2,
+        r: pt.x + LABEL_W / 2,
+        t: pt.y - 68,
+        b: pt.y - 46
+      };
+      const clash = placed.some(p => r.l < p.r && r.r > p.l && r.t < p.b && r.b > p.t);
+      if (clash) {
+        map.removeLayer(allLabels[i]);
+      } else {
+        placed.push(r);
+      }
+    });
+  }
+
+  map.on('zoomend moveend', smartenLabels);
 
   /* ── 5. Filter State ───────────────────────────────────────────────── */
 
@@ -345,13 +398,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (visible) {
         if (!map.hasLayer(marker)) marker.addTo(map);
-        if (!map.hasLayer(label))  label.addTo(map);
         visibleCount++;
       } else {
         if (map.hasLayer(marker)) map.removeLayer(marker);
         if (map.hasLayer(label))  map.removeLayer(label);
       }
     });
+
+    smartenLabels();
 
     /* Update result count */
     const countEl = document.getElementById('vmResultCount');
