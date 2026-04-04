@@ -53,11 +53,26 @@
     .vm-mobile-chip:hover { border-color: var(--burgundy); color: var(--burgundy); }
     .vm-mobile-chip.active { background: var(--burgundy); color: var(--cream); border-color: var(--burgundy); }
 
+    /* ── Page wrapper fills viewport below fixed header ── */
+    .vm-page-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding-top: 72px; /* desktop header height */
+      box-sizing: border-box;
+    }
+    @media (max-width: 1024px) {
+      .vm-page-wrapper { padding-top: 74px; }
+    }
+    @media (max-width: 768px) {
+      .vm-page-wrapper { padding-top: 56px; }
+    }
+
     /* ── Workspace: sidebar + map ── */
     .vm-workspace {
       display: flex;
-      height: calc(100vh - 110px);
-      min-height: 480px;
+      flex: 1;
+      min-height: 0;
       overflow: hidden;
     }
 
@@ -401,7 +416,6 @@
     @media (max-width: 768px) {
       .vm-sidebar { display: none; }
       .vm-mobile-chips { display: flex; }
-      .vm-workspace { height: calc(100vh - 220px); min-height: 320px; }
       .vm-map-toolbar { flex-wrap: wrap; }
       .vm-search-wrap { max-width: none; }
       .vm-page-hero h1 { font-size: 1rem; }
@@ -410,7 +424,6 @@
     }
 
     @media (max-width: 479px) {
-      .vm-workspace { height: calc(100vh - 240px); min-height: 280px; }
       .vm-map-toolbar { padding: 8px 12px; gap: 6px; }
       .vm-search-wrap input { font-size: 0.78rem; padding: 7px 12px 7px 32px; }
       .vm-reset-btn { padding: 7px 12px; font-size: 0.74rem; }
@@ -429,7 +442,6 @@
     @media (max-height: 500px) and (orientation: landscape) {
       .vm-page-hero { padding: 10px 16px 6px; }
       .vm-page-hero h1 { font-size: 0.95rem; }
-      .vm-workspace { height: calc(100vh - 130px); }
     }
 
     /* ══════════════════════════════════════════════════════
@@ -587,7 +599,7 @@
       .vm-msb-wrapper {
         display: block;
         position: relative;
-        margin: 74px 14px 0; /* 64px fixed header + 10px gap */
+        margin: 10px 14px 0;
         z-index: 900;
       }
 
@@ -717,19 +729,16 @@
       .vm-msb-result-sub { font-size: 0.72rem; color: #8B8578; margin-top: 1px; }
 
       /* Workspace height: 74px margin + 48px bar + 8px gap = 130px */
-      .vm-workspace { height: calc(100vh - 130px); }
     }
 
     /* Mobile override: header shrinks to 56px → adjust margin */
     @media (max-width: 768px) {
-      .vm-msb-wrapper { margin-top: 66px; } /* 56px header + 10px gap */
-      .vm-workspace { height: calc(100vh - 122px) !important; } /* 66+48+8 */
+      .vm-msb-wrapper { margin-top: 10px; }
     }
 
     @media (max-width: 479px) {
-      .vm-msb-wrapper { margin: 64px 10px 0; }
+      .vm-msb-wrapper { margin: 8px 10px 0; }
       .vm-mobile-searchbar { height: 46px; }
-      .vm-workspace { height: calc(100vh - 116px) !important; } /* 64+46+6 */
     }
 
     /* Dark mode — [data-theme="dark"] */
@@ -912,18 +921,6 @@
         font-weight: 500;
       }
 
-      /* Workspace height with filter row */
-      .vm-workspace {
-        height: calc(100vh - 180px);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .vm-workspace { height: calc(100vh - 170px) !important; }
-    }
-
-    @media (max-width: 479px) {
-      .vm-workspace { height: calc(100vh - 164px) !important; }
     }
 
     /* Dark mode — filter row */
@@ -1038,6 +1035,8 @@
     </div>
   </div>
 
+
+  <div class="vm-page-wrapper">
 
   <!-- ── MOBILE / IPAD SEARCH BAR (visible ≤1024px) ── -->
   <div class="vm-msb-wrapper" id="vmMsbWrapper">
@@ -1334,6 +1333,8 @@
 
     </div>
   </div>
+
+  </div><!-- /.vm-page-wrapper -->
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
