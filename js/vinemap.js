@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Map filterKey → filterState key */
     function filterKeyToState(key) {
-      if (key === 'classification') return filterState.type;
+      if (key === 'classification') return filterState.classification;
       if (key === 'grape')          return filterState.grape;
       if (key === 'village')        return filterState.village;
       if (key === 'tour')           return filterState.tour;
@@ -695,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Total count of active filter selections across all keys */
     function activeFbarCount() {
-      return (filterState.type.size + filterState.grape.size +
+      return (filterState.classification.size + filterState.grape.size +
               filterState.village.size + filterState.tour.size);
     }
 
@@ -723,13 +723,13 @@ document.addEventListener('DOMContentLoaded', () => {
           const val = opt.dataset.value;
 
           /* Build a hypothetical filterState with this option's key replaced by {val} */
-          const testType    = key === 'classification' ? new Set([val]) : new Set(filterState.type);
-          const testGrape   = key === 'grape'          ? new Set([val]) : new Set(filterState.grape);
-          const testVillage = key === 'village'        ? new Set([val]) : new Set(filterState.village);
-          const testTour    = key === 'tour'           ? new Set([val]) : new Set(filterState.tour);
+          const testClassification = key === 'classification' ? new Set([val]) : new Set(filterState.classification);
+          const testGrape          = key === 'grape'          ? new Set([val]) : new Set(filterState.grape);
+          const testVillage        = key === 'village'        ? new Set([val]) : new Set(filterState.village);
+          const testTour           = key === 'tour'           ? new Set([val]) : new Set(filterState.tour);
 
           const matches = RHEINGAU_VINEYARDS.filter(v => {
-            if (testType.size    && !testType.has(v.type))       return false;
+            if (testClassification.size && !testClassification.has(v.type)) return false;
             if (testGrape.size   && !testGrape.has(v.grape))     return false;
             if (testVillage.size && !testVillage.has(v.village)) return false;
             if (testTour.size    && !v.tours.some(t => testTour.has(t))) return false;
