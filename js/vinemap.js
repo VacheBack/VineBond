@@ -593,7 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Close dropdown on outside tap */
     document.addEventListener('click', (e) => {
-      if (!document.getElementById('vmMsbLocationWrap').contains(e.target)) {
+      var wrapper = document.getElementById('vmMsbWrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
         msbResults.classList.remove('open');
       }
     });

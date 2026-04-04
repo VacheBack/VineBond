@@ -576,25 +576,29 @@
       .vm-sidebar { display: none !important; }
     }
 
-    /* New pill search bar — hidden on desktop */
-    .vm-mobile-searchbar { display: none; }
+    /* New pill search bar wrapper — hidden on desktop */
+    .vm-msb-wrapper { display: none; }
 
     @media (max-width: 1024px) {
       /* Hide page hero — search bar is the entry point on mobile/iPad */
       .vm-page-hero { display: none; }
 
+      /* Wrapper: handles positioning & z-index; no border-radius so nothing clips */
+      .vm-msb-wrapper {
+        display: block;
+        position: relative;
+        margin: 74px 14px 0; /* 64px fixed header + 10px gap */
+        z-index: 900;
+      }
+
       .vm-mobile-searchbar {
         display: flex;
         align-items: center;
-        margin: 74px 14px 0; /* 64px fixed header + 10px gap */
         height: 48px;
         background: #2A2A2A;
         border-radius: 100px;
-        overflow: visible;
-        position: relative;
-        z-index: 800; /* above Leaflet's popupPane (700), below site header (1000) */
+        overflow: hidden; /* safe now — dropdown is outside the pill */
         box-shadow: 0 2px 12px rgba(0,0,0,0.22);
-        flex-shrink: 0;
       }
 
       /* Left half — location/search */
@@ -678,13 +682,13 @@
         padding: 0;
       }
 
-      /* Typeahead dropdown */
+      /* Typeahead dropdown — sibling of the pill, positioned against .vm-msb-wrapper */
       .vm-msb-dropdown {
         display: none;
         position: absolute;
-        top: calc(100% + 10px);
-        left: -16px;
-        right: -8px;
+        top: calc(100% + 8px); /* below the pill */
+        left: 0;
+        right: 0;
         background: #fff;
         border: 1px solid #E8DFD0;
         border-radius: 16px;
@@ -694,7 +698,7 @@
         margin: 0;
         max-height: 220px;
         overflow-y: auto;
-        z-index: 500;
+        z-index: 10; /* relative to wrapper's stacking context (900) */
       }
       .vm-msb-dropdown.open { display: block; }
 
@@ -720,12 +724,13 @@
 
     /* Mobile override: header shrinks to 56px → adjust margin */
     @media (max-width: 768px) {
-      .vm-mobile-searchbar { margin-top: 66px; } /* 56px header + 10px gap */
+      .vm-msb-wrapper { margin-top: 66px; } /* 56px header + 10px gap */
       .vm-workspace { height: calc(100vh - 122px) !important; } /* 66+48+8 */
     }
 
     @media (max-width: 479px) {
-      .vm-mobile-searchbar { margin: 64px 10px 0; height: 46px; } /* 56px header + 8px */
+      .vm-msb-wrapper { margin: 64px 10px 0; }
+      .vm-mobile-searchbar { height: 46px; }
       .vm-workspace { height: calc(100vh - 116px) !important; } /* 64+46+6 */
     }
 
@@ -836,40 +841,46 @@
 
 
   <!-- ── MOBILE / IPAD SEARCH BAR (visible ≤1024px) ── -->
-  <div class="vm-mobile-searchbar" id="vmMobileSearchBar">
+  <div class="vm-msb-wrapper" id="vmMsbWrapper">
 
-    <!-- Left half: vineyard/village typeahead -->
-    <div class="vm-msb-location" id="vmMsbLocationWrap">
-      <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-        <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <input type="text" id="vmMsbSearch" class="vm-msb-input"
-             placeholder="Vineyard or village…" autocomplete="off"/>
-      <button class="vm-msb-clear" id="vmMsbClear" aria-label="Clear search" hidden>
-        <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-          <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <div class="vm-mobile-searchbar" id="vmMobileSearchBar">
+
+      <!-- Left half: vineyard/village typeahead -->
+      <div class="vm-msb-location" id="vmMsbLocationWrap">
+        <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-      </button>
-      <ul class="vm-msb-dropdown" id="vmMsbResults" role="listbox"></ul>
+        <input type="text" id="vmMsbSearch" class="vm-msb-input"
+               placeholder="Vineyard or village…" autocomplete="off"/>
+        <button class="vm-msb-clear" id="vmMsbClear" aria-label="Clear search" hidden>
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+            <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="vm-msb-divider" aria-hidden="true"></div>
+
+      <!-- Right half: visit date picker -->
+      <div class="vm-msb-date" id="vmMsbDateWrap">
+        <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+          <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/>
+          <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <button class="vm-msb-date-btn" id="vmMsbDateBtn" aria-label="Set visit date">
+          <span id="vmMsbDateLabel">Select date</span>
+        </button>
+        <input type="date" id="vmMsbDateInput" class="vm-msb-date-input" aria-label="Visit date"/>
+      </div>
+
     </div>
 
-    <div class="vm-msb-divider" aria-hidden="true"></div>
-
-    <!-- Right half: visit date picker -->
-    <div class="vm-msb-date" id="vmMsbDateWrap">
-      <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
-        <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/>
-        <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <button class="vm-msb-date-btn" id="vmMsbDateBtn" aria-label="Set visit date">
-        <span id="vmMsbDateLabel">Select date</span>
-      </button>
-      <input type="date" id="vmMsbDateInput" class="vm-msb-date-input" aria-label="Visit date"/>
-    </div>
+    <!-- Dropdown lives OUTSIDE the pill so border-radius can't clip it -->
+    <ul class="vm-msb-dropdown" id="vmMsbResults" role="listbox"></ul>
 
   </div>
 
