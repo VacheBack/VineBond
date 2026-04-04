@@ -595,11 +595,13 @@
       /* Hide page hero — search bar is the entry point on mobile/iPad */
       .vm-page-hero { display: none; }
 
-      /* Wrapper: handles positioning & z-index; no border-radius so nothing clips */
+      /* Wrapper: absolutely positioned over the map */
       .vm-msb-wrapper {
         display: block;
-        position: relative;
-        margin: 10px 14px 0;
+        position: absolute;
+        top: 10px;
+        left: 14px;
+        right: 14px;
         z-index: 900;
       }
 
@@ -731,13 +733,13 @@
       /* Workspace height: 74px margin + 48px bar + 8px gap = 130px */
     }
 
-    /* Mobile override: header shrinks to 56px → adjust margin */
+    /* Mobile override: same top, slightly tighter horizontal inset */
     @media (max-width: 768px) {
-      .vm-msb-wrapper { margin-top: 10px; }
+      .vm-msb-wrapper { top: 10px; }
     }
 
     @media (max-width: 479px) {
-      .vm-msb-wrapper { margin: 8px 10px 0; }
+      .vm-msb-wrapper { top: 8px; left: 10px; right: 10px; }
       .vm-mobile-searchbar { height: 46px; }
     }
 
@@ -764,9 +766,12 @@
         display: flex;
         align-items: flex-start;
         gap: 0;
-        padding: 6px 14px 4px;
+        padding: 0 14px;
         z-index: 190;
-        position: relative;
+        position: absolute;
+        top: 68px; /* 10px top + 48px bar + 10px gap */
+        left: 0;
+        right: 0;
       }
 
       /* Filter icon toggle button */
@@ -1038,116 +1043,6 @@
 
   <div class="vm-page-wrapper">
 
-  <!-- ── MOBILE / IPAD SEARCH BAR (visible ≤1024px) ── -->
-  <div class="vm-msb-wrapper" id="vmMsbWrapper">
-
-    <div class="vm-mobile-searchbar" id="vmMobileSearchBar">
-
-      <!-- Left half: vineyard/village typeahead -->
-      <div class="vm-msb-location" id="vmMsbLocationWrap">
-        <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-          <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input type="text" id="vmMsbSearch" class="vm-msb-input"
-               placeholder="Vineyard or village…" autocomplete="off"/>
-        <button type="button" class="vm-msb-clear" id="vmMsbClear" aria-label="Clear search" hidden>
-          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-            <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-
-      <div class="vm-msb-divider" aria-hidden="true"></div>
-
-      <!-- Right half: visit date picker -->
-      <div class="vm-msb-date" id="vmMsbDateWrap">
-        <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
-          <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/>
-          <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <button class="vm-msb-date-btn" id="vmMsbDateBtn" aria-label="Set visit date">
-          <span id="vmMsbDateLabel">Select date</span>
-        </button>
-        <input type="date" id="vmMsbDateInput" class="vm-msb-date-input" aria-label="Visit date"/>
-      </div>
-
-    </div>
-
-    <!-- Dropdown lives OUTSIDE the pill so border-radius can't clip it -->
-    <ul class="vm-msb-dropdown" id="vmMsbResults" role="listbox"></ul>
-
-  </div>
-
-
-  <!-- ── MOBILE FILTER ROW (visible ≤1024px) ── -->
-  <div class="vm-filter-row" id="vmFilterRow">
-    <!-- Filter icon button -->
-    <button type="button" class="vm-filter-toggle" id="vmFilterToggle" aria-label="Toggle filters" aria-expanded="false">
-      <svg class="vm-filter-icon-svg" viewBox="0 0 24 24" fill="none" width="18" height="18">
-        <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="8" cy="6" r="2.5" fill="currentColor"/>
-        <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="16" cy="12" r="2.5" fill="currentColor"/>
-        <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="10" cy="18" r="2.5" fill="currentColor"/>
-      </svg>
-      <span class="vm-filter-badge" id="vmFilterBadge" hidden>0</span>
-    </button>
-
-    <!-- Horizontal scrollable filter bar -->
-    <div class="vm-filter-bar" id="vmFilterBar" aria-hidden="true">
-
-      <div class="vm-fbar-group" data-filter-key="classification">
-        <button type="button" class="vm-fbar-btn" data-dropdown="classification" aria-haspopup="listbox" aria-expanded="false">
-          Classification <span class="vm-fbar-arrow">▾</span>
-        </button>
-        <ul class="vm-fbar-dropdown" id="fbarDropClassification" role="listbox">
-          <li class="vm-fbar-option" data-value="GG">
-            <span class="vm-fbar-check"></span><span>Grosses Gewächs (GG)</span><span class="vm-fbar-count">10</span>
-          </li>
-          <li class="vm-fbar-option" data-value="1G">
-            <span class="vm-fbar-check"></span><span>Erstes Gewächs (1G)</span><span class="vm-fbar-count">4</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="vm-fbar-group" data-filter-key="grape">
-        <button type="button" class="vm-fbar-btn" data-dropdown="grape" aria-haspopup="listbox" aria-expanded="false">
-          Grape <span class="vm-fbar-arrow">▾</span>
-        </button>
-        <ul class="vm-fbar-dropdown" id="fbarDropGrape" role="listbox">
-          <li class="vm-fbar-option" data-value="Riesling"><span class="vm-fbar-check"></span><span>Riesling</span><span class="vm-fbar-count">13</span></li>
-          <li class="vm-fbar-option" data-value="Spätburgunder"><span class="vm-fbar-check"></span><span>Spätburgunder</span><span class="vm-fbar-count">1</span></li>
-        </ul>
-      </div>
-
-      <div class="vm-fbar-group" data-filter-key="village">
-        <button type="button" class="vm-fbar-btn" data-dropdown="village" aria-haspopup="listbox" aria-expanded="false">
-          Village <span class="vm-fbar-arrow">▾</span>
-        </button>
-        <ul class="vm-fbar-dropdown" id="fbarDropVillage" role="listbox">
-          <!-- dynamically populated by JS -->
-        </ul>
-      </div>
-
-      <div class="vm-fbar-group" data-filter-key="tour">
-        <button type="button" class="vm-fbar-btn" data-dropdown="tour" aria-haspopup="listbox" aria-expanded="false">
-          Tour <span class="vm-fbar-arrow">▾</span>
-        </button>
-        <ul class="vm-fbar-dropdown" id="fbarDropTour" role="listbox">
-          <li class="vm-fbar-option" data-value="Tasting"><span class="vm-fbar-check"></span><span>Tasting</span><span class="vm-fbar-count">14</span></li>
-          <li class="vm-fbar-option" data-value="Vineyard Walk"><span class="vm-fbar-check"></span><span>Vineyard Walk</span><span class="vm-fbar-count">9</span></li>
-          <li class="vm-fbar-option" data-value="Cellar Tour"><span class="vm-fbar-check"></span><span>Cellar Tour</span><span class="vm-fbar-count">8</span></li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
   <!-- ── MOBILE FILTER CHIPS (visible < 768px) ── -->
   <div class="vm-mobile-chips" id="vmMobileChips">
     <button class="vm-mobile-chip active" data-mfilter="all">All</button>
@@ -1307,6 +1202,115 @@
 
     <!-- RIGHT: Map Panel -->
     <div class="vm-map-panel">
+
+      <!-- ── MOBILE / IPAD SEARCH BAR (visible ≤1024px) — overlaid on map ── -->
+      <div class="vm-msb-wrapper" id="vmMsbWrapper">
+
+        <div class="vm-mobile-searchbar" id="vmMobileSearchBar">
+
+          <!-- Left half: vineyard/village typeahead -->
+          <div class="vm-msb-location" id="vmMsbLocationWrap">
+            <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input type="text" id="vmMsbSearch" class="vm-msb-input"
+                   placeholder="Vineyard or village…" autocomplete="off"/>
+            <button type="button" class="vm-msb-clear" id="vmMsbClear" aria-label="Clear search" hidden>
+              <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+                <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="vm-msb-divider" aria-hidden="true"></div>
+
+          <!-- Right half: visit date picker -->
+          <div class="vm-msb-date" id="vmMsbDateWrap">
+            <svg class="vm-msb-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+              <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/>
+              <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <button class="vm-msb-date-btn" id="vmMsbDateBtn" aria-label="Set visit date">
+              <span id="vmMsbDateLabel">Select date</span>
+            </button>
+            <input type="date" id="vmMsbDateInput" class="vm-msb-date-input" aria-label="Visit date"/>
+          </div>
+
+        </div>
+
+        <!-- Dropdown lives OUTSIDE the pill so border-radius can't clip it -->
+        <ul class="vm-msb-dropdown" id="vmMsbResults" role="listbox"></ul>
+
+      </div>
+
+      <!-- ── MOBILE FILTER ROW (visible ≤1024px) — overlaid on map ── -->
+      <div class="vm-filter-row" id="vmFilterRow">
+        <!-- Filter icon button -->
+        <button type="button" class="vm-filter-toggle" id="vmFilterToggle" aria-label="Toggle filters" aria-expanded="false">
+          <svg class="vm-filter-icon-svg" viewBox="0 0 24 24" fill="none" width="18" height="18">
+            <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="8" cy="6" r="2.5" fill="currentColor"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="12" r="2.5" fill="currentColor"/>
+            <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="10" cy="18" r="2.5" fill="currentColor"/>
+          </svg>
+          <span class="vm-filter-badge" id="vmFilterBadge" hidden>0</span>
+        </button>
+
+        <!-- Horizontal scrollable filter bar -->
+        <div class="vm-filter-bar" id="vmFilterBar" aria-hidden="true">
+
+          <div class="vm-fbar-group" data-filter-key="classification">
+            <button type="button" class="vm-fbar-btn" data-dropdown="classification" aria-haspopup="listbox" aria-expanded="false">
+              Classification <span class="vm-fbar-arrow">▾</span>
+            </button>
+            <ul class="vm-fbar-dropdown" id="fbarDropClassification" role="listbox">
+              <li class="vm-fbar-option" data-value="GG">
+                <span class="vm-fbar-check"></span><span>Grosses Gewächs (GG)</span><span class="vm-fbar-count">10</span>
+              </li>
+              <li class="vm-fbar-option" data-value="1G">
+                <span class="vm-fbar-check"></span><span>Erstes Gewächs (1G)</span><span class="vm-fbar-count">4</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="vm-fbar-group" data-filter-key="grape">
+            <button type="button" class="vm-fbar-btn" data-dropdown="grape" aria-haspopup="listbox" aria-expanded="false">
+              Grape <span class="vm-fbar-arrow">▾</span>
+            </button>
+            <ul class="vm-fbar-dropdown" id="fbarDropGrape" role="listbox">
+              <li class="vm-fbar-option" data-value="Riesling"><span class="vm-fbar-check"></span><span>Riesling</span><span class="vm-fbar-count">13</span></li>
+              <li class="vm-fbar-option" data-value="Spätburgunder"><span class="vm-fbar-check"></span><span>Spätburgunder</span><span class="vm-fbar-count">1</span></li>
+            </ul>
+          </div>
+
+          <div class="vm-fbar-group" data-filter-key="village">
+            <button type="button" class="vm-fbar-btn" data-dropdown="village" aria-haspopup="listbox" aria-expanded="false">
+              Village <span class="vm-fbar-arrow">▾</span>
+            </button>
+            <ul class="vm-fbar-dropdown" id="fbarDropVillage" role="listbox">
+              <!-- dynamically populated by JS -->
+            </ul>
+          </div>
+
+          <div class="vm-fbar-group" data-filter-key="tour">
+            <button type="button" class="vm-fbar-btn" data-dropdown="tour" aria-haspopup="listbox" aria-expanded="false">
+              Tour <span class="vm-fbar-arrow">▾</span>
+            </button>
+            <ul class="vm-fbar-dropdown" id="fbarDropTour" role="listbox">
+              <li class="vm-fbar-option" data-value="Tasting"><span class="vm-fbar-check"></span><span>Tasting</span><span class="vm-fbar-count">14</span></li>
+              <li class="vm-fbar-option" data-value="Vineyard Walk"><span class="vm-fbar-check"></span><span>Vineyard Walk</span><span class="vm-fbar-count">9</span></li>
+              <li class="vm-fbar-option" data-value="Cellar Tour"><span class="vm-fbar-check"></span><span>Cellar Tour</span><span class="vm-fbar-count">8</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
 
       <!-- Map Toolbar -->
       <div class="vm-map-toolbar">
