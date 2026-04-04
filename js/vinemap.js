@@ -238,10 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const map = L.map('vinemap-container', {
     center: DEFAULT_CENTER,
     zoom: DEFAULT_ZOOM,
-    zoomControl: true,
+    zoomControl: false,
     attributionControl: true,
     scrollWheelZoom: true
   });
+  L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
   const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
