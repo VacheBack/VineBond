@@ -531,11 +531,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (msbSearch && msbResults) {
 
+    /* Normalize: fold umlauts so typing "u" matches "ü", "a" matches "ä", etc. */
+    function normalizeStr(s) {
+      return s.toLowerCase()
+        .replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u').replace(/ß/g, 'ss')
+        .replace(/é|è|ê/g, 'e').replace(/à|â/g, 'a');
+    }
+
     /* Typeahead */
     msbSearch.addEventListener('input', () => {
-      const q = msbSearch.value.trim().toLowerCase();
+      const q = normalizeStr(msbSearch.value.trim());
       msbResults.innerHTML = '';
-      msbClear.hidden = q.length === 0;
+      msbClear.hidden = msbSearch.value.length === 0;
 
       if (q.length < 1) {
         msbResults.classList.remove('open');
@@ -543,8 +550,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const matches = RHEINGAU_VINEYARDS.filter(v =>
-        v.name.toLowerCase().includes(q) ||
-        v.village.toLowerCase().includes(q)
+        normalizeStr(v.name).includes(q) ||
+        normalizeStr(v.village).includes(q)
       );
 
       if (matches.length === 0) {
@@ -597,7 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const msbDateLabel = document.getElementById('vmMsbDateLabel');
   const msbDateInput = document.getElementById('vmMsbDateInput');
 
-  if (msbDateInput && msbDateLabel) {
+  if (msbDateInput && msbDateLabel && msbDateBtn) {
     function formatVisitDate(dateStr) {
       if (!dateStr) return 'Select date';
       var parts = dateStr.split('-');
@@ -610,6 +617,16 @@ document.addEventListener('DOMContentLoaded', () => {
       msbDateInput.value = saved;
       msbDateLabel.textContent = formatVisitDate(saved);
     }
+
+    /* Open native date picker when the visible button is tapped */
+    msbDateBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof msbDateInput.showPicker === 'function') {
+        msbDateInput.showPicker();
+      } else {
+        msbDateInput.click();
+      }
+    });
 
     msbDateInput.addEventListener('change', () => {
       var val = msbDateInput.value;
