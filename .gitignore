@@ -15,3 +15,6 @@
 
 # Custom domain file for GitHub Pages
 !CNAME
+
+# Local API key overrides (never commit real keys)
+js/vinemap-config.local.js

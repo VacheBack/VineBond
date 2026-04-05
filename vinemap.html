@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>VineMap — VineBond</title>
   <script>(function(){document.documentElement.setAttribute('data-theme',window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');})();</script>
-  <!-- Leaflet.js CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Leaflet CSS is loaded dynamically by vinemap-detect.js when needed -->
   <link rel="stylesheet" href="css/vinebond.css" />
   <style>
     /* ══════════════════════════════════════════════════════
@@ -644,6 +642,13 @@
         color: #fff;
         min-width: 0;
       }
+      .vm-msb-input:focus,
+      .vm-msb-input:focus-visible {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        -webkit-tap-highlight-color: transparent;
+      }
       .vm-msb-input::placeholder { color: rgba(255,255,255,0.45); }
 
       .vm-msb-clear {
@@ -687,7 +692,7 @@
         white-space: nowrap;
       }
 
-      /* Date input — hidden but programmatically opened via showPicker()/click() */
+      /* Date input — hidden, kept for form compatibility */
       .vm-msb-date-input {
         position: absolute;
         width: 0;
@@ -696,6 +701,138 @@
         pointer-events: none;
         border: none;
         padding: 0;
+      }
+
+      /* ── Custom Calendar Popup ── */
+      .vm-calendar {
+        display: none;
+        position: fixed;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(28,79,61,0.18);
+        z-index: 1060;
+        width: 300px;
+        padding: 16px;
+        font-family: inherit;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .vm-calendar.open { display: block; }
+
+      .vm-cal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .vm-cal-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--vb-forest, #1C4F3D);
+      }
+      .vm-cal-nav {
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--vb-forest, #1C4F3D);
+        font-size: 1.1rem;
+        transition: background 0.15s;
+      }
+      .vm-cal-nav:hover { background: rgba(28,79,61,0.08); }
+
+      .vm-cal-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        margin-bottom: 4px;
+      }
+      .vm-cal-weekday {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #999;
+        padding: 4px 0;
+        text-transform: uppercase;
+      }
+
+      .vm-cal-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+      }
+      .vm-cal-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.82rem;
+        font-weight: 500;
+        border-radius: 50%;
+        cursor: pointer;
+        border: none;
+        background: none;
+        color: #333;
+        transition: background 0.15s, color 0.15s;
+        padding: 0;
+      }
+      .vm-cal-day:hover { background: rgba(28,79,61,0.08); }
+      .vm-cal-day.empty {
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .vm-cal-day.today {
+        border: 1.5px solid var(--vb-forest, #1C4F3D);
+      }
+      .vm-cal-day.selected {
+        background: var(--vb-forest, #1C4F3D);
+        color: #fff;
+      }
+      .vm-cal-day.selected:hover {
+        background: var(--vb-leaf-green, #2D6A4F);
+      }
+      .vm-cal-day.past {
+        color: #ccc;
+        pointer-events: none;
+      }
+
+      /* Dark mode */
+      [data-theme="dark"] .vm-calendar {
+        background: #1a1a1a;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      }
+      [data-theme="dark"] .vm-cal-title { color: #c8e6c9; }
+      [data-theme="dark"] .vm-cal-nav { color: #c8e6c9; }
+      [data-theme="dark"] .vm-cal-nav:hover { background: rgba(200,230,201,0.1); }
+      [data-theme="dark"] .vm-cal-weekday { color: #777; }
+      [data-theme="dark"] .vm-cal-day { color: #ddd; }
+      [data-theme="dark"] .vm-cal-day:hover { background: rgba(200,230,201,0.1); }
+      [data-theme="dark"] .vm-cal-day.past { color: #555; }
+      [data-theme="dark"] .vm-cal-day.today { border-color: #c8e6c9; }
+      [data-theme="dark"] .vm-cal-day.selected { background: #2D6A4F; color: #fff; }
+
+      /* Calendar backdrop for mobile */
+      .vm-cal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 1059;
+        background: rgba(0,0,0,0.3);
+      }
+      .vm-cal-backdrop.open { display: block; }
+
+      @media (max-width: 600px) {
+        .vm-calendar {
+          width: calc(100vw - 32px);
+          left: 16px !important;
+          right: 16px !important;
+          top: 50% !important;
+          transform: translateY(-50%);
+        }
       }
 
       /* Typeahead dropdown — fixed to viewport so no stacking-context or
@@ -815,117 +952,54 @@
         display: none;
         align-items: center;
         overflow-x: auto;
-        scrollbar-width: none;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255,255,255,0.35) transparent;
         gap: 8px;
-        padding: 0 0 0 8px;
+        padding: 0 0 4px 8px;
         flex: 1;
       }
-      .vm-filter-bar::-webkit-scrollbar { display: none; }
+      .vm-filter-bar::-webkit-scrollbar { height: 4px; }
+      .vm-filter-bar::-webkit-scrollbar-track { background: transparent; }
+      .vm-filter-bar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.35); border-radius: 4px; }
+      .vm-filter-bar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.5); }
       .vm-filter-bar.open { display: flex; }
 
-      /* Each filter group */
-      .vm-fbar-group {
-        position: relative;
-        flex-shrink: 0;
-      }
-
-      /* Pill filter button */
-      .vm-fbar-btn {
+      /* Dropdown select filters */
+      .vm-fbar-select {
         height: 36px;
         border-radius: 100px;
-        background: rgba(255,255,255,0.08);
+        background: #2A2A2A;
         border: 1.5px solid rgba(255,255,255,0.22);
         color: #fff;
         font-size: 0.82rem;
         font-weight: 500;
-        padding: 0 14px;
+        padding: 0 28px 0 14px;
         cursor: pointer;
         white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 5px;
+        flex-shrink: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.7)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.2s, background-color 0.2s;
       }
-      .vm-fbar-btn.active {
-        background: #5C2632;
+      .vm-fbar-select:focus { border-color: rgba(255,255,255,0.5); }
+      .vm-fbar-select.active {
+        background-color: #5C2632;
         border-color: #5C2632;
         color: #fff;
       }
-      .vm-fbar-arrow { font-size: 0.7rem; opacity: 0.7; }
-
-      /* Dropdown panel */
-      .vm-fbar-dropdown {
-        display: none;
-        position: absolute;
-        top: calc(100% + 6px);
-        left: 0;
-        min-width: 200px;
+      .vm-fbar-select option {
         background: #fff;
-        border: 1px solid #E8DFD0;
-        border-radius: 14px;
-        box-shadow: 0 8px 28px rgba(28,79,61,0.14);
-        list-style: none;
-        padding: 4px;
-        margin: 0;
-        z-index: 600;
-      }
-      .vm-fbar-dropdown.open { display: block; }
-
-      /* Last dropdown: align right to prevent off-screen clipping */
-      .vm-fbar-group:last-child .vm-fbar-dropdown {
-        left: auto;
-        right: 0;
-      }
-
-      /* Option rows */
-      .vm-fbar-option {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 9px 12px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 0.82rem;
         color: #2A2A2A;
-        transition: background 0.1s;
+        font-size: 0.88rem;
+        padding: 8px;
       }
-      .vm-fbar-option:hover { background: #F5F2ED; }
-      .vm-fbar-option.selected { color: #5C2632; font-weight: 600; }
-      .vm-fbar-option.disabled {
-        opacity: 0.35;
-        pointer-events: none;
-      }
-
-      /* Custom checkbox */
-      .vm-fbar-check {
-        width: 16px;
-        height: 16px;
-        border-radius: 4px;
-        border: 1.5px solid #C8BEB5;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .vm-fbar-option.selected .vm-fbar-check {
-        background: #5C2632;
-        border-color: #5C2632;
-      }
-      .vm-fbar-option.selected .vm-fbar-check::after {
-        content: '';
-        display: block;
-        width: 9px;
-        height: 5px;
-        border-left: 2px solid #fff;
-        border-bottom: 2px solid #fff;
-        transform: translateY(-1px) rotate(-45deg);
-      }
-
-      /* Count badge */
-      .vm-fbar-count {
-        margin-left: auto;
-        font-size: 0.72rem;
-        color: #A8A298;
-        font-weight: 500;
+      .vm-fbar-select option:disabled {
+        color: #C8BEB5;
       }
 
     }
@@ -934,23 +1008,78 @@
     [data-theme="dark"] .vm-filter-toggle { background: #1A2A28; }
     [data-theme="dark"] .vm-filter-toggle.active { background: #5C2632; }
     [data-theme="dark"] .vm-filter-badge { border-color: #0C1410; }
-    [data-theme="dark"] .vm-fbar-btn {
-      background: rgba(255,255,255,0.06);
+    [data-theme="dark"] .vm-fbar-select {
+      background-color: #1A2A28;
       border-color: rgba(90,150,144,0.3);
       color: #EDE8E0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(200,226,201,0.6)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     }
-    [data-theme="dark"] .vm-fbar-btn.active { background: #5C2632; border-color: #5C2632; }
-    [data-theme="dark"] .vm-fbar-dropdown {
+    [data-theme="dark"] .vm-fbar-select:focus { border-color: #5A9690; }
+    [data-theme="dark"] .vm-fbar-select.active { background-color: #5C2632; border-color: #5C2632; }
+    [data-theme="dark"] .vm-fbar-select option {
       background: #0E1917;
-      border-color: rgba(90,150,144,0.25);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+      color: #EDE8E0;
     }
-    [data-theme="dark"] .vm-fbar-option { color: #EDE8E0; }
-    [data-theme="dark"] .vm-fbar-option:hover { background: rgba(90,150,144,0.1); }
-    [data-theme="dark"] .vm-fbar-option.selected { color: #C47A8A; }
-    [data-theme="dark"] .vm-fbar-check { border-color: rgba(90,150,144,0.4); }
-    [data-theme="dark"] .vm-fbar-option.selected .vm-fbar-check { background: #5C2632; border-color: #5C2632; }
-    [data-theme="dark"] .vm-fbar-count { color: #6A8A84; }
+    [data-theme="dark"] .vm-fbar-select option:disabled { color: #4A6A64; }
+    [data-theme="dark"] .vm-filter-bar { scrollbar-color: rgba(90,150,144,0.35) transparent; }
+    [data-theme="dark"] .vm-filter-bar::-webkit-scrollbar-thumb { background: rgba(90,150,144,0.35); }
+    [data-theme="dark"] .vm-filter-bar::-webkit-scrollbar-thumb:hover { background: rgba(90,150,144,0.5); }
+
+    /* ── Google Maps Marker Styles ─────────────────────────────────────── */
+
+    .vb-gm-marker-wrap {
+      cursor: pointer;
+      transform: translate(-50%, -100%);
+    }
+    .vb-gm-marker {
+      width: 42px; height: 42px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      border: 3px solid rgba(255,255,255,0.9);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vb-gm-marker-label {
+      transform: rotate(45deg);
+      color: #fff;
+      font-weight: 800;
+      font-size: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* Google Maps label overlay */
+    .vb-gm-label {
+      transform: translate(-50%, -68px);
+      pointer-events: none;
+      width: 200px;
+      text-align: center;
+    }
+
+    /* Google Maps InfoWindow overrides */
+    .gm-style .gm-style-iw-c {
+      border-radius: 14px !important;
+      padding: 8px !important;
+      max-width: 280px !important;
+    }
+    .gm-style .gm-style-iw-d {
+      overflow: auto !important;
+      max-height: 360px !important;
+    }
+    .gm-style .gm-style-iw-tc::after {
+      background: white !important;
+    }
+    [data-theme="dark"] .gm-style .gm-style-iw-c {
+      background: #1A2A28 !important;
+      color: #EDE8E0 !important;
+    }
+    [data-theme="dark"] .gm-style .gm-style-iw-tc::after {
+      background: #1A2A28 !important;
+    }
+    [data-theme="dark"] .gm-style .gm-ui-hover-effect > span {
+      background-color: #EDE8E0 !important;
+    }
   </style>
 </head>
 <body>
@@ -966,16 +1095,6 @@
           </div>
           <span class="nav-brand-wordmark">VineBond</span>
         </a>
-        <div class="nav-utility" id="navUtility">
-          <a href="login.html" class="btn btn-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span>Sign In</span>
-          </a>
-          <a href="login.html" class="btn btn-primary btn-sm"><span>Register</span></a>
-        </div>
-        <button class="nav-mobile-trigger" id="navMobileTrigger" aria-label="Open menu" aria-expanded="false" aria-controls="navSheet"><span></span><span></span><span></span></button>
-      </div>
-      <div class="nav-row-chips">
         <ul class="nav-primary" role="list">
           <li><a href="winery.html">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14c1-2 2.5-3 4-3s3 1 4 3"/><path d="M8 10c1-1 2.5-1.5 4-1.5s3 .5 4 1.5"/></svg>
@@ -994,6 +1113,14 @@
             <span>VineClub</span>
           </a></li>
         </ul>
+        <div class="nav-utility" id="navUtility">
+          <a href="login.html" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Sign In</span>
+          </a>
+          <a href="login.html" class="btn btn-primary btn-sm"><span>Register</span></a>
+        </div>
+        <button class="nav-mobile-trigger" id="navMobileTrigger" aria-label="Open menu" aria-expanded="false" aria-controls="navSheet"><span></span><span></span><span></span></button>
       </div>
     </nav>
   </header>
@@ -1244,6 +1371,18 @@
 
         </div>
 
+        <!-- Custom calendar popup -->
+        <div class="vm-cal-backdrop" id="vmCalBackdrop"></div>
+        <div class="vm-calendar" id="vmCalendar" role="dialog" aria-label="Date picker">
+          <div class="vm-cal-header">
+            <button class="vm-cal-nav" id="vmCalPrev" aria-label="Previous month">&#8249;</button>
+            <span class="vm-cal-title" id="vmCalTitle"></span>
+            <button class="vm-cal-nav" id="vmCalNext" aria-label="Next month">&#8250;</button>
+          </div>
+          <div class="vm-cal-weekdays" id="vmCalWeekdays"></div>
+          <div class="vm-cal-days" id="vmCalDays"></div>
+        </div>
+
         <!-- Dropdown lives OUTSIDE the pill so border-radius can't clip it -->
         <ul class="vm-msb-dropdown" id="vmMsbResults" role="listbox"></ul>
 
@@ -1264,52 +1403,32 @@
           <span class="vm-filter-badge" id="vmFilterBadge" hidden>0</span>
         </button>
 
-        <!-- Horizontal scrollable filter bar -->
+        <!-- Horizontal scrollable filter bar with dropdown selects -->
         <div class="vm-filter-bar" id="vmFilterBar" aria-hidden="true">
 
-          <div class="vm-fbar-group" data-filter-key="classification">
-            <button type="button" class="vm-fbar-btn" data-dropdown="classification" aria-haspopup="listbox" aria-expanded="false">
-              Classification <span class="vm-fbar-arrow">▾</span>
-            </button>
-            <ul class="vm-fbar-dropdown" id="fbarDropClassification" role="listbox">
-              <li class="vm-fbar-option" data-value="GG">
-                <span class="vm-fbar-check"></span><span>Grosses Gewächs (GG)</span><span class="vm-fbar-count">10</span>
-              </li>
-              <li class="vm-fbar-option" data-value="1G">
-                <span class="vm-fbar-check"></span><span>Erstes Gewächs (1G)</span><span class="vm-fbar-count">4</span>
-              </li>
-            </ul>
-          </div>
+          <select class="vm-fbar-select" id="fbarSelectClassification" data-filter-key="classification">
+            <option value="">Classification</option>
+            <option value="GG">Grosses Gewächs (GG)</option>
+            <option value="1G">Erstes Gewächs (1G)</option>
+          </select>
 
-          <div class="vm-fbar-group" data-filter-key="grape">
-            <button type="button" class="vm-fbar-btn" data-dropdown="grape" aria-haspopup="listbox" aria-expanded="false">
-              Grape <span class="vm-fbar-arrow">▾</span>
-            </button>
-            <ul class="vm-fbar-dropdown" id="fbarDropGrape" role="listbox">
-              <li class="vm-fbar-option" data-value="Riesling"><span class="vm-fbar-check"></span><span>Riesling</span><span class="vm-fbar-count">13</span></li>
-              <li class="vm-fbar-option" data-value="Spätburgunder"><span class="vm-fbar-check"></span><span>Spätburgunder</span><span class="vm-fbar-count">1</span></li>
-            </ul>
-          </div>
+          <select class="vm-fbar-select" id="fbarSelectGrape" data-filter-key="grape">
+            <option value="">Grape</option>
+            <option value="Riesling">Riesling</option>
+            <option value="Spätburgunder">Spätburgunder</option>
+          </select>
 
-          <div class="vm-fbar-group" data-filter-key="village">
-            <button type="button" class="vm-fbar-btn" data-dropdown="village" aria-haspopup="listbox" aria-expanded="false">
-              Village <span class="vm-fbar-arrow">▾</span>
-            </button>
-            <ul class="vm-fbar-dropdown" id="fbarDropVillage" role="listbox">
-              <!-- dynamically populated by JS -->
-            </ul>
-          </div>
+          <select class="vm-fbar-select" id="fbarSelectVillage" data-filter-key="village">
+            <option value="">Village</option>
+            <!-- dynamically populated by JS -->
+          </select>
 
-          <div class="vm-fbar-group" data-filter-key="tour">
-            <button type="button" class="vm-fbar-btn" data-dropdown="tour" aria-haspopup="listbox" aria-expanded="false">
-              Tour <span class="vm-fbar-arrow">▾</span>
-            </button>
-            <ul class="vm-fbar-dropdown" id="fbarDropTour" role="listbox">
-              <li class="vm-fbar-option" data-value="Tasting"><span class="vm-fbar-check"></span><span>Tasting</span><span class="vm-fbar-count">14</span></li>
-              <li class="vm-fbar-option" data-value="Vineyard Walk"><span class="vm-fbar-check"></span><span>Vineyard Walk</span><span class="vm-fbar-count">9</span></li>
-              <li class="vm-fbar-option" data-value="Cellar Tour"><span class="vm-fbar-check"></span><span>Cellar Tour</span><span class="vm-fbar-count">8</span></li>
-            </ul>
-          </div>
+          <select class="vm-fbar-select" id="fbarSelectTour" data-filter-key="tour">
+            <option value="">Tour</option>
+            <option value="Tasting">Tasting</option>
+            <option value="Vineyard Walk">Vineyard Walk</option>
+            <option value="Cellar Tour">Cellar Tour</option>
+          </select>
 
         </div>
       </div>
@@ -1327,7 +1446,7 @@
         </button>
       </div>
 
-      <!-- Leaflet Map -->
+      <!-- Map Container (Google Maps or Leaflet, loaded dynamically) -->
       <div id="vinemap-container"></div>
 
       <!-- Empty State (shown when all filters exclude everything) -->
@@ -1342,9 +1461,12 @@
 
   </div><!-- /.vm-page-wrapper -->
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- VineMap: data → config → detect → adapter → orchestrator (renderers loaded dynamically) -->
+  <script src="js/vinemap-data.js"></script>
+  <script src="js/vinemap-config.js"></script>
+  <script src="js/vinemap-config.local.js" onerror=""></script>
+  <script src="js/vinemap-detect.js"></script>
+  <script src="js/vinemap-adapter.js"></script>
   <script src="js/vinemap.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/nav-role.js"></script>

@@ -332,15 +332,10 @@ button, select, input, textarea { font-family: inherit; }
   gap: 0;
 }
 
-/* Row 2 chip strip — visible on all breakpoints (Booking.com two-row pattern) */
+/* Row 2 chip strip — moved into nav-row-top on desktop */
 .nav-row-chips {
-  display: block;
-  border-top: 1px solid rgba(28,79,61,0.10);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  display: none;
 }
-.nav-row-chips::-webkit-scrollbar { display: none; }
 
 /* ── ZONE 1: Brand (in-flow flex child) ─────────────────────── */
 .nav-brand {
@@ -367,17 +362,16 @@ button, select, input, textarea { font-family: inherit; }
   object-fit: contain;
 }
 
-/* ── ZONE 2: Primary navigation — chip strip (Booking.com pattern) ── */
+/* ── ZONE 2: Primary navigation — inline in nav-row-top ── */
 .nav-primary {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 4px;
-  padding: 8px 24px;
-  max-width: 1240px;
-  margin: 0 auto;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  justify-content: center;
 }
 .nav-primary a {
   display: flex;
@@ -449,7 +443,6 @@ button, select, input, textarea { font-family: inherit; }
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
-  margin-left: auto;
 }
 .nav-utility .btn { padding: 9px 20px; font-size: 0.78rem; }
 
