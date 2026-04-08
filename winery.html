@@ -851,7 +851,7 @@
     }
     navTrigger.addEventListener('click', function() { menuIsOpen ? closeMenu() : openMenu(); });
     navBackdrop.addEventListener('click', closeMenu);
-    window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMenu(); });
+    window.addEventListener('resize', function() { if (window.innerWidth > 1024 && menuIsOpen) closeMenu(); });
 
     /* ── Intersection Observer ── */
     var obs = new IntersectionObserver(function(entries) {

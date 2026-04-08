@@ -480,7 +480,7 @@
     function closeMenu() { navSheet.classList.remove('open'); navBackdrop.classList.remove('visible'); navTrigger.setAttribute('aria-expanded','false'); unlockScroll(); }
     navTrigger.addEventListener('click', () => navSheet.classList.contains('open') ? closeMenu() : openMenu());
     navBackdrop.addEventListener('click', closeMenu);
-    window.addEventListener('resize', () => { if (window.innerWidth > 768 && navSheet.classList.contains('open')) closeMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 1024 && navSheet.classList.contains('open')) closeMenu(); });
 
     /* ---- Scroll-reveal ---- */
     const fadeEls = document.querySelectorAll('.fade-up');

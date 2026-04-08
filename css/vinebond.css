@@ -777,15 +777,11 @@ footer {
    5XL    Large Desktop     ≥ 1920 px      12         QHD–4K, iMac 24"
    ══════════════════════════════════════════════════════════════ */
 
-/* ── XXL — Tablet Landscape (≤ 1024px) ───────────────────── */
+/* ── ≤1024px — hide nav links, show hamburger + sheet ───────── */
 @media (max-width: 1024px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* ── iPad Portrait — 769px–1024px: hamburger menu, hide chips ── */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .nav-row-top { padding: 0 16px; }
   .nav-row-chips { display: none; }
+  .nav-primary { display: none; }
   .nav-utility { display: none; }
   .nav-mobile-trigger {
     display: flex;
@@ -809,58 +805,6 @@ footer {
   .nav-mobile-trigger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
   .nav-mobile-trigger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-mobile-trigger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-}
-
-/* ── XL — Tablet Portrait (≤ 768px → two-row mobile header) ── */
-@media (max-width: 768px) {
-  /* Two-row header */
-  .site-header { height: auto; }
-
-  .nav-row-top {
-    height: 56px;
-    padding: 0 16px;
-    max-width: 100%;
-    justify-content: space-between;
-  }
-  .nav-brand { margin-right: 0; font-size: 1.25rem; gap: 8px; }
-  .nav-brand-icon { width: 32px; height: 32px; }
-
-  /* Chip strip hidden on mobile — nav items move to sheet */
-  .nav-row-chips { display: none; }
-
-  /* VineClub chip: desktop only */
-  .nav-primary li.vineclub-chip { display: none; }
-
-  /* Desktop utility hidden; hamburger trigger shows */
-  .nav-utility { display: none; }
-  .nav-mobile-trigger {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    padding: 8px;
-    min-width: 44px;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .nav-mobile-trigger span {
-    width: 22px; height: 2.5px;
-    background: var(--vb-deep-maroon);
-    border-radius: 2px;
-    transition: var(--transition);
-  }
-  .nav-mobile-trigger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-  .nav-mobile-trigger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-  .nav-mobile-trigger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-
-  /* Lang toggle: in-flow on mobile */
-  .lang-toggle {
-    position: static; right: auto; top: auto; transform: none;
-    order: 2; margin-right: 8px;
-  }
 
   /* Sheet backdrop */
   .nav-backdrop {
@@ -869,7 +813,7 @@ footer {
   }
   .nav-backdrop.visible { display: block; }
 
-  /* Utility sheet (right-side panel, auth actions only) */
+  /* Navigation sheet (right-side panel) */
   .nav-sheet {
     display: none;
     position: fixed;
@@ -913,7 +857,6 @@ footer {
     font-size: 0.95rem; text-decoration: none; width: 100%;
   }
 
-  /* Extra sheet links (VineClub + support) — static, below auth section */
   .nav-sheet-links {
     display: flex; flex-direction: column; gap: 2px;
     margin-top: 20px; padding-top: 16px;
@@ -933,6 +876,32 @@ footer {
   }
   .nav-sheet-links a:hover { background: var(--vb-light-beige); color: var(--vb-forest); }
   .nav-sheet-links a svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--vb-forest); }
+}
+
+/* ── 769px–1024px: tablet padding ───────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav-row-top { padding: 0 16px; }
+}
+
+/* ── XL — Tablet Portrait (≤ 768px → two-row mobile header) ── */
+@media (max-width: 768px) {
+  /* Two-row header */
+  .site-header { height: auto; }
+
+  .nav-row-top {
+    height: 56px;
+    padding: 0 16px;
+    max-width: 100%;
+    justify-content: space-between;
+  }
+  .nav-brand { margin-right: 0; font-size: 1.25rem; gap: 8px; }
+  .nav-brand-icon { width: 32px; height: 32px; }
+
+  /* Lang toggle: in-flow on mobile */
+  .lang-toggle {
+    position: static; right: auto; top: auto; transform: none;
+    order: 2; margin-right: 8px;
+  }
 
   /* Horizontal scroll for filter chips on mobile */
   .filter-chips {

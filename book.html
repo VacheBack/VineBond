@@ -801,7 +801,7 @@
     }
     navTrigger.addEventListener('click', () => menuIsOpen ? closeMenu() : openMenu());
     navBackdrop.addEventListener('click', closeMenu);
-    window.addEventListener('resize', () => { if (window.innerWidth > 768 && menuIsOpen) closeMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 1024 && menuIsOpen) closeMenu(); });
 
     /* Scroll reveal */
     const obs = new IntersectionObserver(entries => {

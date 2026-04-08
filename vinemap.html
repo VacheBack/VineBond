@@ -1029,7 +1029,7 @@
 
     .vb-gm-marker-wrap {
       cursor: pointer;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, calc(-100% - 9px));
     }
     .vb-gm-marker {
       width: 42px; height: 42px;
@@ -1496,7 +1496,7 @@
     }
     navTrigger.addEventListener('click', () => menuIsOpen ? closeMenu() : openMenu());
     navBackdrop.addEventListener('click', closeMenu);
-    window.addEventListener('resize', () => { if (window.innerWidth > 768 && menuIsOpen) closeMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 1024 && menuIsOpen) closeMenu(); });
 
     /* ── Mobile filter chips ── */
     document.querySelectorAll('.vm-mobile-chip').forEach(chip => {

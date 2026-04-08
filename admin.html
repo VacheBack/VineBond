@@ -1056,7 +1056,7 @@
       menuIsOpen ? closeMobileMenu() : openMobileMenu();
     });
     navBackdrop.addEventListener('click', closeMobileMenu);
-    window.addEventListener('resize', function() { if (window.innerWidth > 768 && menuIsOpen) closeMobileMenu(); });
+    window.addEventListener('resize', function() { if (window.innerWidth > 1024 && menuIsOpen) closeMobileMenu(); });
 
     // ── XSS-safe escape ─────────────────────────────────────────────
     function esc(str) {
