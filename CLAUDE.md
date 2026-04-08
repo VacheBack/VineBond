@@ -39,10 +39,22 @@ All modules use global `window.*` namespaces (no module bundler).
 - **`auth.js`** (`window.VineBondAuth`) — localStorage-backed role system (GUEST/USER/ADMIN). Admin detection: email domain `@vinebond.com` or `@winery.com`. Keys: `vb_role`, `vb_email`, `vb_display_name`.
 - **`nav-role.js`** (`window.VineBondNav`) — Renders role-specific topbar CTAs into `#topbarCta`. Escapes user display names to prevent XSS.
 - **`winery-data.js`** (`window.VineBondWineries`) — CRUD layer over `localStorage` (`vb_wineries`). Falls back to `DEFAULT_WINERIES` (6 pre-configured estates). Admin-added wineries persist across page loads.
-- **`vinemap.js`** — Leaflet.js v1.9.x map of 14 Rheingau sites (10 GG + 4 1G). Language for popups sourced from `localStorage.getItem('vb_lang')`.
 - **`vineclub.js`** — Multi-step registration, Stripe.js card tokenisation, Canvas API certificate generation (800×560px PNG download), URL hash routing (`#certificate/{tier}`).
 - **`ui-enhancements.js`** — Page progress bar, back-to-top button, topbar `.scrolled` class, winery search filtering. Uses `requestAnimationFrame` throttling.
 - **`theme.js`** (`window.VineBondTheme`) — OS-preference-only dark mode. Sets `data-theme` attribute on `<html>` based on `prefers-color-scheme`. No manual toggle — reacts to system changes in real time.
+- **`orientation-lock.js`** — Injects a portrait-mode overlay to block landscape use on mobile.
+
+#### VineMap Multi-Renderer System
+
+The map uses an adapter pattern supporting multiple renderers (Google Maps for Android/Windows, Leaflet as fallback). Scripts must load in this order in `vinemap.html`:
+
+1. **`vinemap-data.js`** (`window.RHEINGAU_VINEYARDS`) — 14 classified vineyard sites (10 GG + 4 1G) shared by all renderers.
+2. **`vinemap-config.js`** (`window.VB_MAP_CONFIG`) — Shared config: center coords, zoom levels, API key placeholder.
+3. **`vinemap-config.local.js`** — Real Google Maps API key override (**gitignored**, optional). Copy pattern from `vinemap-config.js` comments.
+4. **`vinemap-detect.js`** — Platform detection + dynamic library loader. Override via `localStorage.setItem('vb_map_provider', 'google' | 'leaflet')`.
+5. **`vinemap-leaflet.js`** / **`vinemap-google.js`** — Renderer implementations. Each exposes the same interface (`init`, `addMarker`, `showMarker`, `hideMarker`, `openPopup`, `setView`, `setDarkMode`, etc.).
+6. **`vinemap-adapter.js`** — Platform-agnostic layer wiring filters, search, popups, and labels to whichever renderer is active.
+7. **`vinemap.js`** — Orchestrator: detects platform, loads renderer, initialises the adapter.
 
 ### Styling
 
@@ -62,18 +74,25 @@ All modules use global `window.*` namespaces (no module bundler).
 ## Key Conventions
 
 - **No CSS framework** — all styling is custom via `vinebond.css` and the `design-system/` folder.
-- **Winery data source:** `window.VineBondWineries` (localStorage-backed) for the directory; `RHEINGAU_VINEYARDS` in `vinemap.js` for the map. These are separate datasets.
+- **Winery data source:** `window.VineBondWineries` (localStorage-backed) for the directory; `window.RHEINGAU_VINEYARDS` in `vinemap-data.js` for the map. These are separate datasets.
 - **Admin auth guard:** `admin.html` runs an inline script before the `<body>` to redirect non-admins to `login.html` — this intentionally blocks DOM paint to prevent flash.
+- **Google Maps API key:** Placeholder in `vinemap-config.js`; real key goes in `vinemap-config.local.js` (gitignored). Override provider via `localStorage.setItem('vb_map_provider', 'google' | 'leaflet')`.
 - **Stripe key:** `pk_test_REPLACE_WITH_YOUR_STRIPE_KEY` in `vineclub.js` — must be replaced for real payments.
 - **Document uploads** in admin are demo-only: files are stored in `localStorage` (`vb_verification_docs`). Production would need server-side storage.
 - **Winery ID generation** uses kebab-case slugs with umlaut substitution (ä→ae, ö→oe, ü→ue, ß→ss).
 - **CSS class prefix** for new admin/role UI: `vb-admin-`, `vb-role-`. General components use `vb-`.
-- Leaflet.js is CDN-loaded in `vinemap.html` — no local copy. Stripe.js is CDN-loaded in `vineclub.html`.
+- Leaflet.js is CDN-loaded in `vinemap.html` — no local copy. Google Maps is dynamically loaded by `vinemap-detect.js`. Stripe.js is CDN-loaded in `vineclub.html`.
+- **Deployment:** Netlify (`netlify.toml`). SPA-style redirect: all routes → `index.html`.
 
 ## Testing
 
-Two spec files in `tests/`:
+Three spec files in `tests/`:
 - **`auth.spec.js`** — Role detection, localStorage persistence, nav CTA rendering per role, admin access control, and logout.
 - **`winery-filter-cascade.spec.js`** — Cascading filter dropdown behavior on `winery.html` (11 test cases: village/grape/classification cross-filtering, clear-all, zero-option hiding, result count).
+- **`vinemap-google.spec.js`** — Google Maps renderer tests.
 
 Config: `playwright.config.js` (Chromium only, 15s timeout, screenshots on failure).
+
+## Regression Testing
+
+After any change touching more than two components or files (styling overhauls, JS module edits, new features), always trigger the `regression-tester` subagent **in the background** (`run_in_background: true`) so it runs in its own context window without consuming tokens from the current conversation. Do not wait for it — continue responding to the user immediately and let the notification arrive when it finishes.

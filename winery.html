@@ -12,13 +12,13 @@
     ── */
 
     /* ── Filter Bar ── */
-    body { padding-top: 120px; }
+    body { padding-top: 64px; }
     .filter-bar {
       background: #FFFFFF;
       border-bottom: 1px solid var(--vb-light-beige);
       padding: 14px 0;
       position: sticky;
-      top: 120px;
+      top: 64px;
       z-index: 100;
     }
     .filter-bar .container {
@@ -837,16 +837,26 @@
       navSheet.classList.add('open');
       navBackdrop.classList.add('visible');
       navTrigger.setAttribute('aria-expanded', 'true');
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      var _sy = window.scrollY;
+      var _sbW = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = _sbW + 'px';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + _sy + 'px';
+      document.body.style.width = '100%';
+      document.body.dataset.scrollY = _sy;
       menuIsOpen = true;
     }
     function closeMenu() {
       navSheet.classList.remove('open');
       navBackdrop.classList.remove('visible');
       navTrigger.setAttribute('aria-expanded', 'false');
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      var _savedY = parseInt(document.body.dataset.scrollY || '0', 10);
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.paddingRight = '';
+      delete document.body.dataset.scrollY;
+      window.scrollTo(0, _savedY);
       menuIsOpen = false;
     }
     navTrigger.addEventListener('click', function() { menuIsOpen ? closeMenu() : openMenu(); });

@@ -795,6 +795,7 @@ footer {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-left: auto;
   }
   .nav-mobile-trigger span {
     width: 22px; height: 2.5px;

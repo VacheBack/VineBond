@@ -461,15 +461,23 @@
 
     /* ---- Scroll lock ---- */
     let _menuOpen = false;
+    let _vcScrollY = 0;
     function lockScroll() {
       _menuOpen = true;
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      _vcScrollY = window.scrollY;
+      const sbW = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = sbW + 'px';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + _vcScrollY + 'px';
+      document.body.style.width = '100%';
     }
     function unlockScroll() {
       _menuOpen = false;
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.paddingRight = '';
+      window.scrollTo(0, _vcScrollY);
     }
 
     /* ---- Nav sheet ---- */
