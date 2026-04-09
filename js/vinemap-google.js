@@ -225,8 +225,9 @@
         boundaryBounds.extend(ll);
         return ll;
       });
+      innerPath.reverse(); // opposite winding to WORLD_BOUNDS for hole
 
-      // Inverted polygon: world fill with Rheingau hole
+      // Inverted polygon: world fill with Hessen hole
       maskPolygon = new google.maps.Polygon({
         paths:         [WORLD_BOUNDS, innerPath],
         strokeColor:   cfg.borderColor   || '#5C2632',
