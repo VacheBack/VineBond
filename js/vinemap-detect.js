@@ -1,12 +1,12 @@
 /**
- * VineBond — Platform Detection & Dynamic Map Library Loader
+ * VineBond — Map Library Loader
  * ─────────────────────────────────────────────────────────────────────────────
- * Detects user platform and loads the appropriate map library:
- *   • Google Maps  → Android, Windows, Linux, ChromeOS
- *   • Apple MapKit → iPhone, iPad, Mac (Safari / WebKit)
+ * Loads Google Maps JavaScript API on all platforms (Android, iOS, Windows,
+ * Linux, Mac). Shows an inline error if the API key is missing or the script
+ * fails to load.
  *
- * Override via localStorage for testing:
- *   localStorage.setItem('vb_map_provider', 'google' | 'apple')
+ * Override for testing:
+ *   localStorage.setItem('vb_map_provider', 'google')
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -14,29 +14,6 @@
   'use strict';
 
   var config = window.VB_MAP_CONFIG || {};
-
-  /**
-   * Detect the target map platform.
-   * Returns 'google' | 'apple'
-   */
-  function getPlatform() {
-    // Allow localStorage override for testing
-    var override = localStorage.getItem('vb_map_provider');
-    if (override === 'google' || override === 'apple') return override;
-
-    // navigator.userAgentData (Chromium 90+) — most reliable
-    if (navigator.userAgentData && navigator.userAgentData.platform) {
-      var p = navigator.userAgentData.platform.toLowerCase();
-      if (p === 'macos' || p === 'ios') return 'apple';
-      return 'google';
-    }
-
-    // Fallback: classic User-Agent string
-    var ua = navigator.userAgent || '';
-    if (/iPhone|iPad|iPod/i.test(ua))    return 'apple';
-    if (/Macintosh.*Mac OS X/i.test(ua)) return 'apple';
-    return 'google';
-  }
 
   /* ── Script injection helper ───────────────────────────────────────────── */
 
@@ -84,48 +61,6 @@
     });
   }
 
-  /* ── Apple MapKit JS loader ────────────────────────────────────────────── */
-
-  function _loadAppleMaps(done) {
-    var token = config.appleToken || '';
-    if (!token || token === 'YOUR_MAPKIT_JS_TOKEN') {
-      console.warn('[VineMap] No valid Apple MapKit JS token.');
-      done(false);
-      return;
-    }
-
-    var timedOut = false;
-    var timer = setTimeout(function () {
-      timedOut = true;
-      done(false);
-    }, config.fallbackTimeoutMs || 8000);
-
-    injectScript(
-      'https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js',
-      function () {
-        if (timedOut) return;
-        clearTimeout(timer);
-
-        // Initialise MapKit with the token before the renderer runs
-        mapkit.init({
-          authorizationCallback: function (authDone) {
-            authDone(token);
-          }
-        });
-
-        injectScript('js/vinemap-apple.js',
-          function () { done(true);  },
-          function () { done(false); }
-        );
-      },
-      function () {
-        if (timedOut) return;
-        clearTimeout(timer);
-        done(false);
-      }
-    );
-  }
-
   /* ── Error display ─────────────────────────────────────────────────────── */
 
   function showMapError(containerEl, message) {
@@ -141,41 +76,24 @@
   }
 
   /**
-   * Load the correct map library for the current platform, then invoke
-   * callback(rendererName) where rendererName is 'google' | 'apple' | 'error'.
+   * Load Google Maps, then invoke callback('google' | 'error').
    */
   function loadMapLibrary(callback) {
-    var platform = getPlatform();
-
-    if (platform === 'google') {
-      _loadGoogleMaps(function (ok) {
-        if (ok) {
-          injectScript('js/vinemap-google.js', function () {
-            callback('google');
-          });
-        } else {
-          console.error('[VineMap] Google Maps failed to load.');
-          callback('error');
-        }
-      });
-
-    } else {
-      // Apple platform
-      _loadAppleMaps(function (ok) {
-        if (ok) {
-          callback('apple');
-        } else {
-          console.error('[VineMap] Apple MapKit JS failed to load.');
-          callback('error');
-        }
-      });
-    }
+    _loadGoogleMaps(function (ok) {
+      if (ok) {
+        injectScript('js/vinemap-google.js', function () {
+          callback('google');
+        });
+      } else {
+        console.error('[VineMap] Google Maps failed to load.');
+        callback('error');
+      }
+    });
   }
 
   /* ── Public API ────────────────────────────────────────────────────────── */
 
   window.VineMapDetect = {
-    getPlatform:    getPlatform,
     loadMapLibrary: loadMapLibrary,
     showMapError:   showMapError
   };

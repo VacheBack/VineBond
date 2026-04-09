@@ -9,9 +9,8 @@
  *   5. vinemap-adapter.js      — shared filter / search / popup / label logic
  *   6. vinemap.js (this)       — orchestrator
  *
- * Renderers are loaded dynamically by vinemap-detect.js:
- *   • Google  → js/vinemap-google.js (Android, Windows, Linux)
- *   • Apple   → js/vinemap-apple.js  (iPhone, iPad, Mac)
+ * Renderer loaded dynamically by vinemap-detect.js:
+ *   • Google Maps → js/vinemap-google.js (all platforms)
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -25,22 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   VineMapDetect.loadMapLibrary(function (rendererName) {
-    var renderer = null;
-
-    if (rendererName === 'google' && window.VineMapGoogle) {
-      renderer = window.VineMapGoogle;
-    } else if (rendererName === 'apple' && window.VineMapApple) {
-      renderer = window.VineMapApple;
-    } else {
-      // 'error' or renderer script failed to expose the expected global
-      VineMapDetect.showMapError(
-        container,
-        rendererName === 'apple'
-          ? 'Apple Maps could not be loaded. Please check your MapKit JS token.'
-          : 'Map could not be loaded. Please check your API key.'
-      );
+    if (rendererName !== 'google' || !window.VineMapGoogle) {
+      VineMapDetect.showMapError(container, 'Map could not be loaded. Please check your API key.');
       return;
     }
+    var renderer = window.VineMapGoogle;
 
     VineMapAdapter.init(renderer, container);
     console.info('[VineMap] Renderer: ' + rendererName);

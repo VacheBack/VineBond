@@ -13,9 +13,6 @@
 
 window.VB_MAP_CONFIG = {
   googleApiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
-  // Apple MapKit JS token — generate at: https://developer.apple.com/maps/web/
-  // Override in js/vinemap-config.local.js (gitignored)
-  appleToken:   'YOUR_MAPKIT_JS_TOKEN',
   mapCenter: { lat: 50.005, lng: 8.025 },
   defaultZoom: 12,
   markerZoom: 15,

@@ -1017,50 +1017,6 @@
     [data-theme="dark"] .vm-filter-bar::-webkit-scrollbar-thumb { background: rgba(90,150,144,0.35); }
     [data-theme="dark"] .vm-filter-bar::-webkit-scrollbar-thumb:hover { background: rgba(90,150,144,0.5); }
 
-    /* ── Apple MapKit JS Styles ──────────────────────────────────────────── */
-
-    /* Custom teardrop marker (same SVG as Google renderer) */
-    .vb-mk-marker-wrap {
-      cursor: pointer;
-      /* MapKit centers bottom of element on coordinate by default */
-    }
-
-    /* Vineyard name label above the marker */
-    .vb-mk-label {
-      font-family: 'Segoe UI', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      color: #4A1F2A;
-      background: rgba(255, 255, 255, 0.88);
-      border-radius: 5px;
-      padding: 2px 7px;
-      white-space: nowrap;
-      pointer-events: none;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      box-shadow: 0 1px 4px rgba(28,79,61,0.15);
-      /* Center horizontally so collision-detection box is symmetric */
-      transform: translateX(-50%);
-    }
-    [data-theme="dark"] .vb-mk-label {
-      color: #EDE8E0;
-      background: rgba(26, 47, 42, 0.88);
-    }
-
-    /* Custom callout bubble (MapKit places this; we add the shell) */
-    .vb-mk-callout {
-      background: #ffffff;
-      border-radius: 14px;
-      box-shadow: 0 4px 24px rgba(28,79,61,0.18), 0 1px 4px rgba(0,0,0,0.08);
-      padding: 8px;
-      min-width: 260px;
-      max-width: 320px;
-      overflow: hidden;
-    }
-    [data-theme="dark"] .vb-mk-callout {
-      background: #1A2A28;
-    }
-
     /* ── Google Maps Marker Styles ─────────────────────────────────────── */
 
     .vb-gm-marker-wrap {
