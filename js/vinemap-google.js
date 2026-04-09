@@ -28,30 +28,6 @@
     { lat:  85, lng: -180 }
   ];
 
-  /* ── Dark Mode Style ─────────────────────────────────────────────────── */
-
-  var DARK_STYLES = [
-    { elementType: 'geometry',            stylers: [{ color: '#1a2e2a' }] },
-    { elementType: 'labels.text.stroke',  stylers: [{ color: '#0E1917' }] },
-    { elementType: 'labels.text.fill',    stylers: [{ color: '#A8A298' }] },
-    { featureType: 'administrative',      elementType: 'geometry.stroke', stylers: [{ color: '#2a4a42' }] },
-    { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill', stylers: [{ color: '#6e8a7e' }] },
-    { featureType: 'landscape.natural',   elementType: 'geometry', stylers: [{ color: '#1a2e2a' }] },
-    { featureType: 'poi',                 elementType: 'geometry', stylers: [{ color: '#1e3830' }] },
-    { featureType: 'poi',                 elementType: 'labels.text.fill', stylers: [{ color: '#7a9a8e' }] },
-    { featureType: 'poi.park',            elementType: 'geometry.fill', stylers: [{ color: '#1e3830' }] },
-    { featureType: 'poi.park',            elementType: 'labels.text.fill', stylers: [{ color: '#5a8a6e' }] },
-    { featureType: 'road',                elementType: 'geometry', stylers: [{ color: '#253e38' }] },
-    { featureType: 'road',                elementType: 'geometry.stroke', stylers: [{ color: '#1a2e28' }] },
-    { featureType: 'road',                elementType: 'labels.text.fill', stylers: [{ color: '#8a9e96' }] },
-    { featureType: 'road.highway',        elementType: 'geometry', stylers: [{ color: '#2a4a40' }] },
-    { featureType: 'road.highway',        elementType: 'geometry.stroke', stylers: [{ color: '#1a3a32' }] },
-    { featureType: 'transit',             elementType: 'geometry', stylers: [{ color: '#1e3830' }] },
-    { featureType: 'transit.station',     elementType: 'labels.text.fill', stylers: [{ color: '#7a9a8e' }] },
-    { featureType: 'water',               elementType: 'geometry', stylers: [{ color: '#0e2420' }] },
-    { featureType: 'water',               elementType: 'labels.text.fill', stylers: [{ color: '#4a7a6e' }] }
-  ];
-
   /* ── Projection Helper (OverlayView) ─────────────────────────────────── */
 
   function createProjectionHelper() {
@@ -99,8 +75,7 @@
         mapTypeControl:   false,
         streetViewControl: false,
         fullscreenControl: false,
-        gestureHandling:  'greedy',
-        styles:           isDarkMode ? DARK_STYLES : []
+        gestureHandling:  'greedy'
       };
 
       map = new google.maps.Map(containerEl, mapOpts);
@@ -134,7 +109,7 @@
     },
 
     onMarkerClick: function (ref, cb) {
-      ref.addListener('click', cb);
+      ref.addEventListener('gmp-click', cb);
     },
 
     openPopup: function (ref, html) {
@@ -177,9 +152,8 @@
 
     setDarkMode: function (dark) {
       isDarkMode = dark;
-      if (map) {
-        map.setOptions({ styles: dark ? DARK_STYLES : [] });
-      }
+      // Note: map tile styles are controlled via Cloud Console when mapId is set.
+      // Dark-mode only updates the boundary mask color here.
       if (maskPolygon && boundaryConfigRef) {
         maskPolygon.setOptions({
           fillColor: dark ? boundaryConfigRef.darkMaskColor : boundaryConfigRef.lightMaskColor

@@ -52,6 +52,7 @@
       + '?key='       + encodeURIComponent(key)
       + '&libraries=marker'
       + '&callback=__vbGoogleMapsReady'
+      + '&loading=async'
       + '&v=weekly';
 
     injectScript(src, null, function () {
