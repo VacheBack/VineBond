@@ -239,13 +239,8 @@
       });
       maskPolygon.setMap(map);
 
-      // Fit map to boundary extent
-      map.fitBounds(boundaryBounds);
-
-      // Lock minZoom after fitBounds settles
-      google.maps.event.addListenerOnce(map, 'idle', function () {
-        map.setOptions({ minZoom: map.getZoom() });
-      });
+      // Lock minimum zoom level
+      map.setOptions({ minZoom: cfg.minZoom || 8 });
 
       // Restrict panning to boundary
       map.setOptions({
@@ -254,12 +249,6 @@
           strictBounds: true
         }
       });
-    },
-
-    fitToBoundary: function () {
-      if (map && boundaryBounds) {
-        map.fitBounds(boundaryBounds);
-      }
     },
 
     getMap: function () {

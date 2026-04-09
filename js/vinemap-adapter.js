@@ -551,11 +551,7 @@
     var resetBtn = document.getElementById('vmResetView');
     if (!resetBtn) return;
     resetBtn.addEventListener('click', function () {
-      if (renderer.fitToBoundary) {
-        renderer.fitToBoundary();
-      } else {
-        renderer.setView(config.mapCenter.lat, config.mapCenter.lng, config.defaultZoom);
-      }
+      renderer.setView(config.mapCenter.lat, config.mapCenter.lng, config.defaultZoom);
     });
   }
 
