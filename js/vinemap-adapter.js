@@ -551,7 +551,11 @@
     var resetBtn = document.getElementById('vmResetView');
     if (!resetBtn) return;
     resetBtn.addEventListener('click', function () {
-      renderer.setView(config.mapCenter.lat, config.mapCenter.lng, config.defaultZoom);
+      if (renderer.fitToBoundary) {
+        renderer.fitToBoundary();
+      } else {
+        renderer.setView(config.mapCenter.lat, config.mapCenter.lng, config.defaultZoom);
+      }
     });
   }
 
@@ -594,6 +598,14 @@
       center: config.mapCenter,
       zoom:   config.defaultZoom
     });
+
+    // 1b. Apply region boundary (mask + restriction)
+    if (window.VB_RHEINGAU_BOUNDARY && renderer.applyRegionBoundary) {
+      renderer.applyRegionBoundary(
+        window.VB_RHEINGAU_BOUNDARY,
+        window.VB_BOUNDARY_CONFIG || {}
+      );
+    }
 
     // 2. Add markers + labels
     VINEYARDS.forEach(function (v, i) {

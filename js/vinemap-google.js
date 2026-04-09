@@ -11,10 +11,22 @@
 (function () {
   'use strict';
 
-  var map         = null;
-  var infoWindow  = null;  // single shared InfoWindow
-  var isDarkMode  = false;
-  var projHelper  = null;  // OverlayView for coordinate projection
+  var map              = null;
+  var infoWindow       = null;  // single shared InfoWindow
+  var isDarkMode       = false;
+  var projHelper       = null;  // OverlayView for coordinate projection
+  var maskPolygon      = null;  // inverted polygon for region mask
+  var boundaryConfigRef = null; // stored config for dark-mode color updates
+  var boundaryBounds   = null;  // LatLngBounds for fitBounds / reset
+
+  /* ── World-covering outer path for inverted polygon ──────────────────── */
+
+  var WORLD_BOUNDS = [
+    { lat: -85, lng: -180 },
+    { lat:  85, lng: -180 },
+    { lat:  85, lng:  180 },
+    { lat: -85, lng:  180 }
+  ];
 
   /* ── Dark Mode Style ─────────────────────────────────────────────────── */
 
@@ -168,6 +180,11 @@
       if (map) {
         map.setOptions({ styles: dark ? DARK_STYLES : [] });
       }
+      if (maskPolygon && boundaryConfigRef) {
+        maskPolygon.setOptions({
+          fillColor: dark ? boundaryConfigRef.darkMaskColor : boundaryConfigRef.lightMaskColor
+        });
+      }
     },
 
     addLabelOverlay: function (vineyard) {
@@ -195,6 +212,53 @@
       if (ref && ref._onMap) {
         ref.map = null;
         ref._onMap = false;
+      }
+    },
+
+    applyRegionBoundary: function (coords, cfg) {
+      boundaryConfigRef = cfg;
+
+      // Build LatLngBounds from boundary coordinates
+      boundaryBounds = new google.maps.LatLngBounds();
+      var innerPath = coords.map(function (c) {
+        var ll = new google.maps.LatLng(c.lat, c.lng);
+        boundaryBounds.extend(ll);
+        return ll;
+      });
+
+      // Inverted polygon: world fill with Rheingau hole
+      maskPolygon = new google.maps.Polygon({
+        paths:         [WORLD_BOUNDS, innerPath],
+        strokeColor:   cfg.borderColor   || '#5C2632',
+        strokeOpacity: cfg.borderOpacity || 0.7,
+        strokeWeight:  cfg.borderWeight  || 2,
+        fillColor:     isDarkMode ? (cfg.darkMaskColor || '#0E1917') : (cfg.lightMaskColor || '#FFFFFF'),
+        fillOpacity:   cfg.maskOpacity   || 0.92,
+        clickable:     false,
+        zIndex:        1000
+      });
+      maskPolygon.setMap(map);
+
+      // Fit map to boundary extent
+      map.fitBounds(boundaryBounds);
+
+      // Lock minZoom after fitBounds settles
+      google.maps.event.addListenerOnce(map, 'idle', function () {
+        map.setOptions({ minZoom: map.getZoom() });
+      });
+
+      // Restrict panning to boundary
+      map.setOptions({
+        restriction: {
+          latLngBounds: boundaryBounds,
+          strictBounds: true
+        }
+      });
+    },
+
+    fitToBoundary: function () {
+      if (map && boundaryBounds) {
+        map.fitBounds(boundaryBounds);
       }
     },
 
