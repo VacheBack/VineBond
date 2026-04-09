@@ -15,18 +15,9 @@
   var infoWindow       = null;  // single shared InfoWindow
   var isDarkMode       = false;
   var projHelper       = null;  // OverlayView for coordinate projection
-  var maskPolygon      = null;  // inverted polygon for region mask
+  var maskFeature      = null;  // Data layer feature for region mask
   var boundaryConfigRef = null; // stored config for dark-mode color updates
-  var boundaryBounds   = null;  // LatLngBounds for fitBounds / reset
-
-  /* ── World-covering outer path for inverted polygon ──────────────────── */
-
-  var WORLD_BOUNDS = [
-    { lat: -85, lng: -180 },
-    { lat: -85, lng:  180 },
-    { lat:  85, lng:  180 },
-    { lat:  85, lng: -180 }
-  ];
+  var boundaryBounds   = null;  // LatLngBounds for restriction
 
   /* ── Projection Helper (OverlayView) ─────────────────────────────────── */
 
@@ -154,8 +145,8 @@
       isDarkMode = dark;
       // Note: map tile styles are controlled via Cloud Console when mapId is set.
       // Dark-mode only updates the boundary mask color here.
-      if (maskPolygon && boundaryConfigRef) {
-        maskPolygon.setOptions({
+      if (maskFeature && boundaryConfigRef) {
+        map.data.overrideStyle(maskFeature, {
           fillColor: dark ? boundaryConfigRef.darkMaskColor : boundaryConfigRef.lightMaskColor
         });
       }
@@ -192,27 +183,40 @@
     applyRegionBoundary: function (coords, cfg) {
       boundaryConfigRef = cfg;
 
-      // Build LatLngBounds from boundary coordinates
+      // Build LatLngBounds for restriction
       boundaryBounds = new google.maps.LatLngBounds();
-      var innerPath = coords.map(function (c) {
-        var ll = new google.maps.LatLng(c.lat, c.lng);
-        boundaryBounds.extend(ll);
-        return ll;
+      coords.forEach(function (c) {
+        boundaryBounds.extend(new google.maps.LatLng(c.lat, c.lng));
       });
-      innerPath.reverse(); // opposite winding to WORLD_BOUNDS for hole
 
-      // Inverted polygon: world fill with Hessen hole
-      maskPolygon = new google.maps.Polygon({
-        paths:         [WORLD_BOUNDS, innerPath],
+      // GeoJSON: outer ring (world, CCW per RFC 7946) + hole (Hessen, CW)
+      var outerRing = [[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]];
+      var innerRing = coords.map(function (c) { return [c.lng, c.lat]; });
+
+      var geojson = {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [outerRing, innerRing]
+          },
+          properties: {}
+        }]
+      };
+
+      var features = map.data.addGeoJson(geojson);
+      maskFeature = features[0];
+
+      map.data.setStyle({
+        fillColor:     isDarkMode ? (cfg.darkMaskColor || '#0E1917') : (cfg.lightMaskColor || '#FFFFFF'),
+        fillOpacity:   cfg.maskOpacity   || 0.92,
         strokeColor:   cfg.borderColor   || '#5C2632',
         strokeOpacity: cfg.borderOpacity || 0.7,
         strokeWeight:  cfg.borderWeight  || 2,
-        fillColor:     isDarkMode ? (cfg.darkMaskColor || '#0E1917') : (cfg.lightMaskColor || '#FFFFFF'),
-        fillOpacity:   cfg.maskOpacity   || 0.92,
         clickable:     false,
         zIndex:        1000
       });
-      maskPolygon.setMap(map);
 
       // Lock minimum zoom level
       map.setOptions({ minZoom: cfg.minZoom || 8 });
