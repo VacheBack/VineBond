@@ -595,14 +595,6 @@
       zoom:   config.defaultZoom
     });
 
-    // 1b. Apply region boundary (mask + restriction)
-    if (window.VB_RHEINGAU_BOUNDARY && renderer.applyRegionBoundary) {
-      renderer.applyRegionBoundary(
-        window.VB_RHEINGAU_BOUNDARY,
-        window.VB_BOUNDARY_CONFIG || {}
-      );
-    }
-
     // 2. Add markers + labels
     VINEYARDS.forEach(function (v, i) {
       var m = renderer.addMarker(v);

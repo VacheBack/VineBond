@@ -15,11 +15,7 @@
   var infoWindow       = null;  // single shared InfoWindow
   var isDarkMode       = false;
   var projHelper       = null;  // OverlayView for coordinate projection
-  var maskFeature      = null;  // Data layer feature for region mask
-  var boundaryConfigRef = null; // stored config for dark-mode color updates
-  var boundaryBounds   = null;  // LatLngBounds for restriction
-
-  /* ── Projection Helper (OverlayView) ─────────────────────────────────── */
+/* ── Projection Helper (OverlayView) ─────────────────────────────────── */
 
   function createProjectionHelper() {
     var overlay = new google.maps.OverlayView();
@@ -143,13 +139,6 @@
 
     setDarkMode: function (dark) {
       isDarkMode = dark;
-      // Note: map tile styles are controlled via Cloud Console when mapId is set.
-      // Dark-mode only updates the boundary mask color here.
-      if (maskFeature && boundaryConfigRef) {
-        map.data.overrideStyle(maskFeature, {
-          fillColor: dark ? boundaryConfigRef.darkMaskColor : boundaryConfigRef.lightMaskColor
-        });
-      }
     },
 
     addLabelOverlay: function (vineyard) {
@@ -178,56 +167,6 @@
         ref.map = null;
         ref._onMap = false;
       }
-    },
-
-    applyRegionBoundary: function (coords, cfg) {
-      boundaryConfigRef = cfg;
-
-      // Build LatLngBounds for restriction
-      boundaryBounds = new google.maps.LatLngBounds();
-      coords.forEach(function (c) {
-        boundaryBounds.extend(new google.maps.LatLng(c.lat, c.lng));
-      });
-
-      // GeoJSON: outer ring (world, CCW per RFC 7946) + hole (Hessen, CW)
-      var outerRing = [[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]];
-      var innerRing = coords.map(function (c) { return [c.lng, c.lat]; });
-
-      var geojson = {
-        type: 'FeatureCollection',
-        features: [{
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: [outerRing, innerRing]
-          },
-          properties: {}
-        }]
-      };
-
-      var features = map.data.addGeoJson(geojson);
-      maskFeature = features[0];
-
-      map.data.setStyle({
-        fillColor:     isDarkMode ? (cfg.darkMaskColor || '#0E1917') : (cfg.lightMaskColor || '#FFFFFF'),
-        fillOpacity:   cfg.maskOpacity   || 0.92,
-        strokeColor:   cfg.borderColor   || '#5C2632',
-        strokeOpacity: cfg.borderOpacity || 0.7,
-        strokeWeight:  cfg.borderWeight  || 2,
-        clickable:     false,
-        zIndex:        1000
-      });
-
-      // Lock minimum zoom level
-      map.setOptions({ minZoom: cfg.minZoom || 8 });
-
-      // Restrict panning to boundary
-      map.setOptions({
-        restriction: {
-          latLngBounds: boundaryBounds,
-          strictBounds: true
-        }
-      });
     },
 
     getMap: function () {
