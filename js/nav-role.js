@@ -18,12 +18,7 @@ window.VineBondNav = (function () {
   // ── Build topbar HTML for each role ──────────────────────────────────────
 
   function _guestCta() {
-    return '<a href="login.html" class="btn btn-secondary">' +
-             ICON_SIGNIN + '<span>Sign In</span>' +
-           '</a>' +
-           '<a href="login.html" class="btn btn-primary btn-sm">' +
-             '<span>Register</span>' +
-           '</a>';
+    return '';
   }
 
   function _userCta(name) {
@@ -52,12 +47,7 @@ window.VineBondNav = (function () {
   }
 
   function _mobGuestCta() {
-    return '<a href="login.html" class="btn btn-primary">' +
-             ICON_SIGNIN + '<span>Sign In</span>' +
-           '</a>' +
-           '<a href="login.html" class="btn btn-secondary">' +
-             '<span>Register</span>' +
-           '</a>';
+    return '';
   }
 
   function _mobUserCta(name) {

@@ -56,12 +56,12 @@
       var mapOpts = {
         center:           { lat: opts.center.lat, lng: opts.center.lng },
         zoom:             opts.zoom,
-        mapId:            'vinebond-map',
         zoomControl:      true,
         zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM },
         mapTypeControl:   false,
         streetViewControl: false,
         fullscreenControl: false,
+        mapId:            'ec157d3ab8e7c676f9ed33a3',
         gestureHandling:  'greedy'
       };
 
