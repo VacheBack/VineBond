@@ -835,7 +835,6 @@ footer {
   .nav-sheet-header {
     display: flex; align-items: center; justify-content: space-between;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(28,79,61,0.12);
   }
   .nav-sheet-title {
     font-size: 1rem; font-weight: 700; color: var(--vb-deep-maroon);
@@ -862,7 +861,6 @@ footer {
   .nav-sheet-links {
     display: flex; flex-direction: column; gap: 2px;
     padding-top: 16px;
-    border-top: 1px solid rgba(28,79,61,0.12);
   }
   .nav-sheet-section-title {
     font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
