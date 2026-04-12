@@ -12,7 +12,7 @@ VineBond is a static multi-page wine tourism platform (exploring vineyards, book
 npm run serve                                        # Python HTTP server at localhost:8000
 npm test                                             # Playwright E2E tests (headless)
 npm run test:headed                                  # Playwright with browser UI visible
-npx playwright test tests/auth.spec.js               # Run a single test file
+npx playwright test tests/winery-filter-cascade.spec.js   # Run a single test file
 npx playwright test --grep "TC-01"                   # Run tests matching a pattern
 ```
 
@@ -20,7 +20,7 @@ Playwright auto-starts the Python server before running tests.
 
 ## Architecture
 
-### Pages (5 HTML files)
+### Pages (4 HTML files)
 
 | File | Purpose |
 |------|---------|
@@ -28,15 +28,12 @@ Playwright auto-starts the Python server before running tests.
 | `winery.html` | Searchable directory of wine estates |
 | `book.html` | Tasting reservation form |
 | `vinemap.html` | Interactive Google Maps map of Rheingau vineyard sites |
-| `admin.html` | Admin dashboard — winery CRUD, document upload; auth-gated before DOM paint |
 
 ### JavaScript Modules (`/js/`)
 
 All modules use global `window.*` namespaces (no module bundler).
 
-- **`auth.js`** (`window.VineBondAuth`) — localStorage-backed role system (GUEST/USER/ADMIN). Admin detection: email domain `@vinebond.com` or `@winery.com`. Keys: `vb_role`, `vb_email`, `vb_display_name`.
-- **`nav-role.js`** (`window.VineBondNav`) — Renders role-specific topbar CTAs into `#topbarCta` and into `#navSheet .nav-sheet-utility` (mobile sheet). Escapes user display names to prevent XSS.
-- **`winery-data.js`** (`window.VineBondWineries`) — CRUD layer over `localStorage` (`vb_wineries`). Falls back to `DEFAULT_WINERIES` (6 pre-configured estates). Admin-added wineries persist across page loads.
+- **`winery-data.js`** (`window.VineBondWineries`) — CRUD layer over `localStorage` (`vb_wineries`). Falls back to `DEFAULT_WINERIES` (6 pre-configured estates). Winery ID generation uses kebab-case slugs with umlaut substitution (ä→ae, ö→oe, ü→ue, ß→ss).
 - **`ui-enhancements.js`** — Page progress bar, back-to-top button, topbar `.scrolled` class, winery search filtering. Uses `requestAnimationFrame` throttling.
 - **`theme.js`** (`window.VineBondTheme`) — OS-preference-only dark mode. Sets `data-theme` attribute on `<html>` based on `prefers-color-scheme`. No manual toggle — reacts to system changes in real time.
 - **`orientation-lock.js`** — Injects a portrait-mode overlay to block landscape use on mobile.
@@ -58,7 +55,7 @@ Google Maps is the only supported renderer. There is no Leaflet fallback.
 
 ### Styling
 
-- **`css/vinebond.css`** — Shared stylesheet for all pages except `index.html`. Actual CSS custom property names:
+- **`css/vinebond.css`** — Shared stylesheet for all pages except `index.html`. CSS custom property names:
   - Colors: `--vb-forest` (#1C4F3D), `--vb-burgundy` (#5C2632), `--vb-leaf-green` (#2D6A4F), `--vb-deep-maroon` (#4A1F2A), `--vb-cream` (#EDE8E0), `--gold` (#D4AF37)
   - Shadows: `--vb-shadow-sm/md/lg/el` (green-tinted, rgba 28,79,61)
   - Radii: `--radius-sm` (8px) through `--radius-2xl` (30px)
@@ -75,23 +72,21 @@ Google Maps is the only supported renderer. There is no Leaflet fallback.
 
 - **No CSS framework** — all styling is custom via `vinebond.css` and the `design-system/` folder.
 - **Winery data source:** `window.VineBondWineries` (localStorage-backed) for the directory; `window.RHEINGAU_VINEYARDS` in `vinemap-data.js` for the map. These are separate datasets.
-- **Admin auth guard:** `admin.html` runs an inline script before the `<body>` to redirect non-admins to the index — this intentionally blocks DOM paint to prevent flash.
 - **Google Maps API key:** Placeholder in `vinemap-config.js`; real key goes in `vinemap-config.local.js` (gitignored).
-- **Document uploads** in admin are demo-only: files are stored in `localStorage` (`vb_verification_docs`).
-- **Winery ID generation** uses kebab-case slugs with umlaut substitution (ä→ae, ö→oe, ü→ue, ß→ss).
-- **CSS class prefix** for admin/role UI: `vb-admin-`, `vb-role-`. General components use `vb-`.
+- **CSS component prefix:** `vb-`. General components use `vb-btn`, `vb-card`, etc.
 - **vinemap.html z-index stack:** mobile search bar (`#vmMsbWrapper`) and filter row (`#vmFilterRow`) sit at z-index 1001; nav backdrop is 1099; nav sheet (`#navSheet`) is 1100. Do not lower the nav sheet below 1100 or the sheet will render behind the map overlays.
 - **Deployment:** Netlify (`netlify.toml`). SPA-style redirect: all routes → `index.html`.
+- **Branch layout:** `master` is the production branch. `Next_Updates` branch holds in-progress features including admin dashboard (`admin.html`), auth/role system (`auth.js`, `nav-role.js`), and vineclub (`vineclub.js`, `vineclub.html`, `login.html`). Do not port those files back to master without intentional promotion.
 
 ## Testing
 
-Six spec files in `tests/`:
-- **`auth.spec.js`** — Role detection, localStorage persistence, nav CTA rendering per role, admin access control, and logout.
+Spec files in `tests/`:
 - **`winery-filter-cascade.spec.js`** — Cascading filter dropdown behavior on `winery.html` (11 test cases: village/grape/classification cross-filtering, clear-all, zero-option hiding, result count).
 - **`vinemap-google.spec.js`** — Google Maps renderer tests.
-- **`regression-nav-responsive.spec.js`** — Nav breakpoint regression: `.nav-primary` hidden ≤1024px, hamburger sheet contains all links, no JS errors across 5 pages.
+- **`regression-nav-responsive.spec.js`** — Nav breakpoint regression: `.nav-primary` hidden ≤1024px, hamburger sheet contains all links, no JS errors across pages.
 - **`regression-nav-boundary.spec.js`** — Exact pixel boundary: nav-primary visible at 1025px, hidden at 1024px.
 - **`bug-fixes.spec.js`** — Hamburger right-alignment across widths, scroll-lock layout shift, filter bar stickiness.
+- **`auth.spec.js`** — Tests the login/OTP/admin flow; targets `Next_Updates` branch features (`login.html`, `admin.html`) and will fail on `master`.
 
 Config: `playwright.config.js` (Chromium only, 15s timeout, screenshots on failure).
 
