@@ -370,8 +370,6 @@ button, select, input, textarea { font-family: inherit; }
   gap: 0;
   padding: 0;
   margin: 0;
-  flex: 1;
-  justify-content: center;
 }
 .nav-primary a {
   display: flex;
@@ -443,6 +441,7 @@ button, select, input, textarea { font-family: inherit; }
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 .nav-utility .btn { padding: 9px 20px; font-size: 0.78rem; }
 

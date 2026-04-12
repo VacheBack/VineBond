@@ -15,7 +15,7 @@
 
     /* ===== HERO ===== */
     .hero {
-      margin-top: 108px;
+      margin-top: 64px;
       min-height: 600px;
       display: flex;
       align-items: center;
@@ -670,11 +670,13 @@
       .nav-utility .btn-primary   { min-width: auto; }
       /* Center badge icons when loyalty section collapses to single column */
       .loyalty-badges { justify-content: center; }
+      /* Tablet header is single-row 64px — match it exactly */
+      .hero { margin-top: 64px; }
     }
 
     @media (max-width: 768px) {
-      /* Two-row header: 56px top row + ~52px chips row = 108px total */
-      .hero { margin-top: 108px; min-height: auto; }
+      /* Mobile header is single-row 56px — match it exactly */
+      .hero { margin-top: 56px; min-height: auto; }
       .hero .container { padding-top: 40px; padding-bottom: 40px; }
       .booking-row { grid-template-columns: 1fr; }
 
@@ -732,10 +734,13 @@
     /* Safe Areas — Notched / Dynamic-Island devices */
     @supports (padding: env(safe-area-inset-top)) {
       .site-header { padding-top: env(safe-area-inset-top, 0); }
-      .hero { margin-top: calc(80px + env(safe-area-inset-top, 0)); }
+      .hero { margin-top: calc(64px + env(safe-area-inset-top, 0)); }
       footer { padding-bottom: calc(32px + env(safe-area-inset-bottom, 0)); }
       @media (max-width: 768px) {
-        .hero { margin-top: calc(108px + env(safe-area-inset-top, 0)); }
+        .hero { margin-top: calc(56px + env(safe-area-inset-top, 0)); }
+      }
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .hero { margin-top: calc(64px + env(safe-area-inset-top, 0)); }
       }
     }
 
@@ -1771,9 +1776,7 @@
   </footer>
 
   <!-- ===== JAVASCRIPT ===== -->
-  <script src="js/auth.js"></script>
   <script src="js/winery-data.js"></script>
-  <script src="js/nav-role.js"></script>
   <script>
     /* ---- Dynamic Winery Feed ---- */
     (function () {
