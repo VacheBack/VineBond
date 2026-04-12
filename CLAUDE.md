@@ -20,16 +20,14 @@ Playwright auto-starts the Python server before running tests.
 
 ## Architecture
 
-### Pages (7 HTML files)
+### Pages (5 HTML files)
 
 | File | Purpose |
 |------|---------|
 | `index.html` | Landing page — has its own inline `<style>` block, does NOT link `vinebond.css` |
-| `login.html` | Email-based auth; role assigned by email domain |
 | `winery.html` | Searchable directory of wine estates |
 | `book.html` | Tasting reservation form |
-| `vinemap.html` | Interactive Leaflet.js map of Rheingau vineyard sites |
-| `vineclub.html` | VineClub loyalty membership — 3-step registration + certificate download |
+| `vinemap.html` | Interactive Google Maps map of Rheingau vineyard sites |
 | `admin.html` | Admin dashboard — winery CRUD, document upload; auth-gated before DOM paint |
 
 ### JavaScript Modules (`/js/`)
@@ -37,28 +35,30 @@ Playwright auto-starts the Python server before running tests.
 All modules use global `window.*` namespaces (no module bundler).
 
 - **`auth.js`** (`window.VineBondAuth`) — localStorage-backed role system (GUEST/USER/ADMIN). Admin detection: email domain `@vinebond.com` or `@winery.com`. Keys: `vb_role`, `vb_email`, `vb_display_name`.
-- **`nav-role.js`** (`window.VineBondNav`) — Renders role-specific topbar CTAs into `#topbarCta`. Escapes user display names to prevent XSS.
+- **`nav-role.js`** (`window.VineBondNav`) — Renders role-specific topbar CTAs into `#topbarCta` and into `#navSheet .nav-sheet-utility` (mobile sheet). Escapes user display names to prevent XSS.
 - **`winery-data.js`** (`window.VineBondWineries`) — CRUD layer over `localStorage` (`vb_wineries`). Falls back to `DEFAULT_WINERIES` (6 pre-configured estates). Admin-added wineries persist across page loads.
-- **`vineclub.js`** — Multi-step registration, Stripe.js card tokenisation, Canvas API certificate generation (800×560px PNG download), URL hash routing (`#certificate/{tier}`).
 - **`ui-enhancements.js`** — Page progress bar, back-to-top button, topbar `.scrolled` class, winery search filtering. Uses `requestAnimationFrame` throttling.
 - **`theme.js`** (`window.VineBondTheme`) — OS-preference-only dark mode. Sets `data-theme` attribute on `<html>` based on `prefers-color-scheme`. No manual toggle — reacts to system changes in real time.
 - **`orientation-lock.js`** — Injects a portrait-mode overlay to block landscape use on mobile.
 
-#### VineMap Multi-Renderer System
+#### VineMap Script Load Order
 
-The map uses an adapter pattern supporting multiple renderers (Google Maps for Android/Windows, Leaflet as fallback). Scripts must load in this order in `vinemap.html`:
+Scripts must load in this order in `vinemap.html`:
 
-1. **`vinemap-data.js`** (`window.RHEINGAU_VINEYARDS`) — 14 classified vineyard sites (10 GG + 4 1G) shared by all renderers.
-2. **`vinemap-config.js`** (`window.VB_MAP_CONFIG`) — Shared config: center coords, zoom levels, API key placeholder.
-3. **`vinemap-config.local.js`** — Real Google Maps API key override (**gitignored**, optional). Copy pattern from `vinemap-config.js` comments.
-4. **`vinemap-detect.js`** — Platform detection + dynamic library loader. Override via `localStorage.setItem('vb_map_provider', 'google' | 'leaflet')`.
-5. **`vinemap-leaflet.js`** / **`vinemap-google.js`** — Renderer implementations. Each exposes the same interface (`init`, `addMarker`, `showMarker`, `hideMarker`, `openPopup`, `setView`, `setDarkMode`, etc.).
-6. **`vinemap-adapter.js`** — Platform-agnostic layer wiring filters, search, popups, and labels to whichever renderer is active.
-7. **`vinemap.js`** — Orchestrator: detects platform, loads renderer, initialises the adapter.
+1. **`vinemap-data.js`** (`window.RHEINGAU_VINEYARDS`) — 14 classified vineyard sites (10 GG + 4 1G).
+2. **`vinemap-boundary.js`** (`window.VB_RHEINGAU_BOUNDARY`) — Hessen state boundary polygon (lat/lng array) used for the map border overlay and panning restriction.
+3. **`vinemap-config.js`** (`window.VB_MAP_CONFIG`) — Shared config: center coords, zoom levels, API key placeholder.
+4. **`vinemap-config.local.js`** — Real Google Maps API key override (**gitignored**, optional).
+5. **`vinemap-detect.js`** (`window.VineMapDetect`) — Dynamically loads Google Maps JS API. Shows an inline error if the key is missing or the script fails.
+6. **`vinemap-google.js`** — Google Maps renderer. Exposes the shared renderer interface (`init`, `addMarker`, `showMarker`, `hideMarker`, `openPopup`, `setView`, `setDarkMode`, etc.).
+7. **`vinemap-adapter.js`** — Platform-agnostic layer wiring filters, search, popups, and labels to whichever renderer is active.
+8. **`vinemap.js`** — Orchestrator: triggers the loader, initialises the adapter once the renderer is ready.
+
+Google Maps is the only supported renderer. There is no Leaflet fallback.
 
 ### Styling
 
-- **`css/vinebond.css`** — Shared stylesheet for all pages except `index.html`. Actual CSS custom property names differ from the old list:
+- **`css/vinebond.css`** — Shared stylesheet for all pages except `index.html`. Actual CSS custom property names:
   - Colors: `--vb-forest` (#1C4F3D), `--vb-burgundy` (#5C2632), `--vb-leaf-green` (#2D6A4F), `--vb-deep-maroon` (#4A1F2A), `--vb-cream` (#EDE8E0), `--gold` (#D4AF37)
   - Shadows: `--vb-shadow-sm/md/lg/el` (green-tinted, rgba 28,79,61)
   - Radii: `--radius-sm` (8px) through `--radius-2xl` (30px)
@@ -75,21 +75,23 @@ The map uses an adapter pattern supporting multiple renderers (Google Maps for A
 
 - **No CSS framework** — all styling is custom via `vinebond.css` and the `design-system/` folder.
 - **Winery data source:** `window.VineBondWineries` (localStorage-backed) for the directory; `window.RHEINGAU_VINEYARDS` in `vinemap-data.js` for the map. These are separate datasets.
-- **Admin auth guard:** `admin.html` runs an inline script before the `<body>` to redirect non-admins to `login.html` — this intentionally blocks DOM paint to prevent flash.
-- **Google Maps API key:** Placeholder in `vinemap-config.js`; real key goes in `vinemap-config.local.js` (gitignored). Override provider via `localStorage.setItem('vb_map_provider', 'google' | 'leaflet')`.
-- **Stripe key:** `pk_test_REPLACE_WITH_YOUR_STRIPE_KEY` in `vineclub.js` — must be replaced for real payments.
-- **Document uploads** in admin are demo-only: files are stored in `localStorage` (`vb_verification_docs`). Production would need server-side storage.
+- **Admin auth guard:** `admin.html` runs an inline script before the `<body>` to redirect non-admins to the index — this intentionally blocks DOM paint to prevent flash.
+- **Google Maps API key:** Placeholder in `vinemap-config.js`; real key goes in `vinemap-config.local.js` (gitignored).
+- **Document uploads** in admin are demo-only: files are stored in `localStorage` (`vb_verification_docs`).
 - **Winery ID generation** uses kebab-case slugs with umlaut substitution (ä→ae, ö→oe, ü→ue, ß→ss).
-- **CSS class prefix** for new admin/role UI: `vb-admin-`, `vb-role-`. General components use `vb-`.
-- Leaflet.js is CDN-loaded in `vinemap.html` — no local copy. Google Maps is dynamically loaded by `vinemap-detect.js`. Stripe.js is CDN-loaded in `vineclub.html`.
+- **CSS class prefix** for admin/role UI: `vb-admin-`, `vb-role-`. General components use `vb-`.
+- **vinemap.html z-index stack:** mobile search bar (`#vmMsbWrapper`) and filter row (`#vmFilterRow`) sit at z-index 1001; nav backdrop is 1099; nav sheet (`#navSheet`) is 1100. Do not lower the nav sheet below 1100 or the sheet will render behind the map overlays.
 - **Deployment:** Netlify (`netlify.toml`). SPA-style redirect: all routes → `index.html`.
 
 ## Testing
 
-Three spec files in `tests/`:
+Six spec files in `tests/`:
 - **`auth.spec.js`** — Role detection, localStorage persistence, nav CTA rendering per role, admin access control, and logout.
 - **`winery-filter-cascade.spec.js`** — Cascading filter dropdown behavior on `winery.html` (11 test cases: village/grape/classification cross-filtering, clear-all, zero-option hiding, result count).
 - **`vinemap-google.spec.js`** — Google Maps renderer tests.
+- **`regression-nav-responsive.spec.js`** — Nav breakpoint regression: `.nav-primary` hidden ≤1024px, hamburger sheet contains all links, no JS errors across 5 pages.
+- **`regression-nav-boundary.spec.js`** — Exact pixel boundary: nav-primary visible at 1025px, hidden at 1024px.
+- **`bug-fixes.spec.js`** — Hamburger right-alignment across widths, scroll-lock layout shift, filter bar stickiness.
 
 Config: `playwright.config.js` (Chromium only, 15s timeout, screenshots on failure).
 
